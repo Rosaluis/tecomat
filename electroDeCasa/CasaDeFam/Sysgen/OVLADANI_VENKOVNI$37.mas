@@ -1,0 +1,314 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_VENKOVNI.CFC'
+
+#defpou ovladani_venkovni
+  R_TRIG trigVenk1,
+  R_TRIG trigVenk2,
+  TP timeVenk1,
+  TP timeVenk2,
+  bool out_zadveri,
+  R_TRIG trigVenk3,
+  TP TP_kmitac,
+  TP TP_1,
+  fb_kmitac kmit1,
+  fb_kmitac kmit2,
+  TON TON_test1,
+  TON TON_test2,
+  CTU CTU_test1,
+  TON ton1
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_VENKOVNI.CFC'
+#pou ovladani_venkovni
+#srcline 1 ;PROGRAM ovladani_venkovni
+
+#struct ovladani_venkovni__temp__
+  bool _Nod_Tmp_18,
+  bool _Nod_Tmp_17,
+  bool _Fun_Tmp_IN2_15_2,
+  bool _Fun_Tmp_IN1_9_1,
+  bool _Nod_Tmp_14,
+  bool _Fun_Tmp_IN1_12_1,
+  bool _Nod_Tmp_11,
+  bool _Fun_Tmp_IN2_9_2,
+  bool _Nod_Tmp_8,
+  bool _Fun_Tmp_IN2_6_2,
+  bool _Fun_Tmp_IN1_4_1,
+  bool _Fun_Tmp_IN2_4_2,
+  bool _Nod_Tmp_3,
+  bool _Nod_Tmp_2,
+  bool _Nod_Tmp_1
+P     61
+ovladani_venkovni_L0:
+ LINK __SizeOf(ovladani_venkovni__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 1048 ;(*  14	*)	CAL	trigVenk1(CLK:=tl_tech_m_svetlo_venk_sever)
+ LD   bool tl_tech_m_svetlo_venk_sever
+#debug bool tl_tech_m_svetlo_venk_sever
+ WRX  trigVenk1~CLK
+#debug_left bool trigVenk1~CLK
+ LEAX trigVenk1
+ CAL  R_TRIG_L0
+#srcline 1049 ;(*  48	*)	CAL	timeVenk1(IN:=trigVenk1.Q, PT:=T#2s)
+ LDX  trigVenk1~Q
+#debug bool trigVenk1.Q
+ WRX  timeVenk1~IN
+#debug_left bool timeVenk1~IN
+ LD   time 2000
+ WRX  timeVenk1~PT
+#debug_left time timeVenk1~PT
+ LEAX timeVenk1
+ CAL  TP_L0
+#srcline 1050 ;(*  48	*)	LD 	timeVenk1.Q
+ LDX  timeVenk1~Q
+#debug bool timeVenk1.Q
+#srcline 1051 ;(*  82	*)	ST 	sv_venkovni_sever_rozp
+ WR   bool sv_venkovni_sever_rozp
+#debug_left bool sv_venkovni_sever_rozp
+#srcline 1052 ;//N001
+#srcline 1053 ;(* 528	*)	CAL	trigVenk2(CLK:=tl_zadveri_svetlo_venk_jih)
+ LD   bool tl_zadveri_svetlo_venk_jih
+#debug bool tl_zadveri_svetlo_venk_jih
+ WRX  trigVenk2~CLK
+#debug_left bool trigVenk2~CLK
+ LEAX trigVenk2
+ CAL  R_TRIG_L0
+#srcline 1054 ;(* 528	*)	LD 	trigVenk2.Q
+ LDX  trigVenk2~Q
+#debug bool trigVenk2.Q
+#srcline 1055 ;(* 545	*)	ST 	sig_tl_zadveri
+ WR   sig_tl_zadveri
+#debug_left bool sig_tl_zadveri
+#srcline 1056 ;//N002
+#srcline 1057 ;(* 161	*)	LD 	sv_ve_zapad
+ LD   bool sv_ve_zapad
+#debug bool sv_ve_zapad
+#srcline 1058 ;(* 354	*)	ST	_Nod_Tmp_18
+ WRY  _Nod_Tmp_18
+#debug_left bool _Nod_Tmp_18
+#srcline 1059 ;(* 176	*)	LD 	sig_tl_zadveri
+ LD   sig_tl_zadveri
+#debug bool sig_tl_zadveri
+#srcline 1060 ;(* 979	*)	ST	_Nod_Tmp_17
+ WRY  _Nod_Tmp_17
+#debug_left bool _Nod_Tmp_17
+#srcline 1061 ;(* 252	*)	LD 	sig_tl_pokojZ
+ LD   sig_tl_pokojZ
+#debug bool sig_tl_pokojZ
+#srcline 1062 ;(* 260	*)	OR 	sig_tl_loznice
+ LD   sig_tl_loznice
+#debug bool sig_tl_loznice
+ OR
+#srcline 1063 ;(* 268	*)	OR 	_Nod_Tmp_17
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ OR
+#srcline 1064 ;(* 202	*)	ST 	_Fun_Tmp_IN2_15_2
+ WRY  _Fun_Tmp_IN2_15_2
+#debug_left bool _Fun_Tmp_IN2_15_2
+#srcline 1065 ;(* 194	*)	LD 	_Nod_Tmp_18
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
+#srcline 1066 ;(* 202	*)	XOR 	_Fun_Tmp_IN2_15_2
+ LDY  _Fun_Tmp_IN2_15_2
+#debug bool _Fun_Tmp_IN2_15_2
+ XOR
+#srcline 1067 ;(* 405	*)	ST 	_Fun_Tmp_IN1_9_1
+ WRY  _Fun_Tmp_IN1_9_1
+#debug_left bool _Fun_Tmp_IN1_9_1
+#srcline 1068 ;(* 173	*)	LD 	sv_ve_vychod
+ LD   bool sv_ve_vychod
+#debug bool sv_ve_vychod
+#srcline 1069 ;(* 363	*)	ST	_Nod_Tmp_14
+ WRY  _Nod_Tmp_14
+#debug_left bool _Nod_Tmp_14
+#srcline 1070 ;(* 329	*)	LD 	_Nod_Tmp_18
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
+#srcline 1071 ;(* 337	*)	XOR 	_Nod_Tmp_14
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
+ XOR
+#srcline 1072 ;(* 376	*)	ST 	_Fun_Tmp_IN1_12_1
+ WRY  _Fun_Tmp_IN1_12_1
+#debug_left bool _Fun_Tmp_IN1_12_1
+#srcline 1073 ;(* 376	*)	LD 	_Fun_Tmp_IN1_12_1
+ LDY  _Fun_Tmp_IN1_12_1
+#debug bool _Fun_Tmp_IN1_12_1
+#srcline 1074 ;(* 384	*)	AND 	_Nod_Tmp_17
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ AND
+#srcline 1075 ;(* 499	*)	ST	_Nod_Tmp_11
+ WRY  _Nod_Tmp_11
+#debug_left bool _Nod_Tmp_11
+#srcline 1076 ;(* 434	*)	LD 	_Nod_Tmp_11
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+#srcline 1077 ;(* 430	*)	NOT
+ NEG
+#srcline 1078 ;(* 413	*)	ST 	_Fun_Tmp_IN2_9_2
+ WRY  _Fun_Tmp_IN2_9_2
+#debug_left bool _Fun_Tmp_IN2_9_2
+#srcline 1079 ;(* 405	*)	LD 	_Fun_Tmp_IN1_9_1
+ LDY  _Fun_Tmp_IN1_9_1
+#debug bool _Fun_Tmp_IN1_9_1
+#srcline 1080 ;(* 413	*)	AND 	_Fun_Tmp_IN2_9_2
+ LDY  _Fun_Tmp_IN2_9_2
+#debug bool _Fun_Tmp_IN2_9_2
+ AND
+#srcline 1081 ;(* 879	*)	ST	_Nod_Tmp_8
+ WRY  _Nod_Tmp_8
+#debug_left bool _Nod_Tmp_8
+#srcline 1082 ;(* 152	*)	ST 	sv_ve_zapad
+ WR   bool sv_ve_zapad
+#debug_left bool sv_ve_zapad
+#srcline 1083 ;(* 289	*)	LD 	sig_tl_pokojV
+ LD   sig_tl_pokojV
+#debug bool sig_tl_pokojV
+#srcline 1084 ;(* 297	*)	OR 	sig_tl_obyvak
+ LD   sig_tl_obyvak
+#debug bool sig_tl_obyvak
+ OR
+#srcline 1085 ;(* 305	*)	OR 	_Nod_Tmp_17
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ OR
+#srcline 1086 ;(* 231	*)	ST 	_Fun_Tmp_IN2_6_2
+ WRY  _Fun_Tmp_IN2_6_2
+#debug_left bool _Fun_Tmp_IN2_6_2
+#srcline 1087 ;(* 223	*)	LD 	_Nod_Tmp_14
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
+#srcline 1088 ;(* 231	*)	XOR 	_Fun_Tmp_IN2_6_2
+ LDY  _Fun_Tmp_IN2_6_2
+#debug bool _Fun_Tmp_IN2_6_2
+ XOR
+#srcline 1089 ;(* 454	*)	ST 	_Fun_Tmp_IN1_4_1
+ WRY  _Fun_Tmp_IN1_4_1
+#debug_left bool _Fun_Tmp_IN1_4_1
+#srcline 1090 ;(* 483	*)	LD 	_Nod_Tmp_11
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+#srcline 1091 ;(* 479	*)	NOT
+ NEG
+#srcline 1092 ;(* 462	*)	ST 	_Fun_Tmp_IN2_4_2
+ WRY  _Fun_Tmp_IN2_4_2
+#debug_left bool _Fun_Tmp_IN2_4_2
+#srcline 1093 ;(* 454	*)	LD 	_Fun_Tmp_IN1_4_1
+ LDY  _Fun_Tmp_IN1_4_1
+#debug bool _Fun_Tmp_IN1_4_1
+#srcline 1094 ;(* 462	*)	AND 	_Fun_Tmp_IN2_4_2
+ LDY  _Fun_Tmp_IN2_4_2
+#debug bool _Fun_Tmp_IN2_4_2
+ AND
+#srcline 1095 ;(* 937	*)	ST	_Nod_Tmp_3
+ WRY  _Nod_Tmp_3
+#debug_left bool _Nod_Tmp_3
+#srcline 1096 ;(* 164	*)	ST 	sv_ve_vychod
+ WR   bool sv_ve_vychod
+#debug_left bool sv_ve_vychod
+#srcline 1097 ;(* 842	*)	CAL	kmit1(sig_IN:=_Nod_Tmp_8, time_ON:=T#1s, time_OFF:=T#200ms)
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ WRX  kmit1~sig_IN
+#debug_left bool kmit1~sig_IN
+ LD   time 1000
+ WRX  kmit1~time_ON
+#debug_left time kmit1~time_ON
+ LD   time 200
+ WRX  kmit1~time_OFF
+#debug_left time kmit1~time_OFF
+ LEAX kmit1
+ CAL  fb_kmitac_L0
+#srcline 1098 ;(* 842	*)	LD 	kmit1.sig_OUT
+ LDX  kmit1~sig_OUT
+#debug bool kmit1.sig_OUT
+#srcline 1099 ;(* 964	*)	ST	_Nod_Tmp_2
+ WRY  _Nod_Tmp_2
+#debug_left bool _Nod_Tmp_2
+#srcline 1100 ;(* 554	*)	ST 	led_pz_rg
+ WR   bool led_pz_rg
+#debug_left bool led_pz_rg
+#srcline 1101 ;(* 946	*)	LD	_Nod_Tmp_2
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+#srcline 1102 ;(* 581	*)	ST 	led_ob_lr
+ WR   bool led_ob_lr
+#debug_left bool led_ob_lr
+#srcline 1103 ;(* 955	*)	LD	_Nod_Tmp_2
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+#srcline 1104 ;(* 563	*)	ST 	led_lo_rg
+ WR   bool led_lo_rg
+#debug_left bool led_lo_rg
+#srcline 1105 ;(* 964	*)	LD	_Nod_Tmp_2
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+#srcline 1106 ;(* 572	*)	ST 	led_pv_lr
+ WR   bool led_pv_lr
+#debug_left bool led_pv_lr
+#srcline 1107 ;(* 894	*)	CAL	kmit2(sig_IN:=_Nod_Tmp_3, time_ON:=T#1s, time_OFF:=T#200ms)
+ LDY  _Nod_Tmp_3
+#debug bool _Nod_Tmp_3
+ WRX  kmit2~sig_IN
+#debug_left bool kmit2~sig_IN
+ LD   time 1000
+ WRX  kmit2~time_ON
+#debug_left time kmit2~time_ON
+ LD   time 200
+ WRX  kmit2~time_OFF
+#debug_left time kmit2~time_OFF
+ LEAX kmit2
+ CAL  fb_kmitac_L0
+#srcline 1108 ;(* 894	*)	LD 	kmit2.sig_OUT
+ LDX  kmit2~sig_OUT
+#debug bool kmit2.sig_OUT
+#srcline 1109 ;(* 635	*)	ST	_Nod_Tmp_1
+ WRY  _Nod_Tmp_1
+#debug_left bool _Nod_Tmp_1
+#srcline 1110 ;(* 590	*)	ST 	led_pz_lr
+ WR   bool led_pz_lr
+#debug_left bool led_pz_lr
+#srcline 1111 ;(* 644	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1112 ;(* 617	*)	ST 	led_pv_rg
+ WR   bool led_pv_rg
+#debug_left bool led_pv_rg
+#srcline 1113 ;(* 635	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1114 ;(* 626	*)	ST 	led_ob_rg
+ WR   bool led_ob_rg
+#debug_left bool led_ob_rg
+#srcline 1115 ;(* 608	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1116 ;(* 599	*)	ST 	led_lo_lr
+ WR   bool led_lo_lr
+#debug_left bool led_lo_lr
+#srcline 1118 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+ovladani_venkovni__InstanceInit__:
+ LINK 0
+ LEAX kmit1
+ CAL  fb_kmitac__InstanceInit__
+ LEAX kmit2
+ CAL  fb_kmitac__InstanceInit__
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

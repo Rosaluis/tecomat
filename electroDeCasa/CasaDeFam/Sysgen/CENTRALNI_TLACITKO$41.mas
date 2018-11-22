@@ -1,0 +1,145 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CENTRALNI_TLACITKO.CFC'
+
+#defpou centralni_tlacitko
+  TON TON_stredni_impuls,
+  TON TON_delsi_impuls,
+  fb_kmitac kmit_central_1,
+  TOF TOF_central_1,
+  TON TON_kratky_impuls,
+  fb_cas_prepinac swi
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CENTRALNI_TLACITKO.CFC'
+#pou centralni_tlacitko
+#srcline 1 ;PROGRAM centralni_tlacitko
+
+#struct centralni_tlacitko__temp__
+  bool _Nod_Tmp_1,
+  bool _Nod_Tmp_2
+P     61
+centralni_tlacitko_L0:
+ LINK __SizeOf(centralni_tlacitko__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 327 ;(*   8	*)	LD 	tl_chodba_2NP_rozvadec
+ LD   bool tl_chodba_2NP_rozvadec
+#debug bool tl_chodba_2NP_rozvadec
+#srcline 328 ;(* 180	*)	ST	_Nod_Tmp_1
+ WRY  _Nod_Tmp_1
+#debug_left bool _Nod_Tmp_1
+#srcline 329 ;(* 189	*)	CAL	TON_kratky_impuls(IN:=_Nod_Tmp_1, PT:=T#50ms)
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+ WRX  TON_kratky_impuls~IN
+#debug_left bool TON_kratky_impuls~IN
+ LD   time 50
+ WRX  TON_kratky_impuls~PT
+#debug_left time TON_kratky_impuls~PT
+ LEAX TON_kratky_impuls
+ CAL  TON_L0
+#srcline 330 ;(* 189	*)	LD 	TON_kratky_impuls.Q
+ LDX  TON_kratky_impuls~Q
+#debug bool TON_kratky_impuls.Q
+#srcline 331 ;(* 286	*)	ST	_Nod_Tmp_2
+ WRY  _Nod_Tmp_2
+#debug_left bool _Nod_Tmp_2
+#srcline 332 ;(* 146	*)	CAL	TOF_central_1(IN:=_Nod_Tmp_2, PT:=T#12s)
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+ WRX  TOF_central_1~IN
+#debug_left bool TOF_central_1~IN
+ LD   time 12000
+ WRX  TOF_central_1~PT
+#debug_left time TOF_central_1~PT
+ LEAX TOF_central_1
+ CAL  TOF_L0
+#srcline 333 ;(*  45	*)	CAL	TON_delsi_impuls(IN:=_Nod_Tmp_1, PT:=T#3s)
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+ WRX  TON_delsi_impuls~IN
+#debug_left bool TON_delsi_impuls~IN
+ LD   time 3000
+ WRX  TON_delsi_impuls~PT
+#debug_left time TON_delsi_impuls~PT
+ LEAX TON_delsi_impuls
+ CAL  TON_L0
+#srcline 334 ;(*  11	*)	CAL	TON_stredni_impuls(IN:=_Nod_Tmp_1, PT:=T#1s)
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+ WRX  TON_stredni_impuls~IN
+#debug_left bool TON_stredni_impuls~IN
+ LD   time 1000
+ WRX  TON_stredni_impuls~PT
+#debug_left time TON_stredni_impuls~PT
+ LEAX TON_stredni_impuls
+ CAL  TON_L0
+#srcline 335 ;(* 223	*)	CAL	swi(IN3:=TON_delsi_impuls.Q, IN2:=TON_stredni_impuls.Q, IN1:=_Nod_Tmp_2, time3:=T#3000ms, time2:=T#1500ms, time1:=T#500ms)
+ LDX  TON_delsi_impuls~Q
+#debug bool TON_delsi_impuls.Q
+ WRX  swi~IN3
+#debug_left bool swi~IN3
+ LDX  TON_stredni_impuls~Q
+#debug bool TON_stredni_impuls.Q
+ WRX  swi~IN2
+#debug_left bool swi~IN2
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+ WRX  swi~IN1
+#debug_left bool swi~IN1
+ LD   time 3000
+ WRX  swi~time3
+#debug_left time swi~time3
+ LD   time 1500
+ WRX  swi~time2
+#debug_left time swi~time2
+ LD   time 500
+ WRX  swi~time1
+#debug_left time swi~time1
+ LEAX swi
+ CAL  fb_cas_prepinac_L0
+#srcline 336 ;(*  88	*)	CAL	kmit_central_1(sig_IN:=TOF_central_1.Q, time_ON:=swi.time_OUT, time_OFF:=T#300ms)
+ LDX  TOF_central_1~Q
+#debug bool TOF_central_1.Q
+ WRX  kmit_central_1~sig_IN
+#debug_left bool kmit_central_1~sig_IN
+ LDX  swi~time_OUT
+#debug time swi.time_OUT
+ WRX  kmit_central_1~time_ON
+#debug_left time kmit_central_1~time_ON
+ LD   time 300
+ WRX  kmit_central_1~time_OFF
+#debug_left time kmit_central_1~time_OFF
+ LEAX kmit_central_1
+ CAL  fb_kmitac_L0
+#srcline 337 ;(*  88	*)	LD 	kmit_central_1.sig_OUT
+ LDX  kmit_central_1~sig_OUT
+#debug bool kmit_central_1.sig_OUT
+#srcline 338 ;(* 128	*)	ST 	led_pz_rr
+ WR   bool led_pz_rr
+#debug_left bool led_pz_rr
+#srcline 340 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+centralni_tlacitko__InstanceInit__:
+ LINK 0
+ LEAX kmit_central_1
+ CAL  fb_kmitac__InstanceInit__
+ LEAX TOF_central_1
+ CAL  TOF__InstanceInit__
+ LEAX swi
+ CAL  fb_cas_prepinac__InstanceInit__
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

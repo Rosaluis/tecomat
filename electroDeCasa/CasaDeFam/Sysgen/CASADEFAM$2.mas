@@ -1,0 +1,1972 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\Sysgen\CASADEFAM.mlh'
+
+#defpou R_TRIG
+  bool CLK,
+  bool Q,
+  bool M
+
+
+#defpou F_TRIG
+  bool CLK,
+  bool Q,
+  bool M
+
+
+#defpou SR
+  bool S1,
+  bool R,
+  bool Q1
+
+
+#defpou RS
+  bool S,
+  bool R1,
+  bool Q1
+
+
+#defpou CTU
+  bool CU,  ;vstup pro èítání nahoru
+  bool R,  ;reset èítaèe
+  int PV,  ;pøedvolba èítaèe
+  bool Q,  ;výstup èítaèe
+  int CV,  ;hodnota èítaèe
+  bool __EDGE_R__CU
+
+
+#defpou CTD
+  bool CD,  ;vstup pro èítání dolù
+  bool LD,  ;vstup pro nastavení pøedvolby
+  int PV,  ;pøedvolba èítaèe
+  bool Q,  ;výstup èítaèe
+  int CV,  ;hodnota èítaèe
+  bool __EDGE_R__CD
+
+
+#defpou CTUD
+  bool CU,  ;vstup pro èítání nahoru
+  bool CD,  ;vstup pro èítání dolù
+  bool R,  ;reset èítaèe
+  bool LD,  ;vstup pro nastavení pøedvolby
+  int PV,  ;pøedvolba èítaèe
+  bool QU,  ;výstup èítaèe nahoru
+  bool QD,  ;výstup èítaèe dolù
+  int CV,  ;hodnota èítaèe
+  bool __EDGE_R__CU,
+  bool __EDGE_R__CD
+
+
+#defpou TON
+  bool IN,  ;vstup èasovaèe
+  time PT,  ;pøedvolba èasovaèe
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;aktuální hodnota èasovaèe
+  R_TRIG IN_r_edge,
+  time LT  ;last tick value ( 1ms resolution)
+
+
+#defpou TOF
+  bool IN,  ;vstup èasovaèe
+  time PT,  ;pøedvolba èasovaèe
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;aktuální hodnota èasovaèe
+  F_TRIG IN_f_edge,
+  time LT  ;last tick value ( 1ms resolution)
+
+
+#defpou TP
+  bool IN,  ;vstup èasovaèe
+  time PT,  ;pøedvolba èasovaèe
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;aktuální hodnota èasovaèe
+  R_TRIG IN_r_edge,
+  time LT  ;last tick value ( 1ms resolution)
+
+
+#defpou __LATENT_INSTANCE ADD_TIME
+  time __fc__ADD_TIME,
+  time IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE SUB_TIME
+  time __fc__SUB_TIME,
+  time IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE ADD_TOD_TIME
+  time_of_day __fc__ADD_TOD_TIME,
+  time_of_day IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE ADD_DT_TIME
+  date_and_time __fc__ADD_DT_TIME,
+  date_and_time IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE SUB_DATE_DATE
+  time __fc__SUB_DATE_DATE,
+  date IN1,
+  date IN2
+
+
+#defpou __LATENT_INSTANCE SUB_TOD_TIME
+  time_of_day __fc__SUB_TOD_TIME,
+  time_of_day IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE SUB_TOD_TOD
+  time __fc__SUB_TOD_TOD,
+  time_of_day IN1,
+  time_of_day IN2
+
+
+#defpou __LATENT_INSTANCE SUB_DT_TIME
+  date_and_time __fc__SUB_DT_TIME,
+  date_and_time IN1,
+  time IN2
+
+
+#defpou __LATENT_INSTANCE SUB_DT_DT
+  time __fc__SUB_DT_DT,
+  date_and_time IN1,
+  date_and_time IN2
+
+
+#defpou __LATENT_INSTANCE CONCAT_DATE_TOD
+  date_and_time __fc__CONCAT_DATE_TOD,
+  date IN1,
+  time_of_day IN2
+
+
+; Global types
+#struct  T_RGB_COLOR
+  usint red,  ;red color <0..255>
+  usint green,  ;green color <0..255>
+  usint blue,  ;blue color <0..255>
+  usint opacity  ;opacity (0 = opaque, 255 = transparent)
+
+; Global types
+#struct  TSYSTEM_S
+  byte S0,  ;flags of the results of arithmetic operations pøíznaky výsledkù aritmetických operací
+  byte S1,  ;flags of the results of logical operations pøíznaky výsledkù logických operací
+  bool S2_0,
+  bool S2_1,
+  bool S2_2,  ;PLC je v režimu RUN
+  bool S2_3,  ;teplý restart PLC
+  bool S2_4,  ;studený restart PLC
+  bool OUTPUTS_ARE_ENABLED,  ;vystupy odblokovany
+  bool S2_6,  ;prechod do run bez restartu PLC
+  bool CYCLE_TIME_WARNING,  ;prekrocena prva mez doby cyklu (varovani)
+  usint LAST_CYCLE_TIME_10MS,  ;Doba minuleho cyklu v 10 ms
+  usint CYCLE_COUNTER,  ;Citac cyklu
+  usint COUNTER_10MS,  ;Citac desitek milisekund
+  usint COUNTER_SECONDS,  ;Citac sekund systemoveho casu
+  usint COUNTER_MINUTES,  ;Citac minut systemoveho casu
+  usint COUNTER_HOURS,  ;Citac hodin systemoveho casu
+  usint COUNTER_DAYS_OF_WEEK,  ;Citac dnu v tydnu
+  usint COUNTER_DAYS_OF_MONTH,  ;Citac dnu v mesici
+  usint COUNTER_MONTHS,  ;Citac mesicu
+  usint COUNTER_YEARS,  ;Citac roku
+  bool PERIOD_PULSE_100MS,  ;pulz s periodou 100 ms
+  bool PERIOD_PULSE_500MS,  ;pulz s periodou 500 ms
+  bool PERIOD_PULSE_1SEC,  ;pulz s periodou 1 s
+  bool PERIOD_PULSE_10SEC,  ;pulz s periodou 10 s
+  bool PERIOD_PULSE_1MIN,  ;pulz s periodou 1 min
+  bool PERIOD_PULSE_10MIN,  ;pulz s periodou 10 min
+  bool PERIOD_PULSE_1HOUR,  ;pulz s periodou 1 hod
+  bool PERIOD_PULSE_1DAY,  ;pulz s periodou 1 den
+  uint COUNTER_100MS,  ;Citac v 100m
+  uint COUNTER_1SEC,  ;Citac v 1s
+  uint COUNTER_10SEC,  ;Citac v 10s
+  bool R_EDGE_100MS,  ;nabezna hrana 1x za 100 ms
+  bool R_EDGE_500MS,  ;nabezna hrana 1x za 500 ms
+  bool R_EDGE_1SEC,  ;nabezna hrana 1x za 1 s
+  bool R_EDGE_10SEC,  ;nabezna hrana 1x za 10 s
+  bool R_EDGE_1MIN,  ;nabezna hrana 1x za 1 min
+  bool R_EDGE_10MIN,  ;nabezna hrana 1x za 10 min
+  bool R_EDGE_1HOUR,  ;nabezna hrana 1x za 1 hod
+  bool R_EDGE_1DAY,  ;nabezna hrana 1x za 1 den
+  bool F_EDGE_100MS,  ;sestupna hrana 1x za 100 ms
+  bool F_EDGE_500MS,  ;sestupna hrana 1x za 500 ms
+  bool F_EDGE_1SEC,  ;sestupna hrana 1x za 1 s
+  bool F_EDGE_10SEC,  ;sestupna hrana 1x za 10 s
+  bool F_EDGE_1MIN,  ;sestupna hrana 1x za 1 min
+  bool F_EDGE_10MIN,  ;sestupna hrana 1x za 10 min
+  bool F_EDGE_1HOUR,  ;sestupna hrana 1x za 1 hod
+  bool F_EDGE_1DAY,  ;sestupna hrana 1x za 1 den
+  uint LAST_CYCLE_TIME_100US,  ;Doba minuleho cyklu v 100 µs
+  byte S24,  ;øídící masky procesù
+  byte S25,  ;øídící masky procesù
+  byte S26,  ;øídící masky procesù
+  byte S27,  ;øídící masky procesù
+  byte S28,  ;øídící masky procesù
+  byte S29,  ;øídící masky procesù
+  byte S30,  ;rezervováno
+  byte S31,  ;rezervováno
+  byte S32,  ;rezervováno
+  byte S33,  ;rezervováno
+  byte S34,  ;hlavní kód chyby PLC
+  bool BAT_ERR,  ;Chyba zalohovaci baterie
+  bool S35_1,  ;rezervováno
+  bool S35_2,  ;rezervováno
+  bool S35_3,  ;rezervováno
+  bool S35_4,  ;rezervováno
+  bool S35_5,  ;rezervováno
+  bool IS_SUMMER_TIME,  ;Indikace letniho casu
+  bool SUMMER_TIME_REQUEST,  ;Zadost o automaticky prechod na letni cas
+  usint CPU_TEMPERATURE,  ;Teplota procesoroveho modulu [stupne C]
+  byte S37,
+  byte S38,
+  byte S39,
+  byte S40,
+  byte S41,
+  byte S42,
+  byte S43,
+  byte S44,
+  byte S45,
+  byte S46,
+  byte S47,
+  byte S48,
+  byte S49,
+  byte S50,
+  byte S51,
+  udint COUNTER_1MS,  ;Citac po 1 ms
+  byte S56,
+  byte S57,
+  byte CPU_DI,  ;vstupy obsluhované centrální jednotkou
+  byte CPU_DO,  ;výstupy obsluhované centrální jednotkou
+  udint INDEX_OF_RETAIN_ZONE,  ;index prvního remanentního registru
+  udint SIZE_OF_RETAIN_ZONE,  ;velikost remanentní zóny (poèet bytù)
+  uint INDEX_SOFT_PLC_STRUCT,  ;rezervováno pro SoftPLC
+  word CRC_OF_USER_PROGRAM,  ;CRC uživatelského programu
+  word CRC_OF_HEADER_PROGRAM  ;CRC hlavièky uživatelského programu
+
+; Global variables
+#def  System_S TSYSTEM_S %S0
+#def  IS_HOT_RESTART_PLC bool __absolute(System_S~S2_3)  ;teplý restart PLC
+#def  IS_COLD_RESTART_PLC bool __absolute(System_S~S2_4)  ;studený restart PLC
+#def  IS_RESTART_PLC bool __absolute(System_S~S2_6)  ;prechod do run bez restartu PLC
+#def  CRC_OF_APLIC_PROGRAM dword __absolute(System_S~CRC_OF_USER_PROGRAM)  ;CRC aplikaèního programu
+
+; Global types
+#struct  TModuleInfo
+  bool ECOM,  ;1 = chyba komunikace mezi CPU a IO modulem
+  bool DATA,  ;1 = data poskytovaná modulem jsou platná
+  bool DUMMY1,  ;nepouzito
+  bool DUMMY2,  ;nepouzito
+  bool ERR,  ;1 = chyba IO modulu
+  bool DEC,  ;1 = modul má platnou deklaraci v programu PLC
+  bool OTH,  ;1 = typ IO modulu neodpovídá deklaraci v programu PLC
+  bool POS,  ;1 = modul je pøítomen v dané pozici
+  usint STAT  ;status modulu – výše uvedené promìnné jako 1 byte (ECOM = STAT.0, … , POS = STAT.7)
+
+; Global types
+#struct  TIOSystemInfo
+  bool err,  ;0 = IO systém PLC je bez chyby, 1 = v IO systému PLC je nìjaký problém
+  usint rackNumber,  ;pøi err = 1 udává èíslo rámu PLC, kde je umístìn modul signalizující nìjaký problém
+  usint position  ;pøi err = 1 udává èíslo pozice v rámu PLC, kde je umístìn modul signalizující nìjaký problém
+
+; Global variables
+#def  MODULE_AND_DATA_OK 162
+#def  __Init____MODULE_AND_DATA_OK MODULE_AND_DATA_OK
+
+#defpou __LATENT_INSTANCE ModuleInfo
+  TModuleInfo __fc__ModuleInfo,
+  usint rackNumber,  ;èíslo rámu, kde je umístìn I/O modul
+  usint position  ;èíslo pozice v rámu, kde je umístìn I/O modul
+
+
+#defpou __LATENT_INSTANCE IOSystemInfo
+  TIOSystemInfo __fc__IOSystemInfo
+
+
+#defpou __LATENT_INSTANCE Memcpy
+  uint __fc__Memcpy,
+  uint length,  ;Délka kopírovaného bloku v bytech
+  pointer source,  ;Zdroj odkud kopírovat
+  pointer dest  ;Cíl kam kopírovat
+
+
+#defpou __LATENT_INSTANCE MemcpyEx
+  uint __fc__MemcpyEx,
+  udint length,  ;Délka kopírovaného bloku v bytech
+  udint offSource,  ;Posunutí od zaèátku zdroje
+  udint offDest,  ;Posunutí od zaèátku cíle
+  pointer source,  ;Zdroj odkud kopírovat
+  pointer dest  ;Cíl kam kopírovat
+
+
+#defpou __LATENT_INSTANCE MemcpyPtr
+  udint __fc__MemcpyPtr,
+  pointer source,  ;pointer to source
+  pointer dest,  ;pointer to  destination
+  udint length  ;number of bytes
+
+
+#defpou __LATENT_INSTANCE Memset
+  bool __fc__Memset,
+  udint val,  ;Hodnota, která se zapíše do bloku pamìti
+  uint length,  ;Délka bloku pamìti v bytech
+  pointer dest  ;Cíl, který bude naplnìn konstantou
+
+
+#defpou __LATENT_INSTANCE MemsetEx
+  bool __fc__MemsetEx,
+  udint val,  ;Hodnota, která se zapíše do bloku pamìti
+  udint length,  ;Délka bloku pamìti v bytech
+  udint offDest,  ;Posunutí od zaèátku cíle
+  pointer dest  ;Cíl, který bude naplnìn konstantou
+
+
+#defpou __LATENT_INSTANCE Memcmp
+  bool __fc__Memcmp,
+  uint length,  ;Délka porovnávaného bloku v bytech
+  pointer in1,  ;První porovnávaný blok
+  pointer in2  ;Druhý porovnávaný blok
+
+
+#defpou __LATENT_INSTANCE MemcmpEx
+  bool __fc__MemcmpEx,
+  udint length,  ;Délka porovnávaného bloku v bytech
+  udint offIn1,  ;Posunutí prvního porovnávaného bloku
+  udint offIn2,  ;Posunutí druhého porovnávaného bloku
+  pointer in1,  ;První porovnávaný blok
+  pointer in2  ;Druhý porovnávaný blok
+
+
+#defpou __LATENT_INSTANCE IncreaseMaxCycleTime
+  bool __fc__IncreaseMaxCycleTime,
+  uint addTime  ;o kolik milisekund se má zvýšit hlídaná doba cyklu
+
+
+; Global types
+#struct  TTecoDateTime
+  usint year,  ;rok     (poslední dvì èíslice letopoètu)
+  usint month,  ;mìsíc   (1 .. 12)
+  usint day,  ;den     (1 .. 28/29/30/31)
+  usint hour,  ;hodina  (0 .. 23)
+  usint min,  ;minuta  (0 .. 59)
+  usint sec,  ;sekunda (0 .. 59)
+  usint dayOfWeek,  ;den v týdnu (1 = pondìlí, 7 = nedìle)
+  uint milisec  ;milisekunda
+
+#defpou __LATENT_INSTANCE SetSummerTime
+  bool __fc__SetSummerTime
+
+
+#defpou __LATENT_INSTANCE IsSummerTime
+  bool __fc__IsSummerTime
+
+
+#defpou __LATENT_INSTANCE SetWinterTime
+  bool __fc__SetWinterTime
+
+
+#defpou __LATENT_INSTANCE IsWinterTime
+  bool __fc__IsWinterTime
+
+
+#defpou __LATENT_INSTANCE GetDate
+  date __fc__GetDate,
+  TTecoDateTime tmp
+
+
+#defpou __LATENT_INSTANCE GetTime
+  time __fc__GetTime,
+  uint milisec
+
+
+#defpou __LATENT_INSTANCE GetDateTime
+  date_and_time __fc__GetDateTime,
+  TTecoDateTime tmp
+
+
+#defpou __LATENT_INSTANCE GetRTC
+  date_and_time __fc__GetRTC,
+  TTecoDateTime tmp
+
+
+#defpou __LATENT_INSTANCE SetRTC
+  bool __fc__SetRTC,
+  date_and_time PDT,  ;nový datum a èas
+  TTecoDateTime tmp
+
+
+#defpou __LATENT_INSTANCE TecoDT_TO_DT
+  date_and_time __fc__TecoDT_TO_DT,
+  TTecoDateTime Teco_DT  ;datum a èas
+
+
+#defpou __LATENT_INSTANCE DT_TO_TecoDT
+  TTecoDateTime __fc__DT_TO_TecoDT,
+  date_and_time IEC_DT  ;datum a èas
+
+
+#defpou __LATENT_INSTANCE memory_for_ProgramIsChanged
+  bool __fc__memory_for_ProgramIsChanged,
+  bool saveSL70,
+  udint memSL70,
+  usint memS4
+
+
+#defpou __LATENT_INSTANCE ProgramIsChanged
+  bool __fc__ProgramIsChanged,
+  bool saveSL70,
+  udint memSL70,
+  usint memS4
+
+
+#defpou __LATENT_INSTANCE ReInitPLC_hotRestart
+  bool __fc__ReInitPLC_hotRestart,
+  bool rq  ;1 = provést reinicializaci PLC
+
+
+#defpou __LATENT_INSTANCE ReInitPLC_coldRestart
+  bool __fc__ReInitPLC_coldRestart,
+  bool rq  ;1 = provést reinicializaci PLC
+
+
+#defpou __LATENT_INSTANCE ReInitPLC_noRestart
+  bool __fc__ReInitPLC_noRestart,
+  bool rq  ;1 = provést reinicializaci PLC
+
+
+#defpou __LATENT_INSTANCE GetModuleID
+  string[41] __fc__GetModuleID,
+  usint rackNumber,  ;císlo rámu, kde je umísten I/O modul
+  usint position  ;císlo pozice v rámu, kde je umísten I/O modul
+
+
+#defpou __LATENT_INSTANCE GetVarValueByName
+  string[256] __fc__GetVarValueByName,
+  string[256] varName  ;úplné jméno promìnné (jméno instance)
+
+
+#defpou __LATENT_INSTANCE SetVarValueByName
+  bool __fc__SetVarValueByName,
+  string[256] varName,  ;úplné jméno promìnné (jméno instance)
+  string[256] varValue  ;nová hodnota promìnné
+
+
+; Global variables
+#def  MI_CIB1 1
+#def  __Init____MI_CIB1 MI_CIB1
+#def  MI_CIB2 2
+#def  __Init____MI_CIB2 MI_CIB2
+#def  MI0_CIB1 3
+#def  __Init____MI0_CIB1 MI0_CIB1
+#def  MI0_CIB2 4
+#def  __Init____MI0_CIB2 MI0_CIB2
+#def  MI2_CIB1 5
+#def  __Init____MI2_CIB1 MI2_CIB1
+#def  MI2_CIB2 6
+#def  __Init____MI2_CIB2 MI2_CIB2
+#def  MI4_CIB1 7
+#def  __Init____MI4_CIB1 MI4_CIB1
+#def  MI4_CIB2 8
+#def  __Init____MI4_CIB2 MI4_CIB2
+#def  MI6_CIB1 9
+#def  __Init____MI6_CIB1 MI6_CIB1
+#def  MI6_CIB2 10
+#def  __Init____MI6_CIB2 MI6_CIB2
+#def  MI_RF 100
+#def  __Init____MI_RF MI_RF
+#def  RF0_RF 101
+#def  __Init____RF0_RF RF0_RF
+#def  RF2_RF 102
+#def  __Init____RF2_RF RF2_RF
+#def  RF4_RF 103
+#def  __Init____RF4_RF RF4_RF
+#def  RF6_RF 104
+#def  __Init____RF6_RF RF6_RF
+
+; Global types
+#struct  TCIBunitState
+  bool INI,  ;CIB jednotka je inicializovaná
+  bool COM,  ;komunikace s CIB jednotkou je bez závad
+  bool ADDR,  ;adresa CIB jednotky byla akceptovaná
+  bool DUMMY3,
+  bool REI,  ;pøíznak reinicializace CIB jednotky
+  bool DUMMY5,
+  bool DUMMY6,
+  bool NET  ;CIB jednotka je definovaná v programu a obsluhovaná centrální jednotkou
+
+; Global types
+#struct  TCIBunitInfo
+  bool line_defined,  ;CIB linka je definovaná v HW konfiguraci PLC
+  bool unit_defined,  ;CIB jednotka je definovaná v HW konfiguraci PLC
+  TCIBunitState state,  ;stav CIB jednotky (viz Typ TCIBunitState)
+  word address,  ;aktuálnì nastavená HW adresa CIB jednotky
+  word code,  ;kód CIB jednotky
+  string[18] unit_type,  ;typové oznaèení CIB jednotky
+  string[32] description  ;popis CIB jednotky
+
+; Global types
+#struct  TRFunitState
+  bool INI,  ;RF jednotka je inicializovaná
+  bool COM,  ;komunikace s RF jednotkou je bez závad
+  bool DUMMY2,
+  bool DUMMY3,
+  bool DUMMY4,
+  bool SLP,  ;RF jednotka muze prechazet do sleep rezimu
+  bool BND,  ;jednotka je spárovaná
+  bool NET  ;RF jednotka je definovaná v programu a obsluhovaná centrální jednotkou
+
+; Global types
+#struct  TRFunitInfo
+  bool line_defined,  ;RF linka je definovaná v HW konfiguraci PLC
+  bool unit_defined,  ;RF jednotka je definovaná v HW konfiguraci PLC
+  TRFunitState state,  ;stav RF jednotky (viz Typ TRFunitState)
+  word address,  ;aktuálnì nastavená HW adresa RF jednotky
+  word code,  ;kód RF jednotky
+  string[18] unit_type,  ;typové oznaèení RF jednotky
+  string[32] description  ;popis RF jednotky
+
+#defpou __LATENT_INSTANCE CIBunitInfo
+  bool __fc__CIBunitInfo,
+  usint CIB_line,  ;èíslo CIB linky (viz konstanty MI_CIB1 až MI6_CIB2)
+  usint CIB_unitID,  ;èíslo pozice CIB jednotky (1,...,32)
+  pointer unitInfo  ;promìnná, do které jsou uloženy získané informace o CIB jednotce
+
+
+#defpou __LATENT_INSTANCE RFunitInfo
+  bool __fc__RFunitInfo,
+  usint RF_line,  ;èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)
+  usint RF_unitID,  ;èíslo pozice RF jednotky (1,...,64)
+  pointer unitInfo  ;promìnná, do které jsou uloženy získané informace o RF jednotce
+
+
+#defpou __LATENT_INSTANCE SetAddressCIBunit
+  bool __fc__SetAddressCIBunit,
+  usint CIB_line,  ;èíslo CIB linky (viz konstanty MI_CIB1 až MI6_CIB2)
+  usint CIB_unitID,  ;èíslo pozice CIB jednotky (1,...,32)
+  word CIB_addr  ;nová HW adresa CIB jednotky
+
+
+#defpou __LATENT_INSTANCE SetAddressRFunit
+  bool __fc__SetAddressRFunit,
+  usint RF_line,  ;èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)
+  usint RF_unitID,  ;èíslo pozice RF jednotky (1,...,64)
+  word RF_addr  ;nová HW adresa RF jednotky
+
+
+; Global types
+#struct  TBondStat
+  bool disconnect,  ;probiha odbondovani
+  bool connect,  ;probiha bondovani
+  bool bondMap,  ;probiha cteni bondovaci mapy
+  bool dummy3,
+  bool dummy4,
+  bool error,  ;doslo k chybe
+  bool done,  ;hotovo
+  bool busy  ;master zaneprazdnen
+
+; Global types
+#struct  TBondInfo
+  TBondStat bondStat,
+  usint bondID,  ;cislo pozice pribondovane jednotky (je-li bondovani uspesne)
+  word bondType  ;typ pribondovane jednotky (je-li bondovani uspesne)
+
+#defpou fbBondRFunit
+  bool exec,  ;žádost o spárování = nábìžná hrana zahájí akci
+  usint RF_line,  ;èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)
+  usint RF_unitID,  ;èíslo pozice RF jednotky (1,...,64)
+  bool bondRq,  ;0 = pouze zrušit párování, 1 = napárovat novou jednotku
+  bool useRouter,  ;1 = po napárování komunikovat s RF jednotkou pøes router
+  bool done,  ;párování úspìšnì ukonèeno
+  bool busy,  ;probíhá párování
+  bool err,  ;párování ukonèeno s chybou
+  udint errID,  ;kód chyby
+  string[41] unitType,  ;typ úspìšnì spárované jednotky
+  TBondInfo result,
+  bool timIN,
+  time timPT,
+  TON tim,  ;odbondovat 2+2 s, pribondovat 12+2 s
+  bool __EDGE_R__exec
+
+
+#defpou __LATENT_INSTANCE ProgramLock
+  bool __fc__ProgramLock
+
+
+#defpou TPR
+  bool IN,  ;vstup èasovaèe
+  bool R,  ;reset èasovaèe
+  time PT,  ;pøedvolba èasovaèe
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;aktuální hodnota èasovaèe
+  R_TRIG IN_r_edge,
+  time LT  ;last tick value ( 1ms resolution)
+
+
+#defpou fbTPR
+  bool IN,  ;vstup èasovaèe
+  bool R,  ;reset èasovaèe
+  time PT,  ;pøedvolba èasovaèe
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;aktuální hodnota èasovaèe
+  R_TRIG IN_r_edge,
+  time LT  ;last tick value ( 1ms resolution)
+
+
+#defpou __LATENT_INSTANCE SetWebPSW
+  bool __fc__SetWebPSW,
+  usint user,  ;cislo radku v tabulce uzivatelu (0...9)
+  pointer name,  ;nové pøihlašovací jméno
+  pointer password  ;nové heslo
+
+
+#defpou __LATENT_INSTANCE VerifyWebPSW
+  bool __fc__VerifyWebPSW,
+  usint user,  ;èíslo øádku v tabulce uživatelù (0...9)
+  pointer name,  ;pøihlašovací jméno
+  pointer password  ;heslo
+
+
+#defpou __LATENT_INSTANCE SetWebMAC
+  bool __fc__SetWebMAC,
+  usint user,  ;èíslo øádku v tabulce uživatelù (0...9)
+  pointer MAC  ;nová MAC adresa ('00:11:22:33:44:55')
+
+
+#defpou __LATENT_INSTANCE VerifyWebMAC
+  bool __fc__VerifyWebMAC,
+  usint user,  ;èíslo øádku v tabulce uživatelù (0...9)
+  pointer MAC  ;MAC adresa ('00:11:22:33:44:55')
+
+
+#defpou __LATENT_INSTANCE SystemDisplayBacklightOn
+  bool __fc__SystemDisplayBacklightOn,
+  udint tmp
+
+
+#defpou __LATENT_INSTANCE SystemDisplayBacklightOff
+  bool __fc__SystemDisplayBacklightOff,
+  udint tmp
+
+
+#defpou fbTick
+  bool IN,  ;povolení èasovaèe
+  time PT,  ;perioda výstupních pulzù
+  bool Q,  ;výstup èasovaèe
+  time ET,  ;prùbìžný èas v rámci periody
+  bool WasRun,
+  time RunTime
+
+
+; Global types
+#struct  TUniDesc
+  byte modeChan,  ;režim kanálu
+  byte res,  ;rezerva
+  udint adrUniStat,  ;adresa stavové zóny
+  uint lenUniStat,  ;délka stavové zóny
+  udint adrUniCont,  ;adresa øídící zóny
+  uint lenUniCont,  ;délka øídící zóny
+  udint adrUniIn,  ;adresa pøijímací zóny
+  uint lenUniIn,  ;délka pøijímací zóny
+  udint adrUniOut,  ;adresa vysílací zony
+  uint lenUniOut  ;délka vysílací zony
+
+; Global types
+#def  TIPadr usint[4]  ;IP adresa
+
+; Global types
+#struct  TLocalEthAdr
+  TIPadr IP,  ;IP adresa
+  TIPadr IM,  ;maska sítì
+  TIPadr GW  ;adresa brány
+
+; Global types
+#struct  TRemoteEthAdr
+  TIPadr remoteIP,  ;vzdálená IP adresa
+  uint remotePort,  ;vzdálený port
+  uint localPort  ;lokální port
+
+; Global types
+#def  TMacAdr byte[6]  ;MAC adresa
+
+; Global types
+#struct  TChanSettings
+  usint modeChan,  ;režim kanálu (uni = 5)
+  usint address,  ;adresa kanálu
+  usint speed,  ;komunikaèní rychlost
+  usint rxTimeout,  ;timeout pøíjmu
+  usint txTimeout,  ;timeout vysílání
+  usint lineControl,  ;nastavení parity
+  usint modemControl,  ;modemové signály
+  usint rez  ;rezerva
+
+; Global variables
+#def  MODE_OFF 0
+#def  __Init____MODE_OFF MODE_OFF
+#def  MODE_PC 2
+#def  __Init____MODE_PC MODE_PC
+#def  MODE_UNI 5
+#def  __Init____MODE_UNI MODE_UNI
+#def  MODE_MPC 6
+#def  __Init____MODE_MPC MODE_MPC
+#def  MODE_MDB 7
+#def  __Init____MODE_MDB MODE_MDB
+#def  MODE_PFB 8
+#def  __Init____MODE_PFB MODE_PFB
+#def  BAUD_50 1
+#def  __Init____BAUD_50 BAUD_50
+#def  BAUD_100 2
+#def  __Init____BAUD_100 BAUD_100
+#def  BAUD_200 3
+#def  __Init____BAUD_200 BAUD_200
+#def  BAUD_300 4
+#def  __Init____BAUD_300 BAUD_300
+#def  BAUD_600 5
+#def  __Init____BAUD_600 BAUD_600
+#def  BAUD_1200 6
+#def  __Init____BAUD_1200 BAUD_1200
+#def  BAUD_2400 7
+#def  __Init____BAUD_2400 BAUD_2400
+#def  BAUD_4800 8
+#def  __Init____BAUD_4800 BAUD_4800
+#def  BAUD_9600 10
+#def  __Init____BAUD_9600 BAUD_9600
+#def  BAUD_14400 11
+#def  __Init____BAUD_14400 BAUD_14400
+#def  BAUD_19200 12
+#def  __Init____BAUD_19200 BAUD_19200
+#def  BAUD_28800 13
+#def  __Init____BAUD_28800 BAUD_28800
+#def  BAUD_38400 14
+#def  __Init____BAUD_38400 BAUD_38400
+#def  BAUD_57600 16
+#def  __Init____BAUD_57600 BAUD_57600
+#def  BAUD_76800 18
+#def  __Init____BAUD_76800 BAUD_76800
+#def  BAUD_93750 19
+#def  __Init____BAUD_93750 BAUD_93750
+#def  BAUD_115200 20
+#def  __Init____BAUD_115200 BAUD_115200
+#def  NO_PARITY 0
+#def  __Init____NO_PARITY NO_PARITY
+#def  PARITY_ODD 8
+#def  __Init____PARITY_ODD PARITY_ODD
+#def  PARITY_EVEN 24
+#def  __Init____PARITY_EVEN PARITY_EVEN
+#def  PARITY_0 40
+#def  __Init____PARITY_0 PARITY_0
+#def  PARITY_1 56
+#def  __Init____PARITY_1 PARITY_1
+#def  SEVEN_BITS 64
+#def  __Init____SEVEN_BITS SEVEN_BITS
+#def  EIGHT_BITS 0
+#def  __Init____EIGHT_BITS EIGHT_BITS
+#def  ONE_STOP_BIT 0
+#def  __Init____ONE_STOP_BIT ONE_STOP_BIT
+#def  TWO_STOP_BITS 128
+#def  __Init____TWO_STOP_BITS TWO_STOP_BITS
+#def  RTS_0 0
+#def  __Init____RTS_0 RTS_0
+#def  RTS_1 2
+#def  __Init____RTS_1 RTS_1
+#def  RTS_MAN 64
+#def  __Init____RTS_MAN RTS_MAN
+#def  RTS_AUTO 128
+#def  __Init____RTS_AUTO RTS_AUTO
+#def  RTS_CTS_AUTO 192
+#def  __Init____RTS_CTS_AUTO RTS_CTS_AUTO
+#def  HALF_DUPLEX 8
+#def  __Init____HALF_DUPLEX HALF_DUPLEX
+
+; Global types
+#struct  TCHxStatistic
+  usint STAT,
+  usint ERR,
+  udint trueMes,
+  udint falseMes
+
+; Global types
+#struct  TCHxControl
+  uint CONTROL
+
+; Global types
+#struct  TUni_STAT
+  bool DSR,
+  bool CTS,
+  bool dummy1,
+  bool TRO,
+  bool RCF,
+  bool ROV,
+  bool TRF,
+  bool ARC
+
+; Global types
+#struct  TUni_CONT
+  bool dummy0,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool TRG,
+  bool CLR,
+  bool ACN
+
+; Global types
+#struct  TUni_SIGN
+  bool DTR,
+  bool RTS
+
+; Global types
+#def  TUni_BUFF usint[1401]
+
+; Global types
+#struct  TUni_IN
+  TUni_STAT STAT,  ;stav pøíjmu
+  usint ERR,  ;chybový kód
+  uint NUMR,  ;poèet pøijatých bytù
+  TUni_BUFF DATA  ;pøijatá data
+
+; Global types
+#struct  TUni_OUT
+  TUni_CONT CONT,  ;øízení vysílání
+  TUni_SIGN SIGN,  ;øízení modemových signálù
+  uint NUMT,  ;poèet vysílaných bytù
+  TUni_BUFF DATA  ;vysílaná data
+
+; Global types
+#struct  TEthStat
+  bool chan_present,  ;kanál pøítomen
+  bool DHCP_enabled,  ;požadováno automatické pøidelení IP adresy DHCP serverem
+  bool IP_obtained,  ;IP adresa získána od DHCP serveru
+  bool IP_expired,  ;platnost automaticky pøidìlené IP adresy vypršela
+  bool link,  ;síový kabel pøipojen
+  usint reserved,  ;rezerva
+  udint trueMes,  ;celkový poèet dobrých zpráv
+  udint falseMes  ;celkový poèet špatných zpráv
+
+; Global variables
+#def  ETH1_STAT TEthStat %S356  ;status Ethernet kanálu ETH1
+#def  ETH2_STAT TEthStat %S368  ;status Ethernet kanálu ETH2
+#def  ETH3_STAT TEthStat %S380  ;status Ethernet kanálu ETH3
+#def  ETH4_STAT TEthStat %S392  ;status Ethernet kanálu ETH4
+
+; Global variables
+#data byte __Init____ANY_IP = 
+    0,  0,  0,  0;
+#def ANY_IP TIPadr __Init____ANY_IP
+#def  ETH1_uni0 2017
+#def  __Init____ETH1_uni0 ETH1_uni0
+#def  ETH1_uni1 6113
+#def  __Init____ETH1_uni1 ETH1_uni1
+#def  ETH1_uni2 10209
+#def  __Init____ETH1_uni2 ETH1_uni2
+#def  ETH1_uni3 14305
+#def  __Init____ETH1_uni3 ETH1_uni3
+#def  ETH1_uni4 18401
+#def  __Init____ETH1_uni4 ETH1_uni4
+#def  ETH1_uni5 22497
+#def  __Init____ETH1_uni5 ETH1_uni5
+#def  ETH1_uni6 26593
+#def  __Init____ETH1_uni6 ETH1_uni6
+#def  ETH1_uni7 30689
+#def  __Init____ETH1_uni7 ETH1_uni7
+#def  ETH2_uni0 2018
+#def  __Init____ETH2_uni0 ETH2_uni0
+#def  ETH2_uni1 6114
+#def  __Init____ETH2_uni1 ETH2_uni1
+#def  ETH2_uni2 10210
+#def  __Init____ETH2_uni2 ETH2_uni2
+#def  ETH2_uni3 14306
+#def  __Init____ETH2_uni3 ETH2_uni3
+#def  ETH2_uni4 18402
+#def  __Init____ETH2_uni4 ETH2_uni4
+#def  ETH2_uni5 22498
+#def  __Init____ETH2_uni5 ETH2_uni5
+#def  ETH2_uni6 26594
+#def  __Init____ETH2_uni6 ETH2_uni6
+#def  ETH2_uni7 30690
+#def  __Init____ETH2_uni7 ETH2_uni7
+#def  ETH3_uni0 2019
+#def  __Init____ETH3_uni0 ETH3_uni0
+#def  ETH3_uni1 6115
+#def  __Init____ETH3_uni1 ETH3_uni1
+#def  ETH3_uni2 10211
+#def  __Init____ETH3_uni2 ETH3_uni2
+#def  ETH3_uni3 14307
+#def  __Init____ETH3_uni3 ETH3_uni3
+#def  ETH3_uni4 18403
+#def  __Init____ETH3_uni4 ETH3_uni4
+#def  ETH3_uni5 22499
+#def  __Init____ETH3_uni5 ETH3_uni5
+#def  ETH3_uni6 26595
+#def  __Init____ETH3_uni6 ETH3_uni6
+#def  ETH3_uni7 30691
+#def  __Init____ETH3_uni7 ETH3_uni7
+#def  ETH4_uni0 2020
+#def  __Init____ETH4_uni0 ETH4_uni0
+#def  ETH4_uni1 6116
+#def  __Init____ETH4_uni1 ETH4_uni1
+#def  ETH4_uni2 10212
+#def  __Init____ETH4_uni2 ETH4_uni2
+#def  ETH4_uni3 14308
+#def  __Init____ETH4_uni3 ETH4_uni3
+#def  ETH4_uni4 18404
+#def  __Init____ETH4_uni4 ETH4_uni4
+#def  ETH4_uni5 22500
+#def  __Init____ETH4_uni5 ETH4_uni5
+#def  ETH4_uni6 26596
+#def  __Init____ETH4_uni6 ETH4_uni6
+#def  ETH4_uni7 30692
+#def  __Init____ETH4_uni7 ETH4_uni7
+#def  CH1_uni 257
+#def  __Init____CH1_uni CH1_uni
+#def  CH2_uni 514
+#def  __Init____CH2_uni CH2_uni
+#def  CH3_uni 259
+#def  __Init____CH3_uni CH3_uni
+#def  CH4_uni 516
+#def  __Init____CH4_uni CH4_uni
+#def  CH5_uni 261
+#def  __Init____CH5_uni CH5_uni
+#def  CH6_uni 518
+#def  __Init____CH6_uni CH6_uni
+#def  CH7_uni 263
+#def  __Init____CH7_uni CH7_uni
+#def  CH8_uni 520
+#def  __Init____CH8_uni CH8_uni
+#def  CH9_uni 265
+#def  __Init____CH9_uni CH9_uni
+#def  CH10_uni 522
+#def  __Init____CH10_uni CH10_uni
+#def  ETH1 225
+#def  __Init____ETH1 ETH1
+#def  ETH2 226
+#def  __Init____ETH2 ETH2
+#def  ETH3 227
+#def  __Init____ETH3 ETH3
+#def  ETH4 228
+#def  __Init____ETH4 ETH4
+#def  SCH1 1
+#def  __Init____SCH1 SCH1
+#def  SCH2 2
+#def  __Init____SCH2 SCH2
+#def  SCH3 3
+#def  __Init____SCH3 SCH3
+#def  SCH4 4
+#def  __Init____SCH4 SCH4
+#def  SCH5 5
+#def  __Init____SCH5 SCH5
+#def  SCH6 6
+#def  __Init____SCH6 SCH6
+#def  SCH7 7
+#def  __Init____SCH7 SCH7
+#def  SCH8 8
+#def  __Init____SCH8 SCH8
+#def  SCH9 9
+#def  __Init____SCH9 SCH9
+#def  SCH10 10
+#def  __Init____SCH10 SCH10
+#def  COM_OK 0
+#def  __Init____COM_OK COM_OK
+#def  COM_ERR1 1
+#def  __Init____COM_ERR1 COM_ERR1
+#def  COM_ERR2 2
+#def  __Init____COM_ERR2 COM_ERR2
+#def  COM_ERR3 3
+#def  __Init____COM_ERR3 COM_ERR3
+#def  COM_ERR4 4
+#def  __Init____COM_ERR4 COM_ERR4
+#def  COM_ERR5 5
+#def  __Init____COM_ERR5 COM_ERR5
+#def  COM_ERR6 6
+#def  __Init____COM_ERR6 COM_ERR6
+#def  COM_ERR7 7
+#def  __Init____COM_ERR7 COM_ERR7
+#def  COM_ERR8 8
+#def  __Init____COM_ERR8 COM_ERR8
+#def  COM_ERR16 16
+#def  __Init____COM_ERR16 COM_ERR16
+#def  COM_ERR17 17
+#def  __Init____COM_ERR17 COM_ERR17
+#def  COM_ERR18 18
+#def  __Init____COM_ERR18 COM_ERR18
+#def  COM_ERR19 19
+#def  __Init____COM_ERR19 COM_ERR19
+#def  COM_ERR20 20
+#def  __Init____COM_ERR20 COM_ERR20
+#def  COM_ERR24 24
+#def  __Init____COM_ERR24 COM_ERR24
+#def  COM_ERR25 25
+#def  __Init____COM_ERR25 COM_ERR25
+#def  COM_ERR49 49
+#def  __Init____COM_ERR49 COM_ERR49
+#def  COM_ERR50 50
+#def  __Init____COM_ERR50 COM_ERR50
+#def  COM_ERR64 64
+#def  __Init____COM_ERR64 COM_ERR64
+#def  COM_ERRc6 198
+#def  __Init____COM_ERRc6 COM_ERRc6
+
+#defpou __LATENT_INSTANCE GetChanDesc
+  TUniDesc __fc__GetChanDesc,
+  uint chanCode  ;channel code (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+
+
+#defpou __LATENT_INSTANCE GetChanIndex
+  int __fc__GetChanIndex,
+  uint chanCode  ;kód kanálu
+
+
+; Global variables
+#data byte __Init____ComErrorString = 
+  'N','o',' ','e','r','r','o','r',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,
+  'C','h','a','n','n','e','l',' ','i','s',' ','n','o','t',' ','i','n',' ','u','n',
+  'i',' ','m','o','d','e',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  $00,'S','e','n','d','i','n','g',' ','d','a','t','a',' ','a','r','e',' ','t','o',
+  'o',' ','l','o','n','g',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',$00,'R','e','c','e','i','v','e','d',' ','d','a','t','a',' ','a','r','e',' ',
+  't','o','o',' ','l','o','n','g',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',$00,'W','r','o','n','g',' ','c','h','a','n','n','e','l',' ','c','o','d',
+  'e',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',$00,'P','r','e','v','i','o','u','s',' ','m','e','s','s','a','g','e',
+  ' ','i','s',' ','n','o','t',' ','s','e','n','t',' ','y','e','t',' ',' ',' ',' ',
+  ' ',' ',' ',' ',$00,'Z','e','r','o',' ','m','e','s','s','a','g','e',' ','l','e',
+  'n','g','t','h',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',$00,'I','n','v','a','l','i','d',' ','c','o','m','m','u','n',
+  'i','c','a','t','i','o','n',' ','s','p','e','e','d',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',$00,'C','h','a','n','n','e','l',' ','i','s',' ','d','i',
+  's','a','b','l','e','d',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',$00,'I','n','v','a','l','i','d',' ','s','t','a','r',
+  't',' ','d','e','l','i','m','i','t','e','r',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',$00,'P','a','r','i','t','y',' ','e','r','r','o',
+  'r',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'M','a','x','i','m','u','m',' ','m','e',
+  's','s','a','g','e',' ','l','e','n','g','t','h',' ','e','x','c','e','e','d','e',
+  'd',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'I','n','v','a','l','i','d',' ','s',
+  'e','c','o','n','d',' ','b','y','t','e',' ','o','f',' ','a','c','k','n','o','w',
+  'l','e','d','g','m','e','n','t',' ',' ',' ',$00,'I','n','v','a','l','i','d',' ',
+  's','e','c','o','n','d',' ','b','y','t','e',' ','o','f',' ','e','n','d',' ','d',
+  'e','l','i','m','i','t','e','r',' ',' ',' ',' ',$00,'C','h','e','c','k',' ','s',
+  'u','m',' ','e','r','r','o','r',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'I','n','v','a','l','i',
+  'd',' ','e','n','d',' ','d','e','l','i','m','i','t','e','r',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'I','n','v','a','l',
+  'i','d',' ','l','e','n','g','t','h',' ','o','f',' ','s','e','n','t',' ','d','a',
+  't','a',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'S','e','n','t',
+  ' ','d','a','t','a',' ','z','e','r','o',' ','l','e','n','g','t','h',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'T','i','m',
+  'e','o','u','t',' ','n','o','t',' ','h','e','l','d',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'I','n',
+  'v','a','l','i','d',' ','c','h','a','n','n','e','l',' ','m','o','d','e',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00,'U',
+  'n','k','n','o','w','n',' ','e','r','r','o','r',' ',' ',' ',' ',' ',' ',' ',' ',
+  ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',$00;
+
+#def  ComErrorString string[21] __Init____ComErrorString
+
+#defpou __LATENT_INSTANCE GetLastComErrTxt
+  string[81] __fc__GetLastComErrTxt,
+  usint errCode  ;chybový kód
+
+
+#defpou __LATENT_INSTANCE GetChanSettings
+  bool __fc__GetChanSettings,
+  usint serChan,  ;èíslo sériového kanálu (SCH1, ..., SCH10)
+  pointer chanSet  ;aktuální nastavení sériového kanálu
+
+
+#defpou __LATENT_INSTANCE SetChanSettings
+  usint __fc__SetChanSettings,
+  bool rq,  ;Žádost o nové nastavení
+  usint serChan,  ;èíslo sériového kanálu (SCH1, ..., SCH10)
+  pointer chanSet  ;Nové natavení sériového kanálu
+
+
+#data byte __Init___GetChanStat_initStat = 
+    0;
+#def __Const__GetChanStat_initStat TUni_STAT __Init___GetChanStat_initStat
+#defpou __LATENT_INSTANCE GetChanStat
+  TUni_STAT __fc__GetChanStat,
+  uint chanCode  ;kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+
+
+#defpou __LATENT_INSTANCE EstabTCPconnection
+  usint __fc__EstabTCPconnection,
+  uint chanCode  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+
+
+#defpou __LATENT_INSTANCE CloseTCPconnection
+  usint __fc__CloseTCPconnection,
+  uint chanCode  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+
+
+#defpou __LATENT_INSTANCE IsEstabTCPconnection
+  bool __fc__IsEstabTCPconnection,
+  uint chanCode  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+
+
+#defpou __LATENT_INSTANCE SetRemoteIPaddress
+  bool __fc__SetRemoteIPaddress,
+  bool rq,  ;žádost o nové nastavení
+  uint chanCode,  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7)
+  pointer ethAdr  ;nové nastavení
+
+
+#defpou __LATENT_INSTANCE GetRemoteIPaddress
+  bool __fc__GetRemoteIPaddress,
+  uint chanCode,  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7)
+  pointer ethAdr  ;aktuální nastavení
+
+
+; Global variables
+#def  MAX_LENGHT_OF_WEB_USER_NAME 10
+#def  __Init____MAX_LENGHT_OF_WEB_USER_NAME MAX_LENGHT_OF_WEB_USER_NAME
+#def  HTTP_URI_SIZE 65
+#def  __Init____HTTP_URI_SIZE HTTP_URI_SIZE
+
+; Global types
+#def  T_SESSION_STATE usint   ; ENUM Type 
+
+; Global types
+#struct  TWebServerAccess
+  usint state,  ;stav pøihlášení
+  string[11] user,  ;jméno uživatele
+  usint level,  ;úroveò pøihlášení
+  usint error,  ;kód chyby
+  TIPadr IP,  ;IP adresa uživatele
+  string[66] lastFile  ;název posledního požadovaného souboru
+
+; Global types
+#def  TWebServerAccessTable TWebServerAccess[8]  ;pøístupová tabulka web serveru PLC
+
+#defpou __LATENT_INSTANCE GetWebServerAccess
+  bool __fc__GetWebServerAccess,
+  pointer accessTable  ;pøístupová tabulka web serveru PLC
+
+
+#defpou fbSendTo
+  bool rq,  ;žádost o vysílání
+  uint chanCode,  ;kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)
+  uint lenTx,  ;velikost zprávy (poèet bytù)
+  pointer data,  ;buffer pro vysílanou zprávu
+  bool mesSent,  ;vysílání zprávy bylo zahájeno
+  usint error,  ;chybový kód
+  uint lenData,  ;velikost skuteènì odvysílané zprávy
+  pointer pUniOut,
+  pointer pUniIn,
+  pointer pUniOutData
+
+
+#defpou fbRecvFrom
+  bool rq,  ;žádost o pøíjem
+  uint chanCode,  ;kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)
+  uint lenRx,  ;max. možná délka pøijatých dat
+  pointer data,  ;buffer pro pøijatou zprávu
+  bool mesRec,  ;pøíznak novì pøijaté zprávy
+  usint error,  ;chybový kód
+  uint lenData,  ;velikost skuteènì pøijaté zprávy (poèet bytù)
+  pointer pUniIn,
+  pointer pUniInData,
+  bool oldARC  ;ARRAY[0..39] OF BOOL;
+
+
+#defpou fbRecvTxt
+  bool getMes,  ;Vybere zprávu z bufferu
+  bool reset,  ;Vymaže buffer
+  uint chanCode,  ;Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)
+  uint lenBuf,  ;Délka pracovniho bufferu
+  uint lenTxt,  ;Délka txtMes
+  bool full,  ;Buffer je plný, zprávy nebyly odebírány dostateènì rychle
+  uint lenMes,  ;Délka pøijatého textu
+  usint error,  ;chybový kód
+  uint actPos,
+  fbRecvFrom RecvFrom,
+  pointer buffer,  ;První byte pracovniho bufferu
+  pointer txtMes  ;První znak pøijatého textu
+
+
+#defpou fbRecvTxtChar
+  bool getMes,  ;Vybere zprávu z bufferu
+  bool reset,  ;Vymaže buffer
+  uint chanCode,  ;Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)
+  uint lenBuf,  ;Délka pracovniho bufferu
+  uint lenTxt,  ;Délka txtMes
+  byte delimiter,  ;oddìlovací znak
+  bool full,  ;Buffer je plný, zprávy nebyly odebírány dostateènì rychle
+  uint lenMes,  ;Délka pøijatého textu
+  usint error,  ;chybový kód
+  uint actPos,
+  fbRecvFrom RecvFrom,
+  pointer buffer,  ;První byte pracovniho bufferu
+  pointer txtMes  ;První znak pøijatého textu
+
+
+#defpou __LATENT_INSTANCE GetIPaddress
+  bool __fc__GetIPaddress,
+  usint ethChan,  ;èíslo Ethernet kanálu (ETH1, ETH2, ETH3)
+  pointer ethAdr  ;aktuální IP adresa, maska a adresa brány sítì
+
+
+#defpou __LATENT_INSTANCE SetIPaddress
+  bool __fc__SetIPaddress,
+  bool rq,  ;žádost o nastavení nových hodnot
+  usint ethChan,  ;èíslo Ethernet kanálu (ETH1, ETH2, ETH3)
+  pointer ethAdr  ;nová IP adresa, maska sítì a adresa brány
+
+
+#defpou __LATENT_INSTANCE GetMACaddress
+  bool __fc__GetMACaddress,
+  usint ethChan,  ;èíslo Ethernet kanálu (ETH1, ETH2, ETH3)
+  pointer MacAdr  ;aktuální MAC adresa
+
+
+#defpou __LATENT_INSTANCE SetDHCPsupport
+  bool __fc__SetDHCPsupport,
+  bool rq,  ;žádost o zapnutí podpory DHCP
+  usint ethChan  ;èíslo Ethernet kanálu (pouze ETH1)
+
+
+#defpou __LATENT_INSTANCE GetDNS_IP
+  TIPadr __fc__GetDNS_IP,  ;IP adresa
+  usint ethChan  ;èíslo Ethernet kanálu (pouze ETH1)
+
+
+#defpou __LATENT_INSTANCE SetDNS_IP
+  bool __fc__SetDNS_IP,
+  bool rq,  ;žádost o nastavení nové IP adresy DNS serveru
+  usint ethChan,  ;èíslo Ethernet kanálu (pouze ETH1)
+  TIPadr DNS_IP  ;IP adresa DNS serveru
+
+
+#defpou __LATENT_INSTANCE STRING_TO_IPADR
+  TIPadr __fc__STRING_TO_IPADR,  ;IP adresa
+  string[81] IPAdr  ;øetìzec s IP adresou
+
+
+#defpou __LATENT_INSTANCE IPADR_TO_STRING
+  string[81] __fc__IPADR_TO_STRING,
+  TIPadr IPAdr  ;pole s IP adresou
+
+
+#defpou fbKeepAliveTCP
+  bool rq,  ;žádost o udržování spojení
+  uint chanCode,  ;kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+  time PT,  ;interval odesílání udržovacích paketù (T#5s...T#60s)
+  usint error,  ;chybový kód
+  fbTick tick
+
+
+; Global variables
+#data byte __Init_____GsmLib_CommaString = 
+  ',',$00;
+#def _GsmLib_CommaString string __Init_____GsmLib_CommaString
+#data byte __Init_____GsmLib_ColonString = 
+  ':',$00;
+#def _GsmLib_ColonString string __Init_____GsmLib_ColonString
+#data byte __Init_____GsmLib_GreaterThanString = 
+  '>',$00;
+#def _GsmLib_GreaterThanString string __Init_____GsmLib_GreaterThanString
+#data byte __Init_____GsmLib_PlusString = 
+  '+',$00;
+#def _GsmLib_PlusString string __Init_____GsmLib_PlusString
+#data byte __Init_____GsmLib_OkString = 
+  'O','K',$00;
+#def _GsmLib_OkString string __Init_____GsmLib_OkString
+#data byte __Init_____GsmLib_QuoteString = 
+  '"',$00;
+#def _GsmLib_QuoteString string __Init_____GsmLib_QuoteString
+#data byte __Init_____GsmLib_CrLfString = 
+  $0D,$0A,$00;
+#def _GsmLib_CrLfString string __Init_____GsmLib_CrLfString
+#data byte __Init_____GsmLib_QuoteCrLfString = 
+  '"',$0D,$0A,$00;
+#def _GsmLib_QuoteCrLfString string __Init_____GsmLib_QuoteCrLfString
+#data byte __Init_____GsmLib_SemiColonCrLfString = 
+  ';',$0D,$0A,$00;
+#def _GsmLib_SemiColonCrLfString string __Init_____GsmLib_SemiColonCrLfString
+#data byte __Init_____GsmLib_ControlZString = 
+  $1A,$00;
+#def _GsmLib_ControlZString string __Init_____GsmLib_ControlZString
+#data byte __Init_____GsmLib_AtCommandATE0 = 
+  'A','T','E','0',$0D,$0A,$00;
+#def _GsmLib_AtCommandATE0 string __Init_____GsmLib_AtCommandATE0
+#data byte __Init_____GsmLib_AtCommandATIPR = 
+  'A','T','+','I','P','R','=','9','6','0','0',$0D,$0A,$00;
+#def _GsmLib_AtCommandATIPR string __Init_____GsmLib_AtCommandATIPR
+#data byte __Init_____GsmLib_AtCommandATCFUN = 
+  'A','T','+','C','F','U','N','=','1',',','1',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCFUN string __Init_____GsmLib_AtCommandATCFUN
+#data byte __Init_____GsmLib_AtCommandATCPIN1 = 
+  'A','T','+','C','P','I','N','?',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCPIN1 string __Init_____GsmLib_AtCommandATCPIN1
+#data byte __Init_____GsmLib_AtCommandATCPIN2 = 
+  'A','T','+','C','P','I','N','=',$00;
+#def _GsmLib_AtCommandATCPIN2 string __Init_____GsmLib_AtCommandATCPIN2
+#data byte __Init_____GsmLib_AtCommandATCMEE = 
+  'A','T','+','C','M','E','E','=','2',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCMEE string __Init_____GsmLib_AtCommandATCMEE
+#data byte __Init_____GsmLib_AtCommandATCMGF0 = 
+  'A','T','+','C','M','G','F','=','0',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCMGF0 string __Init_____GsmLib_AtCommandATCMGF0
+#data byte __Init_____GsmLib_AtCommandATCMGF1 = 
+  'A','T','+','C','M','G','F','=','1',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCMGF1 string __Init_____GsmLib_AtCommandATCMGF1
+#data byte __Init_____GsmLib_AtCommandATCNMI = 
+  'A','T','+','C','N','M','I','=','3',',','1',',','0',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCNMI string __Init_____GsmLib_AtCommandATCNMI
+#data byte __Init_____GsmLib_AtCommandATCPMS = 
+  'A','T','+','C','P','M','S','=','S','M',',','S','M',',','S','M',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCPMS string __Init_____GsmLib_AtCommandATCPMS
+#data byte __Init_____GsmLib_AtCommandATSSMSS = 
+  'A','T','^','S','S','M','S','S','=','1',$0D,$0A,$00;
+#def _GsmLib_AtCommandATSSMSS string __Init_____GsmLib_AtCommandATSSMSS
+#data byte __Init_____GsmLib_AtCommandATCSCA = 
+  'A','T','+','C','S','C','A','=','"',$00;
+#def _GsmLib_AtCommandATCSCA string __Init_____GsmLib_AtCommandATCSCA
+#data byte __Init_____GsmLib_AtCommandATCMGD = 
+  'A','T','+','C','M','G','D','=',$00,$00;
+#def _GsmLib_AtCommandATCMGD string __Init_____GsmLib_AtCommandATCMGD
+#data byte __Init_____GsmLib_AtCommandATD = 
+  'A','T','D',$00;
+#def _GsmLib_AtCommandATD string __Init_____GsmLib_AtCommandATD
+#data byte __Init_____GsmLib_AtCommandATCMGS1 = 
+  'A','T','+','C','M','G','S','=','"',$00;
+#def _GsmLib_AtCommandATCMGS1 string __Init_____GsmLib_AtCommandATCMGS1
+#data byte __Init_____GsmLib_AtCommandATCMGS2 = 
+  'A','T','+','C','M','G','S','=',$00,$00;
+#def _GsmLib_AtCommandATCMGS2 string __Init_____GsmLib_AtCommandATCMGS2
+#data byte __Init_____GsmLib_AtCommandATCMGR = 
+  'A','T','+','C','M','G','R','=',$00;
+#def _GsmLib_AtCommandATCMGR string __Init_____GsmLib_AtCommandATCMGR
+#data byte __Init_____GsmLib_AtCommandATCSQ = 
+  'A','T','+','C','S','Q',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCSQ string __Init_____GsmLib_AtCommandATCSQ
+#data byte __Init_____GsmLib_AtCommandATCLCC = 
+  'A','T','+','C','L','C','C',$0D,$0A,$00;
+#def _GsmLib_AtCommandATCLCC string __Init_____GsmLib_AtCommandATCLCC
+#data byte __Init_____GsmLib_AtCommandATH = 
+  'A','T','H',$0D,$0A,$00;
+#def _GsmLib_AtCommandATH string __Init_____GsmLib_AtCommandATH
+#data byte __Init_____GsmLib_AtReplyRING = 
+  'R','I','N','G',$00;
+#def _GsmLib_AtReplyRING string __Init_____GsmLib_AtReplyRING
+#data byte __Init_____GsmLib_AtReplyCMTI = 
+  '+','C','M','T','I',':',$00;
+#def _GsmLib_AtReplyCMTI string __Init_____GsmLib_AtReplyCMTI
+#data byte __Init_____GsmLib_AtReplySYSSTART = 
+  '^','S','Y','S','S','T','A','R','T',$00;
+#def _GsmLib_AtReplySYSSTART string __Init_____GsmLib_AtReplySYSSTART
+#data byte __Init_____GsmLib_AtReplyCPIN = 
+  '+','C','P','I','N',':',$00;
+#def _GsmLib_AtReplyCPIN string __Init_____GsmLib_AtReplyCPIN
+#data byte __Init_____GsmLib_AtReplyREADY = 
+  'R','E','A','D','Y',$00;
+#def _GsmLib_AtReplyREADY string __Init_____GsmLib_AtReplyREADY
+#data byte __Init_____GsmLib_AtReplySIMPIN = 
+  'S','I','M',' ','P','I','N',$00;
+#def _GsmLib_AtReplySIMPIN string __Init_____GsmLib_AtReplySIMPIN
+#data byte __Init_____GsmLib_AtReplySIMPUK = 
+  'S','I','M',' ','P','U','K',$00;
+#def _GsmLib_AtReplySIMPUK string __Init_____GsmLib_AtReplySIMPUK
+#data byte __Init_____GsmLib_AtReplyCPMS = 
+  '+','C','P','M','S',':',$00;
+#def _GsmLib_AtReplyCPMS string __Init_____GsmLib_AtReplyCPMS
+#data byte __Init_____GsmLib_AtReplyCMGS = 
+  '+','C','M','G','S',':',$00;
+#def _GsmLib_AtReplyCMGS string __Init_____GsmLib_AtReplyCMGS
+#data byte __Init_____GsmLib_AtReplyCUSD = 
+  '+','C','U','S','D',':',$00;
+#def _GsmLib_AtReplyCUSD string __Init_____GsmLib_AtReplyCUSD
+#data byte __Init_____GsmLib_AtReplyCMGR = 
+  '+','C','M','G','R',':',$00;
+#def _GsmLib_AtReplyCMGR string __Init_____GsmLib_AtReplyCMGR
+#data byte __Init_____GsmLib_AtReplyERROR = 
+  'E','R','R','O','R',$00;
+#def _GsmLib_AtReplyERROR string __Init_____GsmLib_AtReplyERROR
+#data byte __Init_____GsmLib_AtReplyCSQ = 
+  '+','C','S','Q',':',$00;
+#def _GsmLib_AtReplyCSQ string __Init_____GsmLib_AtReplyCSQ
+#data byte __Init_____GsmLib_AtReplyCLCC = 
+  '+','C','L','C','C',':',$00;
+#def _GsmLib_AtReplyCLCC string __Init_____GsmLib_AtReplyCLCC
+#data byte __Init_____GsmLib_AtReplyNOCARRIER = 
+  'N','O',' ','C','A','R','R','I','E','R',$00;
+#def _GsmLib_AtReplyNOCARRIER string __Init_____GsmLib_AtReplyNOCARRIER
+#data byte __Init_____GsmLib_AtReplyATSM20_0 = 
+  'A','T','^','S','M','2','0','=','0',$0D,$0A,$00;
+#def _GsmLib_AtReplyATSM20_0 string __Init_____GsmLib_AtReplyATSM20_0
+
+; Global types
+#def  TGSMGateStateOut usint   ; ENUM Type 
+
+; Global types
+#def  TGSMGateError usint   ; ENUM Type 
+
+; Global types
+#def  TGSMGatePlcCoding usint   ; ENUM Type 
+
+; Global types
+#def  TGSMGateSmsCoding usint   ; ENUM Type 
+
+; Global types
+#def  TGSMGateSmsStatus usint   ; ENUM Type 
+
+; Global types
+#struct  TGSM_UNI
+  byte STCO,
+  usint ERR,
+  uint NUM,
+  string[256] DATA
+
+; Global types
+#def  SMS_STRING string[161]
+
+; Global types
+#def  NUMBER_STRING string[21]
+
+; Global types
+#def  PIN_STRING string[5]
+
+; Global variables
+#data byte __Init_____GsmLib_UCS2_TO_CP125x_256_415 = 
+   63, 63,195,227,165,185,198,230, 63, 63, 63, 63,200,232,207,239,208,240, 63, 63, 63,
+   63, 63, 63,202,234,204,236, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,197,229, 63, 63,
+  188,190, 63, 63,163,179,209,241, 63, 63,210,242, 63, 63, 63, 63, 63, 63, 63,213,
+  245,140,156,192,224, 63, 63,216,248,140,156, 63, 63,170,186,138,154,222,254,141,
+  157, 63, 63, 63, 63, 63, 63, 63, 63,217,249,219,251, 63, 63, 63, 63, 63, 63,159,
+  143,159,175,191,142,158, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63,131, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63;
+#def  _GsmLib_UCS2_TO_CP125x_256_415 byte[160] __Init_____GsmLib_UCS2_TO_CP125x_256_415
+#data byte __Init_____GsmLib_UCS2_TO_CP125x_704_735 = 
+   63, 63, 63, 63, 63, 63,136,161, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63,162,255, 63,178,152,189, 63, 63;
+#def  _GsmLib_UCS2_TO_CP125x_704_735 byte[32] __Init_____GsmLib_UCS2_TO_CP125x_704_735
+#data byte __Init_____GsmLib_UCS2_TO_CP125x_896_1183 = 
+   63, 63, 63, 63,180,161,162, 63,184,185,186, 63,188, 63,190,191,192,193,194,195,196,
+  197,198,199,200,201,202,203,204,205,206,207,208,209, 63,211,212,213,214,215,216,
+  217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,
+  237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63,168,128,129,170,189,178,175,163,138,140,142,141,
+   63,161,143,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,
+  209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,
+  229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,
+  249,250,251,252,253,254,255, 63,184,144,131,186,190,179,191,188,154,156,158,157,
+   63,162,159, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,165,180, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63;
+#def  _GsmLib_UCS2_TO_CP125x_896_1183 byte[288] __Init_____GsmLib_UCS2_TO_CP125x_896_1183
+#data byte __Init_____GsmLib_UCS2_TO_CP125x_8206_8255 = 
+  253,254, 63, 63, 63,150,151,175, 63, 63,145,146,130, 63,147,148,132, 63,134,135,149,
+   63, 63, 63,133, 63, 63, 63, 63, 63, 63, 63, 63, 63,137, 63, 63, 63, 63, 63, 63,
+   63, 63,139,155, 63, 63, 63, 63, 63,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    0,  0,  0,  0,  0,  0,  0,  0,  0;
+#def  _GsmLib_UCS2_TO_CP125x_8206_8255 byte[290] __Init_____GsmLib_UCS2_TO_CP125x_8206_8255
+#data byte __Init_____GsmLib_GSM7_TO_CP125x_0_127 = 
+   64,163, 36,165,232,233,249,236,242,199, 10,216,248, 13,197,229,196, 95,214,195,203,
+  217,208,216,211,200,206,  0,198,230,223,201, 32, 33, 34, 35,164, 37, 38, 39, 40,
+   41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+   61, 62, 63,161, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+   81, 82, 83, 84, 85, 86, 87, 88, 89, 90,196,214,209,220,167,191, 97, 98, 99,100,
+  101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,
+  121,122,228,246,241,252,224;
+#def  _GsmLib_GSM7_TO_CP125x_0_127 byte[128] __Init_____GsmLib_GSM7_TO_CP125x_0_127
+#data byte __Init_____GsmLib_CP125x_TO_GSM7_0_255 = 
+    0, 63, 63, 63, 63, 63, 63, 63, 63, 63, 10, 63, 27, 13, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 32, 33, 34, 35,  2, 37, 38, 39, 40,
+   41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+   61, 62, 63,  0, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+   81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 27, 27, 27, 27, 17, 63, 97, 98, 99,100,
+  101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,
+  121,122, 27, 27, 27, 27, 63, 27, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   64, 63,  1, 36,  3, 63, 95, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63,
+   63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 96, 63, 63, 19, 91, 14, 28,  9, 25,
+   31, 63, 20, 63, 63, 26, 63, 22, 93, 63, 24, 63, 63, 92, 63, 11, 21, 63, 63, 94,
+   63, 63, 30,127, 63, 63, 63,123, 15, 29, 63,  4,  5, 63, 63,  7, 63, 63, 63, 63,
+  125,  8, 63, 63, 63,124, 63, 12,  6, 63, 63,126, 63, 63, 63;
+#def  _GsmLib_CP125x_TO_GSM7_0_255 byte[256] __Init_____GsmLib_CP125x_TO_GSM7_0_255
+#data byte __Init_____GsmLib_CP1250_TO_UCS2_128_255 = 
+  172, 32,253,255, 26, 32,253,255, 30, 32, 38, 32, 32, 32, 33, 32,253,255, 48, 32, 96,
+    1, 57, 32, 90,  1,100,  1,125,  1,121,  1,253,255, 24, 32, 25, 32, 28, 32, 29,
+   32, 34, 32, 19, 32, 20, 32,253,255, 34, 33, 97,  1, 58, 32, 91,  1,101,  1,126,
+    1,122,  1,160,  0,199,  2,216,  2, 65,  1,164,  0,  4,  1,166,  0,167,  0,168,
+    0,169,  0, 94,  1,171,  0,172,  0,173,  0,174,  0,123,  1,176,  0,177,  0,219,
+    2, 66,  1,180,  0,181,  0,182,  0,183,  0,184,  0,  5,  1, 95,  1,187,  0, 61,
+    1,221,  2, 62,  1,124,  1, 84,  1,193,  0,194,  0,  2,  1,196,  0, 57,  1,  6,
+    1,199,  0, 12,  1,201,  0, 24,  1,203,  0, 26,  1,205,  0,206,  0, 14,  1, 16,
+    1, 67,  1, 71,  1,211,  0,212,  0, 80,  1,214,  0,215,  0, 88,  1,110,  1,218,
+    0,112,  1,220,  0,221,  0, 98,  1,223,  0, 85,  1,225,  0,226,  0,  3,  1,228,
+    0, 58,  1,  7,  1,231,  0, 13,  1,233,  0, 25,  1,235,  0, 27,  1,237,  0,238,
+    0, 15,  1, 17,  1, 68,  1, 72,  1,243,  0,244,  0, 81,  1,246,  0,247,  0, 89,
+    1,111,  1,250,  0,113,  1,252,  0,253,  0, 99,  1,217,  2;
+#def  _GsmLib_CP1250_TO_UCS2_128_255 word[128] __Init_____GsmLib_CP1250_TO_UCS2_128_255
+#data byte __Init_____GsmLib_CP1251_TO_UCS2_128_255 = 
+    2,  4,  3,  4, 26, 32, 83,  4, 30, 32, 38, 32, 32, 32, 33, 32,172, 32, 48, 32,  9,
+    4, 57, 32, 10,  4, 12,  4, 11,  4, 15,  4, 82,  4, 24, 32, 25, 32, 28, 32, 29,
+   32, 34, 32, 19, 32, 20, 32,253,255, 34, 33, 89,  4, 58, 32, 90,  4, 92,  4, 91,
+    4, 95,  4,160,  0, 14,  4, 94,  4,  8,  4,164,  0,144,  4,166,  0,167,  0,  1,
+    4,169,  0,  4,  4,171,  0,172,  0,173,  0,174,  0,  7,  4,176,  0,177,  0,  6,
+    4, 86,  4,145,  4,181,  0,182,  0,183,  0, 81,  4, 22, 33, 84,  4,187,  0, 88,
+    4,  5,  4, 85,  4, 87,  4, 16,  4, 17,  4, 18,  4, 19,  4, 20,  4, 21,  4, 22,
+    4, 23,  4, 24,  4, 25,  4, 26,  4, 27,  4, 28,  4, 29,  4, 30,  4, 31,  4, 32,
+    4, 33,  4, 34,  4, 35,  4, 36,  4, 37,  4, 38,  4, 39,  4, 40,  4, 41,  4, 42,
+    4, 43,  4, 44,  4, 45,  4, 46,  4, 47,  4, 48,  4, 49,  4, 50,  4, 51,  4, 52,
+    4, 53,  4, 54,  4, 55,  4, 56,  4, 57,  4, 58,  4, 59,  4, 60,  4, 61,  4, 62,
+    4, 63,  4, 64,  4, 65,  4, 66,  4, 67,  4, 68,  4, 69,  4, 70,  4, 71,  4, 72,
+    4, 73,  4, 74,  4, 75,  4, 76,  4, 77,  4, 78,  4, 79,  4;
+#def  _GsmLib_CP1251_TO_UCS2_128_255 word[128] __Init_____GsmLib_CP1251_TO_UCS2_128_255
+#data byte __Init_____GsmLib_CP1252_TO_UCS2_128_159 = 
+  172, 32,253,255, 26, 32,146,  1, 30, 32, 38, 32, 32, 32, 33, 32,198,  2, 48, 32, 96,
+    1, 57, 32, 82,  1,253,255,125,  1,253,255,253,255, 24, 32, 25, 32, 28, 32, 29,
+   32, 34, 32, 19, 32, 20, 32,220,  2, 34, 33, 97,  1, 58, 32, 83,  1,253,255,126,
+    1,120,  1;
+#def  _GsmLib_CP1252_TO_UCS2_128_159 word[32] __Init_____GsmLib_CP1252_TO_UCS2_128_159
+#data byte __Init_____GsmLib_CP1253_TO_UCS2_128_255 = 
+  172, 32,253,255, 26, 32,146,  1, 30, 32, 38, 32, 32, 32, 33, 32,253,255, 48, 32,253,
+  255, 57, 32,253,255,253,255,253,255,253,255,253,255, 24, 32, 25, 32, 28, 32, 29,
+   32, 34, 32, 19, 32, 20, 32,253,255, 34, 33,253,255, 58, 32,253,255,253,255,253,
+  255,253,255,160,  0,133,  3,134,  3,163,  0,164,  0,165,  0,166,  0,167,  0,168,
+    0,169,  0,253,255,171,  0,172,  0,173,  0,174,  0, 21, 32,176,  0,177,  0,178,
+    0,179,  0,132,  3,181,  0,182,  0,183,  0,136,  3,137,  3,138,  3,187,  0,140,
+    3,189,  0,142,  3,143,  3,144,  3,145,  3,146,  3,147,  3,148,  3,149,  3,150,
+    3,151,  3,152,  3,153,  3,154,  3,155,  3,156,  3,157,  3,158,  3,159,  3,160,
+    3,161,  3,253,255,163,  3,164,  3,165,  3,166,  3,167,  3,168,  3,169,  3,170,
+    3,171,  3,172,  3,173,  3,174,  3,175,  3,176,  3,177,  3,178,  3,179,  3,180,
+    3,181,  3,182,  3,183,  3,184,  3,185,  3,186,  3,187,  3,188,  3,189,  3,190,
+    3,191,  3,192,  3,193,  3,194,  3,195,  3,196,  3,197,  3,198,  3,199,  3,200,
+    3,201,  3,202,  3,203,  3,204,  3,205,  3,206,  3,253,255;
+#def  _GsmLib_CP1253_TO_UCS2_128_255 word[128] __Init_____GsmLib_CP1253_TO_UCS2_128_255
+#data byte __Init_____GsmLib_CP1255_TO_UCS2_128_255 = 
+  172, 32,253,255, 26, 32,146,  1, 30, 32, 38, 32, 32, 32, 33, 32,198,  2, 48, 32,253,
+  255, 57, 32,253,255,253,255,253,255,253,255,253,255, 24, 32, 25, 32, 28, 32, 29,
+   32, 34, 32, 19, 32, 20, 32,220,  2, 34, 33,253,255, 58, 32,253,255,253,255,253,
+  255,253,255,160,  0,161,  0,162,  0,163,  0,170, 32,165,  0,166,  0,167,  0,168,
+    0,169,  0,215,  0,171,  0,172,  0,173,  0,174,  0,175,  0,176,  0,177,  0,178,
+    0,179,  0,180,  0,181,  0,182,  0,183,  0,184,  0,185,  0,247,  0,187,  0,188,
+    0,189,  0,190,  0,191,  0,176,  5,177,  5,178,  5,179,  5,180,  5,181,  5,182,
+    5,183,  5,184,  5,185,  5,253,255,187,  5,188,  5,189,  5,190,  5,191,  5,192,
+    5,193,  5,194,  5,195,  5,240,  5,241,  5,242,  5,243,  5,244,  5,253,255,253,
+  255,253,255,253,255,253,255,253,255,253,255,208,  5,209,  5,210,  5,211,  5,212,
+    5,213,  5,214,  5,215,  5,216,  5,217,  5,218,  5,219,  5,220,  5,221,  5,222,
+    5,223,  5,224,  5,225,  5,226,  5,227,  5,228,  5,229,  5,230,  5,231,  5,232,
+    5,233,  5,234,  5,253,255,253,255, 14, 32, 15, 32,253,255;
+#def  _GsmLib_CP1255_TO_UCS2_128_255 word[128] __Init_____GsmLib_CP1255_TO_UCS2_128_255
+#data byte __Init_____GsmLib_CP125x_TO_BE_EGSM7 = 
+   12, 91, 92, 93, 94,123,124,125,126,128,  0;
+#def  _GsmLib_CP125x_TO_BE_EGSM7 byte[11] __Init_____GsmLib_CP125x_TO_BE_EGSM7
+#data byte __Init_____GsmLib_EGSM7_VALUES = 
+   10, 60, 47, 62, 20, 40, 64, 41, 61,101,  0;
+#def  _GsmLib_EGSM7_VALUES byte[11] __Init_____GsmLib_EGSM7_VALUES
+
+#defpou __LATENT_INSTANCE _GsmLib_CP125x_TO_EGSM7_BYTE
+  byte __fc___GsmLib_CP125x_TO_EGSM7_BYTE,
+  byte b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP125x_TO_GSM7_BYTE
+  byte __fc___GsmLib_CP125x_TO_GSM7_BYTE,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1253_TO_GSM7_BYTE
+  byte __fc___GsmLib_CP1253_TO_GSM7_BYTE,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_GSM7_TO_CP125x_BYTE
+  byte __fc___GsmLib_GSM7_TO_CP125x_BYTE,
+  word w
+
+
+#defpou __LATENT_INSTANCE _GsmLib_GSM7_TO_CP125x
+  usint __fc___GsmLib_GSM7_TO_CP125x,
+  pointer pW,
+  pointer pB,
+  usint length
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1250_TO_UCS2_WORD
+  word __fc___GsmLib_CP1250_TO_UCS2_WORD,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1251_TO_UCS2_WORD
+  word __fc___GsmLib_CP1251_TO_UCS2_WORD,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1253_TO_UCS2_WORD
+  word __fc___GsmLib_CP1253_TO_UCS2_WORD,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1252_TO_UCS2_WORD
+  word __fc___GsmLib_CP1252_TO_UCS2_WORD,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CP1255_TO_UCS2_WORD
+  word __fc___GsmLib_CP1255_TO_UCS2_WORD,
+  usint b
+
+
+#defpou __LATENT_INSTANCE _GsmLib_UCS2_TO_CP125x_BYTE
+  byte __fc___GsmLib_UCS2_TO_CP125x_BYTE,
+  word w
+
+
+#defpou __LATENT_INSTANCE _GsmLib_UCS2_TO_CP125x
+  bool __fc___GsmLib_UCS2_TO_CP125x,
+  pointer pW,
+  pointer pB
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CodeSemiOctetsNumber
+  usint __fc___GsmLib_CodeSemiOctetsNumber,
+  pointer IN,
+  pointer Num
+
+
+#defpou __LATENT_INSTANCE _GsmLib_DecodeSemiOctetsNumber
+  usint __fc___GsmLib_DecodeSemiOctetsNumber,
+  pointer IN,
+  usint LNG,
+  pointer Num
+
+
+#defpou __LATENT_INSTANCE _GsmLib_BYTE_TO_HEX
+  word __fc___GsmLib_BYTE_TO_HEX,
+  byte B
+
+
+#defpou __LATENT_INSTANCE _GsmLib_HEX_TO_BYTE
+  byte __fc___GsmLib_HEX_TO_BYTE,
+  pointer HEX
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CheckBCD
+  bool __fc___GsmLib_CheckBCD,
+  pointer BCD
+
+
+#defpou __LATENT_INSTANCE _GsmLib_BCD_TO_USINT
+  usint __fc___GsmLib_BCD_TO_USINT,
+  pointer BCD
+
+
+#defpou __LATENT_INSTANCE _GsmLib_SwapBCD_TO_USINT
+  usint __fc___GsmLib_SwapBCD_TO_USINT,
+  pointer BCD
+
+
+#defpou __LATENT_INSTANCE _GsmLib_GetGSMDateTime
+  date_and_time __fc___GsmLib_GetGSMDateTime,
+  pointer pGSMDT
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CodeTo7bitHEX
+  usint __fc___GsmLib_CodeTo7bitHEX,
+  pointer HEX,
+  usint PlcCoding,  ;windows cp-1250
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_Decode7bitHEX
+  usint __fc___GsmLib_Decode7bitHEX,
+  pointer HEX,
+  usint N,
+  usint U,
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CodeTo8bitHEX
+  usint __fc___GsmLib_CodeTo8bitHEX,
+  pointer HEX,
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CodeTo8bitHEX2
+  usint __fc___GsmLib_CodeTo8bitHEX2,
+  pointer HEX,
+  usint Lenght,
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_Decode8bitHEX
+  usint __fc___GsmLib_Decode8bitHEX,
+  pointer HEX,
+  usint N,
+  usint U,
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_CodeTo16bitHEX
+  usint __fc___GsmLib_CodeTo16bitHEX,
+  pointer HEX,
+  usint PlcCoding,  ;windows cp-1250
+  pointer Text
+
+
+#defpou __LATENT_INSTANCE _GsmLib_Decode16bitHEX
+  usint __fc___GsmLib_Decode16bitHEX,
+  pointer HEX,
+  usint N,
+  usint U,
+  pointer Text
+
+
+#defpou SMS_HANDLER
+  bool Send,  ;Na nábìžnou hranu odeslat SMS
+  bool Ussd,  ;Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo
+  bool Reset,  ;Na nábìžnou hranu zinicializovat GSM bránu
+  bool Cold,  ;Provést pøi inicializaci i softwarový reset modemu
+  bool Erase,  ;Vymazat SMS uložené na SIM pøi inicializaci modemu
+  bool Dial,  ;Prozvonit èíslo pøíjemce SMS (Recipient)
+  time DialTime,  ;Doba prozvánìní
+  bool NewMess,  ;Pøijata nová SMS zpráva
+  bool Ready,  ;GSM brána je pøipravena pro pøíjem a vysílání
+  bool Ring,  ;Signalizace pøíchozího volání
+  date_and_time RecvTime,  ;Èas pøijetí SMS zprávy
+  sint Signal,  ;Síla signálu v procentech
+  usint State,  ;Stav komunikace s modemem
+  usint Error,  ;Specifikace chyby pøi komunikaci s modemem
+  bool SendPending,  ;Probíhá odesílání SMS
+  bool UssdPending,  ;Probíhá odesílání pøíkazu jako telefonního èísla
+  bool DialPending,  ;Probíhá prozvánìní telefonního èísla
+  pointer CH_IN,  ;Vstupní komunikaèní zóna UNI kanálu
+  pointer CH_OUT,  ;Výstupní komunikaèní zóna UNI kanálu
+  pointer Pin,  ;Pin SIM karty
+  pointer SMSCenter,  ;Èíslo støediska SMS zpráv
+  pointer Sender,  ;Telefonní èíslo odesílatele pøijaté SMS zprávy
+  pointer RecvMess,  ;Text pøijaté SMS zprávy
+  pointer Recipient,  ;Telefonní èíslo pøíjemce zprávy k odeslání
+  pointer MessToSend,  ;Text SMS zprávy k odeslání
+  pointer Caller,  ;Telefonní èíslo volajícího
+  TON TimeOut,
+  usint Counter,
+  bool MessOut,
+  bool ColdRestart,
+  bool LastArc,
+  bool NeedErase,
+  bool HardErr,
+  bool Ok,
+  bool Stop,
+  bool InitDone,
+  TON WaitTime,
+  string[81] HelpString,
+  NUMBER_STRING l_USSD,
+  NUMBER_STRING l_Recipient,
+  SMS_STRING l_MessToSend,
+  usint ReadErrs,
+  usint MaxReadErrs,
+  usint MessagesCnt,
+  bool __EDGE_R__Send,
+  bool __EDGE_R__Ussd,
+  bool __EDGE_R__Reset,
+  bool __EDGE_R__Dial
+
+
+#defpou fbRecvToCrLf
+  bool getMess,  ;Vybere zprávu z bufferu
+  uint lenBuf,  ;Délka bufferu
+  uint chanCode,  ;Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)
+  bool reset,  ;Vymaže buffer
+  bool full,  ;Buffer je plný, zprávy nebyly odebírány dostateènì rychle
+  uint lenMess,  ;Délka zprávy
+  uint actPos,
+  fbRecvFrom RecvFrom,
+  pointer buffer  ;První byte bufferu
+
+
+#defpou SMS_HANDLER_2
+  bool Send,  ;Na nábìžnou hranu odeslat SMS
+  bool Ussd,  ;Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo
+  bool Reset,  ;Na nábìžnou hranu zinicializovat GSM bránu
+  bool Cold,  ;Provést pøi inicializaci i softwarový reset modemu
+  bool Erase,  ;Vymazat SMS uložené na SIM pøi inicializaci modemu
+  bool Dial,  ;Prozvonit èíslo pøíjemce SMS (Recipient)
+  bool Stat,  ;Vyžadovat stav doruèení
+  time DialTime,  ;Doba prozvánìní
+  usint PlcCoding,  ;Kódování STRINGù v programu PLC
+  usint SmsCoding,  ;Kódování SMS zpráv
+  uint ChanCode,  ;Èíslo kanálu v režimu UNI (CH1_uni .. CH10_uni)
+  bool NewMess,  ;Pøijata nová SMS zpráva
+  bool Ready,  ;GSM brána je pøipravena pro pøíjem a vysílání
+  bool Ring,  ;Signalizace pøíchozího volání
+  bool NewStat,  ;Pøijat nový status
+  usint StatCode,  ;Status o doruèení SMS zprávy
+  usint SmsRef,  ;Identifikaèní èíslo SMS zprávy pøi odeslání, nebo reference na zprávu pøi pøijetí statusu
+  date_and_time RecvTime,  ;Èas pøijetí SMS zprávy
+  date_and_time StatTime,  ;Èas získání statusu (doba doruèení/nedoruèení)
+  usint RingCount,  ;
+  sint Signal,  ;Síla signálu v procentech.
+  usint State,  ;Stav komunikace s modemem
+  usint Error,  ;Specifikace chyby pøi komunikaci s modemem
+  bool SendPending,  ;Probíhá odesílání SMS
+  bool UssdPending,  ;Probíhá odesílání pøíkazu jako telefonního èísla
+  bool DialPending,  ;Probíhá prozvánìní telefonního èísla
+  pointer Pin,  ;Pin SIM karty
+  pointer SMSCenter,  ;Èíslo støediska SMS zpráv
+  pointer Sender,  ;Telefonní èíslo odesílatele pøijaté SMS zprávy
+  pointer RecvMess,  ;Text pøijaté SMS zprávy
+  pointer Recipient,  ;Telefonní èíslo pøíjemce zprávy k odeslání
+  pointer MessToSend,  ;Text SMS zprávy k odeslání
+  pointer Caller,  ;Telefonní èíslo volajícího
+  TON TimeOut,
+  TON WaitTime,
+  usint Counter,
+  bool MessOut,
+  bool ColdRestart,
+  bool NeedErase,
+  bool HardErr,
+  bool ok,
+  bool WaitForOk,
+  bool Stop,
+  bool MessStat,
+  bool InitDone,
+  bool l_Stat,
+  usint MessStatCode,
+  NUMBER_STRING l_USSD,
+  NUMBER_STRING l_Recipient,
+  NUMBER_STRING l_SMSCenter,
+  SMS_STRING l_MessToSend,
+  usint ReadErrs,
+  usint MaxReadErrs,
+  usint MessagesCnt,
+  usint OctetCnt,
+  uint OctetLen,
+  fbRecvToCrLf RecvFrom,
+  fbSendTo SendTo,
+  usint[512] BuferIN,
+  word[180] BuferOUT,
+  string[33] DataOUT,
+  pointer pusintdbg,
+  bool __EDGE_R__Send,
+  bool __EDGE_R__Ussd,
+  bool __EDGE_R__Reset,
+  bool __EDGE_R__Dial
+
+
+#defpou SMS_HANDLER_3
+  bool Send,  ;Na nábìžnou hranu odeslat SMS
+  bool Ussd,  ;Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo
+  bool Reset,  ;Na nábìžnou hranu zinicializovat GSM bránu
+  bool Cold,  ;Provést pøi inicializaci i softwarový reset modemu
+  bool Erase,  ;Vymazat SMS uložené na SIM pøi inicializaci modemu
+  bool Dial,  ;Prozvonit èíslo pøíjemce SMS (Recipient)
+  bool Stat,  ;Vyžadovat stav doruèení
+  usint MessLen,  ;Délka zprávy k odeslání
+  time DialTime,  ;Doba prozvánìní
+  usint PlcCoding,  ;Kódování STRINGù v programu PLC
+  usint SmsCoding,  ;Kódování SMS zpráv
+  uint ChanCode,  ;Èíslo kanálu v režimu UNI (CH1_uni .. CH10_uni)
+  bool NewMess,  ;Pøijata nová SMS zpráva
+  bool Ready,  ;GSM brána je pøipravena pro pøíjem a vysílání
+  bool Ring,  ;Signalizace pøíchozího volání
+  bool NewStat,  ;Pøijat nový status
+  usint StatCode,  ;Status o doruèení SMS zprávy
+  usint SmsRef,  ;Identifikaèní èíslo SMS zprávy pøi odeslání, nebo reference na zprávu pøi pøijetí statusu
+  date_and_time RecvTime,  ;Èas pøijetí SMS zprávy
+  date_and_time StatTime,  ;Èas získání statusu (doba doruèení/nedoruèení)
+  usint RingCount,  ;
+  sint Signal,  ;Síla signálu v procentech.
+  usint State,  ;Stav komunikace s modemem
+  usint Error,  ;Specifikace chyby pøi komunikaci s modemem
+  bool SendPending,  ;Probíhá odesílání SMS
+  bool UssdPending,  ;Probíhá odesílání pøíkazu jako telefonního èísla
+  bool DialPending,  ;Probíhá prozvánìní telefonního èísla
+  pointer Pin,  ;Pin SIM karty
+  pointer SMSCenter,  ;Èíslo støediska SMS zpráv
+  pointer Sender,  ;Telefonní èíslo odesílatele pøijaté SMS zprávy
+  pointer RecvMess,  ;Text pøijaté SMS zprávy
+  pointer Recipient,  ;Telefonní èíslo pøíjemce zprávy k odeslání
+  pointer MessToSend,  ;První byte zprávy k odeslání
+  pointer Caller,  ;Telefonní èíslo volajícího
+  TON TimeOut,
+  TON WaitTime,
+  usint Counter,
+  bool MessOut,
+  bool ColdRestart,
+  bool NeedErase,
+  bool HardErr,
+  bool ok,
+  bool WaitForOk,
+  bool Stop,
+  bool MessStat,
+  bool InitDone,
+  bool l_Stat,
+  usint MessStatCode,
+  NUMBER_STRING l_USSD,
+  NUMBER_STRING l_Recipient,
+  NUMBER_STRING l_SMSCenter,
+  usint[160] l_MessToSend,
+  usint ReadErrs,
+  usint MaxReadErrs,
+  usint MessagesCnt,
+  usint OctetCnt,
+  uint OctetLen,
+  fbRecvToCrLf RecvFrom,
+  fbSendTo SendTo,
+  usint[512] BuferIN,
+  word[180] BuferOUT,
+  string[33] DataOUT,
+  pointer pusintdbg,
+  bool __EDGE_R__Send,
+  bool __EDGE_R__Ussd,
+  bool __EDGE_R__Reset,
+  bool __EDGE_R__Dial
+
+
+; Global types
+#def  SendSmsTcp_ER75i_State usint   ; ENUM Type 
+
+#defpou fbSendSmsTcp_ER75i
+  bool Send,  ;Poslat SMS zprávu
+  bool Conn,  ;Navázat spojení
+  uint ChanCode,  ;Pøenosový kanál  TCP Master, in: 512, out: 256
+  TIPadr IPadr,  ;IP adresa modemu
+  uint Port,  ;Port AT-SMS služby
+  bool Sent,  ;Zpráva odeslána SMS
+  bool SendPending,  ;Probíhá odesílání SMS
+  bool Busy,  ;Probíhá komunikace
+  bool Connected,  ;TCP komunikace navázána
+  usint State,  ;Stav komunikace
+  pointer Recipient,  ;Telefonní èíslo pøíjemce zprávy k odeslání
+  pointer MessToSend,  ;Text SMS zprávy k odeslání
+  TRemoteEthAdr ethAdr,  ;nové nastavení
+  NUMBER_STRING l_Recipient,
+  SMS_STRING l_MessToSend,
+  fbRecvToCrLf RecvFrom,
+  fbSendTo SendTo,
+  usint[512] BuferIN,
+  string[256] DataOut,
+  TON timer,
+  time timeout,
+  usint OldState,
+  bool NewMess,
+  bool Ok,
+  bool __EDGE_R__Send
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\Sysgen\CASADEFAM.mlh'
+
+
+ 
+
+#srcfile ''

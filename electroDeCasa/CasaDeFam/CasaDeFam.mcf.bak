@@ -1,0 +1,16 @@
+CONFIGURATION CasaDeFam
+  RESOURCE CPM
+    TASK FreeWheeling(Number := 0);
+    PROGRAM ovl_obyvak WITH FreeWheeling : ovladani_obyvak ();
+    PROGRAM ovl_koupelna1 WITH FreeWheeling : ovladani_koupelna1 ();
+    PROGRAM loznice WITH FreeWheeling : rizeni_loznice ();
+    PROGRAM pokojZ WITH FreeWheeling : rizeni_pokojZ ();
+    PROGRAM pokojV WITH FreeWheeling : rizeni_pokojV ();
+    PROGRAM koupelna2 WITH FreeWheeling : ovladani_koupelna2 ();
+    PROGRAM poplach1 WITH FreeWheeling : alarm ();
+    PROGRAM klavesnice1 WITH FreeWheeling : klavesnice ();
+    PROGRAM satna1np WITH FreeWheeling : ovladani_satna_1np ();
+    PROGRAM venkovni WITH FreeWheeling : ovladani_venkovni ();
+    PROGRAM pirka WITH FreeWheeling : ovladani_pir ();
+  END_RESOURCE
+END_CONFIGURATION

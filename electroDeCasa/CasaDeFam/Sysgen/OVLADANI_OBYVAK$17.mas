@@ -1,0 +1,261 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_OBYVAK.CFC'
+
+#defpou ovladani_obyvak
+  R_TRIG trigOb1,
+  R_TRIG trigOb2,
+  R_TRIG trigOb3,
+  R_TRIG trigOb4,
+  fb_off_SvKoupelna1 offOb,
+  R_TRIG trigOb5,
+  fb_on_SvKoupelna1 onOb,
+  fb_LED_blik blik_ob_2,
+  fb_LED_blik blik_ob_3,
+  TP tp_ob_1,
+  TP tp_ob_2,
+  TON tonOb,
+  time pomOB,
+  R_TRIG Trig_Ob_6,
+  R_TRIG Trig_Ob_7,
+  R_TRIG Trig_Ob_8
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_OBYVAK.CFC'
+#pou ovladani_obyvak
+#srcline 1 ;PROGRAM ovladani_obyvak
+
+#struct ovladani_obyvak__temp__
+  bool _Nod_Tmp_12,
+  bool _Nod_Tmp_11,
+  bool _Nod_Tmp_9,
+  bool _Nod_Tmp_8,
+  time _Nod_Tmp_6,
+  bool _Nod_Tmp_5
+P     61
+ovladani_obyvak_L0:
+ LINK __SizeOf(ovladani_obyvak__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 917 ;(*  99	*)	CAL	trigOb1(CLK:=tls_ob_tr)
+ LD   bool tls_ob_tr
+#debug bool tls_ob_tr
+ WRX  trigOb1~CLK
+#debug_left bool trigOb1~CLK
+ LEAX trigOb1
+ CAL  R_TRIG_L0
+#srcline 918 ;(*  99	*)	LD 	trigOb1.Q
+ LDX  trigOb1~Q
+#debug bool trigOb1.Q
+#srcline 919 ;(* 423	*)	ST	_Nod_Tmp_12
+ WRY  _Nod_Tmp_12
+#debug_left bool _Nod_Tmp_12
+#srcline 920 ;(*  64	*)	LD 	sv_ob_1
+ LD   bool sv_ob_1
+#debug bool sv_ob_1
+#srcline 921 ;(* 432	*)	ST	_Nod_Tmp_11
+ WRY  _Nod_Tmp_11
+#debug_left bool _Nod_Tmp_11
+#srcline 922 ;(*  39	*)	LD 	_Nod_Tmp_12
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+#srcline 923 ;(*  47	*)	XOR 	_Nod_Tmp_11
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+ XOR
+#srcline 924 ;(*  17	*)	ST 	sv_ob_1
+ WR   bool sv_ob_1
+#debug_left bool sv_ob_1
+#srcline 925 ;(* 116	*)	CAL	trigOb2(CLK:=tls_ob_tl)
+ LD   bool tls_ob_tl
+#debug bool tls_ob_tl
+ WRX  trigOb2~CLK
+#debug_left bool trigOb2~CLK
+ LEAX trigOb2
+ CAL  R_TRIG_L0
+#srcline 926 ;(* 116	*)	LD 	trigOb2.Q
+ LDX  trigOb2~Q
+#debug bool trigOb2.Q
+#srcline 927 ;(* 365	*)	ST	_Nod_Tmp_9
+ WRY  _Nod_Tmp_9
+#debug_left bool _Nod_Tmp_9
+#srcline 928 ;(*  96	*)	LD 	sv_ob_2
+ LD   bool sv_ob_2
+#debug bool sv_ob_2
+#srcline 929 ;(* 374	*)	ST	_Nod_Tmp_8
+ WRY  _Nod_Tmp_8
+#debug_left bool _Nod_Tmp_8
+#srcline 930 ;(*  71	*)	LD 	_Nod_Tmp_9
+ LDY  _Nod_Tmp_9
+#debug bool _Nod_Tmp_9
+#srcline 931 ;(*  79	*)	XOR 	_Nod_Tmp_8
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ XOR
+#srcline 932 ;(*  26	*)	ST 	sv_ob_2
+ WR   bool sv_ob_2
+#debug_left bool sv_ob_2
+#srcline 933 ;(* 459	*)	LD 	T#0.5s
+ LD   time 500
+#srcline 934 ;(* 462	*)	ST	_Nod_Tmp_6
+ WRY  _Nod_Tmp_6
+#debug_left time _Nod_Tmp_6
+#srcline 935 ;(* 383	*)	CAL	blik_ob_3(InButton:=_Nod_Tmp_12, InLight:=_Nod_Tmp_11, InTimeOfBlic:=_Nod_Tmp_6)
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+ WRX  blik_ob_3~InButton
+#debug_left bool blik_ob_3~InButton
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+ WRX  blik_ob_3~InLight
+#debug_left bool blik_ob_3~InLight
+ LDY  _Nod_Tmp_6
+#debug time _Nod_Tmp_6
+ WRX  blik_ob_3~InTimeOfBlic
+#debug_left time blik_ob_3~InTimeOfBlic
+ LEAX blik_ob_3
+ CAL  fb_LED_blik_L0
+#srcline 936 ;(* 383	*)	LD 	blik_ob_3.OutLED_Green
+ LDX  blik_ob_3~OutLED_Green
+#debug bool blik_ob_3.OutLED_Green
+#srcline 937 ;(* 441	*)	ST 	led_ob_rg
+ WR   bool led_ob_rg
+#debug_left bool led_ob_rg
+#srcline 938 ;(* 383	*)	LD 	blik_ob_3.OutLED_Red
+ LDX  blik_ob_3~OutLED_Red
+#debug bool blik_ob_3.OutLED_Red
+#srcline 939 ;(* 450	*)	ST 	led_ob_rr
+ WR   bool led_ob_rr
+#debug_left bool led_ob_rr
+#srcline 940 ;(* 325	*)	CAL	blik_ob_2(InButton:=_Nod_Tmp_9, InLight:=_Nod_Tmp_8, InTimeOfBlic:=_Nod_Tmp_6)
+ LDY  _Nod_Tmp_9
+#debug bool _Nod_Tmp_9
+ WRX  blik_ob_2~InButton
+#debug_left bool blik_ob_2~InButton
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ WRX  blik_ob_2~InLight
+#debug_left bool blik_ob_2~InLight
+ LDY  _Nod_Tmp_6
+#debug time _Nod_Tmp_6
+ WRX  blik_ob_2~InTimeOfBlic
+#debug_left time blik_ob_2~InTimeOfBlic
+ LEAX blik_ob_2
+ CAL  fb_LED_blik_L0
+#srcline 941 ;(* 325	*)	LD 	blik_ob_2.OutLED_Green
+ LDX  blik_ob_2~OutLED_Green
+#debug bool blik_ob_2.OutLED_Green
+#srcline 942 ;(* 316	*)	ST 	led_ob_lg
+ WR   bool led_ob_lg
+#debug_left bool led_ob_lg
+#srcline 943 ;(* 325	*)	LD 	blik_ob_2.OutLED_Red
+ LDX  blik_ob_2~OutLED_Red
+#debug bool blik_ob_2.OutLED_Red
+#srcline 944 ;(* 563	*)	ST 	led_ob_lr
+ WR   bool led_ob_lr
+#debug_left bool led_ob_lr
+#srcline 945 ;//N001
+#srcline 946 ;(* 572	*)	LD 	tll_ob_lr
+ LD   bool tll_ob_lr
+#debug bool tll_ob_lr
+#srcline 947 ;(* 638	*)	ST	_Nod_Tmp_5
+ WRY  _Nod_Tmp_5
+#debug_left bool _Nod_Tmp_5
+#srcline 948 ;(* 575	*)	CAL	tonOb(IN:=_Nod_Tmp_5, PT:=T#1s)
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ WRX  tonOb~IN
+#debug_left bool tonOb~IN
+ LD   time 1000
+ WRX  tonOb~PT
+#debug_left time tonOb~PT
+ LEAX tonOb
+ CAL  TON_L0
+#srcline 949 ;(* 575	*)	LD 	tonOb.ET
+ LDX  tonOb~ET
+#debug time tonOb.ET
+#srcline 950 ;(* 647	*)	ST 	pomOB
+ WRX  pomOB
+#debug_left time pomOB
+#srcline 951 ;(* 613	*)	LD 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+#srcline 952 ;(* 621	*)	AND 	tonOb.Q
+ LDX  tonOb~Q
+#debug bool tonOb.Q
+ AND
+#srcline 953 ;(* 656	*)	ST 	trigOb3.CLK
+ WRX  trigOb3~CLK
+#debug_left bool trigOb3.CLK
+#srcline 954 ;(* 656	*)	CAL	trigOb3()
+ LEAX trigOb3
+ CAL  R_TRIG_L0
+#srcline 955 ;(* 656	*)	LD 	trigOb3.Q
+ LDX  trigOb3~Q
+#debug bool trigOb3.Q
+#srcline 956 ;(* 864	*)	ST 	sig_tl_obyvak
+ WR   sig_tl_obyvak
+#debug_left bool sig_tl_obyvak
+#srcline 957 ;//N002
+#srcline 958 ;(* 677	*)	CAL	Trig_Ob_6(CLK:=tl_kuchyne_okna)
+ LD   bool tl_kuchyne_okna
+#debug bool tl_kuchyne_okna
+ WRX  Trig_Ob_6~CLK
+#debug_left bool Trig_Ob_6~CLK
+ LEAX Trig_Ob_6
+ CAL  R_TRIG_L0
+#srcline 959 ;(* 701	*)	LD 	Trig_Ob_6.Q
+ LDX  Trig_Ob_6~Q
+#debug bool Trig_Ob_6.Q
+#srcline 960 ;(* 709	*)	XOR 	sv_ku_okna
+ LD   bool sv_ku_okna
+#debug bool sv_ku_okna
+ XOR
+#srcline 961 ;(* 726	*)	ST 	sv_ku_okna
+ WR   bool sv_ku_okna
+#debug_left bool sv_ku_okna
+#srcline 962 ;//N003
+#srcline 963 ;(* 738	*)	CAL	Trig_Ob_7(CLK:=tl_kuchyne_vchod_vlevo)
+ LD   bool tl_kuchyne_vchod_vlevo
+#debug bool tl_kuchyne_vchod_vlevo
+ WRX  Trig_Ob_7~CLK
+#debug_left bool Trig_Ob_7~CLK
+ LEAX Trig_Ob_7
+ CAL  R_TRIG_L0
+#srcline 964 ;(* 762	*)	LD 	Trig_Ob_7.Q
+ LDX  Trig_Ob_7~Q
+#debug bool Trig_Ob_7.Q
+#srcline 965 ;(* 770	*)	XOR 	sv_ku_linka
+ LD   bool sv_ku_linka
+#debug bool sv_ku_linka
+ XOR
+#srcline 966 ;(* 787	*)	ST 	sv_ku_linka
+ WR   bool sv_ku_linka
+#debug_left bool sv_ku_linka
+#srcline 967 ;//N004
+#srcline 968 ;(* 843	*)	CAL	Trig_Ob_8(CLK:=tls_ob_ll)
+ LD   bool tls_ob_ll
+#debug bool tls_ob_ll
+ WRX  Trig_Ob_8~CLK
+#debug_left bool Trig_Ob_8~CLK
+ LEAX Trig_Ob_8
+ CAL  R_TRIG_L0
+#srcline 969 ;(* 806	*)	LD 	Trig_Ob_8.Q
+ LDX  Trig_Ob_8~Q
+#debug bool Trig_Ob_8.Q
+#srcline 970 ;(* 814	*)	XOR 	sv_ku_dvere
+ LD   bool sv_ku_dvere
+#debug bool sv_ku_dvere
+ XOR
+#srcline 971 ;(* 831	*)	ST 	sv_ku_dvere
+ WR   bool sv_ku_dvere
+#debug_left bool sv_ku_dvere
+#srcline 973 ;END_PROGRAM
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

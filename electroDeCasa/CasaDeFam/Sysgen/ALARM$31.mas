@@ -1,0 +1,234 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\ALARM.CFC'
+
+#defpou alarm
+  bool ussd,
+  bool dial,
+  PIN_STRING pin,
+  NUMBER_STRING smscenter,
+  NUMBER_STRING caller,
+  usint state,  ;initicializace
+  bool ready,
+  sint signal,
+  bool ringing,
+  usint err,  ;bez chyby
+  bool smska,
+  SMS_HANDLER_2 sms2,
+  usint coding,  ;windows cp-1250
+  usint smscoding,  ;7-bit GSM 03.38
+  bool newstat,
+  bool sending,
+  bool init_handler,
+  bool rst_sw,
+  bool erase_init_sms,
+  bool stat,
+  NUMBER_STRING lojza,
+  bool dialing,
+  NUMBER_STRING sender,
+  SMS_STRING recvsms,
+  SMS_STRING get_sms,
+  SMS_STRING smstext
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\ALARM.CFC'
+#pou alarm
+#srcline 1 ;PROGRAM alarm
+#table byte __Init___alarm_smscenter = 
+     43, 52, 50, 48, 54, 48, 50, 57, 48, 57, 57, 48, 57;
+#table byte __Init___alarm_caller = 
+     43, 52, 50, 48, 54, 48, 49, 53, 56, 54, 57, 50, 55;
+#table byte __Init___alarm_lojza = 
+     43, 52, 50, 48, 55, 50, 53, 53, 48, 53, 48, 54, 50;
+#table byte __Init___alarm_smstext = 
+    115,109,115, 32,111,100, 32,116,101, 99,111,109, 97,116,117, 32, 58, 45, 41;
+
+#struct alarm__temp__
+  string[255] PS0__st__
+P     61
+alarm_L0:
+ LINK __SizeOf(alarm__temp__)
+#srcline 417 ;(*  92	*)	CAL	sms2(Send:=tl_na_pokusy, Ussd:=ussd, Reset:=init_handler, Cold:=rst_sw, Erase:=erase_init_sms, Dial:=dial, Stat:=stat, DialTime:=T#20s, PlcCoding:=coding, SmsCoding:=smscoding, ChanCode:=CH1_uni, Pin:=void(pin), SMSCenter:=void(smscenter), Sender:=void(sender), RecvMess:=void(get_sms), Recipient:=void(lojza), MessToSend:=void(smstext), Caller:=void(caller))
+ LD   bool tl_na_pokusy
+#debug bool tl_na_pokusy
+ WRX  sms2~Send
+#debug_left bool sms2~Send
+ LDX  ussd
+#debug bool ussd
+ WRX  sms2~Ussd
+#debug_left bool sms2~Ussd
+ LDX  init_handler
+#debug bool init_handler
+ WRX  sms2~Reset
+#debug_left bool sms2~Reset
+ LDX  rst_sw
+#debug bool rst_sw
+ WRX  sms2~Cold
+#debug_left bool sms2~Cold
+ LDX  erase_init_sms
+#debug bool erase_init_sms
+ WRX  sms2~Erase
+#debug_left bool sms2~Erase
+ LDX  dial
+#debug bool dial
+ WRX  sms2~Dial
+#debug_left bool sms2~Dial
+ LDX  stat
+#debug bool stat
+ WRX  sms2~Stat
+#debug_left bool sms2~Stat
+ LD   time 20000
+ WRX  sms2~DialTime
+#debug_left time sms2~DialTime
+ LDX  coding
+#debug usint coding
+ WRX  sms2~PlcCoding
+#debug_left usint sms2~PlcCoding
+ LDX  smscoding
+#debug usint smscoding
+ WRX  sms2~SmsCoding
+#debug_left usint sms2~SmsCoding
+ LD   uint 257
+ WRX  sms2~ChanCode
+#debug_left uint sms2~ChanCode
+ LEAX pin
+ WRX  sms2~Pin
+#debug_left pointer sms2.Pin
+ LEAX smscenter
+ WRX  sms2~SMSCenter
+#debug_left pointer sms2.SMSCenter
+ LEAX sender
+ WRX  sms2~Sender
+#debug_left pointer sms2.Sender
+ LEAX get_sms
+ WRX  sms2~RecvMess
+#debug_left pointer sms2.RecvMess
+ LEAX lojza
+ WRX  sms2~Recipient
+#debug_left pointer sms2.Recipient
+ LEAX smstext
+ WRX  sms2~MessToSend
+#debug_left pointer sms2.MessToSend
+ LEAX caller
+ WRX  sms2~Caller
+#debug_left pointer sms2.Caller
+ LEAX sms2
+ CAL  SMS_HANDLER_2_L0
+#srcline 418 ;(*  92	*)	LD 	sms2.NewStat
+ LDX  sms2~NewStat
+#debug bool sms2.NewStat
+#srcline 419 ;(* 313	*)	ST 	newstat
+ WRX  newstat
+#debug_left bool newstat
+#srcline 420 ;(*  92	*)	LD 	sms2.SendPending
+ LDX  sms2~SendPending
+#debug bool sms2.SendPending
+#srcline 421 ;(* 322	*)	ST 	sending
+ WRX  sending
+#debug_left bool sending
+#srcline 422 ;(*  92	*)	LD 	sms2.NewMess
+ LDX  sms2~NewMess
+#debug bool sms2.NewMess
+#srcline 423 ;(*  83	*)	ST 	smska
+ WRX  smska
+#debug_left bool smska
+#srcline 424 ;(*  92	*)	LD 	sms2.Ring
+ LDX  sms2~Ring
+#debug bool sms2.Ring
+#srcline 425 ;(*  47	*)	ST 	ringing
+ WRX  ringing
+#debug_left bool ringing
+#srcline 426 ;(*  92	*)	LD 	sms2.DialPending
+ LDX  sms2~DialPending
+#debug bool sms2.DialPending
+#srcline 427 ;(* 339	*)	ST 	dialing
+ WRX  dialing
+#debug_left bool dialing
+#srcline 428 ;(*  92	*)	LD 	sms2.Ready
+ LDX  sms2~Ready
+#debug bool sms2.Ready
+#srcline 429 ;(*  38	*)	ST 	ready
+ WRX  ready
+#debug_left bool ready
+#srcline 430 ;(*  92	*)	LD 	sms2.Signal
+ LDX  sms2~Signal
+#debug sint sms2.Signal
+ EXTB 
+#srcline 431 ;(*  56	*)	ST 	signal
+ WRX  signal
+#debug_left sint signal
+#srcline 432 ;(*  92	*)	LD 	sms2.State
+ LDX  sms2~State
+#debug usint sms2.State
+#srcline 433 ;(*  65	*)	ST 	state
+ WRX  state
+#debug_left usint state
+#srcline 434 ;(*  92	*)	LD 	sms2.Error
+ LDX  sms2~Error
+#debug usint sms2.Error
+#srcline 435 ;(*  74	*)	ST 	err
+ WRX  err
+#debug_left usint err
+#srcline 436 ;//N004
+#srcline 437 ;(* 360	*)	LD 	get_sms
+ LD   0   ; null string - LD
+ WRY  PS0__st__[0]
+ LEAY PS0__st__[0]
+ LD   160
+ DST    ; Level 1
+ LEAX get_sms
+#debug string get_sms
+ SCON 
+ PDST   ; Level 1
+#srcline 438 ;//N005
+#srcline 439 ;(* 351	*)	ST 	recvsms
+ LD   0   ; null string
+ LEAX recvsms
+ WRI
+ LEAX recvsms
+#debug_left string recvsms
+ LD   160
+ DST    ; Level 1
+ LEAY PS0__st__[0]
+ SCON 
+ PDST    ; Level 1
+#srcline 441 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+alarm__InstanceInit__:
+ LINK 0
+ LD   0
+ SRC  byte __Init___alarm_smscenter
+ LEAX byte smscenter
+ LD   21
+ MOV  %X0
+ LD   0
+ SRC  byte __Init___alarm_caller
+ LEAX byte caller
+ LD   21
+ MOV  %X0
+ LEAX sms2
+ CAL  SMS_HANDLER_2__InstanceInit__
+ LD   0
+ SRC  byte __Init___alarm_lojza
+ LEAX byte lojza
+ LD   21
+ MOV  %X0
+ LD   0
+ SRC  byte __Init___alarm_smstext
+ LEAX byte smstext
+ LD   161
+ MOV  %X0
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

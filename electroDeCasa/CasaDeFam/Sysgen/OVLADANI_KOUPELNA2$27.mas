@@ -1,0 +1,449 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_KOUPELNA2.CFC'
+
+#defpou ovladani_koupelna2
+  R_TRIG trigKo2_2,
+  R_TRIG trigKo2_1,
+  R_TRIG trigKo2_3,
+  R_TRIG trigKo2_4,
+  R_TRIG trigOnKo2_1,
+  TP tp_ko2_2,
+  TP tp_ko2_1,
+  fb_on_SvKoupelna1 onKo2,
+  fb_off_SvKoupelna1 offKo2,
+  fb_LED_blik blik_ko2_1,
+  fb_LED_blik blik_ko2_3,
+  fb_LED_blik blik_ko2_2,
+  fb_kmitac kmit_Ko2
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_KOUPELNA2.CFC'
+#pou ovladani_koupelna2
+#srcline 1 ;PROGRAM ovladani_koupelna2
+
+#struct ovladani_koupelna2__temp__
+  bool _Nod_Tmp_24,
+  bool _Nod_Tmp_23,
+  bool _Nod_Tmp_21,
+  bool _Nod_Tmp_20,
+  bool _Nod_Tmp_19,
+  bool _Nod_Tmp_17,
+  bool _Nod_Tmp_16,
+  bool _Nod_Tmp_15,
+  bool _Nod_Tmp_13,
+  bool _Nod_Tmp_12,
+  bool _Nod_Tmp_11,
+  time _Nod_Tmp_10,
+  time _Nod_Tmp_9,
+  bool _Nod_Tmp_8,
+  bool _Nod_Tmp_5,
+  bool _Nod_Tmp_1
+P     61
+ovladani_koupelna2_L0:
+ LINK __SizeOf(ovladani_koupelna2__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 1109 ;(* 160	*)	CAL	trigKo2_2(CLK:=tls_k2_tr)
+ LD   bool tls_k2_tr
+#debug bool tls_k2_tr
+ WRX  trigKo2_2~CLK
+#debug_left bool trigKo2_2~CLK
+ LEAX trigKo2_2
+ CAL  R_TRIG_L0
+#srcline 1110 ;(* 160	*)	LD 	trigKo2_2.Q
+ LDX  trigKo2_2~Q
+#debug bool trigKo2_2.Q
+#srcline 1111 ;(* 520	*)	ST	_Nod_Tmp_24
+ WRY  _Nod_Tmp_24
+#debug_left bool _Nod_Tmp_24
+#srcline 1112 ;(* 108	*)	LD 	sv_k2_2
+ LD   bool sv_k2_2
+#debug bool sv_k2_2
+#srcline 1113 ;(* 529	*)	ST	_Nod_Tmp_23
+ WRY  _Nod_Tmp_23
+#debug_left bool _Nod_Tmp_23
+#srcline 1114 ;(*  83	*)	LD 	_Nod_Tmp_24
+ LDY  _Nod_Tmp_24
+#debug bool _Nod_Tmp_24
+#srcline 1115 ;(*  91	*)	XOR 	_Nod_Tmp_23
+ LDY  _Nod_Tmp_23
+#debug bool _Nod_Tmp_23
+ XOR
+#srcline 1116 ;(* 985	*)	ST	_Nod_Tmp_21
+ WRY  _Nod_Tmp_21
+#debug_left bool _Nod_Tmp_21
+#srcline 1117 ;(*  29	*)	ST 	sv_k2_2
+ WR   bool sv_k2_2
+#debug_left bool sv_k2_2
+#srcline 1118 ;(* 143	*)	CAL	trigKo2_1(CLK:=tls_k2_tl)
+ LD   bool tls_k2_tl
+#debug bool tls_k2_tl
+ WRX  trigKo2_1~CLK
+#debug_left bool trigKo2_1~CLK
+ LEAX trigKo2_1
+ CAL  R_TRIG_L0
+#srcline 1119 ;(* 143	*)	LD 	trigKo2_1.Q
+ LDX  trigKo2_1~Q
+#debug bool trigKo2_1.Q
+#srcline 1120 ;(* 596	*)	ST	_Nod_Tmp_20
+ WRY  _Nod_Tmp_20
+#debug_left bool _Nod_Tmp_20
+#srcline 1121 ;(*  76	*)	LD 	sv_k2_1
+ LD   bool sv_k2_1
+#debug bool sv_k2_1
+#srcline 1122 ;(* 605	*)	ST	_Nod_Tmp_19
+ WRY  _Nod_Tmp_19
+#debug_left bool _Nod_Tmp_19
+#srcline 1123 ;(*  51	*)	LD 	_Nod_Tmp_20
+ LDY  _Nod_Tmp_20
+#debug bool _Nod_Tmp_20
+#srcline 1124 ;(*  59	*)	XOR 	_Nod_Tmp_19
+ LDY  _Nod_Tmp_19
+#debug bool _Nod_Tmp_19
+ XOR
+#srcline 1125 ;(* 976	*)	ST	_Nod_Tmp_17
+ WRY  _Nod_Tmp_17
+#debug_left bool _Nod_Tmp_17
+#srcline 1126 ;(*  20	*)	ST 	sv_k2_1
+ WR   bool sv_k2_1
+#debug_left bool sv_k2_1
+#srcline 1127 ;(* 177	*)	CAL	trigKo2_3(CLK:=tls_k2_ll)
+ LD   bool tls_k2_ll
+#debug bool tls_k2_ll
+ WRX  trigKo2_3~CLK
+#debug_left bool trigKo2_3~CLK
+ LEAX trigKo2_3
+ CAL  R_TRIG_L0
+#srcline 1128 ;(* 177	*)	LD 	trigKo2_3.Q
+ LDX  trigKo2_3~Q
+#debug bool trigKo2_3.Q
+#srcline 1129 ;(* 453	*)	ST	_Nod_Tmp_16
+ WRY  _Nod_Tmp_16
+#debug_left bool _Nod_Tmp_16
+#srcline 1130 ;(* 140	*)	LD 	sv_k2_3
+ LD   bool sv_k2_3
+#debug bool sv_k2_3
+#srcline 1131 ;(* 709	*)	ST	_Nod_Tmp_15
+ WRY  _Nod_Tmp_15
+#debug_left bool _Nod_Tmp_15
+#srcline 1132 ;(* 115	*)	LD 	_Nod_Tmp_16
+ LDY  _Nod_Tmp_16
+#debug bool _Nod_Tmp_16
+#srcline 1133 ;(* 123	*)	XOR 	_Nod_Tmp_15
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
+ XOR
+#srcline 1134 ;(* 967	*)	ST	_Nod_Tmp_13
+ WRY  _Nod_Tmp_13
+#debug_left bool _Nod_Tmp_13
+#srcline 1135 ;(*  38	*)	ST 	sv_k2_3
+ WR   bool sv_k2_3
+#debug_left bool sv_k2_3
+#srcline 1136 ;(* 194	*)	CAL	trigKo2_4(CLK:=tls_k2_lr)
+ LD   bool tls_k2_lr
+#debug bool tls_k2_lr
+ WRX  trigKo2_4~CLK
+#debug_left bool trigKo2_4~CLK
+ LEAX trigKo2_4
+ CAL  R_TRIG_L0
+#srcline 1137 ;(* 194	*)	LD 	trigKo2_4.Q
+ LDX  trigKo2_4~Q
+#debug bool trigKo2_4.Q
+#srcline 1138 ;(* 807	*)	ST	_Nod_Tmp_12
+ WRY  _Nod_Tmp_12
+#debug_left bool _Nod_Tmp_12
+#srcline 1139 ;(* 211	*)	CAL	offKo2(in:=_Nod_Tmp_12, sig0:=sv_k2_1, sig1:=sv_k2_2, sig2:=sv_k2_3)
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+ WRX  offKo2~in
+#debug_left bool offKo2~in
+ LD   bool sv_k2_1
+#debug bool sv_k2_1
+ WRX  offKo2~sig0
+#debug_left bool offKo2~sig0
+ LD   bool sv_k2_2
+#debug bool sv_k2_2
+ WRX  offKo2~sig1
+#debug_left bool offKo2~sig1
+ LD   bool sv_k2_3
+#debug bool sv_k2_3
+ WRX  offKo2~sig2
+#debug_left bool offKo2~sig2
+ LEAX offKo2
+ CAL  fb_off_SvKoupelna1_L0
+#srcline 1140 ;(* 211	*)	LD 	offKo2.sOff0
+ LDX  offKo2~sOff0
+#debug bool offKo2.sOff0
+#srcline 1141 ;(* 266	*)	ST 	sv_k2_1
+ WR   bool sv_k2_1
+#debug_left bool sv_k2_1
+#srcline 1142 ;(* 211	*)	LD 	offKo2.sOff1
+ LDX  offKo2~sOff1
+#debug bool offKo2.sOff1
+#srcline 1143 ;(* 278	*)	ST 	sv_k2_2
+ WR   bool sv_k2_2
+#debug_left bool sv_k2_2
+#srcline 1144 ;(* 211	*)	LD 	offKo2.sOff2
+ LDX  offKo2~sOff2
+#debug bool offKo2.sOff2
+#srcline 1145 ;(* 287	*)	ST 	sv_k2_3
+ WR   bool sv_k2_3
+#debug_left bool sv_k2_3
+#srcline 1146 ;(* 396	*)	CAL	trigOnKo2_1(CLK:=tll_k2_lr)
+ LD   bool tll_k2_lr
+#debug bool tll_k2_lr
+ WRX  trigOnKo2_1~CLK
+#debug_left bool trigOnKo2_1~CLK
+ LEAX trigOnKo2_1
+ CAL  R_TRIG_L0
+#srcline 1147 ;(* 396	*)	LD 	trigOnKo2_1.Q
+ LDX  trigOnKo2_1~Q
+#debug bool trigOnKo2_1.Q
+#srcline 1148 ;(* 859	*)	ST	_Nod_Tmp_11
+ WRY  _Nod_Tmp_11
+#debug_left bool _Nod_Tmp_11
+#srcline 1149 ;(* 332	*)	CAL	onKo2(in:=_Nod_Tmp_11, sig0:=sv_k2_1, sig1:=sv_k2_2, sig2:=sv_k2_3)
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+ WRX  onKo2~in
+#debug_left bool onKo2~in
+ LD   bool sv_k2_1
+#debug bool sv_k2_1
+ WRX  onKo2~sig0
+#debug_left bool onKo2~sig0
+ LD   bool sv_k2_2
+#debug bool sv_k2_2
+ WRX  onKo2~sig1
+#debug_left bool onKo2~sig1
+ LD   bool sv_k2_3
+#debug bool sv_k2_3
+ WRX  onKo2~sig2
+#debug_left bool onKo2~sig2
+ LEAX onKo2
+ CAL  fb_on_SvKoupelna1_L0
+#srcline 1150 ;(* 332	*)	LD 	onKo2.sOff0
+ LDX  onKo2~sOff0
+#debug bool onKo2.sOff0
+#srcline 1151 ;(* 305	*)	ST 	sv_k2_1
+ WR   bool sv_k2_1
+#debug_left bool sv_k2_1
+#srcline 1152 ;(* 332	*)	LD 	onKo2.sOff1
+ LDX  onKo2~sOff1
+#debug bool onKo2.sOff1
+#srcline 1153 ;(* 314	*)	ST 	sv_k2_2
+ WR   bool sv_k2_2
+#debug_left bool sv_k2_2
+#srcline 1154 ;(* 332	*)	LD 	onKo2.sOff2
+ LDX  onKo2~sOff2
+#debug bool onKo2.sOff2
+#srcline 1155 ;(* 323	*)	ST 	sv_k2_3
+ WR   bool sv_k2_3
+#debug_left bool sv_k2_3
+#srcline 1156 ;(* 614	*)	LD 	T#0.5s
+ LD   time 500
+#srcline 1157 ;(* 617	*)	ST	_Nod_Tmp_10
+ WRY  _Nod_Tmp_10
+#debug_left time _Nod_Tmp_10
+#srcline 1158 ;(* 556	*)	CAL	blik_ko2_3(InButton:=_Nod_Tmp_20, InLight:=_Nod_Tmp_19, InTimeOfBlic:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_20
+#debug bool _Nod_Tmp_20
+ WRX  blik_ko2_3~InButton
+#debug_left bool blik_ko2_3~InButton
+ LDY  _Nod_Tmp_19
+#debug bool _Nod_Tmp_19
+ WRX  blik_ko2_3~InLight
+#debug_left bool blik_ko2_3~InLight
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  blik_ko2_3~InTimeOfBlic
+#debug_left time blik_ko2_3~InTimeOfBlic
+ LEAX blik_ko2_3
+ CAL  fb_LED_blik_L0
+#srcline 1159 ;(* 413	*)	CAL	blik_ko2_1(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_16
+#debug bool _Nod_Tmp_16
+ WRX  blik_ko2_1~InButton
+#debug_left bool blik_ko2_1~InButton
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
+ WRX  blik_ko2_1~InLight
+#debug_left bool blik_ko2_1~InLight
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  blik_ko2_1~InTimeOfBlic
+#debug_left time blik_ko2_1~InTimeOfBlic
+ LEAX blik_ko2_1
+ CAL  fb_LED_blik_L0
+#srcline 1160 ;(* 825	*)	LD 	T#1s
+ LD   time 1000
+#srcline 1161 ;(* 877	*)	ST	_Nod_Tmp_9
+ WRY  _Nod_Tmp_9
+#debug_left time _Nod_Tmp_9
+#srcline 1162 ;(* 828	*)	CAL	tp_ko2_2(IN:=_Nod_Tmp_11, PT:=_Nod_Tmp_9)
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+ WRX  tp_ko2_2~IN
+#debug_left bool tp_ko2_2~IN
+ LDY  _Nod_Tmp_9
+#debug time _Nod_Tmp_9
+ WRX  tp_ko2_2~PT
+#debug_left time tp_ko2_2~PT
+ LEAX tp_ko2_2
+ CAL  TP_L0
+#srcline 1163 ;(* 828	*)	LD 	tp_ko2_2.Q
+ LDX  tp_ko2_2~Q
+#debug bool tp_ko2_2.Q
+#srcline 1164 ;(* 868	*)	ST	_Nod_Tmp_8
+ WRY  _Nod_Tmp_8
+#debug_left bool _Nod_Tmp_8
+#srcline 1165 ;(* 639	*)	LD 	blik_ko2_3.OutLED_Green
+ LDX  blik_ko2_3~OutLED_Green
+#debug bool blik_ko2_3.OutLED_Green
+#srcline 1166 ;(* 647	*)	OR 	blik_ko2_1.OutLED_Green
+ LDX  blik_ko2_1~OutLED_Green
+#debug bool blik_ko2_1.OutLED_Green
+ OR
+#srcline 1167 ;(* 655	*)	OR 	_Nod_Tmp_8
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ OR
+#srcline 1168 ;(* 462	*)	ST 	led_k2_lg
+ WR   bool led_k2_lg
+#debug_left bool led_k2_lg
+#srcline 1169 ;(* 480	*)	CAL	blik_ko2_2(InButton:=_Nod_Tmp_24, InLight:=_Nod_Tmp_23, InTimeOfBlic:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_24
+#debug bool _Nod_Tmp_24
+ WRX  blik_ko2_2~InButton
+#debug_left bool blik_ko2_2~InButton
+ LDY  _Nod_Tmp_23
+#debug bool _Nod_Tmp_23
+ WRX  blik_ko2_2~InLight
+#debug_left bool blik_ko2_2~InLight
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  blik_ko2_2~InTimeOfBlic
+#debug_left time blik_ko2_2~InTimeOfBlic
+ LEAX blik_ko2_2
+ CAL  fb_LED_blik_L0
+#srcline 1170 ;(* 722	*)	LD 	blik_ko2_2.OutLED_Green
+ LDX  blik_ko2_2~OutLED_Green
+#debug bool blik_ko2_2.OutLED_Green
+#srcline 1171 ;(* 730	*)	OR 	_Nod_Tmp_8
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ OR
+#srcline 1172 ;(* 538	*)	ST 	led_k2_rg
+ WR   bool led_k2_rg
+#debug_left bool led_k2_rg
+#srcline 1173 ;(* 776	*)	CAL	tp_ko2_1(IN:=_Nod_Tmp_12, PT:=_Nod_Tmp_9)
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+ WRX  tp_ko2_1~IN
+#debug_left bool tp_ko2_1~IN
+ LDY  _Nod_Tmp_9
+#debug time _Nod_Tmp_9
+ WRX  tp_ko2_1~PT
+#debug_left time tp_ko2_1~PT
+ LEAX tp_ko2_1
+ CAL  TP_L0
+#srcline 1174 ;(* 776	*)	LD 	tp_ko2_1.Q
+ LDX  tp_ko2_1~Q
+#debug bool tp_ko2_1.Q
+#srcline 1175 ;(* 816	*)	ST	_Nod_Tmp_5
+ WRY  _Nod_Tmp_5
+#debug_left bool _Nod_Tmp_5
+#srcline 1176 ;(* 751	*)	LD 	blik_ko2_2.OutLED_Red
+ LDX  blik_ko2_2~OutLED_Red
+#debug bool blik_ko2_2.OutLED_Red
+#srcline 1177 ;(* 759	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 1178 ;(* 547	*)	ST 	led_k2_rr
+ WR   bool led_k2_rr
+#debug_left bool led_k2_rr
+#srcline 1179 ;(* 676	*)	LD 	blik_ko2_3.OutLED_Red
+ LDX  blik_ko2_3~OutLED_Red
+#debug bool blik_ko2_3.OutLED_Red
+#srcline 1180 ;(* 684	*)	OR 	blik_ko2_1.OutLED_Red
+ LDX  blik_ko2_1~OutLED_Red
+#debug bool blik_ko2_1.OutLED_Red
+ OR
+#srcline 1181 ;(* 692	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 1182 ;(* 471	*)	ST 	led_k2_lr
+ WR   bool led_k2_lr
+#debug_left bool led_k2_lr
+#srcline 1183 ;(* 933	*)	LD 	_Nod_Tmp_13
+ LDY  _Nod_Tmp_13
+#debug bool _Nod_Tmp_13
+#srcline 1184 ;(* 941	*)	OR 	_Nod_Tmp_17
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ OR
+#srcline 1185 ;(* 949	*)	OR 	_Nod_Tmp_21
+ LDY  _Nod_Tmp_21
+#debug bool _Nod_Tmp_21
+ OR
+#srcline 1186 ;(* 892	*)	ST 	kmit_Ko2.sig_IN
+ WRX  kmit_Ko2~sig_IN
+#debug_left bool kmit_Ko2.sig_IN
+#srcline 1187 ;(* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.5s, time_OFF:=T#1s)
+ LD   time 500
+ WRX  kmit_Ko2~time_ON
+#debug_left time kmit_Ko2~time_ON
+ LD   time 1000
+ WRX  kmit_Ko2~time_OFF
+#debug_left time kmit_Ko2~time_OFF
+ LEAX kmit_Ko2
+ CAL  fb_kmitac_L0
+#srcline 1188 ;(* 892	*)	LD 	kmit_Ko2.sig_OUT
+ LDX  kmit_Ko2~sig_OUT
+#debug bool kmit_Ko2.sig_OUT
+#srcline 1189 ;(*1030	*)	ST	_Nod_Tmp_1
+ WRY  _Nod_Tmp_1
+#debug_left bool _Nod_Tmp_1
+#srcline 1190 ;(* 994	*)	ST 	led_pz_lr
+ WR   bool led_pz_lr
+#debug_left bool led_pz_lr
+#srcline 1191 ;(*1030	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1192 ;(*1012	*)	ST 	led_ob_lr
+ WR   bool led_ob_lr
+#debug_left bool led_ob_lr
+#srcline 1193 ;(*1039	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1194 ;(*1021	*)	ST 	led_pv_lr
+ WR   bool led_pv_lr
+#debug_left bool led_pv_lr
+#srcline 1195 ;(*1048	*)	LD	_Nod_Tmp_1
+ LDY  _Nod_Tmp_1
+#debug bool _Nod_Tmp_1
+#srcline 1196 ;(*1003	*)	ST 	led_lo_lr
+ WR   bool led_lo_lr
+#debug_left bool led_lo_lr
+#srcline 1198 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+ovladani_koupelna2__InstanceInit__:
+ LINK 0
+ LEAX kmit_Ko2
+ CAL  fb_kmitac__InstanceInit__
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

@@ -1,0 +1,42 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\PROGRAM_MODUL_GSM.ST'
+
+; Global variables
+#reg  string g_SendText[161]
+#reg  string g_RecvText[161]
+#reg  string g_Recipient[21]
+#reg  string g_Sender[21]
+#reg  string g_Caller[21]
+#reg  string g_Center[21]
+#reg  string g_Pin[5]
+#table byte __Init____g_SendText = 
+     72,101,108,108,111, 32,119,111,114,108,100, 33;
+#table byte __Init____g_Recipient = 
+     43, 52, 50, 48, 55, 50, 53, 53, 48, 53, 48, 54, 50;
+#table byte __Init____g_Center = 
+     43, 52, 50, 48, 54, 48, 50, 57, 48, 57, 57, 48, 57;
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\PROGRAM_MODUL_GSM.ST'
+
+P     58
+; Initialize non retain global variables 
+ LD   0
+ SRC  byte __Init____g_SendText
+ LD   0
+ LD   161
+ MOV  byte g_SendText
+ LD   0
+ SRC  byte __Init____g_Recipient
+ LD   0
+ LD   21
+ MOV  byte g_Recipient
+ LD   0
+ SRC  byte __Init____g_Center
+ LD   0
+ LD   21
+ MOV  byte g_Center
+E     58
+
+
+ 
+
+#srcfile ''

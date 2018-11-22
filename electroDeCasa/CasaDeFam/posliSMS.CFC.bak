@@ -1,0 +1,368 @@
+PROGRAM posliSMS
+  VAR_INPUT
+  END_VAR
+  VAR_OUTPUT
+  END_VAR
+  VAR
+    smskuk : SMS_HANDLER;
+
+    gate_state : BOOL;
+    ring_come : BOOL;
+    sig_state : SINT;
+    modem_com_state : TGSMGateStateOut;
+    modem_com_error : TGSMGateError;
+    sms_sending : BOOL;
+    calling : BOOL;
+    center : NUMBER_STRING := '+420602909909';
+    komu : NUMBER_STRING := '+420725505062';
+    sms_text : SMS_STRING := 'ahoj:-)';
+    rst : BOOL := TRUE;
+    crst_cold : BOOL := TRUE;
+    erase_sms : BOOL := FALSE;
+    prozvon : BOOL;
+    sender_nmb : NUMBER_STRING;
+    sms_txt : SMS_STRING;
+    call_nmb : NUMBER_STRING;
+    pin : PIN_STRING;
+    
+    uni_ch1_in : TGSM_UNI := void(UNI_CH1_IN);
+    uni_ch1_out : TGSM_UNI := void(UNI_CH1_OUT);
+
+
+    timeOfCall : DATE_AND_TIME;
+  END_VAR
+  VAR_TEMP
+  END_VAR
+{NOCODE}
+<?xml version="1.0" encoding="windows-1250" ?>
+<?xml-stylesheet type="text/xsl" href="pokus.xsl" version="1.1"?>
+<fbd version="1.1">
+<comment id="1" height="3" width="12">
+  <position x="2" y="2" />
+Komentář ke schématu
+</comment>
+<block name="SMS_HANDLER" instance="smskuk" id="2" height="40" width="13" line="3" order="1">
+  <position x="68" y="30" />
+  <inVariables>
+    <variable name="Send" type="BOOL R_EDGE">
+      <connection refid="47">
+        <position x="68" y="33" />
+        <position x="55" y="33" />
+        <position x="55" y="29" />
+        <position x="42" y="29" />
+      </connection>
+    <comment>Na náběžnou hranu odeslat SMS</comment>
+    </variable>
+    <variable name="Ussd" type="BOOL R_EDGE">
+    <comment>Na náběžnou hranu odeslat příkaz jako telefonní číslo</comment>
+    </variable>
+    <variable name="Reset" type="BOOL R_EDGE">
+      <connection refid="15">
+        <position x="68" y="37" />
+        <position x="56" y="37" />
+        <position x="56" y="37" />
+        <position x="43" y="37" />
+      </connection>
+    <comment>Na náběžnou hranu zinicializovat GSM bránu</comment>
+    </variable>
+    <variable name="Cold" type="BOOL">
+      <connection refid="16">
+        <position x="68" y="39" />
+        <position x="58" y="39" />
+        <position x="58" y="39" />
+        <position x="46" y="39" />
+      </connection>
+    <comment>Provést při inicializaci i softwarový reset modemu</comment>
+    </variable>
+    <variable name="Erase" type="BOOL">
+      <connection refid="17">
+        <position x="68" y="41" />
+        <position x="56" y="41" />
+        <position x="56" y="41" />
+        <position x="42" y="41" />
+      </connection>
+    <comment>Vymazat SMS uložené na SIM při inicializaci modemu</comment>
+    </variable>
+    <variable name="Dial" type="BOOL R_EDGE">
+      <connection refid="18">
+        <position x="68" y="43" />
+        <position x="46" y="43" />
+        <position x="46" y="43" />
+        <position x="45" y="43" />
+      </connection>
+    <comment>Prozvonit číslo příjemce SMS (Recipient)</comment>
+    </variable>
+    <variable name="DialTime" type="TIME">
+      <connection refid="19">
+        <position x="68" y="45" />
+        <position x="62" y="45" />
+        <position x="62" y="45" />
+        <position x="55" y="45" />
+      </connection>
+    <comment>Doba prozvánění</comment>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="NewMess" type="BOOL">
+    <comment>Přijata nová SMS zpráva</comment>
+    </variable>
+    <variable name="Ready" type="BOOL">
+    <comment>GSM brána je připravena pro příjem a vysílání</comment>
+    </variable>
+    <variable name="Ring" type="BOOL">
+    <comment>Signalizace příchozího volání</comment>
+    </variable>
+    <variable name="RecvTime" type="DATE_AND_TIME">
+    <comment>Čas přijetí SMS zprávy</comment>
+    </variable>
+    <variable name="Signal" type="SINT">
+    <comment>Síla signálu v procentech</comment>
+    </variable>
+    <variable name="State" type="TGSMGateStateOut">
+    <comment>Stav komunikace s modemem</comment>
+    </variable>
+    <variable name="Error" type="TGSMGateError">
+    <comment>Specifikace chyby při komunikaci s modemem</comment>
+    </variable>
+    <variable name="SendPending" type="BOOL">
+    <comment>Probíhá odesílání SMS</comment>
+    </variable>
+    <variable name="UssdPending" type="BOOL">
+    <comment>Probíhá odesílání příkazu jako telefonního čísla</comment>
+    </variable>
+    <variable name="DialPending" type="BOOL">
+    <comment>Probíhá prozvánění telefonního čísla</comment>
+    </variable>
+  </outVariables>
+  <inOutVariables>
+    <variable name="CH_IN" type="TGSM_UNI">
+      <connection refid="3">
+        <position x="68" y="53" />
+        <position x="62" y="53" />
+        <position x="62" y="53" />
+        <position x="55" y="53" />
+      </connection>
+    <comment>Vstupní komunikační zóna UNI kanálu</comment>
+    </variable>
+    <variable name="CH_OUT" type="TGSM_UNI">
+      <connection refid="4">
+        <position x="68" y="55" />
+        <position x="62" y="55" />
+        <position x="62" y="55" />
+        <position x="55" y="55" />
+      </connection>
+    <comment>Výstupní komunikační zóna UNI kanálu</comment>
+    </variable>
+    <variable name="Pin" type="PIN_STRING">
+      <connection refid="24">
+        <position x="68" y="57" />
+        <position x="64" y="57" />
+        <position x="64" y="57" />
+        <position x="58" y="57" />
+      </connection>
+    <comment>Pin SIM karty</comment>
+    </variable>
+    <variable name="SMSCenter" type="NUMBER_STRING">
+      <connection refid="12">
+        <position x="68" y="59" />
+        <position x="59" y="59" />
+        <position x="59" y="59" />
+        <position x="49" y="59" />
+      </connection>
+    <comment>Číslo střediska SMS zpráv</comment>
+    </variable>
+    <variable name="Sender" type="NUMBER_STRING">
+      <connection refid="20">
+        <position x="68" y="61" />
+        <position x="61" y="61" />
+        <position x="61" y="61" />
+        <position x="53" y="61" />
+      </connection>
+    <comment>Telefonní číslo odesílatele přijaté SMS zprávy</comment>
+    </variable>
+    <variable name="RecvMess" type="SMS_STRING">
+      <connection refid="21">
+        <position x="68" y="63" />
+        <position x="60" y="63" />
+        <position x="60" y="63" />
+        <position x="52" y="63" />
+      </connection>
+    <comment>Text přijaté SMS zprávy</comment>
+    </variable>
+    <variable name="Recipient" type="NUMBER_STRING">
+      <connection refid="13">
+        <position x="68" y="65" />
+        <position x="57" y="65" />
+        <position x="57" y="65" />
+        <position x="45" y="65" />
+      </connection>
+    <comment>Telefonní číslo příjemce zprávy k odeslání</comment>
+    </variable>
+    <variable name="MessToSend" type="SMS_STRING">
+      <connection refid="14">
+        <position x="68" y="67" />
+        <position x="58" y="67" />
+        <position x="58" y="67" />
+        <position x="46" y="67" />
+      </connection>
+    <comment>Text SMS zprávy k odeslání</comment>
+    </variable>
+    <variable name="Caller" type="NUMBER_STRING">
+      <connection refid="22">
+        <position x="68" y="69" />
+        <position x="62" y="69" />
+        <position x="62" y="69" />
+        <position x="57" y="69" />
+      </connection>
+    <comment>Telefonní číslo volajícího</comment>
+    </variable>
+  </inOutVariables>
+</block>
+<inVariable name="uni_ch1_in" type="TGSM_UNI" id="3">
+  <position x="46" y="52" />
+</inVariable>
+<inVariable name="uni_ch1_out" type="TGSM_UNI" id="4">
+  <position x="45" y="54" />
+</inVariable>
+<outVariable name="gate_state" type="BOOL" id="5" order="5">
+  <position x="94" y="34" />
+  <connection refid="2" name="Ready">
+    <position x="95" y="35" />
+    <position x="91" y="35" />
+    <position x="91" y="35" />
+    <position x="81" y="35" />
+  </connection>
+</outVariable>
+<outVariable name="ring_come" type="BOOL" id="6" order="6">
+  <position x="94" y="36" />
+  <connection refid="2" name="Ring">
+    <position x="95" y="37" />
+    <position x="91" y="37" />
+    <position x="91" y="37" />
+    <position x="81" y="37" />
+  </connection>
+</outVariable>
+<outVariable name="sig_state" type="SINT" id="7" order="7">
+  <position x="95" y="40" />
+  <connection refid="2" name="Signal">
+    <position x="96" y="41" />
+    <position x="91" y="41" />
+    <position x="91" y="41" />
+    <position x="81" y="41" />
+  </connection>
+</outVariable>
+<outVariable name="modem_com_state" type="TGSMGateStateOut" id="8" order="2">
+  <position x="88" y="42" />
+  <connection refid="2" name="State">
+    <position x="89" y="43" />
+    <position x="88" y="43" />
+    <position x="88" y="43" />
+    <position x="81" y="43" />
+  </connection>
+</outVariable>
+<outVariable name="modem_com_error" type="TGSMGateError" id="9" order="3">
+  <position x="88" y="44" />
+  <connection refid="2" name="Error">
+    <position x="89" y="45" />
+    <position x="88" y="45" />
+    <position x="88" y="45" />
+    <position x="81" y="45" />
+  </connection>
+</outVariable>
+<outVariable name="sms_sending" type="BOOL" id="10" order="4">
+  <position x="93" y="46" />
+  <connection refid="2" name="SendPending">
+    <position x="94" y="47" />
+    <position x="91" y="47" />
+    <position x="91" y="47" />
+    <position x="81" y="47" />
+  </connection>
+</outVariable>
+<outVariable name="calling" type="BOOL" id="11" order="8">
+  <position x="97" y="50" />
+  <connection refid="2" name="DialPending">
+    <position x="98" y="51" />
+    <position x="91" y="51" />
+    <position x="91" y="51" />
+    <position x="81" y="51" />
+  </connection>
+</outVariable>
+<inVariable name="center" type="NUMBER_STRING" id="12">
+  <position x="43" y="58" />
+</inVariable>
+<inVariable name="komu" type="NUMBER_STRING" id="13">
+  <position x="40" y="64" />
+</inVariable>
+<inVariable name="sms_text" type="SMS_STRING" id="14">
+  <position x="38" y="66" />
+</inVariable>
+<inVariable name="rst" type="BOOL" id="15">
+  <position x="40" y="36" />
+</inVariable>
+<inVariable name="crst_cold" type="BOOL" id="16">
+  <position x="38" y="38" />
+</inVariable>
+<inVariable name="erase_sms" type="BOOL" id="17">
+  <position x="33" y="40" />
+</inVariable>
+<inVariable name="prozvon" type="BOOL" id="18">
+  <position x="38" y="42" />
+</inVariable>
+<inVariable name="T#5s" type="TIME" id="19">
+  <position x="50" y="44" />
+</inVariable>
+<inVariable name="sender_nmb" type="NUMBER_STRING" id="20">
+  <position x="43" y="60" />
+</inVariable>
+<inVariable name="sms_txt" type="SMS_STRING" id="21">
+  <position x="45" y="62" />
+</inVariable>
+<inVariable name="call_nmb" type="NUMBER_STRING" id="22">
+  <position x="50" y="68" />
+</inVariable>
+<outVariable name="timeOfCall" type="DATE_AND_TIME" id="23" order="9">
+  <position x="100" y="38" />
+  <connection refid="2" name="RecvTime">
+    <position x="101" y="39" />
+    <position x="91" y="39" />
+    <position x="91" y="39" />
+    <position x="81" y="39" />
+  </connection>
+</outVariable>
+<inVariable name="pin" type="PIN_STRING" id="24">
+  <position x="54" y="56" />
+</inVariable>
+<inVariable name="tl_na_pokusy" type="BOOL" id="47">
+  <position x="31" y="28" />
+</inVariable>
+</fbd>
+{/NOCODE}
+//LVD
+VAR
+END_VAR
+
+//TVD
+VAR_TEMP
+END_VAR
+
+//NC
+//N000
+(*   8	*)	CAL	smskuk(Send:=tl_na_pokusy, Reset:=rst, Cold:=crst_cold, Erase:=erase_sms, Dial:=prozvon, DialTime:=T#5s, CH_IN:=void(uni_ch1_in), CH_OUT:=void(uni_ch1_out), Pin:=void(pin), SMSCenter:=void(center), Sender:=void(sender_nmb), RecvMess:=void(sms_txt), Recipient:=void(komu), MessToSend:=void(sms_text), Caller:=void(call_nmb))
+(*   8	*)	LD 	smskuk.State
+(* 218	*)	ST 	modem_com_state
+(*   8	*)	LD 	smskuk.Error
+(* 227	*)	ST 	modem_com_error
+(*   8	*)	LD 	smskuk.SendPending
+(* 236	*)	ST 	sms_sending
+(*   8	*)	LD 	smskuk.Ready
+(* 191	*)	ST 	gate_state
+(*   8	*)	LD 	smskuk.Ring
+(* 200	*)	ST 	ring_come
+(*   8	*)	LD 	smskuk.Signal
+(* 209	*)	ST 	sig_state
+(*   8	*)	LD 	smskuk.DialPending
+(* 245	*)	ST 	calling
+(*   8	*)	LD 	smskuk.RecvTime
+(* 287	*)	ST 	timeOfCall
+
+END_PROGRAM

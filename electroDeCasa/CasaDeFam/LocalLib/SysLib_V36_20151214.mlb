@@ -1,0 +1,1218 @@
+(*` {CSY}Knihovna vıvojového systému Mosaic{ENU}Mosaic IDE library *)
+(*` {CSY}Jméno souboru{ENU}File name{} : C:\TecoLib\SysLib_V36_20151214.mlb *)
+(*` {CSY}Knihovna : SysLib{ENU}Library : SysLib{} 3.6 *)
+(*` {CSY}Autor{ENU}Author{} : Teco a.s. Kolin *)
+(*` {CSY}Autorská práva{ENU}Copyright{} : (c) 2004..2015 Teco a.s. *)
+(*` {CSY}Verze IEC pøekladaèe{ENU}IEC compiler version{} : 3.11.2.0 *)
+(*` {CSY}Verze assembleru{ENU}Assembler version{} : 4.3.00 *)
+
+//{Knihovna : SysLib 3.6  }
+(*` {CSY}Historie{ENU}History{}: *)
+(*`
+{CSY}
+v1.0 01.09.2004 Nem úvodní verze knihovny
+v1.1 16.09.2004 Nem Pøidány funkce : memcpy(),
+                    SetSummerTime(), IsSummerTime(), SetWinterTime(), IsWinterTime()
+v1.2 16.05.2005 Nem Pøidány funkce GetDate(), GetTime(), GetDateTime(), GetRTC(), 
+                    SetRTC()
+                    Zmìna deklarace systémovıch promìnnıch na strukturu
+v1.3 10.11.2005 Nem Doplnìny funkce TecoDT_TO_DT() a DT_TO_TecoDT()
+v1.4 17.11.2007 Nem Doplnìna funkce Memset()
+v1.5 17.01.2008 Nem Doplnìna funkce IncreaseMaxCycleTime()
+                    Vynechány funkce nastavení analog. kanálu.
+v1.6 18.08.2008 Nem Prohozeno poøadí parametrù VAR_INPUT a VAR_IN_OUT
+                    u funkcí Memset() a Memcpy() kvùli pouití v LD,
+                    kde je problem s VAR_IN_OUT, pokud je prvni (na CR)
+v1.7 20.02.2009 Nem Doplnìny funkce Get_IP_address() a Set_IP_address() pro Eth1
+v1.8 10.03.2009 Nem Funkce Get_IP_address() nahrazena funkci GetIPaddress() a 
+                    pøesunuta do ComLib
+                    + sesouhlaseny parametry s funkcí GetRemoteIPaddress
+                    Funkce Set_IP_address() nahrazena funkci SetIPaddress() a 
+                    pøesunuta do ComLib
+v1.9 22.10.2009 Nem Doplnìny funkce CIBunitInfo() a SetCIBunitAddress()
+                    a datové typy TCIBunitState a TCIBunitInfo
+v2.0 20.11.2009 Nem Doplnìna funkce ProgramLock()
+v2.1 16.12.2009 Nem Doplnìn funkèní blok fbTick() a funkce Memcmp()
+v2.2 18.01.2010 Nem Opraveno kódování CIB masteru a doplnìn kód pro mastera 0 
+                    (MI0_CIB1 a MI0_CIB2)
+v2.3 06.05.2010 Nem Doplnìny funkce SetWebPSW() a VerifyWebPSW()
+v2.4 16.08.2010 Nem Doplnìny funkce SystemDisplayBacklightOn() a 
+                    SystemDisplayBacklightOff()
+v2.5 02.09.2010 Nem Doplnìny závislosti na knihovnách
+     15.09.2010 Nem Funkce SetRTC vrací informaci o tom, jestli se podaøilo zapsat 
+                    èas do RTC obvodu
+v2.6 19.01.2011 Nem Doplnìny funkce RFunitInfo() and SetRFunitAddress()
+                    Pokud je SW78 = 0 (starsi systemy) tak funkce GetDateTime()
+                    a GetTime() pouzivaji S5 (desitky milisekund) jinak se pouziva 
+                    SW78 (jednotky milisekund)
+v2.7 30.06.2011 Nem Doplnìn funkèní blok fbBondRFunit()
+v2.8 02.11.2011 Nem Doplnìny funkèní bloky memcpyEx(), memsetEx() a memcmpEx()
+v2.9 02.12.2011 Nem Doplnìny funkce SetWebMAC() a VerifyWebMAC()
+v3.0 27.04.2012 Nem Doplnìn funkèní blok TPR() a deklarace do struktury SystemS
+v3.1 21.06.2012 Nem Blok TPR nahrazen blokem fbTPR() - vstup RESET ma prednost
+                    Oprava deklarace struktury SystemS od %S57 dále
+                    (doplnìny CPU_DI a CPU_DO)
+v3.2 22.03.2013 Nem Doplnìn pùvodní blok TPR z verze 3.0 kvùli zpìtné kompatibilitì
+                    Doplnìna funkce ProgramIsChanged()
+v3.3 21.06.2013 Nem Opravena funkce ProgramIsChanged() v pøípadì on-line zmìny
+                    Doplnìny funkce ReInitPLC_hotRestart(), ReInitPLC_coldRestart()
+                    a ReInitPLC_noRestart() - pro Foxtrot je tøeba minimálnì FW v7.8
+v3.4 03.10.2014 Nem Doplnìna funkce GetModuleID() a typ T_RGB_COLOR
+v3.5 16.04.2015 Nem Doplnìna funkce MemcpyPtr()
+v3.6 14.12.2015 Nem Doplnìny funkce GetVarValueByName() a SetVarValueByName()
+
+{ENU}
+v1.0 2004-09-01 Nem First edition
+v1.1 2004-09-16 Nem New funtions : memcpy(),
+                    SetSummerTime(), IsSummerTime(), SetWinterTime(), IsWinterTime()
+v1.2 2005-05-16 Nem New funtions : GetDate(), GetTime(), GetDateTime(), GetRTC(), 
+                    SetRTC()
+                    System registers declared as a structure
+v1.3 2005-11-10 Nem New funtions : TecoDT_TO_DT() and DT_TO_TecoDT()
+v1.4 2007-11-17 Nem New funtion : Memset()
+v1.5 2008-01-17 Nem New funtions : IncreaseMaxCycleTime()
+v1.6 2008-08-18 Nem Change parameters order VAR_INPUT and VAR_IN_OUT
+                    in functions Memset() and Memcpy() - it is better for LD 
+                    language
+v1.7 2009-02-20 Nem New functions : Get_IP_address() and Set_IP_address() for Eth1
+v1.8 2009-03-10 Nem Funtion Get_IP_address() replaced by function GetIPaddress() and 
+                    moved to ComLib
+                    Funtion Set_IP_address() replaced by function SetIPaddress() and 
+                    moved to ComLib
+v1.9 2009-10-22 Nem New funtions : CIBunitInfo() and SetCIBunitAddress()
+                    and new data types TCIBunitState a TCIBunitInfo
+v2.0 2009-11-20 Nem New funtion : ProgramLock()
+v2.1 2009-12-16 Nem New funtions : function block fbTick() and function Memcmp()
+v2.2 2010-01-18 Nem Corrected coding of CIB master and new code for master 0 
+                   (MI0_CIB1 a MI0_CIB2)
+v2.3 2010-05-06 Nem New funtions : SetWebPSW() and VerifyWebPSW()
+v2.4 2010-08-16 Nem New funtions : SystemDisplayBacklightOn() and 
+                    SystemDisplayBacklightOff()
+v2.5 2010-09-02 Nem Dependency on the libraries added
+     2010-09-15 Nem Function SetRTC returns TRUE when date and time is succesfully 
+                    written to RTC device
+v2.6 2011-01-19 Nem New funtions : RFunitInfo() and SetRFunitAddress()
+v2.7 2011-06-30 Nem New funtion block : fbBondRFunit()
+v2.8 2011-11-02 Nem New funtion blocks : memcpyEx(), memsetEx() and memcmpEx()
+v2.9 2011-12-02 Nem New funtions : SetWebMAC() and VerifyWebMAC()
+v3.0 2012-04-27 Nem New funtion block TPR() and completed declaration of SystemS
+v3.1 2012-06-21 Nem Block TPR replaced by block fbTPR() - RESET input has high 
+priority
+                    Corrected declaration of structure SystemS 
+                    (added CPU_DI and CPU_DO)
+v3.2 2013-03-22 Nem Restored block TPR from version 3.0 (backward compatibility)
+                    New funtion : ProgramIsChanged()
+v3.3 2013-06-21 Nem Fixed bug in ProgramIsChanged() in case of on-line change
+                    New funtions :  ReInitPLC_hotRestart(), ReInitPLC_coldRestart()
+                    and ReInitPLC_noRestart() - it requires Foxtrot FW v7.8 
+                    minimally
+v3.4 2014-10-03 Nem New function : GetModuleID() and type T_RGB_COLOR
+v3.5 2015-04-16 Nem New function : MemcpyPtr()
+v3.6 2015-12-14 Nem New function : GetVarValueByName() a SetVarValueByName()
+*)
+
+(*----------------------------------------------------------------------------*)
+{LIBRARY="LOCALLIB\STDLIB_V20_20100519.MLB"}
+
+TYPE T_RGB_COLOR :
+  STRUCT
+    red              : usint;  (*`red color <0..255>*)
+    green            : usint;  (*`green color <0..255>*)
+    blue             : usint;  (*`blue color <0..255>*)
+    opacity          : usint;  (*`opacity (0 = opaque, 255 = transparent)*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TSYSTEM_S :
+  STRUCT
+    S0               : byte;  (*`flags of the results of arithmetic operations {ENU}  {CSY} pøíznaky vısledkù aritmetickıch operací*)
+    S1               : byte;  (*`flags of the results of logical operations {ENU}  {CSY} pøíznaky vısledkù logickıch operací*)
+    S2_0             : bool;
+    S2_1             : bool;
+    S2_2             : bool;  (*`{ENU} PLC is running {CSY} PLC je v reimu RUN*)
+    S2_3             : bool;  (*`{ENU} HOT restart {CSY} teplı restart PLC*)
+    S2_4             : bool;  (*`{ENU} COLD restart {CSY} studenı restart PLC*)
+    OUTPUTS_ARE_ENABLED : bool;  (*`{ENU} PLC outputs are enabled {CSY} vystupy odblokovany*)
+    S2_6             : bool;  (*`{ENU} RUN without restart {CSY} prechod do run bez restartu PLC*)
+    CYCLE_TIME_WARNING : bool;  (*`{ENU} Cycle time warning {CSY} prekrocena prva mez doby cyklu (varovani)*)
+    LAST_CYCLE_TIME_10MS : usint;  (*`{ENU} Last cycle time [x10 milisecond] {CSY} Doba minuleho cyklu v 10 ms*)
+    CYCLE_COUNTER    : usint;  (*`{ENU} Cycle counter {CSY} Citac cyklu*)
+    COUNTER_10MS     : usint;  (*`{ENU} 10 miliseconds counter {CSY} Citac desitek milisekund*)
+    COUNTER_SECONDS  : usint;  (*`{ENU} second counter {CSY} Citac sekund systemoveho casu*)
+    COUNTER_MINUTES  : usint;  (*`{ENU} minute counter {CSY} Citac minut systemoveho casu*)
+    COUNTER_HOURS    : usint;  (*`{ENU} hour counter {CSY} Citac hodin systemoveho casu*)
+    COUNTER_DAYS_OF_WEEK : usint;  (*`{ENU} day of week {CSY} Citac dnu v tydnu*)
+    COUNTER_DAYS_OF_MONTH : usint;  (*`{ENU} day {CSY} Citac dnu v mesici*)
+    COUNTER_MONTHS   : usint;  (*`{ENU} month {CSY} Citac mesicu*)
+    COUNTER_YEARS    : usint;  (*`{ENU} year {CSY} Citac roku*)
+    PERIOD_PULSE_100MS : bool;  (*`{ENU} 100 ms periodic pulse {CSY} pulz s periodou 100 ms*)
+    PERIOD_PULSE_500MS : bool;  (*`{ENU} 500 ms periodic pulse {CSY} pulz s periodou 500 ms*)
+    PERIOD_PULSE_1SEC : bool;  (*`{ENU} 1 s periodic pulse {CSY} pulz s periodou 1 s*)
+    PERIOD_PULSE_10SEC : bool;  (*`{ENU} 10 s periodic pulse {CSY} pulz s periodou 10 s*)
+    PERIOD_PULSE_1MIN : bool;  (*`{ENU} 1 min periodic pulse {CSY} pulz s periodou 1 min*)
+    PERIOD_PULSE_10MIN : bool;  (*`{ENU} 10 min periodic pulse {CSY} pulz s periodou 10 min*)
+    PERIOD_PULSE_1HOUR : bool;  (*`{ENU} 1 hour periodic pulse {CSY} pulz s periodou 1 hod*)
+    PERIOD_PULSE_1DAY : bool;  (*`{ENU} 1 day periodic pulse {CSY} pulz s periodou 1 den*)
+    COUNTER_100MS    : uint;  (*`{ENU} {CSY} Citac v 100m*)
+    COUNTER_1SEC     : uint;  (*`{ENU} {CSY} Citac v 1s*)
+    COUNTER_10SEC    : uint;  (*`{ENU} {CSY} Citac v 10s*)
+    R_EDGE_100MS     : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 100 ms*)
+    R_EDGE_500MS     : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 500 ms*)
+    R_EDGE_1SEC      : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 1 s*)
+    R_EDGE_10SEC     : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 10 s*)
+    R_EDGE_1MIN      : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 1 min*)
+    R_EDGE_10MIN     : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 10 min*)
+    R_EDGE_1HOUR     : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 1 hod*)
+    R_EDGE_1DAY      : bool;  (*`{ENU} {CSY} nabezna hrana 1x za 1 den*)
+    F_EDGE_100MS     : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 100 ms*)
+    F_EDGE_500MS     : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 500 ms*)
+    F_EDGE_1SEC      : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 1 s*)
+    F_EDGE_10SEC     : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 10 s*)
+    F_EDGE_1MIN      : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 1 min*)
+    F_EDGE_10MIN     : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 10 min*)
+    F_EDGE_1HOUR     : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 1 hod*)
+    F_EDGE_1DAY      : bool;  (*`{ENU} {CSY} sestupna hrana 1x za 1 den*)
+    LAST_CYCLE_TIME_100US : uint;  (*`{ENU} Last cycle time [x100 microsecond] {CSY} Doba minuleho cyklu v 100 µs*)
+    S24              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S25              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S26              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S27              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S28              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S29              : byte;  (*`{ENU} control masks for PLC processes {CSY} øídící masky procesù*)
+    S30              : byte;  (*`{ENU} reserved {CSY} rezervováno*)
+    S31              : byte;  (*`{ENU} reserved {CSY} rezervováno*)
+    S32              : byte;  (*`{ENU} reserved {CSY} rezervováno*)
+    S33              : byte;  (*`{ENU} reserved {CSY} rezervováno*)
+    S34              : byte;  (*`{ENU} main code of PLC error {CSY} hlavní kód chyby PLC*)
+    BAT_ERR          : bool;  (*`{ENU} Backup baterry error {CSY} Chyba zalohovaci baterie*)
+    S35_1            : bool;  (*`{ENU} reserved {CSY} rezervováno*)
+    S35_2            : bool;  (*`{ENU} reserved {CSY} rezervováno*)
+    S35_3            : bool;  (*`{ENU} reserved {CSY} rezervováno*)
+    S35_4            : bool;  (*`{ENU} reserved {CSY} rezervováno*)
+    S35_5            : bool;  (*`{ENU} reserved {CSY} rezervováno*)
+    IS_SUMMER_TIME   : bool;  (*`{ENU} Summer time indication {CSY} Indikace letniho casu*)
+    SUMMER_TIME_REQUEST : bool;  (*`{ENU} {CSY} Zadost o automaticky prechod na letni cas*)
+    CPU_TEMPERATURE  : usint;  (*`{ENU} CPU temperature [Celsius degree] {CSY} Teplota procesoroveho modulu [stupne C]*)
+    S37              : byte;
+    S38              : byte;
+    S39              : byte;
+    S40              : byte;
+    S41              : byte;
+    S42              : byte;
+    S43              : byte;
+    S44              : byte;
+    S45              : byte;
+    S46              : byte;
+    S47              : byte;
+    S48              : byte;
+    S49              : byte;
+    S50              : byte;
+    S51              : byte;
+    COUNTER_1MS      : udint;  (*`{ENU} 1 ms counter {CSY} Citac po 1 ms*)
+    S56              : byte;
+    S57              : byte;
+    CPU_DI           : byte;  (*`{ENU} inputs serviced by CPU {CSY} vstupy obsluhované centrální jednotkou*)
+    CPU_DO           : byte;  (*`{ENU} outputs serviced by CPU  {CSY} vıstupy obsluhované centrální jednotkou*)
+    INDEX_OF_RETAIN_ZONE : udint;  (*`{ENU} address of retain zone (index of %R) {CSY} index prvního remanentního registru*)
+    SIZE_OF_RETAIN_ZONE : udint;  (*`{ENU} size of retain zone (number of bytes) {CSY} velikost remanentní zóny (poèet bytù)*)
+    INDEX_SOFT_PLC_STRUCT : uint;  (*`{ENU} reserved for SoftPLC {CSY} rezervováno pro SoftPLC*)
+    CRC_OF_USER_PROGRAM : word;  (*`{ENU} CRC of user program {CSY} CRC uivatelského programu*)
+    CRC_OF_HEADER_PROGRAM : word;  (*`{ENU} CRC of header of user program {CSY} CRC hlavièky uivatelského programu*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL
+ System_S AT %S0 : TSYSTEM_S;
+ IS_HOT_RESTART_PLC AT System_S.S2_3 : bool;  (*`{ENU} HOT restart {CSY} teplı restart PLC*)
+ IS_COLD_RESTART_PLC AT System_S.S2_4 : bool;  (*`{ENU} COLD restart {CSY} studenı restart PLC*)
+ IS_RESTART_PLC AT System_S.S2_6 : bool;  (*`{ENU} RUN without restart {CSY} prechod do run bez restartu PLC*)
+ CRC_OF_APLIC_PROGRAM AT System_S.CRC_OF_USER_PROGRAM : dword;  (*`{ENU} CRC of aplic program {CSY} CRC aplikaèního programu*)
+
+END_VAR
+
+TYPE TModuleInfo :
+  STRUCT
+    ECOM             : bool;  (*`{ENU} communication module <=> CPU : 0 ... communication is OK, 1 ... ERROR     {CSY} 1 = chyba komunikace mezi CPU a IO modulem*)
+    DATA             : bool;  (*`{ENU} data validity                : 0 ... module data are not valid, 1 ... OK  {CSY} 1 = data poskytovaná modulem jsou platná*)
+    DUMMY1           : bool;  (*`{ENU} not used {CSY} nepouzito*)
+    DUMMY2           : bool;  (*`{ENU} not used {CSY} nepouzito*)
+    ERR              : bool;  (*`{ENU} I/O module error             : 0 ... module is OK, 1 ... module has a problem  {CSY} 1 = chyba IO modulu*)
+    DEC              : bool;  (*`{ENU} module declaration           : 0 ... module is not declared in user program    {CSY} 1 = modul má platnou deklaraci v programu PLC*)
+    OTH              : bool;  (*`{ENU} check module type            : 0 ... declared and exist module is the same     {CSY} 1 = typ IO modulu neodpovídá deklaraci v programu PLC*)
+    POS              : bool;  (*`{ENU} position                     : 0 ... position is free, 1 ... module is present {CSY} 1 = modul je pøítomen v dané pozici*)
+    STAT             : usint;  (*`{ENU} collection all previous bits   {CSY} status modulu – vıše uvedené promìnné jako 1 byte (ECOM = STAT.0, … , POS = STAT.7)*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TIOSystemInfo :
+  STRUCT
+    err              : bool;  (*`{ENU} 0 ... all I/O modules are OK, 1 ... any module has error {CSY} 0 = IO systém PLC je bez chyby, 1 = v IO systému PLC je nìjakı problém*)
+    rackNumber       : usint;  (*`{ENU} if err=1 then rack number where module is plugged        {CSY} pøi err = 1 udává èíslo rámu PLC, kde je umístìn modul signalizující nìjakı problém*)
+    position         : usint;  (*`{ENU} if err=1 then position number where module is plugged    {CSY} pøi err = 1 udává èíslo pozice v rámu PLC, kde je umístìn modul signalizující nìjakı problém*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL CONSTANT
+ MODULE_AND_DATA_OK : usint :=  16#A2;
+
+END_VAR
+
+__DECL FUNCTION ModuleInfo : TModuleInfo
+(*`{ENU} Get information about IO module
+   Function returns info about one I/O module.
+   You can use this function if module can be removed on time
+
+   {CSY} Informace o IO modulu
+   Funkce vrátí informace o aktuálním stavu jednoho I/O modulu.
+   Funkce je urèena pro kontrolu I/O modulù vyndavanıch za chodu*)
+  VAR_INPUT
+    rackNumber       : usint;  (*`{ENU} rack number where module is plugged     {CSY} èíslo rámu, kde je umístìn I/O modul*)
+    position         : usint;  (*`{ENU} position number where module is plugged {CSY} èíslo pozice v rámu, kde je umístìn I/O modul*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IOSystemInfo : TIOSystemInfo
+(*`{ENU} Get state of PLC IO system
+
+   Function returns info about IO system of PLC (all I/O modules)
+   You can use this function if any module can be removed on time
+
+   If any module has an error,
+   err flag is true and position and rack number are set
+   
+   {CSY} Informace o stavu IO systému PLC
+
+   Funkce vrátí celkovou informaci o stavu I/O systému PLC
+   Funkce je urèena pro kontrolu I/O modulù vyndavanıch za chodu
+   
+   Pokud je v IO systému nìjakı problém
+   (napø. chybí IO modul poadovanı v HW konfiguraci)
+   tak vıstup err je nastaven na TRUE,
+   vıstupní promìnná rackNumber udává èíslo rámu
+   a promìnná position øíká pozici v rámu, na které se našel problém*)
+END_FUNCTION
+
+__DECL FUNCTION Memcpy : uint
+(*`{ENU}  Copy memory
+  Function copies a block of n bytes from source to dest
+  Function returns number of copied bytes
+
+  {CSY} Kopírovat pamì
+  Funkce Memcpy zkopíruje blok pamìti ze source do dest
+  Funkce vrací poèet zkopírovanıch bytù*)
+  VAR_INPUT
+    length           : uint;  (*`{ENU} number of bytes {CSY} Délka kopírovaného bloku v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    source           : usint;  (*`{ENU} source          {CSY} Zdroj odkud kopírovat*)
+    dest             : usint;  (*`{ENU} destination     {CSY} Cíl kam kopírovat*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcpyEx : uint
+(*`{ENU}  Copy memory
+  Function copies a block of n bytes from source+offsetSource to dest+offsetDest
+  Function returns number of copied bytes
+
+  {CSY} Kopírovat pamì
+  Funkce Memcpy zkopíruje blok pamìti ze source+offsetSource do dest+offsetDest
+  Funkce vrací poèet zkopírovanıch bytù*)
+  VAR_INPUT
+    length           : udint;  (*`{ENU} number of bytes {CSY} Délka kopírovaného bloku v bytech*)
+    offSource        : udint;  (*`{ENU} offset in source {CSY} Posunutí od zaèátku zdroje*)
+    offDest          : udint;  (*`{ENU} offset in destination {CSY} Posunutí od zaèátku cíle*)
+  END_VAR
+  VAR_IN_OUT
+    source           : usint;  (*`{ENU} source          {CSY} Zdroj odkud kopírovat*)
+    dest             : usint;  (*`{ENU} destination     {CSY} Cíl kam kopírovat*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcpyPtr : udint
+(*`{ENU} Function memcpy copies a block of n bytes from source to dest.
+  Function returns number of copied bytes.
+  {CSY} Funkce memcpy kopíruje blok n bytù ze source do dest.
+  Funkce vrací poèet zkopírovanıch bytù*)
+  VAR_INPUT
+    source           : PTR_TO usint;  (*`pointer to source*)
+    dest             : PTR_TO usint;  (*`pointer to  destination*)
+    length           : udint;  (*`number of bytes*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION Memset : bool
+(*`{ENU} Set memory
+  This function fills the first length bytes of the array pointed to by dest to the value
+  Function returns true if succesfull
+
+  {CSY}  Naplnit pamì
+  Funkce Memset vyplní blok pamìti zadanou hodnotou
+  Funkce vrací TRUE, paklie se podaøí naplnit blok pamìti*)
+  VAR_INPUT
+    val              : udint;  (*`{ENU} filling value {CSY} Hodnota, která se zapíše do bloku pamìti*)
+    length           : uint;  (*`{ENU} number of bytes to be filled {CSY} Délka bloku pamìti v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    dest             : usint;  (*`{ENU} destination {CSY} Cíl, kterı bude naplnìn konstantou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemsetEx : bool
+(*`{ENU} Set memory
+  This function fills the first length bytes of the array pointed to by dest+offDest to the value
+  Function returns true if succesfull
+
+  {CSY}  Naplnit pamì
+  Funkce Memset vyplní blok pamìti zadanou hodnotou. Adresa bloku je dest+offDest.
+  Funkce vrací TRUE, paklie se podaøí naplnit blok pamìti*)
+  VAR_INPUT
+    val              : udint;  (*`{ENU} filling value {CSY} Hodnota, která se zapíše do bloku pamìti*)
+    length           : udint;  (*`{ENU} number of bytes to be filled {CSY} Délka bloku pamìti v bytech*)
+    offDest          : udint;  (*`{ENU} offset in destination {CSY} Posunutí od zaèátku cíle*)
+  END_VAR
+  VAR_IN_OUT
+    dest             : usint;  (*`{ENU} destination {CSY} Cíl, kterı bude naplnìn konstantou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION Memcmp : bool
+(*`{ENU} Compare memory
+  Function compares a block of n bytes between in1 and in2
+  Function returns TRUE if in1 is equal in2
+
+  {CSY} Porovnání bloku pamìti
+  Funkce Memcmp porovná vzájemnì dva bloky pamìti
+  Funkce vrací TRUE pokud jsou bloky pamìti shodné*)
+  VAR_INPUT
+    length           : uint;  (*`{ENU} number of bytes   {CSY} Délka porovnávaného bloku v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    in1              : usint;  (*`{ENU} first data block  {CSY} První porovnávanı blok*)
+    in2              : usint;  (*`{ENU} second data block {CSY} Druhı porovnávanı blok*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcmpEx : bool
+(*`{ENU} Compare memory
+  Function compares a block of n bytes between in1+offIn1 and in2+offIn2
+  Function returns TRUE if blocks are equal
+
+  {CSY} Porovnání bloku pamìti
+  Funkce Memcmp porovná vzájemnì dva bloky pamìti.
+  Adresy blokù jsou in1+offIn1 a in2+offIn2.
+  Funkce vrací TRUE pokud jsou bloky pamìti shodné*)
+  VAR_INPUT
+    length           : udint;  (*`{ENU} number of bytes   {CSY} Délka porovnávaného bloku v bytech*)
+    offIn1           : udint;  (*`{ENU} offset in first data block {CSY} Posunutí prvního porovnávaného bloku*)
+    offIn2           : udint;  (*`{ENU} offset in second data block {CSY} Posunutí druhého porovnávaného bloku*)
+  END_VAR
+  VAR_IN_OUT
+    in1              : usint;  (*`{ENU} first data block  {CSY} První porovnávanı blok*)
+    in2              : usint;  (*`{ENU} second data block {CSY} Druhı porovnávanı blok*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IncreaseMaxCycleTime : bool
+(*`{ENU} Increase max limit for PLC scan time
+
+   Use IncreaseMaxCycleTime to increase max limit for PLC scan time in current scan
+
+   {CSY} Zvıšit èas pro dobu cyklu PLC
+
+   Funkce zvıší jednorázovì hlídanou dobu cyklu PLC*)
+  VAR_INPUT
+    addTime          : uint;  (*`{ENU} milisec {CSY} o kolik milisekund se má zvıšit hlídaná doba cyklu*)
+  END_VAR
+END_FUNCTION
+
+TYPE TTecoDateTime :
+  STRUCT
+    year             : usint;  (*`{ENU} last two numbers          {CSY} rok     (poslední dvì èíslice letopoètu)*)
+    month            : usint;  (*`{ENU} 1 .. 12                   {CSY} mìsíc   (1 .. 12)*)
+    day              : usint;  (*`{ENU} 1 .. 28/29/30/31          {CSY} den     (1 .. 28/29/30/31)*)
+    hour             : usint;  (*`{ENU} 0 .. 23                   {CSY} hodina  (0 .. 23)*)
+    min              : usint;  (*`{ENU} 0 .. 59                   {CSY} minuta  (0 .. 59)*)
+    sec              : usint;  (*`{ENU} 0 .. 59                   {CSY} sekunda (0 .. 59)*)
+    dayOfWeek        : usint;  (*`{ENU} 1 = Monday .. 7 = Sunday  {CSY} den v tıdnu (1 = pondìlí, 7 = nedìle)*)
+    milisec          : uint;  (*`{ENU} 0 .. 999                  {CSY} milisekunda*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION SetSummerTime : bool
+(*`{ENU} Set Automatic Daylight Saving Time
+  Set request for automatic changing between summer and winter time
+
+  {CSY} Nastavit automatickı pøechod na letní èas
+  Funkce nastaví poadavek na automatickı pøechod mezi letním a zimním èasem*)
+END_FUNCTION
+
+__DECL FUNCTION IsSummerTime : bool
+(*`{ENU} Test of summer time
+  Test if is summer time now
+
+  {CSY} Test letního èasu
+  Funkce otestuje je-li aktuálnì nastaven letní èas*)
+END_FUNCTION
+
+__DECL FUNCTION SetWinterTime : bool
+(*`{ENU} Disable Automatic Daylight Saving Time
+  Reset request for automatic changing between summer and winter time
+
+  {CSY} Vypnout automatickı pøechod na letní èas
+  Funkce vypne poadavek na automatickı pøechod mezi letním a zimním èasem*)
+END_FUNCTION
+
+__DECL FUNCTION IsWinterTime : bool
+(*`{ENU} Test of winter time
+  Test if is winter time now
+
+  {CSY} Test zimního èasu
+  Funkce otestuje je-li aktuálnì nastaven zimní èas*)
+END_FUNCTION
+
+__DECL FUNCTION GetDate : date
+(*`{ENU} Get actual system date
+  {CSY} Naèíst aktuální datum*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetTime : time
+(*`{ENU} Get actual system time
+  {CSY} Naèíst aktuální èas PLC*)
+  VAR
+    milisec          : uint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetDateTime : dt
+(*`{ENU} Get actual system date and time
+  {CSY} Naèíst aktuální datum a èas PLC*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetRTC : dt
+(*`{ENU} Get actual date and time from RTC device directly
+  {CSY} Naèíst datum a èas pøímo z RTC obvodu v PLC*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetRTC : bool
+(*`{ENU} Set new date and time of PLC
+  Function sets new actual date and time to RTC device
+
+  {CSY} Nastavit novı èas a datum PLC
+  Funkce nastaví novı datum a èas do RTC obvodu v PLC*)
+  VAR_INPUT
+    PDT              : dt;  (*`{ENU} new date and time {CSY} novı datum a èas*)
+  END_VAR
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION TecoDT_TO_DT : dt
+(*`{ENU} Convert structure TTecoDateTime to type DATE_AND_TIME
+  {CSY} Pøevod datumu a èasu ze struktury TTecoDateTime do IEC formátu DATE_AND_TIME*)
+  VAR_INPUT
+    Teco_DT          : TTecoDateTime;  (*`{ENU} date and time {CSY} datum a èas*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION DT_TO_TecoDT : TTecoDateTime
+(*`{ENU} Convert DATE_AND_TIME to structure TTecoDateTime
+  {CSY} Pøevod datumu a èasu z IEC formátu DATE_AND_TIME do struktury TTecoDateTime*)
+  VAR_INPUT
+    IEC_DT           : dt;  (*`{ENU} date and time {CSY} datum a èas*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION memory_for_ProgramIsChanged {HIDDEN} : bool
+  VAR_INPUT
+    saveSL70         : bool;
+    memSL70          : udint;
+    memS4            : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ProgramIsChanged : bool
+(*`{CSY} Funkce vrací TRUE pøi restartu programu a pøi on-line zmìnì programu
+  {ENU} Function returns TRUE in case of restart of PLC program or
+        when program is changed on-line*)
+  VAR
+    saveSL70         : bool;
+    memSL70          : udint;
+    memS4            : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_hotRestart : bool
+(*`{CSY} Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do reimu HALT a vıstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté se provede teplı restart a PLC pøejde do reimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Hodnoty RETAIN promìnnıch zùstanou zachovány,
+  ostatní promìnné se nastaví na inicializaèní hodnotu
+  
+  {ENU}
+  As a first step PLC goes to HALT mode. PLC outputs are blocked.
+  Processing of application program is stopped.
+  After that warm restart is executed and PLC goes to RUN mode.
+  IO system is completely reinitialized.
+  Values of RETAIN variables are unchanged,
+  all others variables are initialized*)
+  VAR_INPUT
+    rq               : bool;  (*`{CSY} 1 = provést reinicializaci PLC {ENU} 1 = request for reinitialization of PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_coldRestart : bool
+(*`{CSY} Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do reimu HALT a vıstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté se provede studenı restart a PLC pøejde do reimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Do všech promìnnıch se nastaví inicializaèní hodnoty
+
+  {ENU}
+  As a first step PLC goes to HALT mode. PLC outputs are blocked.
+  Processing of application program is stopped.
+  After that cold restart is executed and PLC goes to RUN mode.
+  IO system is completely reinitialized.
+  All variables are initialized.*)
+  VAR_INPUT
+    rq               : bool;  (*`{CSY} 1 = provést reinicializaci PLC {ENU} request for reinitialization of PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_noRestart : bool
+(*`{CSY} Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do reimu HALT a vıstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté PLC pøejde do reimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Hodnoty promìnnıch zùstanou beze zmìny
+
+  {ENU}
+  As a first step PLC goes to HALT mode. PLC outputs are blocked.
+  Processing of application program is stopped.
+  After that PLC goes to RUN mode.
+  IO system is completely reinitialized.
+  All variables are unchanged.*)
+  VAR_INPUT
+    rq               : bool;  (*`{CSY} 1 = provést reinicializaci PLC {ENU} request for reinitialization of PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetModuleID : string [40]
+(*`{CSY} Vrátí identifikacní retezec 32 a 36 znaku dle typu modulu
+{ENG} Returns identification string from 32 to 36 characters according to module type*)
+  VAR_INPUT
+    rackNumber       : usint;  (*`{ENU} rack number where module is plugged     {CSY} císlo rámu, kde je umísten I/O modul*)
+    position         : usint;  (*`{ENU} position number where module is plugged {CSY} císlo pozice v rámu, kde je umísten I/O modul*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetVarValueByName : string [255]
+(*`{CSY} Vrátí hodnotu promìnné podle zadaného jména promìnné
+{ENG} Returns value of variable according to name of variable*)
+  VAR_INPUT
+    varName          : string [255];  (*`{ENU} full name of variable (name of instance) {CSY} úplné jméno promìnné (jméno instance)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetVarValueByName : bool
+(*`{CSY} Nastaví hodnotu promìnné podle zadaného jména promìnné
+{ENG} Set value of variable according to name of variable*)
+  VAR_INPUT
+    varName          : string [255];  (*`{ENU} full name of variable (name of instance) {CSY} úplné jméno promìnné (jméno instance)*)
+    varValue         : string [255];  (*`{ENU} new value of variable  {CSY} nová hodnota promìnné*)
+  END_VAR
+END_FUNCTION
+
+VAR_GLOBAL CONSTANT
+ MI_CIB1 : usint :=  1;  (*`{ENU} internal Foxtrot CIB line {CSY} interní CIB sbìrnice systému Foxtrot*)
+ MI_CIB2 : usint :=  2;
+ MI0_CIB1 : usint :=  3;  (*`{ENU} external CIB master, address 0, CIB line 1 {CSY} externí CIB master, adresa 0, CIB linka 1*)
+ MI0_CIB2 : usint :=  4;  (*`{ENU} external CIB master, address 0, CIB line 2 {CSY} externí CIB master, adresa 0, CIB linka 2*)
+ MI2_CIB1 : usint :=  5;  (*`{ENU} external CIB master, address 2, CIB line 1 {CSY} externí CIB master, adresa 2, CIB linka 1*)
+ MI2_CIB2 : usint :=  6;  (*`{ENU} external CIB master, address 2, CIB line 2 {CSY} externí CIB master, adresa 2, CIB linka 2*)
+ MI4_CIB1 : usint :=  7;  (*`{ENU} external CIB master, address 4, CIB line 1 {CSY} externí CIB master, adresa 4, CIB linka 1*)
+ MI4_CIB2 : usint :=  8;  (*`{ENU} external CIB master, address 4, CIB line 2 {CSY} externí CIB master, adresa 4, CIB linka 2*)
+ MI6_CIB1 : usint :=  9;  (*`{ENU} external CIB master, address 6, CIB line 1 {CSY} externí CIB master, adresa 6, CIB linka 1*)
+ MI6_CIB2 : usint :=  10;  (*`{ENU} external CIB master, address 6, CIB line 2 {CSY} externí CIB master, adresa 6, CIB linka 2*)
+ MI_RF : usint :=  100;  (*`{ENU} internal Foxtrot RF line      {CSY} interní RF sbìrnice systému Foxtrot*)
+ RF0_RF : usint :=  101;  (*`{ENU} external RF master, address 0 {CSY} externí RF master, adresa 0*)
+ RF2_RF : usint :=  102;  (*`{ENU} external RF master, address 2 {CSY} externí RF master, adresa 2*)
+ RF4_RF : usint :=  103;  (*`{ENU} external RF master, address 4 {CSY} externí RF master, adresa 4*)
+ RF6_RF : usint :=  104;  (*`{ENU} external RF master, address 6 {CSY} externí RF master, adresa 6*)
+
+END_VAR
+
+TYPE TCIBunitState :
+  STRUCT
+    INI              : bool;  (*`{ENU} CIB unit is initialized            {CSY} CIB jednotka je inicializovaná*)
+    COM              : bool;  (*`{ENU} communication with CIB unit is OK  {CSY} komunikace s CIB jednotkou je bez závad*)
+    ADDR             : bool;  (*`{ENU} CIB unit address was accepted      {CSY} adresa CIB jednotky byla akceptovaná*)
+    DUMMY3 {HIDDEN}  : bool;
+    REI              : bool;  (*`{ENU} reinitialization of CIB unit       {CSY} pøíznak reinicializace CIB jednotky*)
+    DUMMY5 {HIDDEN}  : bool;
+    DUMMY6 {HIDDEN}  : bool;
+    NET              : bool;  (*`{ENU} CIB unit is defined and served by CPU {CSY} CIB jednotka je definovaná v programu a obsluhovaná centrální jednotkou*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TCIBunitInfo :
+  STRUCT
+    line_defined     : bool;  (*`{ENU} CIB line defined     {CSY} CIB linka je definovaná v HW konfiguraci PLC*)
+    unit_defined     : bool;  (*`{ENU} CIB unit defined     {CSY} CIB jednotka je definovaná v HW konfiguraci PLC*)
+    state            : TCIBunitState;  (*`{ENU} CIB unit state       {CSY} stav CIB jednotky (viz Typ TCIBunitState)*)
+    address          : word;  (*`{ENU} CIB unit address     {CSY} aktuálnì nastavená HW adresa CIB jednotky*)
+    code             : word;  (*`{ENU} CIB unit code        {CSY} kód CIB jednotky*)
+    unit_type        : string [17];  (*`{ENU} CIB unit type        {CSY} typové oznaèení CIB jednotky*)
+    description      : string [31];  (*`{ENU} CIB unit description {CSY} popis CIB jednotky*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TRFunitState :
+  STRUCT
+    INI              : bool;  (*`{ENU} RF unit is initialized            {CSY} RF jednotka je inicializovaná*)
+    COM              : bool;  (*`{ENU} communication with RF unit is OK  {CSY} komunikace s RF jednotkou je bez závad*)
+    DUMMY2 {HIDDEN}  : bool;
+    DUMMY3 {HIDDEN}  : bool;
+    DUMMY4 {HIDDEN}  : bool;
+    SLP              : bool;  (*`{ENU} sleep mode is available              {CSY} RF jednotka muze prechazet do sleep rezimu*)
+    BND              : bool;  (*`{ENU} unit is paired                       {CSY} jednotka je spárovaná*)
+    NET              : bool;  (*`{ENU} RF unit is defined and served by CPU {CSY} RF jednotka je definovaná v programu a obsluhovaná centrální jednotkou*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TRFunitInfo :
+  STRUCT
+    line_defined     : bool;  (*`{ENU} RF line defined     {CSY} RF linka je definovaná v HW konfiguraci PLC*)
+    unit_defined     : bool;  (*`{ENU} RF unit defined     {CSY} RF jednotka je definovaná v HW konfiguraci PLC*)
+    state            : TRFunitState;  (*`{ENU} RF unit state       {CSY} stav RF jednotky (viz Typ TRFunitState)*)
+    address          : word;  (*`{ENU} RF unit address     {CSY} aktuálnì nastavená HW adresa RF jednotky*)
+    code             : word;  (*`{ENU} RF unit code        {CSY} kód RF jednotky*)
+    unit_type        : string [17];  (*`{ENU} RF unit type        {CSY} typové oznaèení RF jednotky*)
+    description      : string [31];  (*`{ENU} RF unit description {CSY} popis RF jednotky*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION CIBunitInfo : bool
+(*`{ENU} Get state of CIB unit
+
+  Function returns information about CIB unit
+  When function is succesful, return value is TRUE
+
+  {CSY} Informace o stavu CIB jednotky
+
+  Funkce získá informace o aktuálním stavu jedné jednotky na CIB sbìrnici
+  Funkce vrací hodnotu TRUE, pokud se podaøí informace o CIB jednotce získat*)
+  VAR_INPUT
+    CIB_line         : usint;  (*`{ENU} CIB line number (see constant MI_CIB1,...,MI6_CIB2) {CSY} èíslo CIB linky (viz konstanty MI_CIB1 a MI6_CIB2)*)
+    CIB_unitID       : usint;  (*`{ENU} CIB position number (1,...,32) {CSY} èíslo pozice CIB jednotky (1,...,32)*)
+  END_VAR
+  VAR_IN_OUT
+    unitInfo         : TCIBunitInfo;  (*`{ENU} variable with information about CIB unit {CSY} promìnná, do které jsou uloeny získané informace o CIB jednotce*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION RFunitInfo : bool
+(*`{ENU} Get state of RF unit
+
+  Function returns information about RF unit
+  When function is succesful, return value is TRUE
+
+  {CSY} Informace o stavu RF jednotky
+
+  Funkce získá informace o aktuálním stavu jedné RF jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí informace o RF jednotce získat*)
+  VAR_INPUT
+    RF_line          : usint;  (*`{ENU} RF line number (see constant MI_RF, RF0_RF,...,RF6_RF) {CSY} èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*`{ENU} RF position number (1,...,64) {CSY} èíslo pozice RF jednotky (1,...,64)*)
+  END_VAR
+  VAR_IN_OUT
+    unitInfo         : TRFunitInfo;  (*`{ENU} variable with information about RF unit {CSY} promìnná, do které jsou uloeny získané informace o RF jednotce*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetAddressCIBunit : bool
+(*`{ENU} Set new address of CIB unit
+  Function sets new address of CIB unit
+  When function is succesful, return value is TRUE
+
+  {CSY} Nastavit novou HW adresu CIB jednotky
+  Funkce nastaví novou HW adresu CIB jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí adresu CIB jednotky nastavit*)
+  VAR_INPUT
+    CIB_line         : usint;  (*`{ENU} CIB line number (see constant MI_CIB1,...,MI6_CIB2) {CSY} èíslo CIB linky (viz konstanty MI_CIB1 a MI6_CIB2)*)
+    CIB_unitID       : usint;  (*`{ENU} CIB position number (1,...,32) {CSY} èíslo pozice CIB jednotky (1,...,32)*)
+    CIB_addr         : word;  (*`{ENU} new address of CIB unit  {CSY} nová HW adresa CIB jednotky*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetAddressRFunit : bool
+(*`{ENU} Set new address of RF unit
+  Function sets new address of RF unit
+  When function is succesful, return value is TRUE
+
+  {CSY} Nastavit novou HW adresu RF jednotky
+  Funkce nastaví novou HW adresu RF jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí adresu RF jednotky nastavit*)
+  VAR_INPUT
+    RF_line          : usint;  (*`{ENU} RF line number (see constant MI_RF, RF0_RF,...,RF6_RF) {CSY} èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*`{ENU} RF position number (1,...,64) {CSY} èíslo pozice RF jednotky (1,...,64)*)
+    RF_addr          : word;  (*`{ENU} new address of RF unit  {CSY} nová HW adresa RF jednotky*)
+  END_VAR
+END_FUNCTION
+
+TYPE TBondStat {HIDDEN} :
+  STRUCT  (*`status bondovani*)
+    disconnect       : bool;  (*`probiha odbondovani*)
+    connect          : bool;  (*`probiha bondovani*)
+    bondMap          : bool;  (*`probiha cteni bondovaci mapy*)
+    dummy3           : bool;
+    dummy4           : bool;
+    error            : bool;  (*`doslo k chybe*)
+    done             : bool;  (*`hotovo*)
+    busy             : bool;  (*`master zaneprazdnen*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TBondInfo {HIDDEN} :
+  STRUCT  (*`informace, kterou vraci instrukce SYS 79*)
+    bondStat         : TBondStat;
+    bondID           : usint;  (*`cislo pozice pribondovane jednotky (je-li bondovani uspesne)*)
+    bondType         : word;  (*`typ pribondovane jednotky (je-li bondovani uspesne)*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION_BLOCK fbBondRFunit
+(*`{ENU} Bond RF unit with RF master
+  Function block establish relation between RF unit and RF master
+  This operation may take some time. During the action variable busy is set.
+  If you can pair RF unit output variable done has the value TRUE
+  and variable unitType contains string with type of unit and serial number.
+  In other case variable err has value TRUE and variable errID contains error number.
+  
+  {CSY} Spárovat RF jednotku s RF masterem
+  Funkèní blok spáruje RF jednotku s RF masterem.
+  Tato akce mùe nìjakou dobu trvat. Bìhem akce je nastavena promìnná busy.
+  Pokud se podaøí RF jednotku spárovat tak je vıstupní promìnná done nastavena na hodnotu TRUE
+  a promìnná unitType obsahuje øetìzec s typem a vırobním èíslem spárované RF jednotky.
+  V opaèném pøípadì je nastavena promìnná err a promìnná errID obsahuje kód chyby*)
+  VAR_INPUT
+    exec             : bool R_EDGE;  (*`{ENU} request to initiate action (rising edge) {CSY} ádost o spárování = nábìná hrana zahájí akci*)
+    RF_line          : usint;  (*`{ENU} RF line number (see constant MI_RF, RF0_RF,...,RF6_RF) {CSY} èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*`{ENU} RF position number (1,...,64) {CSY} èíslo pozice RF jednotky (1,...,64)*)
+    bondRq           : bool;  (*`{ENU} 0 = unbond unit only, 1 = bond new unit  {CSY} 0 = pouze zrušit párování, 1 = napárovat novou jednotku*)
+    useRouter        : bool;  (*`{ENU} 1 = after bonding communicate with unit through router   {CSY} 1 = po napárování komunikovat s RF jednotkou pøes router*)
+  END_VAR
+  VAR_OUTPUT
+    done             : bool;  (*`{ENU} action is done {CSY} párování úspìšnì ukonèeno*)
+    busy             : bool;  (*`{ENU} action in progress {CSY} probíhá párování*)
+    err              : bool;  (*`{ENU} error flag {CSY} párování ukonèeno s chybou*)
+    errID            : udint;  (*`{ENU} error number {CSY} kód chyby*)
+    unitType         : string [40];  (*`{ENU} unit type when action is successful {CSY} typ úspìšnì spárované jednotky*)
+  END_VAR
+  VAR
+    result           : TBondInfo;
+    timIN            : bool;
+    timPT            : time :=  T#2s;
+    tim              : TON;  (*`odbondovat 2+2 s, pribondovat 12+2 s*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION ProgramLock : bool
+(*`{ENU} Lock the application program
+  Lock the user program (it can not be decompiled)
+
+  {CSY} Uzamèení aplikaèního programu
+  Funkce uzamkne uivatelskı program PLC tak,
+  e nelze provést jeho zpìtnı pøeklad v prostøedí Mosaic*)
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK TPR
+(*`{ENU} Pulse Timer with RESET. Obsolete version! Please use fbTPR.
+  {CSY} Èasovaè TPR. Zastaralá verze! V novém projektu pouijte fbTPR.
+  (generuje pulz dané šíøky, pulz je mono ukonèit vstupem R)*)
+  VAR_INPUT
+    IN               : bool;  (*`{ENU} input  {CSY} vstup èasovaèe*)
+    R                : bool;  (*`{ENU} reset  {CSY} reset èasovaèe*)
+    PT               : time;  (*`{ENU} preset {CSY} pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*`{ENU} output {CSY} vıstup èasovaèe*)
+    ET               : time;  (*`{ENU} value  {CSY} aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*`last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbTPR
+(*`{ENU} Pulse Timer with RESET
+  {CSY} Èasovaè fbTPR (generuje pulz dané šíøky, pulz je mono ukonèit vstupem R)*)
+  VAR_INPUT
+    IN               : bool;  (*`{ENU} input  {CSY} vstup èasovaèe*)
+    R                : bool;  (*`{ENU} reset  {CSY} reset èasovaèe*)
+    PT               : time;  (*`{ENU} preset {CSY} pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*`{ENU} output {CSY} vıstup èasovaèe*)
+    ET               : time;  (*`{ENU} value  {CSY} aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*`last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION SetWebPSW : bool
+(*`{ENU} Set password for web access
+   Function sets new username and password for PLC web pages
+
+   {CSY} Nastavit heslo pro pøístup na web stránky PLC
+   Funkce nastaví nové pøihlašovací jméno a heslo pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*`{ENU} line number in table of users (0...9) {CSY} cislo radku v tabulce uzivatelu (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    name             : string [80];  (*`{ENU} new user name {CSY} nové pøihlašovací jméno*)
+    password         : string [80];  (*`{ENU} new password {CSY} nové heslo*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION VerifyWebPSW : bool
+(*`{ENU} Verify password for the website PLC
+   Function verifies username and password for PLC web pages
+
+   {CSY} Ovìøit heslo pro pøístup na web stránky PLC
+   Funkce oveøí, zda-li je nastaveno poadované
+   pøihlašovací jméno a heslo pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*`{ENU} line number in table of users (0...9) {CSY} èíslo øádku v tabulce uivatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    name             : string [80];  (*`{ENU} user name {CSY} pøihlašovací jméno*)
+    password         : string [80];  (*`{ENU} password {CSY} heslo*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetWebMAC : bool
+(*`{ENU} Set MAC for web access
+   Function sets new MAC address for PLC web pages
+
+   {CSY} Nastavit MAC pro pøístup na web stránky PLC
+   Funkce nastaví novou MAC adresu pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*`{ENU} line number in table of users (0...9) {CSY} èíslo øádku v tabulce uivatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    MAC              : string [80];  (*`{ENU} new MAC address ('00:11:22:33:44:55') {CSY} nová MAC adresa ('00:11:22:33:44:55')*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION VerifyWebMAC : bool
+(*`{ENU} Verify MAC for the website PLC
+   Function verifies MAC address for PLC web pages access
+
+   {CSY} Ovìøit MAC pro pøístup na web stránky PLC
+   Funkce oveøí, zda-li je nastavena poadovaná
+   MAC adresa pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*`{ENU} line number in table of users (0...9) {CSY} èíslo øádku v tabulce uivatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    MAC              : string [80];  (*`{ENU} MAC address ('00:11:22:33:44:55') {CSY} MAC adresa ('00:11:22:33:44:55')*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SystemDisplayBacklightOn : bool
+(*`{ENU} Switch on the display backlight  system
+   Function switch ON backlight of system LCD display.
+   Function returns TRUE if LCD display is available.
+   In other cases function returns FALSE.
+
+   {CSY} Rozsvítit podsvícení systémového displeje
+   Funkce rozsítí podsvícení LCD displeje na základním modulu PLC.
+   Funkce vrací TRUE, pokud je displej na základním modulu dostupnı,
+   jinak vrací FALSE.*)
+  VAR
+    tmp              : udint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SystemDisplayBacklightOff : bool
+(*`{ENU} Switch off the display backlight  system
+   Function switch OFF backlight of system LCD display.
+   Function returns TRUE if LCD display is available.
+   In other cases function returns FALSE.
+
+   {CSY} Zhasnout podsvícení systémového displeje
+   Funkce zhasne podsvícení LCD displeje na základním modulu PLC.
+   Funkce vrací TRUE, pokud je displej na základním modulu dostupnı,
+   jinak vrací FALSE.*)
+  VAR
+    tmp              : udint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK fbTick
+(*`{ENU} Periodic Timer {CSY} Periodickı èasovaè*)
+  VAR_INPUT
+    IN               : bool;  (*`{ENU} ticks enabled   {CSY} povolení èasovaèe*)
+    PT               : time;  (*`{ENU} period of ticks {CSY} perioda vıstupních pulzù*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*`{ENU} tick impulse    {CSY} vıstup èasovaèe*)
+    ET               : time;  (*`{ENU} elapsed time    {CSY} prùbìnı èas v rámci periody*)
+  END_VAR
+  VAR
+    WasRun           : bool;
+    RunTime          : time;
+  END_VAR
+END_FUNCTION_BLOCK
+
+
+
+{USES=ProgramIsChanged:memory_for_ProgramIsChanged}
+b¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lù	ñğñ÷ötö‚Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}e¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùüäääì äíá‹	ñ}U¥yÕ5Ğzè5Á/É?ì4Ã5tey¥Z¥yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéR¥
+…z…z…l”T¥Ê>Ğ6ÀË<ÊéjŸ\¥ìîz•Y¥ıHeh¥Z¥h–nl’bœ`f˜dšNei¥Z¥i‘o“mcŸa™g›eåçQen¥Z¥nl’bœ`S¥à¬ök•jQeo¥Z¥o“mcŸaT¥á¬(Ä9ÎĞ7Ç?×Qel¥Z¥l’bœ`f_¥áS•iQem¥Z¥mcŸa™gI¥ë¬S¬S7Ä"‹z‘z×;È#Qeb¥Z¥bœ`f˜d_¥áS”lQec¥Z¥cŸa™g›eY¥ğQe`¥Z¥`f˜dšY¥áQea¥Z¥a™g›eåV¥á¬*Ê)Ì.Ì5ËQef¥Z¥f˜dšä_¥áS”oQeg¥Z¥g›eåçO¥ë¬S¬S7Ä"‹z”l…*Ê Ì9Qed¥Z¥dšäæY¥áQee¥Z¥eåçáY¥áQe¥Z¥äæàN¥÷¬ú<ÆúÊ>Ğ6ÀË<ÊQe¥Z¥çáãC¥÷¬ú<ÆúÊ>Ğ6ÀË<Ê$öäLe¥Z¥æàâìîèê
+ôöCe¥Z¥àâìîèê
+ôöğò_¥
+÷…zL¥àız…ú<ÆúÊ>Ğ6ÀË<ÊS¥	÷…z…ıj^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzìö#Ö.À7ì4Ã5he¥Z¥íïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)ÑZ%F¥yÖ.×/Æ.…ê	Ü)Ñ?ÈË<Êú.À7ÕúV¥/Ö3Ë.…3Ë>À"‰P¥/Ö3Ë.…2À6ÕR¥
+…z…z…l”J¥ê	Ü)Ñ?ÈË<ÊéjŸy¥ìîzúö3ß?ê<ê	Ü)Ñ?ÈË<Êú.À7ÕúsY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖHe;¥Z¥;Ç9Á?Ã=Í3Ï1É7ËOe8¥Z¥8Æ>À<Â2Ì0Î6È4Ê*Ô(Qe9¥Z¥9Á?Ã=Í3[¥aVe>¥Z¥>À<Â2Ì0Îz¥aˆwˆd¬*×?Á4Ä)Ñ;Ó3ÑzÓ#Ö.Ğ*…<Ğ4Î9ÀVe?¥Z¥?Ã=Í3Ï1É[¥aVe<¥Z¥<Â2Ì0Î6È^¥áS•Ve=¥Z¥=Í3Ï1É7Ë@¥÷¬ú<Æúê	Ü)Ñ?ÈË<Ê$À(×Ve2¥Z¥2Ì0Î6È4Ê{¥÷¬ú<Æúê	Ü)Ñ?ÈË<Ê$×;Æ1ë/È8À(Ve3¥Z¥3Ï1É7Ë5ÕE¥÷¬ú<Æúê	Ü)Ñ?ÈË<Ê$Õ5Ö3Ñ3Ê4Ve0¥Z¥0Î6È4Ê*Ô[¥aVe1¥Z¥1É7Ë5Õ+×O¥ê	Ü)Ñ?ÈË<Êÿ;Æ;Ñ?Î`Ve6¥Z¥6È4Ê*Ô(ÖS¥à¬ök•jVe7¥Z¥7Ë5Õ+×)ÑS¥á¬3Ë>À"Ve4¥Z¥4Ê*Ô(Ö.ĞY¥áVe5¥Z¥5Õ+×)Ñ/ÓF¥á¬S¬S4Ä9Ì)ÑzÖ.Ä.Ğ)…7Ê>Ğ6ĞVe*¥Z¥*Ô(Ö.Ğ,Òi¥è¬ê	Ü)Ñ?ÈË<Êá;É)ÌÊ>Ğ6¬aË?Ë3…7Ê>Ğ6…;Ë3…5Ç)É/Í;Ve+¥Z¥+×)Ñ/Ó-İR¥÷¬2À6ÕVe(¥Z¥(Ö.Ğ,Ò"ÜE¥áSh•S¬S5Ç)É/Í;…>À1É;×5Ó;Ë;…eVe)¥Z¥)Ñ/Ó-İ#ßY¥ëVe.¥Z¥.Ğ,Ò"Ü ŞE¥è¬ê	Ü)Ñ?ÈË<Êá;É)ÌÊ>Ğ6…aË?Ve/¥Z¥/Ó-İ#ß!ÙR¥á¬2À6ÕVe,¥Z¥,Ò"Ü Ş&ØN¥áS—S¬S7Ê>Ğ6…îzšVe-¥Z¥-İ#ß!Ù'ÛX¥ôVe"¥Z¥"Ü Ş&Ø$Úz¥è¬ê	Ü)Ñ?ÈË<Êá;É)ÌÊ>Ğ6¬aÄ4ÊVe#¥Z¥#ß!Ù'Û%%[¥aVe ¥Z¥ Ş&Ø$ÚÚ$H¥aˆwˆd¬9Í#Ç;…7Ê>Ğ6ĞVe!¥Z¥!Ù'Û%%Û'[¥aVe&¥Z¥&Ø$ÚÚ$Ø&^¥áS”Ve'¥Z¥'Û%%Û'Ù!@¥÷¬ú<Æúê	Ü)Ñ?ÈË<Ê$À(×Ve$¥Z¥$ÚÚ$Ø&Ş S¥á¬3Ë>À"Ve%¥Z¥%%Û'Ù!ß#_¥áS”lVeÚ¥Z¥Ú$Ø&Ş Ü"Y¥êVeÛ¥Z¥Û'Ù!ß#İ-y¥÷…z…z…ú<Æúê	Ü)Ñ?ÈË<Ê$Õ5Ö3Ñ3Ê4VeØ¥Z¥Ø&Ş Ü"Ò,S¥á¬3Ë>À"VeÙ¥Z¥Ù!ß#İ-Ó/_¥áS”lVeŞ¥Z¥Ş Ü"Ò,Ğ.Y¥ìVeß¥Z¥ß#İ-Ó/Ñ)¥÷…z…z…ú<Æúê	Ü)Ñ?ÈË<Ê$×;Æ1ë/È8À(VeÜ¥Z¥Ü"Ò,Ğ.Ö(L¥è
+¬ê	Ü)Ñ?ÈË<Êî5Ë?ÆVeİ¥Z¥İ-Ó/Ñ)×+[¥aVeÒ¥Z¥Ò,Ğ.Ö(Ô*N¥aˆwˆd¬4ÄzÁ;É)ÌzÈ5Á/ÉVeÓ¥Z¥Ó/Ñ)×+Õ5[¥aVeĞ¥Z¥Ğ.Ö(Ô*Ê4B¥ê	Ü)Ñ?ÈË<Êá;É)ÌÊ>Ğ6ŸVeÑ¥Z¥Ñ)×+Õ5Ë7S¥á¬3Ë>À"VeÖ¥Z¥Ö(Ô*Ê4È6Y¥ëVe×¥Z¥×+Õ5Ë7É1S¥÷¬3Ë>À"VeÔ¥Z¥Ô*Ê4È6Î0{¥áS“i¬S¬aÄ>×?Ö;…*Ê)É?Á4Ì2ÊzÈ5Á/É/VeÕ¥Z¥Õ5Ë7É1Ï3X¥ñVeÊ¥Z¥Ê4È6Î0Ì2B¥è¬ê	Ü)Ñ?ÈË<Êÿ;Æ;Ñ?ÎVeË¥Z¥Ë7É1Ï3Í=[¥aVeÈ¥Z¥È6Î0Ì2Â<I¥ê	Ü)Ñ?ÈË<Êî5Ë?Æ`BeÉ¥Z¥É1Ï3Í=Ã?Á9Ç;Åûùÿ@eÏ¥Z¥Ï3Í=Ã?Á9Ç;Åûùÿıó_¥
+÷…zB¥àız…ú<Æúê	Ü)Ñ?ÈË<ÊS¥	÷…z…ıj^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}m¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùàì	ñü	‹	ñ}Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}h¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùê
+ütö‚Q¥yÕ5Ğzè?È9Õ#xe^¥Z¥^ \¢R¬P®V¨TªJ´H¶N°L²B¼@¾F¸Dºz„R¥
+…z…z…l”P¥À7Æ*ÜéjŸ\¥ìîz•Y¥ıAeL¥Z¥L²B¼@¾F¸Dºz„x†~€|‚rŒpvQ¥áz…zĞ3Ë.…jK¥÷…zúÃ9úè?È9Õ#M¥yÁ?Ç/ÂÉ?Ã.…/Ì4Ñzè?È9Õ#IeM¥Z¥M½C¿A¹G»E…{‡yQeB¥Z¥B¼@¾F¸DP¥6Á"¬)Ê/×9ÀQeC¥Z¥C¿A¹G»E]¥)×9¬ıjQe@¥Z¥@¾F¸DºzR¥6Á"¬>À)ÑQeA¥Z¥A¹G»E…{P¥6Á"¬6À4Â.ÍQeF¥Z¥F¸Dºz„x]¥7Ê,¬ıjQeG¥Z¥G»E…{‡yJ¥-×"¬ú<Æú7À7Æ*ÜMeD¥Z¥Dºz„x†~€|‚rŒpvˆtŠjCeE¥Z¥E…{‡yƒ}sq‰w‹u•k—i_¥
+÷…zK¥á…zúÃ9úè?È9Õ#^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%W¥yÕ5Ğzè?È9Õ#à"ex¥Z¥x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäR¥
+…z…z…l”V¥À7Æ*ÜİéjŸ\¥ìîz•Y¥ıGel¥Z¥l’bœ`f˜dšäæàâìîèQ¥áz…zĞ3Ë.…jI¥÷…zúÃ9úè?È9Õ#à"C¥yÁ?Ç/ÂÉ?Ã.…/Ì4Ñzè?È9Õ#à"Iem¥Z¥mcŸa™g›eåçáQeb¥Z¥bœ`f˜dP¥6Á"¬)Ê/×9ÀQec¥Z¥cŸa™g›eK¥6Á"…z…z…5Ã<ö5Ğ(Æ?Qe`¥Z¥`f˜dšY¥;Á>Qea¥Z¥a™g›eå]¥)×9¬ıjQef¥Z¥f˜dšäR¥6Á"¬>À)ÑQeg¥Z¥g›eåçU¥6Á"…z…z…5Ã<á?Ö.Qed¥Z¥dšäæY¥;Á>Qee¥Z¥eåçáP¥6Á"¬6À4Â.ÍQe¥Z¥äæà]¥7Ê,¬ıjQe¥Z¥çáãH¥-×"¬ú<Æú7À7Æ*ÜİMe¥Z¥æàâìîèê
+ôöCe¥Z¥áãíïéëõ÷	ñó_¥
+÷…zI¥á…zúÃ9úè?È9Õ#à"^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%T¥yÕ5Ğzè?È9Õ#õ.×}e¥Z¥ãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=R¥
+…z…z…l”W¥À7Æ*Ü
+Ñ(ú•`\¥ìîz•Y¥ıDe¥Z¥÷	ñóıÿùûÅ;Ç9Á?Ã=Í3ÏV¥áz…zĞ>Ì4Ñz•N¥÷…zúÃ9úè?È9Õ#õ.×A¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…À7Æ*Ü
+Ñ(He¥Z¥öğòü şøúQe	¥Z¥	ñóıP¥6Á"¬)Ê/×9ÀQe¥Z¥ğòü ]¥)×9¬ıjQe¥Z¥óıÿR¥6Á"¬>À)ÑQe¥Z¥òü şP¥6Á"¬6À4Â.ÍQe¥Z¥ıÿù]¥7Ê,¬ıjQe¥Z¥ü şøI¥-×"¬ú<ÆúÀ7Æ*Ü
+Ñ(Le¥Z¥ÿùûÅ;Ç9Á?Ã=Í3ÏCe ¥Z¥ şøú:Ä8Æ>À<Â2Ì0Î6È4_¥
+÷…zN¥á…zúÃ9úè?È9Õ#õ.×^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Q¥yÕ5Ğzè?È)À.~e2¥Z¥2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"R¥
+…z…z…l”P¥À7Ö?ÑéjŸ\¥ìîz•Y¥ıze ¥Z¥ Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0C¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?K¥÷…zúÃ9úè?È)À.M¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézè?È)À.Oe!¥Z¥!Ù'Û%%Û'Ù!ß#İ-Ó/ÑVe&¥Z¥&Ø$ÚÚ$Ø&Q¥6Á"…z…zÁ?Ö.Ve'¥Z¥'Û%%Û'Ù!W¥6Á"…z…zÉ?Ë=Ñ2Ve$¥Z¥$ÚÚ$Ø&Ş P¥6Á"…z…zÓ;ÉVe%¥Z¥%%Û'Ù!ß#Y¥<Ì6VeÚ¥Z¥Ú$Ø&Ş Ü"V¥6Áz…z…z€)”t•VeÛ¥Z¥Û'Ù!ß#İ-I¥-×"…z…zúÃ9úÈ?È)À.CeØ¥Z¥Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì@eÙ¥Z¥Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=_¥
+÷…zK¥á…zúÃ9úè?È)À.^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%W¥yÕ5Ğzè?È)À.à"|eß¥Z¥ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;ÅûùÿR¥
+…z…z…l”V¥À7Ö?ÑİéjŸ\¥ìîz•Y¥ıxeÂ¥Z¥Â<À>Æ8Ä:úøş üòğöô
+êèîC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?I¥÷…zúÃ9úè?È)À.à"C¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézè?È)À.à"OeÃ¥Z¥Ã?Á9Ç;ÅûùÿıóVeÀ¥Z¥À>Æ8Ä:úQ¥6Á"…z…zÁ?Ö.VeÁ¥Z¥Á9Ç;ÅûT¥6Á"…z…zÊ<ÃÀ)ÑVeÆ¥Z¥Æ8Ä:úøY¥;Á>VeÇ¥Z¥Ç;ÅûùW¥6Á"…z…zÉ?Ë=Ñ2VeÄ¥Z¥Ä:úøş P¥6Á"…z…zÓ;ÉVeÅ¥Z¥ÅûùÿY¥<Ì6Veú¥Z¥úøş üV¥6Áz…z…z€)”t•Veû¥Z¥ûùÿıO¥-×"…z…zúÃ9úÈ?È)À.à"Ceø¥Z¥øş üòğöô
+êèîì@eù¥Z¥ùÿıóñ	÷õëéïí_¥
+÷…zI¥á…zúÃ9úè?È)À.à"^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Q¥yÕ5Ğzè?È9È*~eÿ¥Z¥ÿıóñ	÷õëéïíãáçåe›g™aR¥
+…z…z…l”P¥À7Æ7ÕéjŸ\¥ìîz•Y¥ızeí¥Z¥íãáçåe›g™aŸcm“o‘i—k•u‹wC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?K¥÷…zúÃ9úè?È9È*M¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézè?È9È*Neâ¥Z¥âàæäšd˜f`œbVeã¥Z¥ãáçåe]¥6Á"¬3ËkVeà¥Z¥àæäšd]¥6Á"¬3ËhVeá¥Z¥áçåe›gP¥6Á"¬6À4Â.ÍVeæ¥Z¥æäšd˜f^¥8Æ7ÕVeç¥Z¥çåe›g™aS¥?Ôz…z…z…jVeä¥Z¥äšd˜f`J¥-×"¬ú<Æú7À7Æ7ÕBeå¥Z¥åe›g™aŸcm“o‘i—k•u‹w@eš¥Z¥šd˜f`œb’ln–h”jŠtˆvp_¥
+÷…zK¥á…zúÃ9úè?È9È*^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%W¥yÕ5Ğzè?È9È*à"|e˜¥Z¥˜f`œb’ln–h”jŠtˆvpŒr‚|€~†x„zºD¸FR¥
+…z…z…l”V¥À7Æ7ÕİéjŸ\¥ìîz•Y¥ıxe¥Z¥}ƒy‡{…E»G¹A¿C½M³O±I·KµU«W©QC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?I¥÷…zúÃ9úè?È9È*à"C¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézè?È9È*à"Ne‚¥Z¥‚|€~†x„zºD¸F¾@¼BVeƒ¥Z¥ƒy‡{…E]¥6Á"¬3ËkVe€¥Z¥€~†x„zºDT¥6Á"…z…z…5Ã<ì4”Ve¥Z¥y‡{…E»GY¥;Á>Ve†¥Z¥†x„zºD¸F]¥6Á"¬3ËhVe‡¥Z¥‡{…E»G¹AT¥6Á"…z…z…5Ã<ì4—Ve„¥Z¥„zºD¸F¾@Y¥;Á>Ve…¥Z¥…E»G¹A¿CP¥6Á"¬6À4Â.ÍVeº¥Z¥ºD¸F¾@¼B^¥8Æ7ÕVe»¥Z¥»G¹A¿C½MS¥?Ôz…z…z…jVe¸¥Z¥¸F¾@¼B²LH¥-×"¬ú<Æú7À7Æ7ÕİBe¹¥Z¥¹A¿C½M³O±I·KµU«W©Q¯S@e¾¥Z¥¾@¼B²L°N¶H´JªT¨V®P¬R¢\_¥
+÷…zI¥á…zúÃ9úè?È9È*à"^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%C¥yÕ5Ğzì4Æ(À;Ö?è;İÜ9É?ñ3È?he½¥Z¥½M³O±I·KµU«W©Q¯S­]£_¡Y§[¥¥[§Y¡_£]­S¯Q©W«UµK·I±R¥
+…z…z…l”B¥Ë9×?Ä)ÀÄ"æ#Æ6ÀÌ7ÀéjŸ\¥ìîz•Y¥ıIe®¥Z¥®P¬R¢\ ^¦X¤ZZ¤XGe¯¥Z¥¯S­]£_¡Y§[¥¥[§Y¡_£]­S¯Q©WVe¬¥Z¥¬R¢\ ^¦XV¥á…zÄ>ÁÌ7ÀVe­¥Z¥­]£_¡Y§[]¥	ü	…z—oFe¢¥Z¥¢\ ^¦X¤ZZ¤X¦^ \¢R¬P®V¨Tªje£¥Z¥£_¡Y§[¥¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?E¥÷…zúÃ9úì4Æ(À;Ö?è;İÜ9É?ñ3È?¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézì4Æ(À;Ö?è;İÜ9É?ñ3È?@e ¥Z¥ ^¦X¤ZZ¤X¦^ \¢R¬P®V¨Tª_¥
+÷…zE¥á…zúÃ9úì4Æ(À;Ö?è;İÜ9É?ñ3È?^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}g¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùàëú ìëúä	‹	ñ}H¥yÕ5Ğzö?Ñ	Ğ7È?×Ì7ÀpeK¥Z¥K·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“R¥
+…z…z…l”K¥	À.ö/È7À(ñ3È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•B¥÷…zúÃ9úö?Ñ	Ğ7È?×Ì7ÀF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öne@¥Z¥@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?{¥÷z…zö#Ö.À7ú	Û	ğè÷ñèúàğöw¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö#Ö.À7ú	‹	ğè÷ñèúàğöeA¥Z¥A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸaC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?B¥÷…zúÃ9úö?Ñ	Ğ7È?×Ì7ÀD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?Ñ	Ğ7È?×Ì7ÀCeF¥Z¥F¸Dºz„x†~€|‚rŒpvˆtŠj_¥
+÷…zB¥á…zúÃ9úö?Ñ	Ğ7È?×Ì7À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzì)ö/È7À(ñ3È?seE¥Z¥E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçR¥
+…z…z…l”J¥Ö	Ğ7È?×Ì7ÀéjŸ\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•M¥÷…zúÃ9úì)ö/È7À(ñ3È?F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ömer¥Z¥rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü F¥áz…zö#Ö.À7ú	Ûööèàúìày¥yÁ?Ç/ÂzÇ5Ê6…	Ü)Ñ?Èötì	ú	ğè÷ñèM¥÷…zúÃ9úì)ö/È7À(ñ3È?G¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézì)ö/È7À(ñ3È?Ces¥Z¥sq‰w‹u•k—i‘o“mcŸa™g_¥
+÷…zM¥á…zúÃ9úì)ö/È7À(ñ3È?^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%H¥yÕ5Ğzö?ÑÌ4Ñ?×Ì7Àpev¥Z¥vˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôR¥
+…z…z…l”K¥	À.ò3Ë.À(ñ3È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•B¥÷…zúÃ9úö?ÑÌ4Ñ?×Ì7ÀF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öoeo¥Z¥o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿùûÅ;Ç9Á?C¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?{¥÷z…zö#Ö.À7ú	Û	ğè÷ñèúàğöw¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö#Ö.À7ú	‹	ğè÷ñèúàğöel¥Z¥l’bœ`f˜dšäæàâìîèê
+ôöğC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?B¥÷…zúÃ9úö?ÑÌ4Ñ?×Ì7ÀD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?ÑÌ4Ñ?×Ì7ÀCem¥Z¥mcŸa™g›eåçáãíï_¥
+÷…zB¥á…zúÃ9úö?ÑÌ4Ñ?×Ì7À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzì)ò3Ë.À(ñ3È?se`¥Z¥`f˜dšäæàâìîèê
+ôöğòü şøR¥
+…z…z…l”J¥ÖÌ4Ñ?×Ì7ÀéjŸ\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•M¥÷…zúÃ9úì)ò3Ë.À(ñ3È?F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öae¥Z¥áãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#F¥áz…zö#Ö.À7ú	Ûööèàúìày¥yÁ?Ç/ÂzÇ5Ê6…	Ü)Ñ?Èötì	ú	ğè÷ñèY¥àM¥÷…zúÃ9úì)ò3Ë.À(ñ3È?G¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézì)ò3Ë.À(ñ3È?Ce¥Z¥àâìîèê
+ôöğò_¥
+÷…zM¥á…zúÃ9úì)ò3Ë.À(ñ3È?^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%V¥yÕ5Ğzâ?ÑÄ.À~e¥Z¥íïéëõ÷	ñóıÿùûÅ;Ç9Á?ÃR¥
+…z…z…l”Q¥À.á;Ñ?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•H¥÷…zúÃ9úâ?ÑÄ.ÀR¥àızÑ7Õ\¥áz…zœ\¥áz…z•^¥ì…F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öme
+¥Z¥
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$ØA¥áz…zö#Ö.À7ú	Ûêëàúà÷	y¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúà÷	W¥÷…zÑ7Õ$Ü?Ä(@¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹#À;×be¥Z¥÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!F¥áz…zö#Ö.À7ú	Ûêëàúêñö~¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúêñöT¥÷…zÑ7Õ$È5Ë.ÍA¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹7Ê4Ñ2ee¥Z¥öğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Öy¥áz…zö#Ö.À7ú	Ûêëàúäöêúêñq¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúäöêúêñV¥÷…zÑ7Õ$Á;ÜC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹>Ä#xe	¥Z¥	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5ÕV¥áz…zĞ)Ì4Ñz•W¥÷…zÑ7Õ$Í5Ğ(@¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹2Ê/×xe¥Z¥ğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*ÔV¥áz…zĞ)Ì4Ñz•V¥÷…zÑ7Õ$È3ËC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹7Ì4xe¥Z¥óıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×V¥áz…zĞ)Ì4Ñz•V¥÷…zÑ7Õ$Ö?ÆC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹)À9xe¥Z¥òü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(ÖV¥áz…zĞ)Ì4Ñz•H¥÷…zÑ7Õ$Á;ÜÃÀ?ÎE¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹>Ä#ê<ò?À1xe¥Z¥ıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)ÑQ¥áz…zĞ3Ë.…jJ¥÷…zÑ7Õ$È3É3Ö?ÆF¥yÁ?Ç/ÂÉ?Ã.…/Ì4ÑzÑ7ÕtÈ3É3Ö?ÆNe¥Z¥ü şøú:Ä8Æ>À<ÂQe¥Z¥ÿùûS¥àız….È*Qe ¥Z¥ şøú:¥	ü	…z…kz…z…z…z…z…z…z…z…a…1Ê4Ó?× ÀzñÀ9ÊÄ.ÀÌ7Àzˆd…äàäáñèQe¥Z¥ùûÅ;I¥÷…z…ú<ÆúÀ.á;Ñ?Be¥Z¥øú:Ä8Æ>À<Â2Ì0Î6È4ÊCe¥Z¥ûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+_¥
+÷…zH¥á…zúÃ9úâ?ÑÄ.À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%V¥yÕ5Ğzâ?ÑÌ7À~e:¥Z¥:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚR¥
+…z…z…l”Q¥À.ñ3È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•H¥÷…zúÃ9úâ?ÑÌ7ÀV¥÷…zÈ3É3Ö?ÆF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öxe6¥Z¥6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,\¥áz…z•P¥áz…z€	òmX¥ôY¥àU¥è…zâ?ÑÌ7Àéke7¥Z¥7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×P¥áz…z€	òmV¥÷…zÈ3É3Ö?ÆB¥yÁ?Ç/ÂÉ?Ã.…/Ì4ÑzÈ3É3Ö?ÆNe4¥Z¥4Ê*Ô(Ö.Ğ,Ò"Ü Ş&ØU¥è
+…zâ?ÑÌ7ÀéhQ¥À.ñ3È?ú”`e5¥Z¥5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëé@¥áz…zö#Ö.À7ú	Ûêëàúk•öx¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúk•öP¥ë…zããV¥áz…zĞ3Ë.…k•Y¥ğP¥ë…zããV¥÷…zÈ3É3Ö?ÆB¥yÁ?Ç/ÂÉ?Ã.…/Ì4ÑzÈ3É3Ö?ÆMe*¥Z¥*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$ØQ¥À.ñ3È?ú—`e(¥Z¥(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèV¥á…zÈ3É3Ö?ÆI¥yÁ?Ç/ÂzĞ3Ë.…7Ì6Ì)À9e)¥Z¥)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáçåeG¥áz…zö#Ö.À7ú	Ûêëàú	àêá	¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàú	àêá	T¥áz…zÑ3È?…k•j•^¥ğöY¥áe.¥Z¥.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîìâàæäšdG¥áz…zö#Ö.À7ú	Ûêëàúìğà	¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúìğà	T¥áz…zÑ3È?…k•j•^¥ğöV¥áz…zÑ3È?…l•^¥ğöY¥á	e/¥Z¥/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáçåe›g™A¥áz…zö#Ö.À7ú	Ûêëàúê÷	y¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúê÷	T¥áz…zÑ3È?…k•j•^¥ğöT¥áz…zÑ3È?…i“j•^¥ğöY¥áH¥÷…zúÃ9úâ?ÑÌ7ÀB¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzâ?ÑÌ7À@e-¥Z¥-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)_¥
+÷…zH¥á…zúÃ9úâ?ÑÌ7À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%J¥yÕ5Ğzâ?ÑÄ.ÀÌ7Àhe ¥Z¥ Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üR¥
+…z…z…l”U¥À.á;Ñ?ñ3È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖR¥á…z•t•L¥÷…zúÃ9úâ?ÑÄ.ÀÌ7ÀR¥àızÑ7Õ\¥áz…zœ\¥áz…z•^¥ì…F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖbeÜ¥Z¥Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîìâA¥áz…zö#Ö.À7ú	Ûêëàúà÷	y¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúà÷	W¥÷…zÑ7Õ$Ü?Ä(@¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹#À;×ceİ¥Z¥İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáF¥áz…zö#Ö.À7ú	Ûêëàúêñö~¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúêñöT¥÷…zÑ7Õ$È5Ë.ÍA¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹7Ê4Ñ2eÒ¥Z¥Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîìâàæäšd˜fy¥áz…zö#Ö.À7ú	Ûêëàúäöêúêñq¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúäöêúêñV¥÷…zÑ7Õ$Á;ÜC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹>Ä#beÓ¥Z¥Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáA¥áz…zö#Ö.À7ú	Ûêëàúê÷	y¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúê÷	W¥÷…zÑ7Õ$Í5Ğ(@¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹2Ê/×`eĞ¥Z¥Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîìâàæäG¥áz…zö#Ö.À7ú	Ûêëàúìğà	¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúìğà	V¥÷…zÑ7Õ$È3ËC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹7Ì4`eÑ¥Z¥Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáçåeG¥áz…zö#Ö.À7ú	Ûêëàú	àêá	¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàú	àêá	V¥÷…zÑ7Õ$Ö?ÆC¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹)À9eeÖ¥Z¥Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîìâàæäšd˜f`œx¥áz…zö#Ö.À7ú	Ûêëàúäöêúàîp¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúäöêúàîH¥÷…zÑ7Õ$Á;ÜÃÀ?ÎE¥yÁ?Ç/ÂÉ?Ã.…/Ö3Ë.….È*‹>Ä#ê<ò?À1yeÔ¥Z¥Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğö\¥áz…z•P¥áz…z€	òmX¥ôY¥àI¥è…zâ?ÑÄ.ÀÌ7ÀékseÕ¥Z¥Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéP¥áz…z€	òmJ¥÷…zÑ7Õ$È3É3Ö?ÆF¥yÁ?Ç/ÂÉ?Ã.…/Ì4ÑzÑ7ÕtÈ3É3Ö?ÆNeÊ¥Z¥Ê4È6Î0Ì2Â<À>Æ8Ä:I¥è
+…zâ?ÑÄ.ÀÌ7ÀéhU¥À.á;Ñ?ñ3È?ú”`eË¥Z¥Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáçåe›g™aŸcm“o‘i—k•u‹w‰qs}ƒ@¥áz…zö#Ö.À7ú	Ûêëàúk•öx¥yÁ?Ç/ÂzĞ)Ì4Ñzö#Ö.À7ú	‹êëàúk•öP¥ë…zããV¥áz…zĞ3Ë.…k•Y¥ğP¥ë…zããJ¥÷…zÑ7Õ$È3É3Ö?ÆF¥yÁ?Ç/ÂÉ?Ã.…/Ì4ÑzÑ7ÕtÈ3É3Ö?ÆMeÈ¥Z¥È6Î0Ì2Â<À>Æ8Ä:úøşU¥À.á;Ñ?ñ3È?ú—`OeÉ¥Z¥É1Ï3Í=Ã?Á9Ç;ÅûùVeÎ¥Z¥Î0Ì2Â<À>S¥àız….È*VeÏ¥Z¥Ï3Í=Ã?Á9¥	ü	…z…kz…z…z…z…z…z…z…z…a…1Ê4Ó?× ÀzñÀ9ÊÄ.ÀÌ7Àzˆd…äàäáñèVeÌ¥Z¥Ì2Â<À>Æ8M¥÷…z…ú<ÆúÀ.á;Ñ?ñ3È?CeÍ¥Z¥Í=Ã?Á9Ç;Åûùÿıóñ@eÂ¥Z¥Â<À>Æ8Ä:úøş üòğö_¥
+÷…zL¥á…zúÃ9úâ?ÑÄ.ÀÌ7À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Q¥yÕ5Ğzâ?ÑñweÁ¥Z¥Á9Ç;Åûùÿıóñ	÷õëéïíãáçåe›g™R¥
+…z…z…l”P¥À.÷æéjŸ\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖR¥á…z•t•K¥÷…zúÃ9úâ?ÑñR¥àızÑ7Õ\¥áz…zœ\¥áz…z•^¥ì…F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖIeş¥Z¥ş üòğöô
+êèOeÿ¥Z¥ÿıóñ	÷õëéïVeü¥Z¥üòğö¥áz…z…ú3Ë>İr…úË)Ñ;Ë9ÀúÀ.÷æ$Ñ7ÕsVeı¥Z¥ıóñ	÷n¥	ü	…z…i…z…z…z…z…z…z…z…z…a…á…w›zË;Æ3Ö.…5Î;È Ì.ÜzÆ;ÖVeò¥Z¥òğöô
+S¥àız….È*Veó¥Z¥óñ	÷õ¥	ü	…z…kz…z…z…z…z…z…z…z…a…1Ê4Ó?× ÀzñÀ9ÊÄ.ÀÌ7Àzˆd…äàäáñèVeğ¥Z¥ğöô
+êH¥÷…z…ú<ÆúÀ.÷æCeñ¥Z¥ñ	÷õëéïíãáçå@eö¥Z¥öô
+êèîìâàæäšd_¥
+÷…zK¥á…zúÃ9úâ?Ññ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Q¥yÕ5Ğzö?Ññ~eõ¥Z¥õëéïíãáçåe›g™aŸcm“o‘i—kZ%L¥yÖ.×/Æ.…	À.÷æú.À7ÕúQ¥8Ê5Éz×?Ö/É.R¥
+…z…z…l”P¥	À.÷æéjŸG¥ìîzúö3ß?ê<	À.÷æú.À7ÕúsY¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•K¥÷…zúÃ9úö?ÑñR¥àızÑ7Õ\¥áz…zœ\¥áz…z•^¥ì…F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öz¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖIeš¥Z¥šd˜f`œb’ln–h”Oe›¥Z¥›g™aŸcm“o‘i—k•u‹Ve˜¥Z¥˜f`œb’lS¥àız….È*Ve™¥Z¥™aŸcm“oS¥á…z…
+áVe¥Z¥`œb’ln¥	ü	…z…kœz…z…z…z…z…z…z…z…a…1Ê4Ó?× Àzáñúëúìàzˆd…ñ?Æ5á;Ñ?ñ3È?VeŸ¥Z¥Ÿcm“o‘i¥áz…z…ú3Ë>İr…úË)Ñ;Ë9Àú	À.÷æ$Ñ7ÕsVeœ¥Z¥œb’ln–hn¥	ü	…z…n…z…z…z…z…z…z…z…z…a…÷…w›zß;Õ)Ä.…5Î;È Ì.ÜzÆ;ÖVe¥Z¥m“o‘i—kh¥ôz…z…j…z…z…z…z…z…z…z…z…a…j…g…4À*Ê>Ä(Ì6ÊzÖ?… Ä*Ö;ÑVe’¥Z¥’ln–h”jY¥àVe“¥Z¥“o‘i—k•uV¥÷…z…(À)Ğ6ÑCe¥Z¥n–h”jŠtˆvpŒr‚|€~†x„{e‘¥Z¥‘i—k•u‹w‰qs}ƒy‡{…E»G¹A¿C½Q¥á…z×?Ö/É.H¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑK¥÷…zúÃ9úö?ÑñM¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?Ññ@e–¥Z¥–h”jŠtˆvpŒr‚|€~†x„zºD_¥
+÷…zK¥á…zúÃ9úö?Ññ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzñ?Æ5áúêáie•¥Z¥•u‹w‰qs}ƒy‡{…E»G¹A¿C½M³O±I·KµU«W©Q¯S­]£_¡Y§R¥
+…z…z…l”J¥À9ÊññúñéjŸ\¥ìîz•Y¥ıIe‚¥Z¥‚|€~†x„zºD¸F¾@¼Oeƒ¥Z¥ƒy‡{…E»G¹A¿C½M³Ve€¥Z¥€~†x„zºDW¥àız…À9ÊáVe¥Z¥y‡{…E»G¥	ü	…z…kz…z…z…z…z…z…z…z…a…1Ê4Ó?× ÀzñÀ9ÊÄ.ÀÌ7Àzˆd…äàäáñèVe†¥Z¥†x„zºD¸FB¥÷…z…ú<ÆúÀ9ÊññúñCe‡¥Z¥‡{…E»G¹A¿C½M³O±I·KµU«@e„¥Z¥„zºD¸F¾@¼B²L°N¶H´JªT¨V_¥
+÷…zM¥á…zúÃ9úñ?Æ5áúêá^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzáúêñ?Æ5áie»¥Z¥»G¹A¿C½M³O±I·KµU«W©Q¯S­]£_¡Y§[¥¥[§Y¡_£]­S¯Q©W«UR¥
+…z…z…l”J¥ññúÀ9ÊñéjŸ\¥ìîz•Y¥ıIe°¥Z¥°N¶H´JªT¨V®P¬R¢Oe±¥Z¥±I·KµU«W©Q¯S­]£_¡Ve¶¥Z¥¶H´JªT¨VB¥àız…ú<ÆúññúÀ9ÊñVe·¥Z¥·KµU«W©QV¥á…z…àúñVe´¥Z¥´JªT¨V®P¥	ü	…z…kœz…z…z…z…z…z…z…z…a…1Ê4Ó?× Àzáñúëúìàzˆd…ñ?Æ5á;Ñ?ñ3È?Ceµ¥Z¥µU«W©Q¯S­]£_¡Y§[¥¥[§Y@eª¥Z¥ªT¨V®P¬R¢\ ^¦X¤ZZ¤X¦^ _¥
+÷…zB¥àız…ú<ÆúññúÀ9ÊñS¥	÷…z…ıj^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}d¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lù
+÷âäì	æäâátö‚z¥yÕ5ĞzÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Áe\¥Z¥\¢R¬P®V¨TªJ´H¶N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäR¥
+…z…z…l”E¥7À7Ê(ÜÃ5×õ(Ê=×;ÈÖÍ;Ë=À>ú•`\¥ìîz•Y¥ıjeW¥Z¥W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mB¥áz…zÇ5Ê6…w”z…z…z…a….×/À|¥÷…zúÃ9úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Áv¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?ÁCeT¥Z¥TªJ´H¶N°L²B¼@¾F¸Dºz„x_¥
+÷…z|¥á…zúÃ9úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%O¥yÕ5Ğzõ(Ê=×;ÈÖÍ;Ë=À>weK¥Z¥K·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcR¥
+…z…z…l”N¥
+×5Â(Ä7ì)æ2Ä4Â?ÁéjŸ\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•A¥÷…zúÃ9úõ(Ê=×;ÈÖÍ;Ë=À>W¥÷…zÖ;Ó?ö’jV¥÷…zÈ?È	ém•P¥÷…zÈ?È	‘F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Öe{¥Z¥{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?A¥÷…zúÃ9úõ(Ê=×;ÈÖÍ;Ë=À>{¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézõ(Ê=×;ÈÖÍ;Ë=À>iex¥Z¥x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+Ney¥Z¥yƒ}sq‰w‹u•k—Qe~¥Z¥~€|‚rŒpl¥áz…z…úË)Ñ;Ë9Àú7À7Ê(ÜÃ5×õ(Ê=×;ÈÖÍ;Ë=À>Û)Ä,À	ém•Qe¥Z¥ƒ}sqT¥÷…z…)Ä,À	ém•Qe|¥Z¥|‚rŒpvo¥áz…z…úË)Ñ;Ë9Àú7À7Ê(ÜÃ5×õ(Ê=×;ÈÖÍ;Ë=À>Û7À7ö’jQe}¥Z¥}sq‰wW¥÷…z…7À7ö’jQer¥Z¥rŒpvˆti¥áz…z…úË)Ñ;Ë9Àú7À7Ê(ÜÃ5×õ(Ê=×;ÈÖÍ;Ë=À>Û7À7önQes¥Z¥sq‰w‹uQ¥÷…z…7À7önBep¥Z¥pvˆtŠj”h–nl’bœ`f˜Ueq¥Z¥q‰w‹u•k—i‘oEev¥Z¥vˆtŠj”h–nl’bœ`f˜dšäæàW¥á…zÖ;Ó?ö’jN¥yÁ?Ç/ÂzÇ5Ê6…)Ä,À	ém•B¥è…zõ(Ê=×;ÈÖÍ;Ë=À>ú”ew¥Z¥w‹u•k—i‘o“mcŸa™g›eåçáãíïéP¥á…zÈ?È	‘H¥yÁ?Ç/ÂzĞ)Ì4ÑzÈ?È	‘R¥áz…z€	‘X¥ôY¥àB¥è…zõ(Ê=×;ÈÖÍ;Ë=À>ú–et¥Z¥tŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚP¥áz…z€	ém•V¥÷…zÈ?È	ém•C¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…7À7ö’jBeu¥Z¥u•k—i‘o“mcŸa™g›eåçQej¥Z¥j”h–nlP¥áz…z€	ém•Qek¥Z¥k—i‘o“mn¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$È?È	ém•Qeh¥Z¥h–nl’b\¥áz…z•Qei¥Z¥i‘o“mco¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$Ö;Ó?ö’jFen¥Z¥nl’bœ`f˜dšäæàâìîeo¥Z¥o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#C¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?W¥÷…zÖ;Ó?ö’jC¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÖ;Ó?ö’jBel¥Z¥l’bœ`f˜dšäæàâìN¥
+×5Â(Ä7ì)æ2Ä4Â?ÁéiŸLem¥Z¥mcŸa™g›eåçáãíN¥
+×5Â(Ä7ì)æ2Ä4Â?ÁékŸ|ec¥Z¥cŸa™g›eåçáãíïéëõ÷	ñóıÿe`¥Z¥`f˜dšäæàâìîèê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü ŞH¥áz…zö#Ö.À7ú	Û	—–C¥yÁ?Ç/ÂzÇ5Ê6…	Ü)Ñ?ÈötöhúiH¥áz…zö#Ö.À7ú	Û	—‘C¥yÁ?Ç/ÂzÇ5Ê6…	Ü)Ñ?Èötöhún^¥÷z…H¥áz…zö#Ö.À7ú	Û	—“C¥yÁ?Ç/ÂzÇ5Ê6…	Ü)Ñ?Èötöhúl^¥÷z…B¥è…zõ(Ê=×;ÈÖÍ;Ë=À>úea¥Z¥a™g›eåçáãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×Lef¥Z¥f˜dšäæàâìîèQeg¥Z¥g›eåçP¥áz…z€	ém•Qed¥Z¥dšäæn¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$È?È	ém•@ee¥Z¥eåçáãíïéëõ÷	ñ}e¥Z¥äæàâìîèê
+ôöğòü şøú:Ä8B¥áz…zÇ5Ê6…w”z…z…z…a….×/ÀA¥÷…zúÃ9úõ(Ê=×;ÈÖÍ;Ë=À>{¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézõ(Ê=×;ÈÖÍ;Ë=À>Be¥Z¥çáãíïéëõ÷	ñC¥è
+…zõ(Ê=×;ÈÖÍ;Ë=À>úàLe¥Z¥æàâìîèê
+ôöN¥
+×5Â(Ä7ì)æ2Ä4Â?ÁéoŸre¥Z¥àâìîèê
+ôöğòü şøú:Ä8Æ>À<Â}e¥Z¥ãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=V¥á…zÈ?È	ém•N¥yÁ?Ç/ÂzĞ>Ì4ÑzÈ?È	ém•P¥áz…z€	ém•X¥ôY¥àB¥è…zõ(Ê=×;ÈÖÍ;Ë=À>ú’ e¥Z¥âìîèê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>e¥Z¥íïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5ËLe¥Z¥ìîèê
+ôöğòüQe¥Z¥ïéëR¥áz…z€	‘Qe¥Z¥îèê
+h¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$È?È	‘Qe¥Z¥éëõ\¥áz…z”Qe¥Z¥èê
+ôo¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$Ö;Ó?ö’j@e¥Z¥ëõ÷	ñóıÿùûÅ;Ç}e¥Z¥ê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*B¥áz…zÇ5Ê6…w”z…z…z…a….×/ÀA¥÷…zúÃ9úõ(Ê=×;ÈÖÍ;Ë=À>{¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézõ(Ê=×;ÈÖÍ;Ë=À>Le¥Z¥õ÷	ñóıÿùûÅN¥
+×5Â(Ä7ì)æ2Ä4Â?ÁémŸe¥Z¥÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+C¥è
+…zõ(Ê=×;ÈÖÍ;Ë=À>úàe	¥Z¥	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	Y¥ı\¥áz…z•o¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$Ö;Ó?ö’jn¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$È?È	ém•h¥÷z…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Á$È?È	‘Y¥
+÷v¥à…zúì4Ö.Ä4Æ?úÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Áy¥ä…zÈ?È5×#ú<Ê(ú
+×5Â(Ä7ì)æ2Ä4Â?Áéje¥Z¥ğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöCe¥Z¥óıÿùûÅ;Ç9Á?Ã=Í3O¥
+×5Â(Ä7ì)æ2Ä4Â?Á÷ñ`_¥
+÷…zA¥á…zúÃ9úõ(Ê=×;ÈÖÍ;Ë=À>^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}b¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùà	ñ÷õætö‚C¥yÕ5Ğz÷?ì4Ì.õæÍ5ÑÀ)Ñ;×.keC¥Z¥C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáR¥
+…z…z…l”B¥ÀË3Ñ
+éú2Ê.÷?Ö.Ä(ÑéjŸ\¥ìîz•Y¥ıCeu¥Z¥u•k—i‘o“mcŸa™g›eåç]¥á…z×+T¥yÁ?Ç/ÂzÇ5Ê6…(ÔF¥è…z÷?ì4Ì.õæÍ5ÑÀ)Ñ;×.ú”Lej¥Z¥j”h–nl’bœ`f˜dšäQek¥Z¥k—i‘o“mG¥áz…z”z…z…z…a…k…g…(À)Ñ;×.…
+éQeh¥Z¥h–nl’b¥áz…zj•l”z…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğzíé…rÇ6Î#‰zÆ6×#‰zÆ6×?ŒQei¥Z¥i‘o“mce¥áz…zj•bz…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğz÷ëz…rÍ5Ñz×?Ö.Ä(ÑsQen¥Z¥nl’bœ`D¥	ü	…z—z…z…z…a… Ä>Ê)ÑzÊz×?Ö.Ä(Ñ@eo¥Z¥o“mcŸa™g›eåçáãíïLel¥Z¥l’bœ`f˜dšäæàâB¥ÀË3Ñ
+éú2Ê.÷?Ö.Ä(ÑékŸsem¥Z¥mcŸa™g›eåçáãíïéëõ÷	ñóıÿC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?E¥÷…zúÃ9ú÷?ì4Ì.õæÍ5ÑÀ)Ñ;×.¥yÁ?Ç/ÂÉ?Ã.…8Ê5Éz÷?ì4Ì.õæÍ5ÑÀ)Ñ;×.Ceb¥Z¥bœ`f˜dšäæàâìî_¥
+÷…zE¥á…zúÃ9ú÷?ì4Ì.õæÍ5ÑÀ)Ñ;×.^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%@¥yÕ5Ğz÷?ì4Ì.õæÆ5É>÷?Ö.Ä(Ñhe`¥Z¥`f˜dšäæàâìîèê
+ôöğòü şøú:Ä8Æ>À<ÂR¥
+…z…z…l”C¥ÀË3Ñ
+éú9Ê6ÁÀ)Ñ;×.ú•`\¥ìîz•Y¥ıCe¥Z¥ê
+ôöğòü şøú:Ä8]¥á…z×+T¥yÁ?Ç/ÂzÇ5Ê6…(ÔG¥è…z÷?ì4Ì.õæÆ5É>÷?Ö.Ä(ÑékLe¥Z¥õ÷	ñóıÿùûÅQe
+¥Z¥
+ôöğG¥áz…z”z…z…z…a…k…g…(À)Ñ;×.…
+éQe¥Z¥÷	ñó¥áz…zj•l”z…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğzíé…rÇ6Î#‰zÆ6×#‰zÆ6×?ŒQe¥Z¥öğòe¥áz…zj•cz…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğz÷ëz…rÍ5Ñz×?Ö.Ä(ÑsQe	¥Z¥	ñóıD¥	ü	…z—z…z…z…a… Ä>Ê)ÑzÊz×?Ö.Ä(Ñ@e¥Z¥ğòü şøú:Ä8Æ>À<Â2ÌLe¥Z¥óıÿùûÅ;Ç9Á?ÃC¥ÀË3Ñ
+éú9Ê6ÁÀ)Ñ;×.ú”`pe¥Z¥òü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü ŞC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?z¥÷…zúÃ9ú÷?ì4Ì.õæÆ5É>÷?Ö.Ä(Ñ|¥yÁ?Ç/ÂÉ?Ã.…8Ê5Éz÷?ì4Ì.õæÆ5É>÷?Ö.Ä(ÑCe¥Z¥ıÿùûÅ;Ç9Á?Ã=Í3Ï1_¥
+÷…zz¥á…zúÃ9ú÷?ì4Ì.õæÆ5É>÷?Ö.Ä(Ñ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%B¥yÕ5Ğz÷?ì4Ì.õæË5÷?Ö.Ä(Ñje¥Z¥ÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!R¥
+…z…z…l”M¥ÀË3Ñ
+éú4ÊÀ)Ñ;×.ú•`\¥ìîz•Y¥ı@e7¥Z¥7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û']¥á…z×+T¥yÁ?Ç/ÂzÇ5Ê6…(ÔA¥è…z÷?ì4Ì.õæË5÷?Ö.Ä(ÑékMe4¥Z¥4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚVe5¥Z¥5Õ+×)Ñ/ÓG¥áz…z”z…z…z…a…k…g…(À)Ñ;×.…
+éVe*¥Z¥*Ô(Ö.Ğ,Ò¥áz…zj•l”z…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğzíé…rÇ6Î#‰zÆ6×#‰zÆ6×?ŒVe+¥Z¥+×)Ñ/Ó-İd¥áz…zj•b•z…a…*Ê Ä>Ä,Î#…4ÄzÕ(À9Í5ÁzÁ5…(À Ì7Ğz÷ëz…rË5…(À)Ñ;×.ŒVe(¥Z¥(Ö.Ğ,Ò"ÜD¥	ü	…z—z…z…z…a… Ä>Ê)ÑzÊz×?Ö.Ä(ÑAe)¥Z¥)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-ÓMe.¥Z¥.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş ÜM¥ÀË3Ñ
+éú4ÊÀ)Ñ;×.ú”`se/¥Z¥/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=ÃC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?D¥÷…zúÃ9ú÷?ì4Ì.õæË5÷?Ö.Ä(Ñ~¥yÁ?Ç/ÂÉ?Ã.…8Ê5Éz÷?ì4Ì.õæË5÷?Ö.Ä(Ñ@e,¥Z¥,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ._¥
+÷…zD¥á…zúÃ9ú÷?ì4Ì.õæË5÷?Ö.Ä(Ñ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}c¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùàèáéì‹	ñ}J¥yÕ5Ğzâ?ÑÊ>Ğ6Àáwe[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sR¥
+…z…z…l”U¥À.è5Á/É?ìú•`\¥ìîz•Y¥ıNeP¥Z¥P®V¨TªJ´H¶N°L²B¼NeV¥Z¥V¨TªJ´H¶N°L²B¼@¾QeW¥Z¥W«UµK·IM¥àız…ú<ÆúÀ.è5Á/É?ìQeT¥Z¥TªJ´H¶Nv¥á…z…(Ä9ÎĞ7Ç?×z…z…z…z…z…zèz…w…9H)É5…(D7ĞQeU¥Z¥UµK·I±Ol¥á…z…*Ê)Ì.Ì5Ëz…z…z…z…z…z…z
+ê	…w…*Ê Ì9ÀzÈ5Á/É/…,…(D7ĞQeJ¥Z¥J´H¶N°Lj¥áèz…z…z…z…z…z…z…z…z…z…z…z4Ä9Ñ?Ë·…3Á?Ë.Ì<Ì1Ä9ÀBeK¥Z¥K·I±O³M½C¿A¹G»E…{‡yCeH¥Z¥H¶N°L²B¼@¾F¸Dºz„x†~€|_¥
+÷…zM¥àız…ú<ÆúÀ.è5Á/É?ì^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}e¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùàó÷äğçëè‹	ñ}L¥yÕ5Ğzâ?ÑÄ(ó;É/ÀÜÄ7Àne[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•R¥
+…z…z…l”O¥À.ó;×Ä6Ğ?ç#ë;È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•F¥÷…zúÃ9úâ?ÑÄ(ó;É/ÀÜÄ7ÀF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖHeW¥Z¥W«UµK·I±O³M½C¿NeT¥Z¥TªJ´H¶N°L²B¼@¾F¸QeU¥Z¥UµK·I±OG¥àız…ú<ÆúÀ.ó;×Ä6Ğ?ç#ë;È?QeJ¥Z¥J´H¶N°LW¥àız…,Ä(ë;È?QeK¥Z¥K·I±O³M]¥áz…z…kQeH¥Z¥H¶N°L²Be¥	ü	…z…b’z…z…z…z…a…À.ó;×Ä6Ğ?…r…9Í;×z,Ä(ë;È?‰zÆ2Ä(…pÓ;×Ä6Ğ?ŒaBeI¥Z¥I±O³M½C¿A¹G»E…{‡yƒCeN¥Z¥N°L²B¼@¾F¸Dºz„x†~€|‚r_¥
+÷…zG¥àız…ú<ÆúÀ.ó;×Ä6Ğ?ç#ë;È?^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}e¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lù	àó÷äğçëè‹	ñ}L¥yÕ5Ğzö?ÑÄ(ó;É/ÀÜÄ7Àwe[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sR¥
+…z…z…l”O¥	À.ó;×Ä6Ğ?ç#ë;È?ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•F¥÷…zúÃ9úö?ÑÄ(ó;É/ÀÜÄ7ÀF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖHeT¥Z¥TªJ´H¶N°L²B¼@¾NeU¥Z¥UµK·I±O³M½C¿A¹G»QeJ¥Z¥J´H¶N°LT¥àız…,Ä(ó;É/ÀQeK¥Z¥K·I±O³MW¥àız…,Ä(ë;È?QeH¥Z¥H¶N°L²B]¥áz…z…hQeI¥Z¥I±O³M½Ce¥	ü	…z…b’z…z…z…z…a…	À.ó;×Ä6Ğ?…r…9Í;×z,Ä(ë;È?‰zÆ2Ä(…pÓ;×Ä6Ğ?ŒaQeN¥Z¥N°L²B¼@G¥÷…z…ú<Æú	À.ó;×Ä6Ğ?ç#ë;È?BeO¥Z¥O³M½C¿A¹G»E…{‡yƒ}CeL¥Z¥L²B¼@¾F¸Dºz„x†~€|‚rŒp_¥
+÷…zF¥á…zúÃ9úö?ÑÄ(ó;É/ÀÜÄ7À^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}b¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùìúğîàtö‚J¥yÕ5Ğzæç/Ë3ÑË<Êre¥Z¥äæàâìîèê
+ôöğòü şøú:Ä8ÆZ%A¥yÖ.×/Æ.…ìĞ4Ì.ì4Ã5úÑ?È*úR¥8Ê5ÉzÑ7ÕR¥
+…z…z…l”U¥ìĞ4Ì.ì4Ã5ú•`x¥ìîzúö3ß?ê<ìĞ4Ì.ì4Ã5úÑ?È*úŒY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖHe¥Z¥òü şøú:Ä8ÆNe¥Z¥ıÿùûÅ;Ç9Á?ÃQe¥Z¥ü şøT¥á…z…ìú6Ì4ÀQe¥Z¥ÿùûJ¥á…z…ìú/Ë3ÑáQe ¥Z¥ şøú:T¥á…z…/Ë3ÑË<ÊQe¥Z¥ùûÅ;|¥	ü	…z…m“z…z…z…z…z…z…a…À.æç/Ë3ÑË<ÊrŒQe¥Z¥øú:Ä8S¥÷…z….È*Be¥Z¥ûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õxe¥Z¥ú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü ŞR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*L¥÷…zúÃ9úæç/Ë3ÑË<ÊF¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézæç/Ë3ÑË<ÊCe¥Z¥Å;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)_¥
+÷…zL¥á…zúÃ9úæç/Ë3ÑË<Ê^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%U¥yÕ5Ğz÷Ğ4Ì.ì4Ã5}e8¥Z¥8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&ŞZ%@¥yÖ.×/Æ.…ã/Ë3ÑË<Êú.À7ÕúR¥8Ê5ÉzÑ7ÕR¥
+…z…z…l”T¥ã/Ë3ÑË<ÊéjŸ{¥ìîzúö3ß?ê<ã/Ë3ÑË<Êú.À7ÕúsY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖIe"¥Z¥"Ü Ş&Ø$ÚÚ$Ø&Ş ÜOe#¥Z¥#ß!Ù'Û%%Û'Ù!ß#İ-ÓVe ¥Z¥ Ş&Ø$ÚÚ$W¥á…z…ãÉ3Ë?Ve!¥Z¥!Ù'Û%%Û'U¥á…z…ãĞ4Ì.ìVe&¥Z¥&Ø$ÚÚ$Ø&T¥á…z…/Ë3ÑË<ÊVe'¥Z¥'Û%%Û'Ù!|¥	ü	…z…m“z…z…z…z…z…z…a…À.æç/Ë3ÑË<ÊrŒVe$¥Z¥$ÚÚ$Ø&Ş S¥÷…z….È*Ce%¥Z¥%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7ÉxeÚ¥Z¥Ú$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8R¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*O¥÷…zúÃ9ú÷Ğ4Ì.ì4Ã5A¥yÁ?Ç/ÂÉ?Ã.…8Ê5Éz÷Ğ4Ì.ì4Ã5@eÛ¥Z¥Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3_¥
+÷…zO¥á…zúÃ9ú÷Ğ4Ì.ì4Ã5^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%L¥yÕ5Ğzö?ÑÁ>×?Ö)æç/Ë3ÑueŞ¥Z¥Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöôZ%{¥yÖ.×/Æ.…	À.ä>Á(À)ÖìĞ4Ì.úÑ?È*úQ¥8Ê5Éz×?Ö/É.R¥
+…z…z…l”O¥	À.ä>Á(À)ÖìĞ4Ì.ú•`r¥ìîzúö3ß?ê<	À.ä>Á(À)ÖìĞ4Ì.úÑ?È*úŒY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖIeÌ¥Z¥Ì2Â<À>Æ8Ä:úøşOeÍ¥Z¥Í=Ã?Á9Ç;ÅûùÿıVeÂ¥Z¥Â<À>Æ8Ä:T¥á…z…ìú6Ì4ÀVeÃ¥Z¥Ã?Á9Ç;ÅJ¥á…z…ìú/Ë3ÑáVeÀ¥Z¥À>Æ8Ä:úT¥á…z…ìú;Á>×VeÁ¥Z¥Á9Ç;Åûs¥	ü	…z…m’z…z…z…z…z…z…a…	À.æç/Ë3ÑÁ>×?Ö)sVeÆ¥Z¥Æ8Ä:úøV¥÷…z…(À)Ğ6ÑCeÇ¥Z¥Ç;Åûùÿıóñ	÷õëveÄ¥Z¥Ä:úøş üòğöô
+êèîìâàæäšd˜f`Q¥á…z×?Ö/É.H¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑF¥÷…zúÃ9úö?ÑÁ>×?Ö)æç/Ë3Ñx¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?ÑÁ>×?Ö)æç/Ë3Ñ@eú¥Z¥úøş üòğöô
+êèî_¥
+÷…zF¥á…zúÃ9úö?ÑÁ>×?Ö)æç/Ë3Ñ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%O¥yÕ5Ğzö?ÑÁ>×?Ö)÷Ğ4Ì.teù¥Z¥ùÿıóñ	÷õëéïíãáçåe›g™aŸcm“o‘iZ%z¥yÖ.×/Æ.…	À.ä>Á(À)Öã/Ë3Ñú.À7ÕúQ¥8Ê5Éz×?Ö/É.R¥
+…z…z…l”N¥	À.ä>Á(À)Öã/Ë3ÑéjŸ}¥ìîzúö3ß?ê<	À.ä>Á(À)Öã/Ë3Ñú.À7ÕúsY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖIeï¥Z¥ïíãáçåe›g™Oeì¥Z¥ìâàæäšd˜f`œVeí¥Z¥íãáçW¥á…z…ãÉ3Ë?Veâ¥Z¥âàæäU¥á…z…ãĞ4Ì.ìVeã¥Z¥ãáçåeW¥á…z…ãÄ>Á(Veà¥Z¥àæäšds¥	ü	…z…m’z…z…z…z…z…z…a…	À.æç/Ë3ÑÁ>×?Ö)sVeá¥Z¥áçåe›gV¥÷…z…(À)Ğ6ÑCeæ¥Z¥æäšd˜f`œb’ln–h”jŠqeç¥Z¥çåe›g™aŸcm“o‘i—k•u‹w‰qs}ƒy‡{…E»G¹Q¥á…z×?Ö/É.H¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑA¥÷…zúÃ9úö?ÑÁ>×?Ö)÷Ğ4Ì.{¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?ÑÁ>×?Ö)÷Ğ4Ì.@eå¥Z¥åe›g™aŸcm“o‘i—k•u‹w‰q_¥
+÷…zA¥á…zúÃ9úö?ÑÁ>×?Ö)÷Ğ4Ì.^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5ĞzÃ8ç5Ë>÷Ğ4Ì.se¥Z¥s}ƒy‡{…E»G¹A¿C½M³O±I·KµU«W©Q¯S­]£Z%F¥yÖ.×/Æ.…<ÇÊ4Áã/Ë3Ñú.À7ÕúN¥)Ñ(Ì4Â‘høzõ	•ú)Ñú{¥yÁ;Ñ;…8Ü.Àzú)Ñ(ú<ÇÊ4Áã/Ë3Ñ•z˜z^¥}‚v•R¥
+…z…z…l”J¥<ÇÊ4Áã/Ë3ÑéjŸy¥ìîzúö3ß?ê<<ÇÊ4Áã/Ë3Ñú.À7ÕúsK¥a…úáàv…úáàzS¥á…zÀ"À9I¥àızúàâúúÀ"À9S¥÷…zÀ"À9se ¥Z¥ ^¦X¤ZZ¤X¦^ \¢R¬P®V¨TªJ´H¶N°L²B¼@¾F¸DS¥á…zÀ"À9J¥yÁ?Ç/ÂzÇ5Ê6…?İ?ÆS¥á…zÇ/Ö#J¥yÁ?Ç/ÂzÇ5Ê6…8Ğ)ÜY¥àY¥ëN¥è…zÃ8ç5Ë>÷Ğ4Ì.ú”e¡¥Z¥¡Y§[¥¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?S¥÷…zÁ5Ë?O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÁ5Ë?C¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?S¥÷…zÇ/Ö#O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÇ/Ö#C¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?R¥÷…zÀ(×N¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÀ(×V¥áz…zĞ>Ì4Ñz•P¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìL¥áz…z•z…zzË/É6…)Ñ(Ì4ÂW¥àızĞ4Ì.ñ#Õ?_¥÷…zW¥àızĞ4Ì.ñ#Õ?]¥áz…z‘jJ¥ö…z…zzé?Ó?Éz”B¥à…zú)Ñ(ú<ÇÊ4Áã/Ë3Ñ•_¥	æëzA¥yÁ?Ç/ÂÉ?Ã.…)Ñ(Ì4ÂzĞ4Ì.ñ#Õ?J¥
+á	ñz…zzé?Ó?Éz”e¦¥Z¥¦X¤ZZ¤X¦^ \¢R¬P®V¨TªJ´H¶N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæ\¥áz…z•Q¥÷…zÑ3È$ìM¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÑ3È$ìP¥á…zÑ3È
+ñK¥yÁ?Ç/ÂzÑ3È?….Ì7õQ¥÷…zÑ3È$õM¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzÑ3È$õR¥àızÑ3ÈQ¥ä…zñëéjze§¥Z¥§[¥¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?P¥÷…zÑ3ÈëL¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÑ3Èëze¤¥Z¥¤ZZ¤X¦^ \¢R¬P®V¨TªJ´H¶N°L²B¼Q¥á…zÇ5Ë>÷+H¥yÁ?Ç/ÂzÇ5Ê6…8Ê4ÁÔN¥è…zÃ8ç5Ë>÷Ğ4Ì.ú–e¥¥Z¥¥¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëU¥áz…zÑ3È?…h•j•jP¥÷…zÑ3È
+ñL¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzÑ3È
+ñLeZ¤Z¥Z¤X¦^ \¢R¬P®V¨TªJ´N¥è
+…zÃ8ç5Ë>÷Ğ4Ì.ú‘J¥<ÇÊ4Áã/Ë3ÑéiŸe[¤Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçT¥áz…zÑ3È?…o•j•P¥÷…zÑ3È
+ñL¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzÑ3È
+ñCeX¤Z¥X¦^ \¢R¬P®V¨TªJ´H¶N°LJ¥<ÇÊ4Áã/Ë3ÑénŸMeY¤Z¥Y¡_£]­S¯Q©W«UµK·I±OJ¥<ÇÊ4Áã/Ë3ÑékŸFe_¤Z¥_£]­S¯Q©W«UµK·I±O³M½C¿A¹S¥á…zÇ/Ö#J¥yÁ?Ç/ÂzÇ5Ê6…8Ğ)ÜN¥è…zÃ8ç5Ë>÷Ğ4Ì.úe\¤Z¥\¢R¬P®V¨TªJ´H¶N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìP¥á…zÑ3ÈëK¥yÁ?Ç/ÂzÇ5Ê6….Ì7ìQ¥÷…zÑ3È$ìM¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÑ3È$ìP¥á…zÑ3È
+ñK¥yÁ?Ç/ÂzÑ3È?….Ì7õQ¥÷…zÑ3È$õM¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzÑ3È$õR¥àızÑ3ÈQ¥ä…zñëéjre]¤Z¥]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sMeR¤Z¥R¬P®V¨TªJ´H¶N°L²B¼@VeS¤Z¥S¯Q©W«UµW¥á…z…ãÉ3Ë?VeP¤Z¥P®V¨TªJ´U¥á…z…ãĞ4Ì.ìVeQ¤Z¥Q©W«UµK·V¥á…z…8Ê4ÁÔVeV¤Z¥V¨TªJ´H¶U¥á…z…/Ö?÷5Ğ.À(VeW¤Z¥W«UµK·I±T¥àız…/Ë3ÑÜ*ÀVeT¤Z¥TªJ´H¶N°x¥	ü	…z…mœz…z…z…z…z…z…a…Ê4Áã/Ë3ÑrŒVeU¤Z¥UµK·I±O³V¥àız…(À)Ğ6ÑVeJ¤Z¥J´H¶N°L²z¥÷éz…z…z…z…z…z…z…z…a…8Ê4ÁzÖ.Ä.ÀAeK¤Z¥K·I±O³M½C¿A¹G»E…{‡yƒ}eI¤Z¥I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿC¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Á5Ë?z¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹>Ê4À@¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$À(×5×{¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹?×(Ê(Y¥àY¥ëS¥÷…zÁ5Ë?O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÁ5Ë?ueN¤Z¥N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dC¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Ç/Ö#z¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹8Ğ)ÜS¥÷…zÇ/Ö#O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÇ/Ö#eO¤Z¥O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóıC¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Á5Ë?z¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹>Ê4À@¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$À(×5×{¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹?×(Ê(Y¥ëR¥÷…zÀ(×N¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÀ(×GeM¤Z¥M½C¿A¹G»E…{‡yƒ}sq‰w‹uR¥á…zÀ(×U¥yÁ?Ç/ÂzÇ5Ê6…?×(N¥è…zÃ8ç5Ë>÷Ğ4Ì.ú’eeB¤Z¥B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôV¥áz…zĞ>Ì4Ñz”P¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìleC¤Z¥C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïE¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Á3Ö9Ê4Ë?Æ.|¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹>Ì)Æ5Ë4À9ÑN¥è…zÃ8ç5Ë>÷Ğ4Ì.úœge@¤Z¥@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôV¥áz…zĞ>Ì4Ñz—P¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìAeA¤Z¥A¹G»E…{‡yƒ}sq‰w‹u•kJ¥<ÇÊ4Áã/Ë3ÑécŸieF¤Z¥F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìF¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Æ5Ë4À9Ñy¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹9Ê4Ë?Æ.O¥è…zÃ8ç5Ë>÷Ğ4Ì.ú”kdeG¤Z¥G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóV¥áz…zĞ>Ì4Ñz–P¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìAeD¤Z¥Dºz„x†~€|‚rŒpvˆtŠj”h–nK¥<ÇÊ4Áã/Ë3Ñék”`ieE¤Z¥E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéF¥á…z×?Ö/É.Û8Ê4Á	Ñ;Ñ$Ç5Ë>è;Õy¥yÁ?Ç/ÂzÇ5Ê6…(À)Ğ6ÑtÇ5Ë>ö.Ä.‹8Ê4ÁÄ*O¥è…zÃ8ç5Ë>÷Ğ4Ì.ú”iez¤Z¥z„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü şV¥áz…zĞ>Ì4Ñz‘P¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìAe{¤Z¥{‡yƒ}sq‰w‹u•k—i‘o“mK¥<ÇÊ4Áã/Ë3Ñék–`Cex¤Z¥x†~€|‚rŒpvˆtŠj”h–nlJ¥<ÇÊ4Áã/Ë3ÑémŸMey¤Z¥yƒ}sq‰w‹u•k—i‘oJ¥<ÇÊ4Áã/Ë3ÑéoŸGe¤Z¥ƒ}sq‰w‹u•k—i‘o“mcŸa™gP¥á…zÑ3È$ôK¥yÁ?Ç/ÂzÇ5Ê6….Ì7‹O¥è…zÃ8ç5Ë>÷Ğ4Ì.ú”ope|¤Z¥|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîe}¤Z¥}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?S¥÷…zÁ5Ë?O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÁ5Ë?C¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?S¥÷…zÇ/Ö#O¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÇ/Ö#C¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?R¥÷…zÀ(×N¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÀ(×V¥áz…zĞ>Ì4ÑzP¥÷…zÀ(×áM¥yÁ?Ç/ÂÉ?Ã.…/Á3Ë.…?×(ìMer¤Z¥rŒpvˆtŠj”h–nl’bœ`K¥<ÇÊ4Áã/Ë3Ñék`zes¤Z¥sq‰w‹u•k—i‘o“mcŸa™g›eåçá^¥éîY¥àR¥…z…z…l”Z%B¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖR¥
+…z…z…l”G¥<ÇÊ4Áã/Ë3ÑúË)Ñ;Ë9ÀË3Ñú`\¥ìîz•T¥áz…zÑ3È?…h•j•P¥÷…zÑ3È
+ñ^¥éîY¥àR¥…z…z…l”F¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖR¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}c¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lù
+÷âäéæ‹	ñ}J¥yÕ5Ğzõ(Ê=×;ÈÊ9Î}e[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yR¥
+…z…z…l”U¥
+×5Â(Ä7é5Æ1ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•L¥÷…zúÃ9úõ(Ê=×;ÈÊ9ÎF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖHeV¥Z¥V¨TªJ´H¶N°L²B¼NeW¥Z¥W«UµK·I±O³M½C¿A¹QeT¥Z¥TªJ´H¶NI¥	ü	…k’z…z…z…aë	éæBeU¥Z¥UµK·I±O³M½C¿A¹G»E…{‡yeJ¥Z¥J´H¶N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?L¥÷…zúÃ9úõ(Ê=×;ÈÊ9ÎF¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézõ(Ê=×;ÈÊ9ÎCeK¥Z¥K·I±O³M½C¿A¹G»E…{‡y_¥
+÷…zL¥á…zúÃ9úõ(Ê=×;ÈÊ9Î^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}k¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùõ‹	ñ}R¥yÕ5Ğzñ
+÷De[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿R¥
+…z…z…l”]¥õú•`\¥ìîz•eC¥Z¥C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿùû\¥á…z÷W¥yÁ?Ç/ÂzÇ5Ê6…Q¥è…zñ
+÷ékC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzàC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?H¥÷…zìú(ú?Á=À$æîD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézìú(ú?Á=À$æîT¥àızìú(ú?Á=ÀT¥ä…z÷ñìú•]¥õú”`Ee@¥Z¥@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–n\¥á…zôW¥yÁ?Ç/ÂzÇ5Ê6…Y¥àQ¥è…zñ
+÷éi}eA¥Z¥A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëH¥÷…zìú(ú?Á=À$æîD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézìú(ú?Á=À$æîT¥àızìú(ú?Á=ÀT¥ä…z÷ñìú•reF¥Z¥F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšJ¥á…zìú(ú?Á=À$ôM¥yÁ?Ç/ÂzÇ5Ê6…ë×À>Â?‹Q¥è…zñ
+÷éoaeG¥Z¥G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	P¥áz…z€	éo—]¥÷…zéI¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzéQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñQ¥áz…zÑ3È?…jY¥ñ	\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôOeD¥Z¥Dºz„x†~€|‚rŒpvˆtQ¥è
+…zñ
+÷él]¥õú`beE¥Z¥E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëY¥àQ¥è…zñ
+÷émQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà]¥õú’`Bez¥Z¥z„x†~€|‚rŒpvˆtŠj”h–]¥õú“`Ie{¥Z¥{‡yƒ}sq‰w‹uQ¥è
+…zñ
+÷én]¥õú–`	ex¥Z¥x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*P¥áz…z€	éo—]¥á…zéT¥yÁ?Ç/ÂzÑ3È?…ñY¥	ğN¥áz…zÁ-Ê(ÁzmããããY¥ë]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà{ey¥Z¥yƒ}sq‰w‹u•k—i‘o“mcŸa™g›e]¥á…zàT¥yÁ?Ç/ÂzÑ3È?…ñ]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñY¥ñ	Y¥à\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôLe~¥Z¥~€|‚rŒpvˆtŠj”h–n]¥õú‘`Ee|¥Z¥|‚rŒpvˆtŠj”h–nl’bœ`f˜dš^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}i¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùçõ‹	ñ}P¥yÕ5ĞzÃ8ñ
+÷ze[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹R¥
+…z…z…l”S¥<Çõú•`\¥ìîz•eM¥Z¥M½C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ÷	ñóıÿùûÅ;Ç9Á\¥á…z÷W¥yÁ?Ç/ÂzÇ5Ê6…W¥è…zÃ8ñ
+÷ékC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzàC¥áz…zÇ5Ê6…j…z…z…z…a…<Ä6Ö?H¥÷…zìú(ú?Á=À$æîD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézìú(ú?Á=À$æîT¥àızìú(ú?Á=ÀT¥ä…z÷ñìú•T¥è
+…zÃ8ñ
+÷÷ñS¥<Çõú”`EeB¥Z¥B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h\¥á…zôW¥yÁ?Ç/ÂzÇ5Ê6…Y¥àW¥è…zÃ8ñ
+÷éi}eC¥Z¥C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëH¥÷…zìú(ú?Á=À$æîD¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézìú(ú?Á=À$æîT¥àızìú(ú?Á=ÀT¥ä…z÷ñìú•re@¥Z¥@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜J¥á…zìú(ú?Á=À$ôM¥yÁ?Ç/ÂzÇ5Ê6…ë×À>Â?‹W¥è…zÃ8ñ
+÷éoaeA¥Z¥A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõP¥áz…z€	éo—]¥÷…zéI¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzéQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñQ¥áz…zÑ3È?…jY¥ñ	\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôOeF¥Z¥F¸Dºz„x†~€|‚rŒpvW¥è
+…zÃ8ñ
+÷élS¥<Çõú`beG¥Z¥G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïéëõ]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëY¥àW¥è…zÃ8ñ
+÷émQ¥áz…zÑ3È?…j]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7ÀzàS¥<Çõú’`BeD¥Z¥Dºz„x†~€|‚rŒpvˆtŠj”S¥<Çõú“`IeE¥Z¥E…{‡yƒ}sq‰wW¥è
+…zÃ8ñ
+÷énS¥<Çõú–`	ez¥Z¥z„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü şøú:Ä8Æ>À<Â2Ì0Î6È4P¥áz…z€	éo—]¥á…zéT¥yÁ?Ç/ÂzÑ3È?…ñY¥	ğN¥áz…zÁ-Ê(ÁzmããããY¥ë]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà{e{¥Z¥{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g]¥á…zàT¥yÁ?Ç/ÂzÑ3È?…ñ]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñY¥ñ	Y¥à\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôLex¥Z¥x†~€|‚rŒpvˆtŠj”h–S¥<Çõú‘`Eey¥Z¥yƒ}sq‰w‹u•k—i‘o“mcŸa™gP¥<ÇõúàŸ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}a¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùàõ	òãëæ‹	ñ}T¥yÕ5Ğzö?ÑÀ8õ	òe[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{Z%C¥yÖ.×/Æ.…	À.ò?Ç
+öúÑ?È*úR¥8Ê5ÉzÑ7ÕR¥
+…z…z…l”W¥	À.ò?Ç
+öú•`z¥ìîzúö3ß?ê<	À.ò?Ç
+öúÑ?È*úŒY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?ÖzeN¥Z¥N°L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠS¥á…zĞ)À(K¥yÁ?Ç/ÂzĞ)Ì4ÑzĞ)À(W¥áz…zĞ)Ì4Ñz”jX¥ñK¥è…zö?ÑÀ8õ	òékLeO¥Z¥O³M½C¿A¹G»E…{‡yƒQeL¥Z¥L²B¼@¾FP¥á…z…4Ä7ÀQeM¥Z¥M½C¿A¹GT¥á…z…*Ä)Ö-Ê(ÁQeB¥Z¥B¼@¾F¸DP¥á…z…/Ö?×QeC¥Z¥C¿A¹G»EF¥áz…z…k…z…z…z…z…z…z…a…	À.õ)ÒQe@¥Z¥@¾F¸DºzD¥	ü	…z…mz…z…z…z…z…z…a…À8õ)ÒrŒQeA¥Z¥A¹G»E…{S¥÷…z….È*@eF¥Z¥F¸Dºz„x†~€|‚rŒpvˆtŠj”LeG¥Z¥G»E…{‡yƒ}sq‰w‹W¥	À.ò?Ç
+öú”`zeD¥Z¥Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*N¥÷…zúÃ9úö?ÑÀ8õ	ò@¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?ÑÀ8õ	òCeE¥Z¥E…{‡yƒ}sq‰w‹u•k—i_¥
+÷…zN¥á…zúÃ9úö?ÑÀ8õ	ò^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzó?×3Ã#ò?Ç
+öse{¥Z¥{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáZ%F¥yÖ.×/Æ.…À(Ì<ÜÀ8õ	òú.À7ÕúR¥8Ê5ÉzÑ7ÕR¥
+…z…z…l”J¥À(Ì<ÜÀ8õ	òéjŸy¥ìîzúö3ß?ê<À(Ì<ÜÀ8õ	òú.À7ÕúsY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Özeo¥Z¥o“mcŸa™g›eåçáãíïéëõS¥á…zĞ)À(K¥yÁ?Ç/ÂzĞ)Ì4ÑzĞ)À(W¥áz…zĞ)Ì4Ñz”jX¥ñN¥è…zó?×3Ã#ò?Ç
+öú”Lel¥Z¥l’bœ`f˜dšäæàâQem¥Z¥mcŸa™gP¥á…z…4Ä7ÀQeb¥Z¥bœ`f˜dT¥á…z…*Ä)Ö-Ê(ÁQec¥Z¥cŸa™g›eP¥á…z…/Ö?×Qe`¥Z¥`f˜dšE¥áz…z…h…z…z…z…z…z…z…a…À(Ì<Ü
+Ö-Qea¥Z¥a™g›eåD¥	ü	…z…mz…z…z…z…z…z…a…À8õ)ÒrŒQef¥Z¥f˜dšäS¥÷…z….È*@eg¥Z¥g›eåçáãíïéëõ÷Led¥Z¥dšäæàâìîèêJ¥À(Ì<ÜÀ8õ	òékŸyee¥Z¥eåçáãíïéëõ÷	ñóıÿùR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*M¥÷…zúÃ9úó?×3Ã#ò?Ç
+öG¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézó?×3Ã#ò?Ç
+öCe¥Z¥äæàâìîèê
+ôö_¥
+÷…zM¥á…zúÃ9úó?×3Ã#ò?Ç
+ö^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%T¥yÕ5Ğzö?ÑÀ8èæ|e¥Z¥æàâìîèê
+ôöğòü şøú:Ä8ÆZ%C¥yÖ.×/Æ.…	À.ò?ÇäúÑ?È*úS¥8Ê5ÉzÑ7Õvc¥)Ñ(Ì4ÂkøzÀ7Õ.Üz…a…!àğ'…?È*Ñ#…*Ä(Ä7À.À(…!æ	ü'…4À,Ü/ß3Ñ5R¥
+…z…z…l”W¥	À.ò?Çäú•`z¥ìîzúö3ß?ê<	À.ò?ÇäúÑ?È*úŒY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö>e¥Z¥òü şøú:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøş üòğöô
+êèîK¥áz…zö#Ö.À7ú	Û	‘jB¥yÁ?Ç/ÂzÇ#Ñ?…	Ü)Ñ?Èötön•Q¥áz…zĞ3Ë.…bY¥	íP¥ë…zããK¥áz…zö#Ö.À7ú	Û	‘kB¥yÁ?Ç/ÂzÇ#Ñ?…	Ü)Ñ?Èötön”^¥÷z…U¥áz…zÒ5×>…~•m•jX¥ñR¥÷…zÑ7ÕN¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÑ7Õpe¥Z¥ıÿùûÅ;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!ÙR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*S¥á…zĞ)À(K¥yÁ?Ç/ÂzĞ)Ì4ÑzĞ)À(W¥áz…zĞ)Ì4Ñz”jX¥ñY¥ëK¥è…zö?ÑÀ8èæékLe¥Z¥ü şøú:Ä8Æ>À<Â2ÌQe¥Z¥ÿùûS¥á…z…äQe ¥Z¥ şøú:Q¥á…z…?È*Ñ#Qe¥Z¥ùûÅ;P¥á…z…/Ö?×Qe¥Z¥øú:Ä8F¥áz…z…i…z…z…z…z…z…z…a…	À.è;ÆQe¥Z¥ûÅ;Ç9D¥	ü	…z…mz…z…z…z…z…z…a…À8õ)ÒrŒQe¥Z¥ú:Ä8Æ>S¥÷…z….È*@e¥Z¥Å;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)ÑLe:¥Z¥:Ä8Æ>À<Â2Ì0Î6È4Ê*ÔW¥	À.ò?Çäú”`ze;¥Z¥;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!ÙR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*N¥÷…zúÃ9úö?ÑÀ8èæ@¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö?ÑÀ8èæCe8¥Z¥8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,_¥
+÷…zN¥á…zúÃ9úö?ÑÀ8èæ^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%K¥yÕ5Ğzó?×3Ã#ò?Çäpe>¥Z¥>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Z%F¥yÖ.×/Æ.…À(Ì<ÜÀ8èæú.À7ÕúS¥8Ê5ÉzÑ7Õvc¥)Ñ(Ì4ÂkøzÀ7Õ.Üz…a…!àğ'…?È*Ñ#…*Ä(Ä7À.À(…!æ	ü'…4À,Ü/ß3Ñ5R¥
+…z…z…l”J¥À(Ì<ÜÀ8èæéjŸy¥ìîzúö3ß?ê<À(Ì<ÜÀ8èæú.À7ÕúsY¥ız¥a…Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö~¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÁ#Ë;È3ÆzÓ;×3Ä8É?Ö?e#¥Z¥#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Åûùÿıóñ	÷õëéïíãáçåe›g™aŸcm“o‘i—k•u‹w‰qs}ƒK¥áz…zö#Ö.À7ú	Û	‘jB¥yÁ?Ç/ÂzÇ#Ñ?…	Ü)Ñ?Èötön•Q¥áz…zĞ3Ë.…bY¥	íP¥ë…zããK¥áz…zö#Ö.À7ú	Û	‘kB¥yÁ?Ç/ÂzÇ#Ñ?…	Ü)Ñ?Èötön”^¥÷z…U¥áz…zÒ5×>…~•m•jX¥ñR¥÷…zÑ7ÕN¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzÑ7Õve ¥Z¥ Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*S¥á…zĞ)À(K¥yÁ?Ç/ÂzĞ)Ì4ÑzĞ)À(W¥áz…zĞ)Ì4Ñz”jX¥ñY¥ëN¥è…zó?×3Ã#ò?Çäú”Me!¥Z¥!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×Ve&¥Z¥&Ø$ÚÚ$Ø&S¥á…z…äVe'¥Z¥'Û%%Û'Ù!Q¥á…z…?È*Ñ#Ve$¥Z¥$ÚÚ$Ø&Ş P¥á…z…/Ö?×Ve%¥Z¥%%Û'Ù!ß#E¥áz…z…n…z…z…z…z…z…z…a…À(Ì<ÜÄ9VeÚ¥Z¥Ú$Ø&Ş Ü"D¥	ü	…z…mz…z…z…z…z…z…a…À8õ)ÒrŒVeÛ¥Z¥Û'Ù!ß#İ-S¥÷…z….È*AeØ¥Z¥Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2ÂMeÙ¥Z¥Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1ÏJ¥À(Ì<ÜÀ8èæékŸ~eŞ¥Z¥Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøR¥á…zÑ7ÕU¥yÁ?Ç/ÂzÇ5Ê6….È*M¥÷…zúÃ9úó?×3Ã#ò?ÇäG¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézó?×3Ã#ò?Çä@eß¥Z¥ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?_¥
+÷…zM¥á…zúÃ9úó?×3Ã#ò?Çä^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lù	ü	ñèì	õäúğîàtö‚G¥yÕ5Ğzö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê4ne[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹G»E…{‡yƒ}sq‰w‹u•R¥
+…z…z…l”F¥	Ü)Ñ?ÈÌ)Õ6Ä#ç;Æ1É3Â2ÑËéjŸ\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•y¥÷…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê4R¥÷…zÑ7ÕF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖHeJ¥Z¥J´H¶N°L²B¼@¾F¸NeK¥Z¥K·I±O³M½C¿A¹G»E…QeH¥Z¥H¶N°L²B@¥áz…z…k…z…z…a…8Ä9Î6Ì=Í.…ëQeI¥Z¥I±O³M½CB¥	ü	…z…mz…z…a…)Ü)á3Ö*É;ÜQeN¥Z¥N°L²B¼@S¥÷…z….È*BeO¥Z¥O³M½C¿A¹G»E…{‡yƒ}neL¥Z¥L²B¼@¾F¸Dºz„x†~€|‚rŒpvˆtŠj”h–nl’bœ`f˜dšäæàR¥á…zÑ7ÕJ¥yÁ?Ç/ÂzĞ>Ì4ÑzÑ7ÕV¥áz…zĞ>Ì4Ñz•X¥ôY¥ày¥÷…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê4s¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê4CeM¥Z¥M½C¿A¹G»E…{‡yƒ}sq_¥
+÷…zy¥á…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê4^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%D¥yÕ5Ğzö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê<ÃleC¥Z¥C¿A¹G»E…{‡yƒ}sq‰w‹u•k—i‘o“mcŸa™g›eåçáãíïR¥
+…z…z…l”G¥	Ü)Ñ?ÈÌ)Õ6Ä#ç;Æ1É3Â2ÑÃ<ú•`\¥ìîz•Y¥ıB¥a…Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?Ö\¥áz…z•~¥÷…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê<ÃR¥÷…zÑ7ÕF¥a…Ë>…3Ë3Ñ3Ä6Ì ÀzˆzÓ;×3Ä8É?ÖHer¥Z¥rŒpvˆtŠj”h–nNes¥Z¥sq‰w‹u•k—i‘o“mQep¥Z¥pvˆtŠjA¥áz…z…h…z…z…a…8Ä9Î6Ì=Í.…ãQeq¥Z¥q‰w‹u•kB¥	ü	…z…mz…z…a…)Ü)á3Ö*É;ÜQev¥Z¥vˆtŠj”hS¥÷…z….È*Bew¥Z¥w‹u•k—i‘o“mcŸa™g›eåoet¥Z¥tŠj”h–nl’bœ`f˜dšäæàâìîèê
+ôöğòü şøR¥á…zÑ7ÕJ¥yÁ?Ç/ÂzĞ>Ì4ÑzÑ7ÕV¥áz…zĞ>Ì4Ñz•X¥ôY¥à~¥÷…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê<Ãp¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê<ÃCeu¥Z¥u•k—i‘o“mcŸa™g›eåç_¥
+÷…z~¥á…zúÃ9úö#Ö.À7á3Ö*É;ÜÄ9Î6Ì=Í.ê<Ã^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}o¥yÖ(Æ<Ì6Àz‚Ÿñæéç	÷ù	ü	éçööìú–lùçìîtãá}Q¥yÕ5ĞzÃ8ñ3Æ1{e[¥Z¥[§Y¡_£]­S¯Q©W«UµK·I±O³M½C¿A¹GR¥
+…z…z…l”P¥<ÇÌ9ÎéjŸ\¥ìîz•e¥Z¥Å;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëse:¥Z¥:Ä8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&ŞQ¥á…zò;ÖĞ4H¥yÁ?Ç/ÂzÇ5Ê6…Ä)÷/ËY¥àY¥ëxe;¥Z¥;Ç9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'ÛQ¥÷z…zçê…jJ¥yÁ?Ç/ÂÑ#Õ?…8Ê5Éqe8¥Z¥8Æ>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"ÒB¥è…zÃ8ñ3Æ1úú
+êöì
+úire9¥Z¥9Á?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#P¥áz…z€	éo—qe>¥Z¥>À<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,ĞV¥÷…z÷/ËÌ7ÀB¥yÁ?Ç/ÂÉ?Ã.….Ì7Àz÷/ËÌ7À|e?¥Z¥?Ã=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#C¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?e<¥Z¥<Â2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş ÜN¥<ÇÌ9Îúõğ	îõ–oŸGe=¥Z¥=Í3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%se2¥Z¥2Ì0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.ÖP¥áz…z€	éo—qe3¥Z¥3Ï1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+ÕV¥á…z÷/ËÌ7ÀI¥yÁ?Ç/ÂzÑ3È?…Ğ4ñ3È?Y¥	ğye0¥Z¥0Î6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"ÒV¥÷z…záêáz•J¥yÁ?Ç/ÂÑ#Õ?….Ì7À|e1¥Z¥1É7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà|e6¥Z¥6È4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñY¥ñ	Y¥àye7¥Z¥7Ë5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/ÑQ¥÷z…zçê…jJ¥yÁ?Ç/ÂÑ#Õ?…8Ê5Éve4¥Z¥4Ê*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0B¥è…zÃ8ñ3Æ1úú
+êöì
+úoqe5¥Z¥5Õ+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1ÏV¥á…z÷/ËÌ7ÀI¥yÁ?Ç/ÂzÑ3È?…Ğ4ñ3È?|e*¥Z¥*Ô(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4]¥á…zõT¥yÁ?Ç/ÂzÑ3È?…
+ñY¥áqe+¥Z¥+×)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3ÍV¥÷…z÷/ËÌ7ÀB¥yÁ?Ç/ÂÉ?Ã.….Ì7Àz÷/ËÌ7À|e(¥Z¥(Ö.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6C¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?e)¥Z¥)Ñ/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7ÉN¥<ÇÌ9Îúõğ	îõbŸ|e.¥Z¥.Ğ,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëY¥ëye/¥Z¥/Ó-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7ÉQ¥÷z…zçê…jJ¥yÁ?Ç/ÂÑ#Õ?…8Ê5Ée,¥Z¥,Ò"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì\¥÷…zôH¥yÁ?Ç/ÂÉ?Ã.…8Ê5ÉzôGe-¥Z¥-İ#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ|e"¥Z¥"Ü Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<]¥á…zìT¥yÁ?Ç/ÂzÇ5Ê6…ëpe#¥Z¥#ß!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;Q¥÷…zò;ÖĞ4M¥yÁ?Ç/ÂÉ?Ã.…8Ê5Ézò;ÖĞ4Ge ¥Z¥ Ş&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4ÈY¥àye!¥Z¥!Ù'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=ÃQ¥÷z…zçê…jJ¥yÁ?Ç/ÂÑ#Õ?…8Ê5Éve&¥Z¥&Ø$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úøB¥è…zÃ8ñ3Æ1úú
+êöì
+úb–re'¥Z¥'Û%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;ÅQ¥áz…zÑ3È?…j|e$¥Z¥$ÚÚ$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:]¥÷…zàI¥yÁ?Ç/ÂÉ?Ã.….Ì7Àzà|e%¥Z¥%%Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9Ç;ÅC¥áz…zÇ5Ê6…w”z…z…z…zzÑ(Ğ?eÚ¥Z¥Ú$Ø&Ş Ü"Ò,Ğ.Ö(Ô*Ê4È6Î0Ì2Â<À>Æ8Ä:úN¥<ÇÌ9Îúõğ	îõiŸzeÛ¥Z¥Û'Ù!ß#İ-Ó/Ñ)×+Õ5Ë7É1Ï3Í=Ã?Á9^¥éîY¥àR¥…z…z…l”R¥yÀ4Á*Ê/…Z%Z%Z%Z%Z%Q¥yÖ(Æ<Ì6Àz‚}
+Z¥U¥Z©

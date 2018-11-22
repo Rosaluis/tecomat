@@ -1,0 +1,15 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CASADEFAM.ST'
+
+; Global variables
+#reg  bool sig_tl_zadveri
+#reg  bool sig_tl_pokojV
+#reg  bool sig_tl_pokojZ
+#reg  bool sig_tl_obyvak
+#reg  bool sig_tl_loznice
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CASADEFAM.ST'
+
+
+ 
+
+#srcfile ''

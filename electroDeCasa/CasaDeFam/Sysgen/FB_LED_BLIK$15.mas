@@ -1,0 +1,109 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\FB_LED_BLIK.CFC'
+
+#defpou fb_LED_blik
+  bool InButton,  ;signal od tlacitka
+  bool InLight,  ;stav svetla ktere tlacitko ovlada
+  time InTimeOfBlic,  ;cas bliknuti pro zelenou i cervenou
+  bool OutLED_Green,  ;zelena LEDka
+  bool OutLED_Red,  ;cervena LEDka
+  TP delay1,
+  TP delay2
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\FB_LED_BLIK.CFC'
+#pou fb_LED_blik
+#srcline 1 ;FUNCTION_BLOCK fb_LED_blik
+
+#struct fb_LED_blik__temp__
+  bool _Nod_Tmp_6,
+  bool _Nod_Tmp_5,
+  bool _Fun_Tmp_IN2_3_2,
+  time _Nod_Tmp_2
+P     61
+fb_LED_blik_L0:
+ LINK __SizeOf(fb_LED_blik__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 247 ;(* 153	*)	LD 	InButton
+ LDX  InButton
+#debug bool InButton
+#srcline 248 ;(* 163	*)	ST	_Nod_Tmp_6
+ WRY  _Nod_Tmp_6
+#debug_left bool _Nod_Tmp_6
+#srcline 249 ;(* 158	*)	LD 	InLight
+ LDX  InLight
+#debug bool InLight
+#srcline 250 ;(* 172	*)	ST	_Nod_Tmp_5
+ WRY  _Nod_Tmp_5
+#debug_left bool _Nod_Tmp_5
+#srcline 251 ;(* 137	*)	LD 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+#srcline 252 ;(* 133	*)	NOT
+ NEG
+#srcline 253 ;(* 116	*)	ST 	_Fun_Tmp_IN2_3_2
+ WRY  _Fun_Tmp_IN2_3_2
+#debug_left bool _Fun_Tmp_IN2_3_2
+#srcline 254 ;(* 108	*)	LD 	_Nod_Tmp_6
+ LDY  _Nod_Tmp_6
+#debug bool _Nod_Tmp_6
+#srcline 255 ;(* 116	*)	AND 	_Fun_Tmp_IN2_3_2
+ LDY  _Fun_Tmp_IN2_3_2
+#debug bool _Fun_Tmp_IN2_3_2
+ AND
+#srcline 256 ;(*  73	*)	ST 	delay2.IN
+ WRX  delay2~IN
+#debug_left bool delay2.IN
+#srcline 257 ;(*  39	*)	LD 	InTimeOfBlic
+ LDX  InTimeOfBlic
+#debug time InTimeOfBlic
+#srcline 258 ;(* 181	*)	ST	_Nod_Tmp_2
+ WRY  _Nod_Tmp_2
+#debug_left time _Nod_Tmp_2
+#srcline 259 ;(*  73	*)	CAL	delay2(PT:=_Nod_Tmp_2)
+ LDY  _Nod_Tmp_2
+#debug time _Nod_Tmp_2
+ WRX  delay2~PT
+#debug_left time delay2~PT
+ LEAX delay2
+ CAL  TP_L0
+#srcline 260 ;(*  73	*)	LD 	delay2.Q
+ LDX  delay2~Q
+#debug bool delay2.Q
+#srcline 261 ;(* 190	*)	ST 	OutLED_Green
+ WRX  OutLED_Green
+#debug_left bool OutLED_Green
+#srcline 262 ;(*  48	*)	LD 	_Nod_Tmp_6
+ LDY  _Nod_Tmp_6
+#debug bool _Nod_Tmp_6
+#srcline 263 ;(*  56	*)	AND 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ AND
+#srcline 264 ;(*   8	*)	ST 	delay1.IN
+ WRX  delay1~IN
+#debug_left bool delay1.IN
+#srcline 265 ;(*   8	*)	CAL	delay1(PT:=_Nod_Tmp_2)
+ LDY  _Nod_Tmp_2
+#debug time _Nod_Tmp_2
+ WRX  delay1~PT
+#debug_left time delay1~PT
+ LEAX delay1
+ CAL  TP_L0
+#srcline 266 ;(*   8	*)	LD 	delay1.Q
+ LDX  delay1~Q
+#debug bool delay1.Q
+#srcline 267 ;(* 201	*)	ST 	OutLED_Red
+ WRX  OutLED_Red
+#debug_left bool OutLED_Red
+#srcline 269 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

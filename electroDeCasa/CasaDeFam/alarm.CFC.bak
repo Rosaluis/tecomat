@@ -1,0 +1,417 @@
+PROGRAM alarm
+  VAR_INPUT
+  END_VAR
+  VAR_OUTPUT
+  END_VAR
+  VAR
+    ussd : BOOL;
+    dial : BOOL;
+    pin : PIN_STRING;
+    smscenter : NUMBER_STRING := '+420602909909';
+    caller : NUMBER_STRING := '+420601586927';
+    state : TGSMGateStateOut;
+    ready : BOOL;
+    signal : SINT;
+    ringing : BOOL;
+    err : TGSMGateError;
+    smska : BOOL;
+    sms2 : SMS_HANDLER_2;
+    coding : TGSMGatePlcCoding;
+    smscoding : TGSMGateSmsCoding;
+    newstat : BOOL;
+    sending : BOOL;
+    init_handler : BOOL;
+    rst_sw : BOOL;
+    erase_init_sms : BOOL;
+    stat : BOOL;
+    lojza : NUMBER_STRING := '+420725505062';
+    dialing : BOOL;
+    sender : NUMBER_STRING;
+    recvsms : SMS_STRING;
+    get_sms : SMS_STRING;
+    smstext : SMS_STRING := 'sms od tecomatu :-)';
+  END_VAR
+  VAR_TEMP
+  END_VAR
+{NOCODE}
+<?xml version="1.0" encoding="windows-1250" ?>
+<?xml-stylesheet type="text/xsl" href="pokus.xsl" version="1.1"?>
+<fbd version="1.1">
+<comment id="1" height="3" width="12">
+  <position x="2" y="2" />
+Komentář ke schématu
+</comment>
+<inVariable name="ussd" type="BOOL" id="2" disabled="1">
+  <position x="76" y="32" />
+</inVariable>
+<inVariable name="init_handler" type="BOOL" id="3" disabled="1">
+  <position x="76" y="34" />
+</inVariable>
+<inVariable name="rst_sw" type="BOOL" id="4" disabled="1">
+  <position x="76" y="36" />
+</inVariable>
+<inVariable name="erase_init_sms" type="BOOL" id="5" disabled="1">
+  <position x="76" y="38" />
+</inVariable>
+<inVariable name="dial" type="BOOL" id="6" disabled="1">
+  <position x="76" y="40" />
+</inVariable>
+<inVariable name="T#20s" type="TIME" id="7" disabled="1">
+  <position x="76" y="44" />
+</inVariable>
+<inVariable name="pin" type="PIN_STRING" id="8" disabled="1">
+  <position x="76" y="60" />
+</inVariable>
+<inVariable name="smscenter" type="NUMBER_STRING" id="9" disabled="1">
+  <position x="76" y="62" />
+</inVariable>
+<inVariable name="lojza" type="NUMBER_STRING" id="10" disabled="1">
+  <position x="76" y="68" />
+</inVariable>
+<inVariable name="caller" type="NUMBER_STRING" id="11" disabled="1">
+  <position x="76" y="72" />
+</inVariable>
+<outVariable name="ready" type="BOOL" id="12" order="7" disabled="1">
+  <position x="115" y="32" />
+  <connection refid="18" name="Ready" disabled="1">
+    <position x="116" y="33" />
+    <position x="115" y="33" />
+    <position x="115" y="33" />
+    <position x="108" y="33" />
+  </connection>
+</outVariable>
+<outVariable name="ringing" type="BOOL" id="13" order="5" disabled="1">
+  <position x="114" y="34" />
+  <connection refid="18" name="Ring" disabled="1">
+    <position x="115" y="35" />
+    <position x="114" y="35" />
+    <position x="114" y="35" />
+    <position x="108" y="35" />
+  </connection>
+</outVariable>
+<outVariable name="signal" type="SINT" id="14" order="8" disabled="1">
+  <position x="115" y="48" />
+  <connection refid="18" name="Signal" disabled="1">
+    <position x="116" y="49" />
+    <position x="115" y="49" />
+    <position x="115" y="49" />
+    <position x="108" y="49" />
+  </connection>
+</outVariable>
+<outVariable name="state" type="TGSMGateStateOut" id="15" order="9" disabled="1">
+  <position x="115" y="50" />
+  <connection refid="18" name="State" disabled="1">
+    <position x="116" y="51" />
+    <position x="115" y="51" />
+    <position x="115" y="51" />
+    <position x="108" y="51" />
+  </connection>
+</outVariable>
+<outVariable name="err" type="TGSMGateError" id="16" order="10" disabled="1">
+  <position x="117" y="52" />
+  <connection refid="18" name="Error" disabled="1">
+    <position x="118" y="53" />
+    <position x="117" y="53" />
+    <position x="117" y="53" />
+    <position x="108" y="53" />
+  </connection>
+</outVariable>
+<outVariable name="smska" type="BOOL" id="17" order="4" disabled="1">
+  <position x="114" y="30" />
+  <connection refid="18" name="NewMess" disabled="1">
+    <position x="115" y="31" />
+    <position x="114" y="31" />
+    <position x="114" y="31" />
+    <position x="108" y="31" />
+  </connection>
+</outVariable>
+<block name="SMS_HANDLER_2" instance="sms2" id="18" height="46" width="16" line="3" order="1" disabled="1">
+  <position x="92" y="28" />
+  <inVariables>
+    <variable name="Send" type="BOOL R_EDGE">
+      <connection refid="30" disabled="1">
+        <position x="92" y="31" />
+        <position x="71" y="31" />
+        <position x="71" y="31" />
+        <position x="49" y="31" />
+      </connection>
+    <comment>Na náběžnou hranu odeslat SMS</comment>
+    </variable>
+    <variable name="Ussd" type="BOOL R_EDGE">
+      <connection refid="2" disabled="1">
+        <position x="92" y="33" />
+        <position x="86" y="33" />
+        <position x="86" y="33" />
+        <position x="81" y="33" />
+      </connection>
+    <comment>Na náběžnou hranu odeslat příkaz jako telefonní číslo</comment>
+    </variable>
+    <variable name="Reset" type="BOOL R_EDGE">
+      <connection refid="3" disabled="1">
+        <position x="92" y="35" />
+        <position x="90" y="35" />
+        <position x="90" y="35" />
+        <position x="85" y="35" />
+      </connection>
+    <comment>Na náběžnou hranu zinicializovat GSM bránu</comment>
+    </variable>
+    <variable name="Cold" type="BOOL">
+      <connection refid="4" disabled="1">
+        <position x="92" y="37" />
+        <position x="87" y="37" />
+        <position x="87" y="37" />
+        <position x="82" y="37" />
+      </connection>
+    <comment>Provést při inicializaci i softwarový reset modemu</comment>
+    </variable>
+    <variable name="Erase" type="BOOL">
+      <connection refid="5" disabled="1">
+        <position x="92" y="39" />
+        <position x="90" y="39" />
+        <position x="90" y="39" />
+        <position x="87" y="39" />
+      </connection>
+    <comment>Vymazat SMS uložené na SIM při inicializaci modemu</comment>
+    </variable>
+    <variable name="Dial" type="BOOL R_EDGE">
+      <connection refid="6" disabled="1">
+        <position x="92" y="41" />
+        <position x="85" y="41" />
+        <position x="85" y="41" />
+        <position x="80" y="41" />
+      </connection>
+    <comment>Prozvonit číslo příjemce SMS (Recipient)</comment>
+    </variable>
+    <variable name="Stat" type="BOOL">
+      <connection refid="24" disabled="1">
+        <position x="92" y="43" />
+        <position x="85" y="43" />
+        <position x="85" y="43" />
+        <position x="80" y="43" />
+      </connection>
+    <comment>Vyžadovat stav doručení</comment>
+    </variable>
+    <variable name="DialTime" type="TIME">
+      <connection refid="7" disabled="1">
+        <position x="92" y="45" />
+        <position x="87" y="45" />
+        <position x="87" y="45" />
+        <position x="82" y="45" />
+      </connection>
+    <comment>Doba prozvánění</comment>
+    </variable>
+    <variable name="PlcCoding" type="TGSMGatePlcCoding">
+      <connection refid="19" disabled="1">
+        <position x="92" y="47" />
+        <position x="89" y="47" />
+        <position x="89" y="47" />
+        <position x="82" y="47" />
+      </connection>
+    <comment>Kódování STRINGů v programu PLC</comment>
+    </variable>
+    <variable name="SmsCoding" type="TGSMGateSmsCoding">
+      <connection refid="20" disabled="1">
+        <position x="92" y="49" />
+        <position x="90" y="49" />
+        <position x="90" y="49" />
+        <position x="85" y="49" />
+      </connection>
+    <comment>Kódování SMS zpráv</comment>
+    </variable>
+    <variable name="ChanCode" type="UINT">
+      <connection refid="23" disabled="1">
+        <position x="92" y="51" />
+        <position x="88" y="51" />
+        <position x="88" y="51" />
+        <position x="83" y="51" />
+      </connection>
+    <comment>Číslo kanálu v režimu UNI (CH1_uni .. CH10_uni)</comment>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="NewMess" type="BOOL">
+    <comment>Přijata nová SMS zpráva</comment>
+    </variable>
+    <variable name="Ready" type="BOOL">
+    <comment>GSM brána je připravena pro příjem a vysílání</comment>
+    </variable>
+    <variable name="Ring" type="BOOL">
+    <comment>Signalizace příchozího volání</comment>
+    </variable>
+    <variable name="NewStat" type="BOOL">
+    <comment>Přijat nový status</comment>
+    </variable>
+    <variable name="StatCode" type="TGSMGateSmsStatus">
+    <comment>Status o doručení SMS zprávy</comment>
+    </variable>
+    <variable name="SmsRef" type="USINT">
+    <comment>Identifikační číslo SMS zprávy při odeslání, nebo reference na zprávu při přijetí statusu</comment>
+    </variable>
+    <variable name="RecvTime" type="DATE_AND_TIME">
+    <comment>Čas přijetí SMS zprávy</comment>
+    </variable>
+    <variable name="StatTime" type="DATE_AND_TIME">
+    <comment>Čas získání statusu (doba doručení/nedoručení)</comment>
+    </variable>
+    <variable name="RingCount" type="USINT">
+    </variable>
+    <variable name="Signal" type="SINT">
+    <comment>Síla signálu v procentech.</comment>
+    </variable>
+    <variable name="State" type="TGSMGateStateOut">
+    <comment>Stav komunikace s modemem</comment>
+    </variable>
+    <variable name="Error" type="TGSMGateError">
+    <comment>Specifikace chyby při komunikaci s modemem</comment>
+    </variable>
+    <variable name="SendPending" type="BOOL">
+    <comment>Probíhá odesílání SMS</comment>
+    </variable>
+    <variable name="UssdPending" type="BOOL">
+    <comment>Probíhá odesílání příkazu jako telefonního čísla</comment>
+    </variable>
+    <variable name="DialPending" type="BOOL">
+    <comment>Probíhá prozvánění telefonního čísla</comment>
+    </variable>
+  </outVariables>
+  <inOutVariables>
+    <variable name="Pin" type="PIN_STRING">
+      <connection refid="8" disabled="1">
+        <position x="92" y="61" />
+        <position x="86" y="61" />
+        <position x="86" y="61" />
+        <position x="80" y="61" />
+      </connection>
+    <comment>Pin SIM karty</comment>
+    </variable>
+    <variable name="SMSCenter" type="NUMBER_STRING">
+      <connection refid="9" disabled="1">
+        <position x="92" y="63" />
+        <position x="91" y="63" />
+        <position x="91" y="63" />
+        <position x="85" y="63" />
+      </connection>
+    <comment>Číslo střediska SMS zpráv</comment>
+    </variable>
+    <variable name="Sender" type="NUMBER_STRING">
+      <connection refid="26" disabled="1">
+        <position x="92" y="65" />
+        <position x="88" y="65" />
+        <position x="88" y="65" />
+        <position x="82" y="65" />
+      </connection>
+    <comment>Telefonní číslo odesílatele přijaté SMS zprávy</comment>
+    </variable>
+    <variable name="RecvMess" type="SMS_STRING">
+      <connection refid="28" disabled="1">
+        <position x="92" y="67" />
+        <position x="89" y="67" />
+        <position x="89" y="67" />
+        <position x="83" y="67" />
+      </connection>
+    <comment>Text přijaté SMS zprávy</comment>
+    </variable>
+    <variable name="Recipient" type="NUMBER_STRING">
+      <connection refid="10" disabled="1">
+        <position x="92" y="69" />
+        <position x="86" y="69" />
+        <position x="86" y="69" />
+        <position x="80" y="69" />
+      </connection>
+    <comment>Telefonní číslo příjemce zprávy k odeslání</comment>
+    </variable>
+    <variable name="MessToSend" type="SMS_STRING">
+      <connection refid="29" disabled="1">
+        <position x="92" y="71" />
+        <position x="62" y="71" />
+        <position x="62" y="71" />
+        <position x="61" y="71" />
+      </connection>
+    <comment>Text SMS zprávy k odeslání</comment>
+    </variable>
+    <variable name="Caller" type="NUMBER_STRING">
+      <connection refid="11" disabled="1">
+        <position x="92" y="73" />
+        <position x="87" y="73" />
+        <position x="87" y="73" />
+        <position x="81" y="73" />
+      </connection>
+    <comment>Telefonní číslo volajícího</comment>
+    </variable>
+  </inOutVariables>
+</block>
+<inVariable name="coding" type="TGSMGatePlcCoding" id="19" disabled="1">
+  <position x="76" y="46" />
+</inVariable>
+<inVariable name="smscoding" type="TGSMGateSmsCoding" id="20" disabled="1">
+  <position x="76" y="48" />
+</inVariable>
+<outVariable name="newstat" type="BOOL" id="21" order="2" disabled="1">
+  <position x="113" y="36" />
+  <connection refid="18" name="NewStat" disabled="1">
+    <position x="114" y="37" />
+    <position x="112" y="37" />
+    <position x="112" y="37" />
+    <position x="108" y="37" />
+  </connection>
+</outVariable>
+<outVariable name="sending" type="BOOL" id="22" order="3" disabled="1">
+  <position x="113" y="54" />
+  <connection refid="18" name="SendPending" disabled="1">
+    <position x="114" y="55" />
+    <position x="112" y="55" />
+    <position x="112" y="55" />
+    <position x="108" y="55" />
+  </connection>
+</outVariable>
+<inVariable name="CH1_uni" type="UINT" id="23" disabled="1">
+  <position x="76" y="50" />
+  <comment>
+Sériový kanál CH1, režim uni  </comment>
+</inVariable>
+<inVariable name="stat" type="BOOL" id="24" disabled="1">
+  <position x="76" y="42" />
+</inVariable>
+<outVariable name="dialing" type="BOOL" id="25" order="6" disabled="1">
+  <position x="114" y="58" />
+  <connection refid="18" name="DialPending" disabled="1">
+    <position x="115" y="59" />
+    <position x="114" y="59" />
+    <position x="114" y="59" />
+    <position x="108" y="59" />
+  </connection>
+</outVariable>
+<inVariable name="sender" type="NUMBER_STRING" id="26" disabled="1">
+  <position x="76" y="64" />
+</inVariable>
+<outVariable name="recvsms" type="SMS_STRING" id="27" order="11" disabled="1">
+  <position x="113" y="66" />
+  <connection refid="18" name="RecvMess" disabled="1">
+    <position x="114" y="67" />
+    <position x="113" y="67" />
+    <position x="113" y="67" />
+    <position x="108" y="67" />
+  </connection>
+</outVariable>
+<inVariable name="get_sms" type="SMS_STRING" id="28" disabled="1">
+  <position x="76" y="66" />
+</inVariable>
+<inVariable name="smstext" type="SMS_STRING" id="29" disabled="1">
+  <position x="54" y="70" />
+</inVariable>
+<inVariable name="tl_na_pokusy" type="BOOL" id="30" disabled="1">
+  <position x="38" y="30" />
+</inVariable>
+</fbd>
+{/NOCODE}
+//LVD
+VAR
+END_VAR
+
+//TVD
+VAR_TEMP
+END_VAR
+
+//NC
+
+END_PROGRAM

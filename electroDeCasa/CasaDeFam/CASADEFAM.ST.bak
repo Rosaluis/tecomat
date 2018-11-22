@@ -1,0 +1,7 @@
+
+VAR_GLOBAL
+  sig_tl_zadveri : BOOL;
+  sig_tl_pokojV : BOOL;
+  sig_tl_pokojZ : BOOL;
+END_VAR
+

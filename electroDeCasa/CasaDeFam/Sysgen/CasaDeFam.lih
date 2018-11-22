@@ -1,0 +1,2669 @@
+{LIBFILE="LOCALLIB\STDLIB_V21_20140514.MLB"}
+(* Knihovna vývojového systému Mosaic *)
+(* Jméno souboru : C:\TecoLib\StdLib_V21_20140514.mlb *)
+(* Knihovna : StdLib 2.1 *)
+(* Autor : Teco a.s. *)
+(* Autorská práva : (c) 2006-2010 Teco a.s. *)
+(* Verze IEC pøekladaèe : 3.8.20.0 *)
+(* Verze assembleru : 4.3.00 *)
+
+//{Knihovna : StdLib 2.1  }
+(* Historie: *)
+(*
+v1.0 30.06.2004 Nem  Uvodni verze knihovny
+                     Bloky : R_TRIG, F_TRIG, SR, RS, TON, TOF, CTU, CTD, TP
+v1.1 09.08.2004	Nem  Oprava bloku TOF
+v1.2 06.09.2004	Nem  Upraveny komentare funkcnich bloku v knihovne
+v1.3 16.05.2005	Nem  Osetren stav casovacu TON/TOF/TP po restartu
+                     v pripade, ze jsou casovace cele v rem zone
+v1.4            Nem  vynechana
+v1.5 01.11.2005	Nem  Upraveny casovace TON/TOF/TP tak, aby skutecne 
+                     fungovaly rem zone i pri teplem restartu
+                     Funkcni bloky R_TRIG, F_TRIG, SR a RS prepsany do asm
+v1.6 07.11.2005	Nem  Doplneny funkce ADD_TIME, SUB_TIME, ADD_TOD_TIME, 
+                     ADD_DT_TIME, SUB_DATE_DATE, SUB_TOD_TIME, SUB_TOD_TOD, 
+                     SUB_DT_TIME, SUB_DT_DT a CONCAT_DATE_TOD
+v1.7 17.03.2006	Nem  Oprava masky u TON/TOF/PT
+                     Oprava funkce SUB_DT_DT
+v1.8 04.04.2006	Nem  Zkraceny komentare u TON, .... kvuli FBD
+v1.9 29.09.2008	Nem  Opraven funkcni blok TOF po zapnuti (casovac cely prepracovan)
+v2.0 25.02.2009	Nem  Do funkcniho bloku TP doplnena kontrola predvolby
+                     (je-li predvolba nula, casovac negeneruje zadny pulz)
+     19.05.2010	Nem  Doplneny komentare v cestine (pro Mosaic od v2.0.23)
+     27.10.2010 Nem  Doplnena historie verzi v anglictine
+v2.1 14.05.2014	Nem  Ve funkcnim bloku TP se trvale vyhodnocuje nabezna
+                     hrana na vstupu IN
+*)
+
+(*----------------------------------------------------------------------------*)
+
+__DECL FUNCTION_BLOCK R_TRIG
+(*Blok pro vyhodnocení nábìžné hrany*)
+  VAR_INPUT
+    CLK              : bool;
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;
+  END_VAR
+  VAR
+    M                : bool;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK F_TRIG
+(*Blok pro vyhodnocení sestupné hrany*)
+  VAR_INPUT
+    CLK              : bool;
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;
+  END_VAR
+  VAR
+    M                : bool :=  TRUE;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK SR
+(*RS klopný obvod (s dominantní funkcí Set)*)
+  VAR_INPUT
+    S1               : bool;
+    R                : bool;
+  END_VAR
+  VAR_OUTPUT
+    Q1               : bool;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK RS
+(*RS klopný obvod (s dominantní funkcí Reset)*)
+  VAR_INPUT
+    S                : bool;
+    R1               : bool;
+  END_VAR
+  VAR_OUTPUT
+    Q1               : bool;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK CTU
+(*Èítac nahoru*)
+  VAR_INPUT
+    CU               : bool R_EDGE;  (*vstup pro èítání nahoru*)
+    R                : bool;  (*reset èítaèe*)
+    PV               : int;  (*pøedvolba èítaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èítaèe*)
+    CV               : int;  (*hodnota èítaèe*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK CTD
+(*Èítac dolù*)
+  VAR_INPUT
+    CD               : bool R_EDGE;  (*vstup pro èítání dolù*)
+    LD               : bool;  (*vstup pro nastavení pøedvolby*)
+    PV               : int;  (*pøedvolba èítaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èítaèe*)
+    CV               : int;  (*hodnota èítaèe*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK CTUD
+(*Obousmìrný èítac*)
+  VAR_INPUT
+    CU               : bool R_EDGE;  (*vstup pro èítání nahoru*)
+    CD               : bool R_EDGE;  (*vstup pro èítání dolù*)
+    R                : bool;  (*reset èítaèe*)
+    LD               : bool;  (*vstup pro nastavení pøedvolby*)
+    PV               : int;  (*pøedvolba èítaèe*)
+  END_VAR
+  VAR_OUTPUT
+    QU               : bool;  (*výstup èítaèe nahoru*)
+    QD               : bool;  (*výstup èítaèe dolù*)
+    CV               : int;  (*hodnota èítaèe*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK TON
+(*Èasovaè TON (zpoždìní nábìžné hrany)*)
+  VAR_INPUT
+    IN               : bool;  (*vstup èasovaèe*)
+    PT               : time;  (*pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK TOF
+(*Èasovaè TOF (zpoždìní sestupné hrany)*)
+  VAR_INPUT
+    IN               : bool;  (*vstup èasovaèe*)
+    PT               : time;  (*pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_f_edge        : F_TRIG;
+    LT               : time;  (*last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK TP
+(*Èasovaè TP (generuje pulz dané šíøky)*)
+  VAR_INPUT
+    IN               : bool;  (*vstup èasovaèe*)
+    PT               : time;  (*pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION ADD_TIME : time
+(*------------------------------------------------------------------------------
+  TIME := TIME + TIME;*)
+  VAR_INPUT
+    IN1              : time;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_TIME : time
+(*------------------------------------------------------------------------------
+  TIME := TIME - TIME;*)
+  VAR_INPUT
+    IN1              : time;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ADD_TOD_TIME : tod
+(*------------------------------------------------------------------------------
+  TIME_OF_DAY := TIME_OF_DAY + TIME;*)
+  VAR_INPUT
+    IN1              : tod;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ADD_DT_TIME : dt
+(*------------------------------------------------------------------------------
+  DATE_AND_TIME := DATE_AND_TIME + TIME;*)
+  VAR_INPUT
+    IN1              : dt;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_DATE_DATE : time
+(*------------------------------------------------------------------------------
+  TIME := DATE - DATE;*)
+  VAR_INPUT
+    IN1              : date;
+    IN2              : date;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_TOD_TIME : tod
+(*------------------------------------------------------------------------------
+  TIME_OF_DAY := TIME_OF_DAY - TIME;*)
+  VAR_INPUT
+    IN1              : tod;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_TOD_TOD : time
+(*------------------------------------------------------------------------------
+  TIME := TIME_OF_DAY - TIME_OF_DAY;*)
+  VAR_INPUT
+    IN1              : tod;
+    IN2              : tod;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_DT_TIME : dt
+(*------------------------------------------------------------------------------
+  DATE_AND_TIME := DATE_AND_TIME - TIME;*)
+  VAR_INPUT
+    IN1              : dt;
+    IN2              : time;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SUB_DT_DT : time
+(*------------------------------------------------------------------------------
+  TIME := DATE_AND_TIME - DATE_AND_TIME;*)
+  VAR_INPUT
+    IN1              : dt;
+    IN2              : dt;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION CONCAT_DATE_TOD : dt
+(*------------------------------------------------------------------------------
+  DATE_AND_TIME := DATE + TIME_OF_DAY;*)
+  VAR_INPUT
+    IN1              : date;
+    IN2              : tod;
+  END_VAR
+END_FUNCTION
+
+
+
+{LIBFILE="LOCALLIB\SYSLIB_V36_20151214.MLB"}
+(* Knihovna vývojového systému Mosaic *)
+(* Jméno souboru : C:\TecoLib\SysLib_V36_20151214.mlb *)
+(* Knihovna : SysLib 3.6 *)
+(* Autor : Teco a.s. Kolin *)
+(* Autorská práva : (c) 2004..2015 Teco a.s. *)
+(* Verze IEC pøekladaèe : 3.11.2.0 *)
+(* Verze assembleru : 4.3.00 *)
+
+//{Knihovna : SysLib 3.6  }
+(* Historie: *)
+(*
+v1.0 01.09.2004 Nem úvodní verze knihovny
+v1.1 16.09.2004 Nem Pøidány funkce : memcpy(),
+                    SetSummerTime(), IsSummerTime(), SetWinterTime(), IsWinterTime()
+v1.2 16.05.2005 Nem Pøidány funkce GetDate(), GetTime(), GetDateTime(), GetRTC(), 
+                    SetRTC()
+                    Zmìna deklarace systémových promìnných na strukturu
+v1.3 10.11.2005 Nem Doplnìny funkce TecoDT_TO_DT() a DT_TO_TecoDT()
+v1.4 17.11.2007 Nem Doplnìna funkce Memset()
+v1.5 17.01.2008 Nem Doplnìna funkce IncreaseMaxCycleTime()
+                    Vynechány funkce nastavení analog. kanálu.
+v1.6 18.08.2008 Nem Prohozeno poøadí parametrù VAR_INPUT a VAR_IN_OUT
+                    u funkcí Memset() a Memcpy() kvùli použití v LD,
+                    kde je problem s VAR_IN_OUT, pokud je prvni (na CR)
+v1.7 20.02.2009 Nem Doplnìny funkce Get_IP_address() a Set_IP_address() pro Eth1
+v1.8 10.03.2009 Nem Funkce Get_IP_address() nahrazena funkci GetIPaddress() a 
+                    pøesunuta do ComLib
+                    + sesouhlaseny parametry s funkcí GetRemoteIPaddress
+                    Funkce Set_IP_address() nahrazena funkci SetIPaddress() a 
+                    pøesunuta do ComLib
+v1.9 22.10.2009 Nem Doplnìny funkce CIBunitInfo() a SetCIBunitAddress()
+                    a datové typy TCIBunitState a TCIBunitInfo
+v2.0 20.11.2009 Nem Doplnìna funkce ProgramLock()
+v2.1 16.12.2009 Nem Doplnìn funkèní blok fbTick() a funkce Memcmp()
+v2.2 18.01.2010 Nem Opraveno kódování CIB masteru a doplnìn kód pro mastera 0 
+                    (MI0_CIB1 a MI0_CIB2)
+v2.3 06.05.2010 Nem Doplnìny funkce SetWebPSW() a VerifyWebPSW()
+v2.4 16.08.2010 Nem Doplnìny funkce SystemDisplayBacklightOn() a 
+                    SystemDisplayBacklightOff()
+v2.5 02.09.2010 Nem Doplnìny závislosti na knihovnách
+     15.09.2010 Nem Funkce SetRTC vrací informaci o tom, jestli se podaøilo zapsat 
+                    èas do RTC obvodu
+v2.6 19.01.2011 Nem Doplnìny funkce RFunitInfo() and SetRFunitAddress()
+                    Pokud je SW78 = 0 (starsi systemy) tak funkce GetDateTime()
+                    a GetTime() pouzivaji S5 (desitky milisekund) jinak se pouziva 
+                    SW78 (jednotky milisekund)
+v2.7 30.06.2011 Nem Doplnìn funkèní blok fbBondRFunit()
+v2.8 02.11.2011 Nem Doplnìny funkèní bloky memcpyEx(), memsetEx() a memcmpEx()
+v2.9 02.12.2011 Nem Doplnìny funkce SetWebMAC() a VerifyWebMAC()
+v3.0 27.04.2012 Nem Doplnìn funkèní blok TPR() a deklarace do struktury SystemS
+v3.1 21.06.2012 Nem Blok TPR nahrazen blokem fbTPR() - vstup RESET ma prednost
+                    Oprava deklarace struktury SystemS od %S57 dále
+                    (doplnìny CPU_DI a CPU_DO)
+v3.2 22.03.2013 Nem Doplnìn pùvodní blok TPR z verze 3.0 kvùli zpìtné kompatibilitì
+                    Doplnìna funkce ProgramIsChanged()
+v3.3 21.06.2013 Nem Opravena funkce ProgramIsChanged() v pøípadì on-line zmìny
+                    Doplnìny funkce ReInitPLC_hotRestart(), ReInitPLC_coldRestart()
+                    a ReInitPLC_noRestart() - pro Foxtrot je tøeba minimálnì FW v7.8
+v3.4 03.10.2014 Nem Doplnìna funkce GetModuleID() a typ T_RGB_COLOR
+v3.5 16.04.2015 Nem Doplnìna funkce MemcpyPtr()
+v3.6 14.12.2015 Nem Doplnìny funkce GetVarValueByName() a SetVarValueByName()
+*)
+
+(*----------------------------------------------------------------------------*)
+
+TYPE T_RGB_COLOR :
+  STRUCT
+    red              : usint;  (*red color <0..255>*)
+    green            : usint;  (*green color <0..255>*)
+    blue             : usint;  (*blue color <0..255>*)
+    opacity          : usint;  (*opacity (0 = opaque, 255 = transparent)*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TSYSTEM_S :
+  STRUCT
+    S0               : byte;  (*flags of the results of arithmetic operations pøíznaky výsledkù aritmetických operací*)
+    S1               : byte;  (*flags of the results of logical operations pøíznaky výsledkù logických operací*)
+    S2_0             : bool;
+    S2_1             : bool;
+    S2_2             : bool;  (*PLC je v režimu RUN*)
+    S2_3             : bool;  (*teplý restart PLC*)
+    S2_4             : bool;  (*studený restart PLC*)
+    OUTPUTS_ARE_ENABLED : bool;  (*vystupy odblokovany*)
+    S2_6             : bool;  (*prechod do run bez restartu PLC*)
+    CYCLE_TIME_WARNING : bool;  (*prekrocena prva mez doby cyklu (varovani)*)
+    LAST_CYCLE_TIME_10MS : usint;  (*Doba minuleho cyklu v 10 ms*)
+    CYCLE_COUNTER    : usint;  (*Citac cyklu*)
+    COUNTER_10MS     : usint;  (*Citac desitek milisekund*)
+    COUNTER_SECONDS  : usint;  (*Citac sekund systemoveho casu*)
+    COUNTER_MINUTES  : usint;  (*Citac minut systemoveho casu*)
+    COUNTER_HOURS    : usint;  (*Citac hodin systemoveho casu*)
+    COUNTER_DAYS_OF_WEEK : usint;  (*Citac dnu v tydnu*)
+    COUNTER_DAYS_OF_MONTH : usint;  (*Citac dnu v mesici*)
+    COUNTER_MONTHS   : usint;  (*Citac mesicu*)
+    COUNTER_YEARS    : usint;  (*Citac roku*)
+    PERIOD_PULSE_100MS : bool;  (*pulz s periodou 100 ms*)
+    PERIOD_PULSE_500MS : bool;  (*pulz s periodou 500 ms*)
+    PERIOD_PULSE_1SEC : bool;  (*pulz s periodou 1 s*)
+    PERIOD_PULSE_10SEC : bool;  (*pulz s periodou 10 s*)
+    PERIOD_PULSE_1MIN : bool;  (*pulz s periodou 1 min*)
+    PERIOD_PULSE_10MIN : bool;  (*pulz s periodou 10 min*)
+    PERIOD_PULSE_1HOUR : bool;  (*pulz s periodou 1 hod*)
+    PERIOD_PULSE_1DAY : bool;  (*pulz s periodou 1 den*)
+    COUNTER_100MS    : uint;  (*Citac v 100m*)
+    COUNTER_1SEC     : uint;  (*Citac v 1s*)
+    COUNTER_10SEC    : uint;  (*Citac v 10s*)
+    R_EDGE_100MS     : bool;  (*nabezna hrana 1x za 100 ms*)
+    R_EDGE_500MS     : bool;  (*nabezna hrana 1x za 500 ms*)
+    R_EDGE_1SEC      : bool;  (*nabezna hrana 1x za 1 s*)
+    R_EDGE_10SEC     : bool;  (*nabezna hrana 1x za 10 s*)
+    R_EDGE_1MIN      : bool;  (*nabezna hrana 1x za 1 min*)
+    R_EDGE_10MIN     : bool;  (*nabezna hrana 1x za 10 min*)
+    R_EDGE_1HOUR     : bool;  (*nabezna hrana 1x za 1 hod*)
+    R_EDGE_1DAY      : bool;  (*nabezna hrana 1x za 1 den*)
+    F_EDGE_100MS     : bool;  (*sestupna hrana 1x za 100 ms*)
+    F_EDGE_500MS     : bool;  (*sestupna hrana 1x za 500 ms*)
+    F_EDGE_1SEC      : bool;  (*sestupna hrana 1x za 1 s*)
+    F_EDGE_10SEC     : bool;  (*sestupna hrana 1x za 10 s*)
+    F_EDGE_1MIN      : bool;  (*sestupna hrana 1x za 1 min*)
+    F_EDGE_10MIN     : bool;  (*sestupna hrana 1x za 10 min*)
+    F_EDGE_1HOUR     : bool;  (*sestupna hrana 1x za 1 hod*)
+    F_EDGE_1DAY      : bool;  (*sestupna hrana 1x za 1 den*)
+    LAST_CYCLE_TIME_100US : uint;  (*Doba minuleho cyklu v 100 µs*)
+    S24              : byte;  (*øídící masky procesù*)
+    S25              : byte;  (*øídící masky procesù*)
+    S26              : byte;  (*øídící masky procesù*)
+    S27              : byte;  (*øídící masky procesù*)
+    S28              : byte;  (*øídící masky procesù*)
+    S29              : byte;  (*øídící masky procesù*)
+    S30              : byte;  (*rezervováno*)
+    S31              : byte;  (*rezervováno*)
+    S32              : byte;  (*rezervováno*)
+    S33              : byte;  (*rezervováno*)
+    S34              : byte;  (*hlavní kód chyby PLC*)
+    BAT_ERR          : bool;  (*Chyba zalohovaci baterie*)
+    S35_1            : bool;  (*rezervováno*)
+    S35_2            : bool;  (*rezervováno*)
+    S35_3            : bool;  (*rezervováno*)
+    S35_4            : bool;  (*rezervováno*)
+    S35_5            : bool;  (*rezervováno*)
+    IS_SUMMER_TIME   : bool;  (*Indikace letniho casu*)
+    SUMMER_TIME_REQUEST : bool;  (*Zadost o automaticky prechod na letni cas*)
+    CPU_TEMPERATURE  : usint;  (*Teplota procesoroveho modulu [stupne C]*)
+    S37              : byte;
+    S38              : byte;
+    S39              : byte;
+    S40              : byte;
+    S41              : byte;
+    S42              : byte;
+    S43              : byte;
+    S44              : byte;
+    S45              : byte;
+    S46              : byte;
+    S47              : byte;
+    S48              : byte;
+    S49              : byte;
+    S50              : byte;
+    S51              : byte;
+    COUNTER_1MS      : udint;  (*Citac po 1 ms*)
+    S56              : byte;
+    S57              : byte;
+    CPU_DI           : byte;  (*vstupy obsluhované centrální jednotkou*)
+    CPU_DO           : byte;  (*výstupy obsluhované centrální jednotkou*)
+    INDEX_OF_RETAIN_ZONE : udint;  (*index prvního remanentního registru*)
+    SIZE_OF_RETAIN_ZONE : udint;  (*velikost remanentní zóny (poèet bytù)*)
+    INDEX_SOFT_PLC_STRUCT : uint;  (*rezervováno pro SoftPLC*)
+    CRC_OF_USER_PROGRAM : word;  (*CRC uživatelského programu*)
+    CRC_OF_HEADER_PROGRAM : word;  (*CRC hlavièky uživatelského programu*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL
+ System_S AT %S0 : TSYSTEM_S;
+ IS_HOT_RESTART_PLC AT System_S.S2_3 : bool;  (*teplý restart PLC*)
+ IS_COLD_RESTART_PLC AT System_S.S2_4 : bool;  (*studený restart PLC*)
+ IS_RESTART_PLC AT System_S.S2_6 : bool;  (*prechod do run bez restartu PLC*)
+ CRC_OF_APLIC_PROGRAM AT System_S.CRC_OF_USER_PROGRAM : dword;  (*CRC aplikaèního programu*)
+
+END_VAR
+
+TYPE TModuleInfo :
+  STRUCT
+    ECOM             : bool;  (*1 = chyba komunikace mezi CPU a IO modulem*)
+    DATA             : bool;  (*1 = data poskytovaná modulem jsou platná*)
+    DUMMY1           : bool;  (*nepouzito*)
+    DUMMY2           : bool;  (*nepouzito*)
+    ERR              : bool;  (*1 = chyba IO modulu*)
+    DEC              : bool;  (*1 = modul má platnou deklaraci v programu PLC*)
+    OTH              : bool;  (*1 = typ IO modulu neodpovídá deklaraci v programu PLC*)
+    POS              : bool;  (*1 = modul je pøítomen v dané pozici*)
+    STAT             : usint;  (*status modulu – výše uvedené promìnné jako 1 byte (ECOM = STAT.0, … , POS = STAT.7)*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TIOSystemInfo :
+  STRUCT
+    err              : bool;  (*0 = IO systém PLC je bez chyby, 1 = v IO systému PLC je nìjaký problém*)
+    rackNumber       : usint;  (*pøi err = 1 udává èíslo rámu PLC, kde je umístìn modul signalizující nìjaký problém*)
+    position         : usint;  (*pøi err = 1 udává èíslo pozice v rámu PLC, kde je umístìn modul signalizující nìjaký problém*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL CONSTANT
+ MODULE_AND_DATA_OK : usint :=  16#A2;
+
+END_VAR
+
+__DECL FUNCTION ModuleInfo : TModuleInfo
+(*Informace o IO modulu
+   Funkce vrátí informace o aktuálním stavu jednoho I/O modulu.
+   Funkce je urèena pro kontrolu I/O modulù vyndavaných za chodu*)
+  VAR_INPUT
+    rackNumber       : usint;  (*èíslo rámu, kde je umístìn I/O modul*)
+    position         : usint;  (*èíslo pozice v rámu, kde je umístìn I/O modul*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IOSystemInfo : TIOSystemInfo
+(*Informace o stavu IO systému PLC
+
+   Funkce vrátí celkovou informaci o stavu I/O systému PLC
+   Funkce je urèena pro kontrolu I/O modulù vyndavaných za chodu
+   
+   Pokud je v IO systému nìjaký problém
+   (napø. chybí IO modul požadovaný v HW konfiguraci)
+   tak výstup err je nastaven na TRUE,
+   výstupní promìnná rackNumber udává èíslo rámu
+   a promìnná position øíká pozici v rámu, na které se našel problém*)
+END_FUNCTION
+
+__DECL FUNCTION Memcpy : uint
+(*Kopírovat pamì
+  Funkce Memcpy zkopíruje blok pamìti ze source do dest
+  Funkce vrací poèet zkopírovaných bytù*)
+  VAR_INPUT
+    length           : uint;  (*Délka kopírovaného bloku v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    source           : usint;  (*Zdroj odkud kopírovat*)
+    dest             : usint;  (*Cíl kam kopírovat*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcpyEx : uint
+(*Kopírovat pamì
+  Funkce Memcpy zkopíruje blok pamìti ze source+offsetSource do dest+offsetDest
+  Funkce vrací poèet zkopírovaných bytù*)
+  VAR_INPUT
+    length           : udint;  (*Délka kopírovaného bloku v bytech*)
+    offSource        : udint;  (*Posunutí od zaèátku zdroje*)
+    offDest          : udint;  (*Posunutí od zaèátku cíle*)
+  END_VAR
+  VAR_IN_OUT
+    source           : usint;  (*Zdroj odkud kopírovat*)
+    dest             : usint;  (*Cíl kam kopírovat*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcpyPtr : udint
+(*Funkce memcpy kopíruje blok n bytù ze source do dest.
+  Funkce vrací poèet zkopírovaných bytù*)
+  VAR_INPUT
+    source           : PTR_TO usint;  (*pointer to source*)
+    dest             : PTR_TO usint;  (*pointer to  destination*)
+    length           : udint;  (*number of bytes*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION Memset : bool
+(*Naplnit pamì
+  Funkce Memset vyplní blok pamìti zadanou hodnotou
+  Funkce vrací TRUE, pakliže se podaøí naplnit blok pamìti*)
+  VAR_INPUT
+    val              : udint;  (*Hodnota, která se zapíše do bloku pamìti*)
+    length           : uint;  (*Délka bloku pamìti v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    dest             : usint;  (*Cíl, který bude naplnìn konstantou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemsetEx : bool
+(*Naplnit pamì
+  Funkce Memset vyplní blok pamìti zadanou hodnotou. Adresa bloku je dest+offDest.
+  Funkce vrací TRUE, pakliže se podaøí naplnit blok pamìti*)
+  VAR_INPUT
+    val              : udint;  (*Hodnota, která se zapíše do bloku pamìti*)
+    length           : udint;  (*Délka bloku pamìti v bytech*)
+    offDest          : udint;  (*Posunutí od zaèátku cíle*)
+  END_VAR
+  VAR_IN_OUT
+    dest             : usint;  (*Cíl, který bude naplnìn konstantou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION Memcmp : bool
+(*Porovnání bloku pamìti
+  Funkce Memcmp porovná vzájemnì dva bloky pamìti
+  Funkce vrací TRUE pokud jsou bloky pamìti shodné*)
+  VAR_INPUT
+    length           : uint;  (*Délka porovnávaného bloku v bytech*)
+  END_VAR
+  VAR_IN_OUT
+    in1              : usint;  (*První porovnávaný blok*)
+    in2              : usint;  (*Druhý porovnávaný blok*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION MemcmpEx : bool
+(*Porovnání bloku pamìti
+  Funkce Memcmp porovná vzájemnì dva bloky pamìti.
+  Adresy blokù jsou in1+offIn1 a in2+offIn2.
+  Funkce vrací TRUE pokud jsou bloky pamìti shodné*)
+  VAR_INPUT
+    length           : udint;  (*Délka porovnávaného bloku v bytech*)
+    offIn1           : udint;  (*Posunutí prvního porovnávaného bloku*)
+    offIn2           : udint;  (*Posunutí druhého porovnávaného bloku*)
+  END_VAR
+  VAR_IN_OUT
+    in1              : usint;  (*První porovnávaný blok*)
+    in2              : usint;  (*Druhý porovnávaný blok*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IncreaseMaxCycleTime : bool
+(*Zvýšit èas pro dobu cyklu PLC
+
+   Funkce zvýší jednorázovì hlídanou dobu cyklu PLC*)
+  VAR_INPUT
+    addTime          : uint;  (*o kolik milisekund se má zvýšit hlídaná doba cyklu*)
+  END_VAR
+END_FUNCTION
+
+TYPE TTecoDateTime :
+  STRUCT
+    year             : usint;  (*rok     (poslední dvì èíslice letopoètu)*)
+    month            : usint;  (*mìsíc   (1 .. 12)*)
+    day              : usint;  (*den     (1 .. 28/29/30/31)*)
+    hour             : usint;  (*hodina  (0 .. 23)*)
+    min              : usint;  (*minuta  (0 .. 59)*)
+    sec              : usint;  (*sekunda (0 .. 59)*)
+    dayOfWeek        : usint;  (*den v týdnu (1 = pondìlí, 7 = nedìle)*)
+    milisec          : uint;  (*milisekunda*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION SetSummerTime : bool
+(*Nastavit automatický pøechod na letní èas
+  Funkce nastaví požadavek na automatický pøechod mezi letním a zimním èasem*)
+END_FUNCTION
+
+__DECL FUNCTION IsSummerTime : bool
+(*Test letního èasu
+  Funkce otestuje je-li aktuálnì nastaven letní èas*)
+END_FUNCTION
+
+__DECL FUNCTION SetWinterTime : bool
+(*Vypnout automatický pøechod na letní èas
+  Funkce vypne požadavek na automatický pøechod mezi letním a zimním èasem*)
+END_FUNCTION
+
+__DECL FUNCTION IsWinterTime : bool
+(*Test zimního èasu
+  Funkce otestuje je-li aktuálnì nastaven zimní èas*)
+END_FUNCTION
+
+__DECL FUNCTION GetDate : date
+(*Naèíst aktuální datum*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetTime : time
+(*Naèíst aktuální èas PLC*)
+  VAR
+    milisec          : uint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetDateTime : dt
+(*Naèíst aktuální datum a èas PLC*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetRTC : dt
+(*Naèíst datum a èas pøímo z RTC obvodu v PLC*)
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetRTC : bool
+(*Nastavit nový èas a datum PLC
+  Funkce nastaví nový datum a èas do RTC obvodu v PLC*)
+  VAR_INPUT
+    PDT              : dt;  (*nový datum a èas*)
+  END_VAR
+  VAR
+    tmp              : TTecoDateTime;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION TecoDT_TO_DT : dt
+(*Pøevod datumu a èasu ze struktury TTecoDateTime do IEC formátu DATE_AND_TIME*)
+  VAR_INPUT
+    Teco_DT          : TTecoDateTime;  (*datum a èas*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION DT_TO_TecoDT : TTecoDateTime
+(*Pøevod datumu a èasu z IEC formátu DATE_AND_TIME do struktury TTecoDateTime*)
+  VAR_INPUT
+    IEC_DT           : dt;  (*datum a èas*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION memory_for_ProgramIsChanged {HIDDEN} : bool
+  VAR_INPUT
+    saveSL70         : bool;
+    memSL70          : udint;
+    memS4            : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ProgramIsChanged : bool
+(*Funkce vrací TRUE pøi restartu programu a pøi on-line zmìnì programu*)
+  VAR
+    saveSL70         : bool;
+    memSL70          : udint;
+    memS4            : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_hotRestart : bool
+(*Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do režimu HALT a výstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté se provede teplý restart a PLC pøejde do režimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Hodnoty RETAIN promìnných zùstanou zachovány,
+  ostatní promìnné se nastaví na inicializaèní hodnotu*)
+  VAR_INPUT
+    rq               : bool;  (*1 = provést reinicializaci PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_coldRestart : bool
+(*Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do režimu HALT a výstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté se provede studený restart a PLC pøejde do režimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Do všech promìnných se nastaví inicializaèní hodnoty*)
+  VAR_INPUT
+    rq               : bool;  (*1 = provést reinicializaci PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION ReInitPLC_noRestart : bool
+(*Funkce pro reinicializaci PLC
+  PLC nejprve pøejde do režimu HALT a výstupy PLC budou zablokovány.
+  Provádìní programu (øízení technologie) se zastaví!
+  Poté PLC pøejde do režimu RUN.
+  Bìhem pøechodu do RUN dojde ke kompletní inicializaci IO systému.
+  Hodnoty promìnných zùstanou beze zmìny*)
+  VAR_INPUT
+    rq               : bool;  (*1 = provést reinicializaci PLC*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetModuleID : string [40]
+(*Vrátí identifikacní retezec 32 až 36 znaku dle typu modulu*)
+  VAR_INPUT
+    rackNumber       : usint;  (*císlo rámu, kde je umísten I/O modul*)
+    position         : usint;  (*císlo pozice v rámu, kde je umísten I/O modul*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetVarValueByName : string [255]
+(*Vrátí hodnotu promìnné podle zadaného jména promìnné*)
+  VAR_INPUT
+    varName          : string [255];  (*úplné jméno promìnné (jméno instance)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetVarValueByName : bool
+(*Nastaví hodnotu promìnné podle zadaného jména promìnné*)
+  VAR_INPUT
+    varName          : string [255];  (*úplné jméno promìnné (jméno instance)*)
+    varValue         : string [255];  (*nová hodnota promìnné*)
+  END_VAR
+END_FUNCTION
+
+VAR_GLOBAL CONSTANT
+ MI_CIB1 : usint :=  1;  (*interní CIB sbìrnice systému Foxtrot*)
+ MI_CIB2 : usint :=  2;
+ MI0_CIB1 : usint :=  3;  (*externí CIB master, adresa 0, CIB linka 1*)
+ MI0_CIB2 : usint :=  4;  (*externí CIB master, adresa 0, CIB linka 2*)
+ MI2_CIB1 : usint :=  5;  (*externí CIB master, adresa 2, CIB linka 1*)
+ MI2_CIB2 : usint :=  6;  (*externí CIB master, adresa 2, CIB linka 2*)
+ MI4_CIB1 : usint :=  7;  (*externí CIB master, adresa 4, CIB linka 1*)
+ MI4_CIB2 : usint :=  8;  (*externí CIB master, adresa 4, CIB linka 2*)
+ MI6_CIB1 : usint :=  9;  (*externí CIB master, adresa 6, CIB linka 1*)
+ MI6_CIB2 : usint :=  10;  (*externí CIB master, adresa 6, CIB linka 2*)
+ MI_RF : usint :=  100;  (*interní RF sbìrnice systému Foxtrot*)
+ RF0_RF : usint :=  101;  (*externí RF master, adresa 0*)
+ RF2_RF : usint :=  102;  (*externí RF master, adresa 2*)
+ RF4_RF : usint :=  103;  (*externí RF master, adresa 4*)
+ RF6_RF : usint :=  104;  (*externí RF master, adresa 6*)
+
+END_VAR
+
+TYPE TCIBunitState :
+  STRUCT
+    INI              : bool;  (*CIB jednotka je inicializovaná*)
+    COM              : bool;  (*komunikace s CIB jednotkou je bez závad*)
+    ADDR             : bool;  (*adresa CIB jednotky byla akceptovaná*)
+    DUMMY3 {HIDDEN}  : bool;
+    REI              : bool;  (*pøíznak reinicializace CIB jednotky*)
+    DUMMY5 {HIDDEN}  : bool;
+    DUMMY6 {HIDDEN}  : bool;
+    NET              : bool;  (*CIB jednotka je definovaná v programu a obsluhovaná centrální jednotkou*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TCIBunitInfo :
+  STRUCT
+    line_defined     : bool;  (*CIB linka je definovaná v HW konfiguraci PLC*)
+    unit_defined     : bool;  (*CIB jednotka je definovaná v HW konfiguraci PLC*)
+    state            : TCIBunitState;  (*stav CIB jednotky (viz Typ TCIBunitState)*)
+    address          : word;  (*aktuálnì nastavená HW adresa CIB jednotky*)
+    code             : word;  (*kód CIB jednotky*)
+    unit_type        : string [17];  (*typové oznaèení CIB jednotky*)
+    description      : string [31];  (*popis CIB jednotky*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TRFunitState :
+  STRUCT
+    INI              : bool;  (*RF jednotka je inicializovaná*)
+    COM              : bool;  (*komunikace s RF jednotkou je bez závad*)
+    DUMMY2 {HIDDEN}  : bool;
+    DUMMY3 {HIDDEN}  : bool;
+    DUMMY4 {HIDDEN}  : bool;
+    SLP              : bool;  (*RF jednotka muze prechazet do sleep rezimu*)
+    BND              : bool;  (*jednotka je spárovaná*)
+    NET              : bool;  (*RF jednotka je definovaná v programu a obsluhovaná centrální jednotkou*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TRFunitInfo :
+  STRUCT
+    line_defined     : bool;  (*RF linka je definovaná v HW konfiguraci PLC*)
+    unit_defined     : bool;  (*RF jednotka je definovaná v HW konfiguraci PLC*)
+    state            : TRFunitState;  (*stav RF jednotky (viz Typ TRFunitState)*)
+    address          : word;  (*aktuálnì nastavená HW adresa RF jednotky*)
+    code             : word;  (*kód RF jednotky*)
+    unit_type        : string [17];  (*typové oznaèení RF jednotky*)
+    description      : string [31];  (*popis RF jednotky*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION CIBunitInfo : bool
+(*Informace o stavu CIB jednotky
+
+  Funkce získá informace o aktuálním stavu jedné jednotky na CIB sbìrnici
+  Funkce vrací hodnotu TRUE, pokud se podaøí informace o CIB jednotce získat*)
+  VAR_INPUT
+    CIB_line         : usint;  (*èíslo CIB linky (viz konstanty MI_CIB1 až MI6_CIB2)*)
+    CIB_unitID       : usint;  (*èíslo pozice CIB jednotky (1,...,32)*)
+  END_VAR
+  VAR_IN_OUT
+    unitInfo         : TCIBunitInfo;  (*promìnná, do které jsou uloženy získané informace o CIB jednotce*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION RFunitInfo : bool
+(*Informace o stavu RF jednotky
+
+  Funkce získá informace o aktuálním stavu jedné RF jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí informace o RF jednotce získat*)
+  VAR_INPUT
+    RF_line          : usint;  (*èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*èíslo pozice RF jednotky (1,...,64)*)
+  END_VAR
+  VAR_IN_OUT
+    unitInfo         : TRFunitInfo;  (*promìnná, do které jsou uloženy získané informace o RF jednotce*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetAddressCIBunit : bool
+(*Nastavit novou HW adresu CIB jednotky
+  Funkce nastaví novou HW adresu CIB jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí adresu CIB jednotky nastavit*)
+  VAR_INPUT
+    CIB_line         : usint;  (*èíslo CIB linky (viz konstanty MI_CIB1 až MI6_CIB2)*)
+    CIB_unitID       : usint;  (*èíslo pozice CIB jednotky (1,...,32)*)
+    CIB_addr         : word;  (*nová HW adresa CIB jednotky*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetAddressRFunit : bool
+(*Nastavit novou HW adresu RF jednotky
+  Funkce nastaví novou HW adresu RF jednotky
+  Funkce vrací hodnotu TRUE, pokud se podaøí adresu RF jednotky nastavit*)
+  VAR_INPUT
+    RF_line          : usint;  (*èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*èíslo pozice RF jednotky (1,...,64)*)
+    RF_addr          : word;  (*nová HW adresa RF jednotky*)
+  END_VAR
+END_FUNCTION
+
+TYPE TBondStat {HIDDEN} :
+  STRUCT  (*status bondovani*)
+    disconnect       : bool;  (*probiha odbondovani*)
+    connect          : bool;  (*probiha bondovani*)
+    bondMap          : bool;  (*probiha cteni bondovaci mapy*)
+    dummy3           : bool;
+    dummy4           : bool;
+    error            : bool;  (*doslo k chybe*)
+    done             : bool;  (*hotovo*)
+    busy             : bool;  (*master zaneprazdnen*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TBondInfo {HIDDEN} :
+  STRUCT  (*informace, kterou vraci instrukce SYS 79*)
+    bondStat         : TBondStat;
+    bondID           : usint;  (*cislo pozice pribondovane jednotky (je-li bondovani uspesne)*)
+    bondType         : word;  (*typ pribondovane jednotky (je-li bondovani uspesne)*)
+  END_STRUCT;
+END_TYPE
+
+__DECL FUNCTION_BLOCK fbBondRFunit
+(*Spárovat RF jednotku s RF masterem
+  Funkèní blok spáruje RF jednotku s RF masterem.
+  Tato akce mùže nìjakou dobu trvat. Bìhem akce je nastavena promìnná busy.
+  Pokud se podaøí RF jednotku spárovat tak je výstupní promìnná done nastavena na hodnotu TRUE
+  a promìnná unitType obsahuje øetìzec s typem a výrobním èíslem spárované RF jednotky.
+  V opaèném pøípadì je nastavena promìnná err a promìnná errID obsahuje kód chyby*)
+  VAR_INPUT
+    exec             : bool R_EDGE;  (*žádost o spárování = nábìžná hrana zahájí akci*)
+    RF_line          : usint;  (*èíslo RF linky (viz konstanty MI_RF, RF0_RF,...,RF6_RF)*)
+    RF_unitID        : usint;  (*èíslo pozice RF jednotky (1,...,64)*)
+    bondRq           : bool;  (*0 = pouze zrušit párování, 1 = napárovat novou jednotku*)
+    useRouter        : bool;  (*1 = po napárování komunikovat s RF jednotkou pøes router*)
+  END_VAR
+  VAR_OUTPUT
+    done             : bool;  (*párování úspìšnì ukonèeno*)
+    busy             : bool;  (*probíhá párování*)
+    err              : bool;  (*párování ukonèeno s chybou*)
+    errID            : udint;  (*kód chyby*)
+    unitType         : string [40];  (*typ úspìšnì spárované jednotky*)
+  END_VAR
+  VAR
+    result           : TBondInfo;
+    timIN            : bool;
+    timPT            : time :=  T#2s;
+    tim              : TON;  (*odbondovat 2+2 s, pribondovat 12+2 s*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION ProgramLock : bool
+(*Uzamèení aplikaèního programu
+  Funkce uzamkne uživatelský program PLC tak,
+  že nelze provést jeho zpìtný pøeklad v prostøedí Mosaic*)
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK TPR
+(*Èasovaè TPR. Zastaralá verze! V novém projektu použijte fbTPR.
+  (generuje pulz dané šíøky, pulz je možno ukonèit vstupem R)*)
+  VAR_INPUT
+    IN               : bool;  (*vstup èasovaèe*)
+    R                : bool;  (*reset èasovaèe*)
+    PT               : time;  (*pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbTPR
+(*Èasovaè fbTPR (generuje pulz dané šíøky, pulz je možno ukonèit vstupem R)*)
+  VAR_INPUT
+    IN               : bool;  (*vstup èasovaèe*)
+    R                : bool;  (*reset èasovaèe*)
+    PT               : time;  (*pøedvolba èasovaèe*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*aktuální hodnota èasovaèe*)
+  END_VAR
+  VAR
+    IN_r_edge        : R_TRIG;
+    LT               : time;  (*last tick value ( 1ms resolution)*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION SetWebPSW : bool
+(*Nastavit heslo pro pøístup na web stránky PLC
+   Funkce nastaví nové pøihlašovací jméno a heslo pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*cislo radku v tabulce uzivatelu (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    name             : string [80];  (*nové pøihlašovací jméno*)
+    password         : string [80];  (*nové heslo*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION VerifyWebPSW : bool
+(*Ovìøit heslo pro pøístup na web stránky PLC
+   Funkce oveøí, zda-li je nastaveno požadované
+   pøihlašovací jméno a heslo pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*èíslo øádku v tabulce uživatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    name             : string [80];  (*pøihlašovací jméno*)
+    password         : string [80];  (*heslo*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetWebMAC : bool
+(*Nastavit MAC pro pøístup na web stránky PLC
+   Funkce nastaví novou MAC adresu pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*èíslo øádku v tabulce uživatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    MAC              : string [80];  (*nová MAC adresa ('00:11:22:33:44:55')*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION VerifyWebMAC : bool
+(*Ovìøit MAC pro pøístup na web stránky PLC
+   Funkce oveøí, zda-li je nastavena požadovaná
+   MAC adresa pro pøístup na web stránky v PLC*)
+  VAR_INPUT
+    user             : usint;  (*èíslo øádku v tabulce uživatelù (0...9)*)
+  END_VAR
+  VAR_IN_OUT
+    MAC              : string [80];  (*MAC adresa ('00:11:22:33:44:55')*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SystemDisplayBacklightOn : bool
+(*Rozsvítit podsvícení systémového displeje
+   Funkce rozsítí podsvícení LCD displeje na základním modulu PLC.
+   Funkce vrací TRUE, pokud je displej na základním modulu dostupný,
+   jinak vrací FALSE.*)
+  VAR
+    tmp              : udint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SystemDisplayBacklightOff : bool
+(*Zhasnout podsvícení systémového displeje
+   Funkce zhasne podsvícení LCD displeje na základním modulu PLC.
+   Funkce vrací TRUE, pokud je displej na základním modulu dostupný,
+   jinak vrací FALSE.*)
+  VAR
+    tmp              : udint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK fbTick
+(*Periodický èasovaè*)
+  VAR_INPUT
+    IN               : bool;  (*povolení èasovaèe*)
+    PT               : time;  (*perioda výstupních pulzù*)
+  END_VAR
+  VAR_OUTPUT
+    Q                : bool;  (*výstup èasovaèe*)
+    ET               : time;  (*prùbìžný èas v rámci periody*)
+  END_VAR
+  VAR
+    WasRun           : bool;
+    RunTime          : time;
+  END_VAR
+END_FUNCTION_BLOCK
+
+
+
+{LIBFILE="LOCALLIB\COMLIB_V21_20130528.MLB"}
+(* Knihovna vývojového systému Mosaic *)
+(* Jméno souboru : C:\TecoLib\ComLib_V21_20130528.mlb *)
+(* Knihovna : ComLib 2.1 *)
+(* Autor : Teco a.s. *)
+(* Autorská práva : (c) 2013 Teco a.s. *)
+(* Verze IEC pøekladaèe : 3.8.18.5 *)
+(* Verze assembleru : 4.3.00 *)
+
+//{Knihovna : ComLib 2.1  }
+(* Historie: *)
+(*
+v1.0 23.03.2009 Nem první verze knihovny
+v1.1 27.03.2009 Nem doplnìna chyba, pokud je nulova délka vysilaných dat 
+v1.2 24.06.2009 Nem doplnìn pøíjem a vysílání pro ETH2_uni 
+v1.3 24.09.2009 Nem funkce GetMACaddress povolena i pro ETH2, doplnìny funkce 
+                    SetDHCPsupport(), STRING_TO_IPADR() a IPADR_TO_STRING()
+v1.4 08.02.2010 Nem doplnìna funkce GetChanStat() 18.02.2010 doplnìny funkce 
+                    GetChanSettings() a SetChanSettings() 
+v1.5 02.08.2010 Nem zkompletovány komentáøe pro èeskou a anglickou verzi
+v1.6 08.08.2011 Nem ve fbSendTo() ošetøeno pøeplnìní bufferu TCP socketu 
+v1.7 23.01.2012 Nem doplnìny funkce SetDNS_IP(), GetDNS_IP() a fbRecvTxt()
+v1.8 18.04.2012 Nem do funkèního bloku fbRecvTxt() doplnìn výstup error
+                    doplnìny deklarace ETH3_uni0,...,ETH4_uni7
+                Byd doplnìn funkèní blok fbRecvTxtChar()
+v2.0 14.03.2013 Nem doplnìna deklarace link do struktury TEthStat
+		    (síový kabel pøipojen)
+v2.1 28.05.2013 Nem doplnìny globální promìnné ETH3_STAT a ETH4_STAT
+                    doplnìna funkce GetWebServerAccess() 
+                    a funkèní blok fbKeepAliveTCP() - požadovaná 
+                    verze FW centrální jednotky je 7.7 nebo vyšší
+     22.08.2013 Nem v bloku fbSendTo() oprava kontroly max. délky vysílaných dat
+*)
+
+(*----------------------------------------------------------------------------*)
+
+TYPE TUniDesc :
+  STRUCT  (*popis kanálu v univerzálním režimu*)
+    modeChan         : byte;  (*režim kanálu*)
+    res              : byte;  (*rezerva*)
+    adrUniStat       : udint;  (*adresa stavové zóny*)
+    lenUniStat       : uint;  (*délka stavové zóny*)
+    adrUniCont       : udint;  (*adresa øídící zóny*)
+    lenUniCont       : uint;  (*délka øídící zóny*)
+    adrUniIn         : udint;  (*adresa pøijímací zóny*)
+    lenUniIn         : uint;  (*délka pøijímací zóny*)
+    adrUniOut        : udint;  (*adresa vysílací zony*)
+    lenUniOut        : uint;  (*délka vysílací zony*)
+  END_STRUCT;
+END_TYPE
+
+TYPE  TIPadr : ARRAY [0..3] OF usint;  (*IP adresa*)
+END_TYPE
+
+TYPE TLocalEthAdr :
+  STRUCT  (*struktura lokální IP adresy*)
+    IP               : TIPadr;  (*IP adresa*)
+    IM               : TIPadr;  (*maska sítì*)
+    GW               : TIPadr;  (*adresa brány*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TRemoteEthAdr :
+  STRUCT  (*struktura vzdálené IP adresy*)
+    remoteIP         : TIPadr;  (*vzdálená IP adresa*)
+    remotePort       : uint;  (*vzdálený port*)
+    localPort        : uint;  (*lokální port*)
+  END_STRUCT;
+END_TYPE
+
+TYPE  TMacAdr : ARRAY [0..5] OF byte;  (*MAC adresa*)
+END_TYPE
+
+TYPE TChanSettings :
+  STRUCT  (*struktura parametru pro seriovy kanal v rezimu UNI*)
+    modeChan         : usint;  (*režim kanálu (uni = 5)*)
+    address          : usint;  (*adresa kanálu*)
+    speed            : usint;  (*komunikaèní rychlost*)
+    rxTimeout        : usint;  (*timeout pøíjmu*)
+    txTimeout        : usint;  (*timeout vysílání*)
+    lineControl      : usint;  (*nastavení parity*)
+    modemControl     : usint;  (*modemové signály*)
+    rez              : usint;  (*rezerva*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL CONSTANT
+ MODE_OFF : usint :=  16#00;  (*kanál je vypnutý*)
+ MODE_PC : usint :=  16#02;  (*režim EPSNET slave*)
+ MODE_UNI : usint :=  16#05;  (*univerzální režim*)
+ MODE_MPC : usint :=  16#06;  (*režim EPSNET multimaster*)
+ MODE_MDB : usint :=  16#07;  (*režim MODBUS slave*)
+ MODE_PFB : usint :=  16#08;  (*režim PROFIBUS DP master*)
+ BAUD_50 : usint :=  16#01;  (*50 Baud*)
+ BAUD_100 : usint :=  16#02;  (*100 Baud*)
+ BAUD_200 : usint :=  16#03;  (*200 Baud*)
+ BAUD_300 : usint :=  16#04;  (*300 Baud*)
+ BAUD_600 : usint :=  16#05;  (*600 Baud*)
+ BAUD_1200 : usint :=  16#06;  (*1200 Baud*)
+ BAUD_2400 : usint :=  16#07;  (*2400 Baud*)
+ BAUD_4800 : usint :=  16#08;  (*4800 Baud*)
+ BAUD_9600 : usint :=  16#0A;  (*9600 Baud*)
+ BAUD_14400 : usint :=  16#0B;  (*14400 Baud*)
+ BAUD_19200 : usint :=  16#0C;  (*19200 Baud*)
+ BAUD_28800 : usint :=  16#0D;  (*28800 Baud*)
+ BAUD_38400 : usint :=  16#0E;  (*38400 Baud*)
+ BAUD_57600 : usint :=  16#10;  (*57600 Baud*)
+ BAUD_76800 : usint :=  16#12;  (*76800 Baud*)
+ BAUD_93750 : usint :=  16#13;  (*937500 Baud*)
+ BAUD_115200 : usint :=  16#14;  (*115200 Baud*)
+ NO_PARITY : usint :=  16#00;  (*bez parity (lineControl kod)*)
+ PARITY_ODD : usint :=  16#08;  (*lichá parita (lineControl kod)*)
+ PARITY_EVEN : usint :=  16#18;  (*sudá parita (lineControl kod)*)
+ PARITY_0 : usint :=  16#28;  (*parita pevnì 0 (lineControl kod)*)
+ PARITY_1 : usint :=  16#38;  (*parita pevnì 1 (lineControl kod)*)
+ SEVEN_BITS : usint :=  16#40;  (*7 datových bitù (lineControl kod)*)
+ EIGHT_BITS : usint :=  16#00;  (*8 datových bitù (lineControl kod)*)
+ ONE_STOP_BIT : usint :=  16#00;  (*1 stop bit*)
+ TWO_STOP_BITS : usint :=  16#80;  (*2 stop bity*)
+ RTS_0 : usint :=  16#00;  (*RTS pevnì 0 (modemControl kod)*)
+ RTS_1 : usint :=  16#02;  (*RTS pevnì 1 (modemControl kod)*)
+ RTS_MAN : usint :=  16#40;  (*RTS øízené z uživatelského programu (modemControl kod)*)
+ RTS_AUTO : usint :=  16#80;  (*automatická hodnota RTS (modemControl kod)*)
+ RTS_CTS_AUTO : usint :=  16#C0;  (*RTS auto + pøíjem podmínìn signálem CTS (modemControl kod)*)
+ HALF_DUPLEX : usint :=  16#08;  (*zákaz pøíjmu bìhem vysílání (modemControl kod)*)
+
+END_VAR
+
+TYPE TCHxStatistic {HIDDEN} :
+  STRUCT
+    STAT             : usint;
+    ERR              : usint;
+    trueMes          : udint;
+    falseMes         : udint;
+  END_STRUCT;
+END_TYPE
+
+TYPE TCHxControl {HIDDEN} :
+  STRUCT
+    CONTROL          : uint;
+  END_STRUCT;
+END_TYPE
+
+TYPE TUni_STAT :
+  STRUCT
+    DSR              : bool;
+    CTS              : bool;
+    dummy1           : bool;
+    TRO              : bool;
+    RCF              : bool;
+    ROV              : bool;
+    TRF              : bool;
+    ARC              : bool;
+  END_STRUCT;
+END_TYPE
+
+TYPE TUni_CONT {HIDDEN} :
+  STRUCT
+    dummy0           : bool;
+    dummy1           : bool;
+    dummy2           : bool;
+    dummy3           : bool;
+    dummy4           : bool;
+    TRG              : bool;
+    CLR              : bool;
+    ACN              : bool;
+  END_STRUCT;
+END_TYPE
+
+TYPE TUni_SIGN {HIDDEN} :
+  STRUCT
+    DTR              : bool;
+    RTS              : bool;
+  END_STRUCT;
+END_TYPE
+
+TYPE  TUni_BUFF : ARRAY [0..1400] OF usint;
+END_TYPE
+
+TYPE TUni_IN {HIDDEN} :
+  STRUCT  (*pøijímací datová struktura kanálu v univerzálním režimu*)
+    STAT             : TUni_STAT;  (*stav pøíjmu*)
+    ERR              : usint;  (*chybový kód*)
+    NUMR             : uint;  (*poèet pøijatých bytù*)
+    DATA             : TUni_BUFF;  (*pøijatá data*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TUni_OUT {HIDDEN} :
+  STRUCT  (*vysílací datová struktura kanálu v univerzálním režimu*)
+    CONT             : TUni_CONT;  (*øízení vysílání*)
+    SIGN             : TUni_SIGN;  (*øízení modemových signálù*)
+    NUMT             : uint;  (*poèet vysílaných bytù*)
+    DATA             : TUni_BUFF;  (*vysílaná data*)
+  END_STRUCT;
+END_TYPE
+
+TYPE TEthStat :
+  STRUCT  (*status Ethernet kanálu*)
+    chan_present     : bool;  (*kanál pøítomen*)
+    DHCP_enabled     : bool;  (*požadováno automatické pøidelení IP adresy DHCP serverem*)
+    IP_obtained      : bool;  (*IP adresa získána od DHCP serveru*)
+    IP_expired       : bool;  (*platnost automaticky pøidìlené IP adresy vypršela*)
+    link             : bool;  (*síový kabel pøipojen*)
+    reserved         : usint;  (*rezerva*)
+    trueMes          : udint;  (*celkový poèet dobrých zpráv*)
+    falseMes         : udint;  (*celkový poèet špatných zpráv*)
+  END_STRUCT;
+END_TYPE
+
+VAR_GLOBAL
+ ETH1_STAT AT %S356 : TEthStat;  (*status Ethernet kanálu ETH1*)
+ ETH2_STAT AT %S368 : TEthStat;  (*status Ethernet kanálu ETH2*)
+ ETH3_STAT AT %S380 : TEthStat;  (*status Ethernet kanálu ETH3*)
+ ETH4_STAT AT %S392 : TEthStat;  (*status Ethernet kanálu ETH4*)
+
+END_VAR
+
+VAR_GLOBAL CONSTANT
+ ANY_IP : TIPadr :=  [0];  (*IP adresa 0.0.0.0*)
+ ETH1_uni0 : uint :=  16#07E1;  (*Ethernet ETH1, režim uni, spojení uni0*)
+ ETH1_uni1 : uint :=  16#17E1;  (*Ethernet ETH1, režim uni, spojení uni1*)
+ ETH1_uni2 : uint :=  16#27E1;  (*Ethernet ETH1, režim uni, spojení uni2*)
+ ETH1_uni3 : uint :=  16#37E1;  (*Ethernet ETH1, režim uni, spojení uni3*)
+ ETH1_uni4 : uint :=  16#47E1;  (*Ethernet ETH1, režim uni, spojení uni4*)
+ ETH1_uni5 : uint :=  16#57E1;  (*Ethernet ETH1, režim uni, spojení uni5*)
+ ETH1_uni6 : uint :=  16#67E1;  (*Ethernet ETH1, režim uni, spojení uni6*)
+ ETH1_uni7 : uint :=  16#77E1;  (*Ethernet ETH1, režim uni, spojení uni7*)
+ ETH2_uni0 : uint :=  16#07E2;  (*Ethernet ETH2, režim uni, spojení uni0*)
+ ETH2_uni1 : uint :=  16#17E2;  (*Ethernet ETH2, režim uni, spojení uni1*)
+ ETH2_uni2 : uint :=  16#27E2;  (*Ethernet ETH2, režim uni, spojení uni2*)
+ ETH2_uni3 : uint :=  16#37E2;  (*Ethernet ETH2, režim uni, spojení uni3*)
+ ETH2_uni4 : uint :=  16#47E2;  (*Ethernet ETH2, režim uni, spojení uni4*)
+ ETH2_uni5 : uint :=  16#57E2;  (*Ethernet ETH2, režim uni, spojení uni5*)
+ ETH2_uni6 : uint :=  16#67E2;  (*Ethernet ETH2, režim uni, spojení uni6*)
+ ETH2_uni7 : uint :=  16#77E2;  (*Ethernet ETH2, režim uni, spojení uni7*)
+ ETH3_uni0 : uint :=  16#07E3;  (*Ethernet ETH3, režim uni, spojení uni0*)
+ ETH3_uni1 : uint :=  16#17E3;  (*Ethernet ETH3, režim uni, spojení uni1*)
+ ETH3_uni2 : uint :=  16#27E3;  (*Ethernet ETH3, režim uni, spojení uni2*)
+ ETH3_uni3 : uint :=  16#37E3;  (*Ethernet ETH3, režim uni, spojení uni3*)
+ ETH3_uni4 : uint :=  16#47E3;  (*Ethernet ETH3, režim uni, spojení uni4*)
+ ETH3_uni5 : uint :=  16#57E3;  (*Ethernet ETH3, režim uni, spojení uni5*)
+ ETH3_uni6 : uint :=  16#67E3;  (*Ethernet ETH3, režim uni, spojení uni6*)
+ ETH3_uni7 : uint :=  16#77E3;  (*Ethernet ETH3, režim uni, spojení uni7*)
+ ETH4_uni0 : uint :=  16#07E4;  (*Ethernet ETH4, režim uni, spojení uni0*)
+ ETH4_uni1 : uint :=  16#17E4;  (*Ethernet ETH4, režim uni, spojení uni1*)
+ ETH4_uni2 : uint :=  16#27E4;  (*Ethernet ETH4, režim uni, spojení uni2*)
+ ETH4_uni3 : uint :=  16#37E4;  (*Ethernet ETH4, režim uni, spojení uni3*)
+ ETH4_uni4 : uint :=  16#47E4;  (*Ethernet ETH4, režim uni, spojení uni4*)
+ ETH4_uni5 : uint :=  16#57E4;  (*Ethernet ETH4, režim uni, spojení uni5*)
+ ETH4_uni6 : uint :=  16#67E4;  (*Ethernet ETH4, režim uni, spojení uni6*)
+ ETH4_uni7 : uint :=  16#77E4;  (*Ethernet ETH4, režim uni, spojení uni7*)
+ CH1_uni : uint :=  16#0101;  (*Sériový kanál CH1, režim uni*)
+ CH2_uni : uint :=  16#0202;  (*Sériový kanál CH2, režim uni*)
+ CH3_uni : uint :=  16#0103;  (*Sériový kanál CH3, režim uni*)
+ CH4_uni : uint :=  16#0204;  (*Sériový kanál CH4, režim uni*)
+ CH5_uni : uint :=  16#0105;  (*Sériový kanál CH5, režim uni*)
+ CH6_uni : uint :=  16#0206;  (*Sériový kanál CH6, režim uni*)
+ CH7_uni : uint :=  16#0107;  (*Sériový kanál CH7, režim uni*)
+ CH8_uni : uint :=  16#0208;  (*Sériový kanál CH8, režim uni*)
+ CH9_uni : uint :=  16#0109;  (*Sériový kanál CH9, režim uni*)
+ CH10_uni : uint :=  16#020A;  (*Sériový kanál CH10, režim uni*)
+ ETH1 : usint :=  16#E1;  (*Ethernet ETH1*)
+ ETH2 : usint :=  16#E2;  (*Ethernet ETH2*)
+ ETH3 : usint :=  16#E3;  (*Ethernet ETH3*)
+ ETH4 : usint :=  16#E4;  (*Ethernet ETH4*)
+ SCH1 : usint :=  16#01;  (*Sériový kanál CH1*)
+ SCH2 : usint :=  16#02;  (*Sériový kanál CH2*)
+ SCH3 : usint :=  16#03;  (*Sériový kanál CH3*)
+ SCH4 : usint :=  16#04;  (*Sériový kanál CH4*)
+ SCH5 : usint :=  16#05;  (*Sériový kanál CH5*)
+ SCH6 : usint :=  16#06;  (*Sériový kanál CH6*)
+ SCH7 : usint :=  16#07;  (*Sériový kanál CH7*)
+ SCH8 : usint :=  16#08;  (*Sériový kanál CH8*)
+ SCH9 : usint :=  16#09;  (*Sériový kanál CH9*)
+ SCH10 : usint :=  16#0A;  (*Sériový kanál CH10*)
+ COM_OK : usint :=  0;  (*bez chyby*)
+ COM_ERR1 : usint :=  1;  (*kanál není v režimu uni*)
+ COM_ERR2 : usint :=  2;  (*vysílaná data jsou pøíliš dlouhá*)
+ COM_ERR3 : usint :=  3;  (*pøijatá data jsou pøíliš dlouhá*)
+ COM_ERR4 : usint :=  4;  (*chybný kód kanálu*)
+ COM_ERR5 : usint :=  5;  (*pøedchozí zpráva není ještì odvysílaná*)
+ COM_ERR6 : usint :=  6;  (*nulová délka vysílanych dat*)
+ COM_ERR7 : usint :=  7;  (*chybná pøenosová rychlost*)
+ COM_ERR8 : usint :=  8;  (*kanál je vypnutý*)
+ COM_ERR16 : usint :=  16#10;  (*chybný poèáteèní znak*)
+ COM_ERR17 : usint :=  16#11;  (*chyba parity*)
+ COM_ERR18 : usint :=  16#12;  (*pøekroèena maximální délka zprávy*)
+ COM_ERR19 : usint :=  16#13;  (*chybný druhý byte potvrzení*)
+ COM_ERR20 : usint :=  16#14;  (*chybný druhý byte koncového znaku*)
+ COM_ERR24 : usint :=  16#18;  (*chyba kontrolního souètu*)
+ COM_ERR25 : usint :=  16#19;  (*chybný koncový znak*)
+ COM_ERR49 : usint :=  16#31;  (*chybná délka vysílaných dat*)
+ COM_ERR50 : usint :=  16#32;  (*nulová délka vysílaných dat*)
+ COM_ERR64 : usint :=  16#40;  (*nedodržen timeout*)
+ COM_ERRc6 : usint :=  16#C6;  (*seriový kanál neni v požadovaném režimu*)
+
+END_VAR
+
+__DECL FUNCTION GetChanDesc : TUniDesc
+(*Získat popisovaè sériového kanálu
+
+     Funkce testuje aktuální namapování sériového kanálu do pamìti PLC.
+     Tato funkce je urèena pro vnitøní použití v knihovnì.
+
+     Funkce vrací popisovaè kanálu (strukturu TUniDesc).*)
+  VAR_INPUT
+    chanCode         : uint;  (*channel code (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetChanIndex : int
+(*Test existence komunikaèního kanálu
+
+   Funkce kontroluje platnost promìnné chanCode.
+   Tato funkce je urèena pro vnitøní použití v knihovnì.
+
+   Pokud je hodnota promìnné chanCode platná, vrací funkce
+   index kanálu (kladné èíslo), jinak vrací -1.*)
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu*)
+  END_VAR
+END_FUNCTION
+
+VAR_GLOBAL CONSTANT
+ ComErrorString : ARRAY [0..20] OF string [40] :=  [
+       'No error                                ',
+       'Channel is not in uni mode              ',
+       'Sending data are too long               ',
+       'Received data are too long              ',
+       'Wrong channel code                      ',
+       'Previous message is not sent yet        ',
+       'Zero message length                     ',
+       'Invalid communication speed             ',
+       'Channel is disabled                     ',
+       'Invalid start delimiter                 ',
+       'Parity error                            ',
+       'Maximum message length exceeded         ',
+       'Invalid second byte of acknowledgment   ',
+       'Invalid second byte of end delimiter    ',
+       'Check sum error                         ',
+       'Invalid end delimiter                   ',
+       'Invalid length of sent data             ',
+       'Sent data zero length                   ',
+       'Timeout not held                        ',
+       'Invalid channel mode                    ',
+       'Unknown error                           '];
+
+END_VAR
+
+__DECL FUNCTION GetLastComErrTxt : string
+(*errCode : USINT;         chybový kód
+  END_VAR*)
+  VAR_INPUT
+    errCode          : usint;  (*chybový kód*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetChanSettings : bool
+(*Test nastavení sériového kanálu
+
+   Funkce testuje aktuální nastavení sériového kanálu
+   (Pozor ! Kanál musí být v univerzálním režimu).
+
+   Funkce vrací TRUE, pokud se podaøí zjistit nastavení
+   sériového kanálu (nastavení je uloženo v promìnné chanSet),
+   jinak vrací FALSE.*)
+  VAR_INPUT
+    serChan          : usint;  (*èíslo sériového kanálu (SCH1, ..., SCH10)*)
+  END_VAR
+  VAR_IN_OUT
+    chanSet          : TChanSettings;  (*aktuální nastavení sériového kanálu*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetChanSettings : usint
+(*Nastavení parametrù sériového kanálu
+
+   Funkce nastavuje nové parametry sériového kanálu
+   (rychlost komunikace, paritu, ...).
+
+   Funkce vrací 0, pokud se podaøí nastavit nové parametry (bez chyby).
+   V pøípadì, že se nepodaøí parametry nastavit, vrací funkce chybový kód.*)
+  VAR_INPUT
+    rq               : bool;  (*Žádost o nové nastavení*)
+    serChan          : usint;  (*èíslo sériového kanálu (SCH1, ..., SCH10)*)
+  END_VAR
+  VAR_IN_OUT
+    chanSet          : TChanSettings;  (*Nové natavení sériového kanálu*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetChanStat : TUni_STAT
+(*Test stavu komunikaèního kanálu
+
+   Funkce vrací strukturu TUni_STAT s informacemi o stavu kanálu.*)
+  VAR CONSTANT
+    initStat         : TUni_STAT :=  ( DSR := false,  CTS := false,  dummy1 := false,  TRO := false,
+                              RCF := false,  ROV := false,  TRF := false,  ARC := false);
+  END_VAR
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION EstabTCPconnection : usint
+(*Navázat TCP spojení
+
+   Funkce zahájí proces navazání TCP spojení.
+   Tento proces mùže nìjakou dobu trvat.
+
+   Funkce vrací 0, pokud se podaøilo zahájit navazování spojení.
+   Jinak funkce vrací chybový kód.*)
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION CloseTCPconnection : usint
+(*Ukonèit TCP spojení
+
+   Funkce zahájí proces uzavøení TCP spojení.
+   Tato operace mùže nìjakou dobu trvat.
+
+   Funkce vrací 0 pokud se podaøí zahájit uzavøení spojení.
+   Jinak vrací chybový kód.*)
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IsEstabTCPconnection : bool
+(*Test stavu TCP spojení
+
+   Funkce vrací TRUE, pokud je spojení navázáno.
+   Jinak vrací FALSE.*)
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetRemoteIPaddress : bool
+(*Nastavení cílové IP adresy
+
+   Funkce nastaví novou cílovou IP adresu,
+   cílový port a zdrojový port pro zadaný kanál.
+   Nové hodnoty definuje promìnná ethAdr.
+
+   Funkce vrací TRUE, pokud se nové hodnoty podaøí nastavit.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o nové nastavení*)
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7)*)
+  END_VAR
+  VAR_IN_OUT
+    ethAdr           : TRemoteEthAdr;  (*nové nastavení*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetRemoteIPaddress : bool
+(*Test cílové IP adresy
+
+   Funkce zjišuje aktuálnì nastavenou cílovou IP adresu,
+   cílový port a zdrojový port pro zadaný kanál.
+
+   Funkce vrací TRUE, pokud se nové hodnoty podaøí zjistit.
+   Zjištené hodnoty jsou uloženy do promìnné ethAdr.*)
+  VAR_INPUT
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7)*)
+  END_VAR
+  VAR_IN_OUT
+    ethAdr           : TRemoteEthAdr;  (*aktuální nastavení*)
+  END_VAR
+END_FUNCTION
+
+VAR_GLOBAL CONSTANT
+ MAX_LENGHT_OF_WEB_USER_NAME : usint :=  10;
+ HTTP_URI_SIZE : usint :=  65;
+
+END_VAR
+
+TYPE T_SESSION_STATE : 
+  (SESSION_EMPTY,
+   SESSION_LOGIN,
+   SESSION_LOGIN_RUN,
+   SESSION_ACTIVE,
+   SESSION_LOGOUT 
+  );
+END_TYPE
+
+TYPE TWebServerAccess :
+  STRUCT
+    state            : T_SESSION_STATE;  (*stav pøihlášení*)
+    user             : string [10];  (*jméno uživatele*)
+    level            : usint;  (*úroveò pøihlášení*)
+    error            : usint;  (*kód chyby*)
+    IP               : TIPadr;  (*IP adresa uživatele*)
+    lastFile         : string [65];  (*název posledního požadovaného souboru*)
+  END_STRUCT;
+END_TYPE
+
+TYPE  TWebServerAccessTable : ARRAY [0..7] OF TWebServerAccess;  (*pøístupová tabulka web serveru PLC*)
+END_TYPE
+
+__DECL FUNCTION GetWebServerAccess : bool
+(*Vrací informace o pøístupech k web serveru PLC*)
+  VAR_IN_OUT
+    accessTable      : TWebServerAccessTable;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK fbSendTo
+(*Vysílání dat komunikaèním kanálem
+
+   Funkèní blok vysílá obsah pole data[] komunikaèním kanálem,
+   který je specifikován promìnnou chanCode. Poèet vysílaných
+   bytù urèuje promìnná lenTx.
+
+   Funkèní blok vrací informace o stavu vysílání.
+   Pokud pøi vysílání nedojde k chybì, výstupní promìnná
+   error je 0, jinak obsahuje kód chyby.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o vysílání*)
+    chanCode         : uint;  (*kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)*)
+    lenTx            : uint;  (*velikost zprávy (poèet bytù)*)
+  END_VAR
+  VAR_IN_OUT
+    data             : TUni_BUFF;  (*buffer pro vysílanou zprávu*)
+  END_VAR
+  VAR_OUTPUT
+    mesSent          : bool;  (*vysílání zprávy bylo zahájeno*)
+    error            : usint;  (*chybový kód*)
+    lenData          : uint;  (*velikost skuteènì odvysílané zprávy*)
+  END_VAR
+  VAR
+    pUniOut          : PTR_TO TUni_OUT;
+    pUniIn           : PTR_TO TUni_IN;
+    pUniOutData      : PTR_TO usint;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbRecvFrom
+(*Pøíjem dat z komunikaèního kanálu
+
+   Funkèní blok pøijímá data z komunikaèního kanálu,
+   který je specifikován promìnnou chanCode.
+   Pøijatá data jsou uložena do pole data[].
+   Délku pøijatých dat udává promìnná lenData.
+
+   Funkèní blok vrací informace o stavu pøíjmu.
+   Pokud pøi pøíjmu nedojde k chybì, výstupní promìnná
+   error je 0, jinak obsahuje kód chyby.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o pøíjem*)
+    chanCode         : uint;  (*kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)*)
+    lenRx            : uint;  (*max. možná délka pøijatých dat*)
+  END_VAR
+  VAR_IN_OUT
+    data             : TUni_BUFF;  (*buffer pro pøijatou zprávu*)
+  END_VAR
+  VAR_OUTPUT
+    mesRec           : bool;  (*pøíznak novì pøijaté zprávy*)
+    error            : usint;  (*chybový kód*)
+    lenData          : uint;  (*velikost skuteènì pøijaté zprávy (poèet bytù)*)
+  END_VAR
+  VAR
+    pUniIn           : PTR_TO TUni_IN;
+    pUniInData       : PTR_TO usint;
+    oldARC           : bool;  (*ARRAY[0..39] OF BOOL;*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbRecvTxt
+(*Pøijímá data z komunikaèního kanálu konèící znaky CR LF*)
+  VAR_INPUT
+    getMes           : bool;  (*Vybere zprávu z bufferu*)
+    reset            : bool;  (*Vymaže buffer*)
+    chanCode         : uint;  (*Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)*)
+    lenBuf           : uint;  (*Délka pracovniho bufferu*)
+    lenTxt           : uint;  (*Délka txtMes*)
+  END_VAR
+  VAR_OUTPUT
+    full             : bool;  (*Buffer je plný, zprávy nebyly odebírány dostateènì rychle*)
+    lenMes           : uint;  (*Délka pøijatého textu*)
+    error            : usint;  (*chybový kód*)
+  END_VAR
+  VAR
+    actPos           : uint;
+    RecvFrom         : fbRecvFrom;
+  END_VAR
+  VAR_IN_OUT
+    buffer           : usint;  (*První byte pracovniho bufferu*)
+    txtMes           : usint;  (*První znak pøijatého textu*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbRecvTxtChar
+(*Pøijímá data z komunikaèního kanálu konèící znakem uvedeným na vstupu 'delimiter'*)
+  VAR_INPUT
+    getMes           : bool;  (*Vybere zprávu z bufferu*)
+    reset            : bool;  (*Vymaže buffer*)
+    chanCode         : uint;  (*Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH4_uni7)*)
+    lenBuf           : uint;  (*Délka pracovniho bufferu*)
+    lenTxt           : uint;  (*Délka txtMes*)
+    delimiter        : byte;  (*oddìlovací znak*)
+  END_VAR
+  VAR_OUTPUT
+    full             : bool;  (*Buffer je plný, zprávy nebyly odebírány dostateènì rychle*)
+    lenMes           : uint;  (*Délka pøijatého textu*)
+    error            : usint;  (*chybový kód*)
+  END_VAR
+  VAR
+    actPos           : uint;
+    RecvFrom         : fbRecvFrom;
+  END_VAR
+  VAR_IN_OUT
+    buffer           : usint;  (*První byte pracovniho bufferu*)
+    txtMes           : usint;  (*První znak pøijatého textu*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION GetIPaddress : bool
+(*Test aktuální IP adresy
+
+   Funkce zjišuje aktuálnì nastavenou IP adresu,
+   masku sítì a adresu brány pro zadaný kanál.
+
+   Funkce vrací TRUE, pokud se adresy podaøí zjistit.
+   Zjištené hodnoty jsou uloženy do promìnné ethAdr.*)
+  VAR_INPUT
+    ethChan          : usint;  (*èíslo Ethernet kanálu (ETH1, ETH2, ETH3)*)
+  END_VAR
+  VAR_IN_OUT
+    ethAdr           : TLocalEthAdr;  (*aktuální IP adresa, maska a adresa brány sítì*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetIPaddress : bool
+(*Nastavení vlastní IP adresy
+
+   Funkce nastavuje novou IP adresu, masku sítì
+   a adresu brány pro zadaný kanál.
+
+   Funkce vrací TRUE, pokud se podaøí nastavit nové hodnoty.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o nastavení nových hodnot*)
+    ethChan          : usint;  (*èíslo Ethernet kanálu (ETH1, ETH2, ETH3)*)
+  END_VAR
+  VAR_IN_OUT
+    ethAdr           : TLocalEthAdr;  (*nová IP adresa, maska sítì a adresa brány*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetMACaddress : bool
+(*Test MAC adresy
+
+   Funkce zjišuje MAC adresu zadaného Ethernet kanálu.
+
+   Funkce vrací TRUE, pokud se MAC adresu podaøí zjistit.
+   MAC adresa je uložena v promìnné MacAdr.*)
+  VAR_INPUT
+    ethChan          : usint;  (*èíslo Ethernet kanálu (ETH1, ETH2, ETH3)*)
+  END_VAR
+  VAR_IN_OUT
+    MacAdr           : TMacAdr;  (*aktuální MAC adresa*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetDHCPsupport : bool
+(*Zapnutí podpory pro DHCP
+
+   Funkce zapne podporu DHCP.
+   IP adresa bude pøidìlena DHCP serverem.
+
+   Funkce vratí TRUE, pokud se podaøí zapnou podporu DHCP,
+   jinak vrací FALSE.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o zapnutí podpory DHCP*)
+    ethChan          : usint;  (*èíslo Ethernet kanálu (pouze ETH1)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION GetDNS_IP : TIPadr
+(*Funkce vrací IP adresu DNS serveru*)
+  VAR_INPUT
+    ethChan          : usint;  (*èíslo Ethernet kanálu (pouze ETH1)*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION SetDNS_IP : bool
+(*Nastavení IP adresy DNS serveru
+
+   Funkce vrátí TRUE, pokud se podaøí nastavit novou IP adresu DNS serveru,
+   jinak vrací FALSE.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o nastavení nové IP adresy DNS serveru*)
+    ethChan          : usint;  (*èíslo Ethernet kanálu (pouze ETH1)*)
+    DNS_IP           : TIPadr;  (*IP adresa DNS serveru*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION STRING_TO_IPADR : TIPadr
+(*Pøevod textového øetìzce na IP adresu*)
+  VAR_INPUT
+    IPAdr            : string [80];  (*øetìzec s IP adresou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION IPADR_TO_STRING : string
+  VAR_INPUT
+    IPAdr            : TIPadr;  (*pole s IP adresou*)
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK fbKeepAliveTCP
+(*Udržovat TCP spojení
+
+   Pokud je navázané TCP spojení
+   a nejsou žádná data pro vysílání,
+   tak funkèní blok odesílá v zadaných
+   intervalech ACK pakety pro udržení spojení.
+
+   Funkce vrací 0, pokud pokud je vše v poøádku.
+   Jinak funkce vrací chybový kód.*)
+  VAR_INPUT
+    rq               : bool;  (*žádost o udržování spojení*)
+    chanCode         : uint;  (*kód kanálu (ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+    PT               : time;  (*interval odesílání udržovacích paketù (T#5s...T#60s)*)
+  END_VAR
+  VAR_OUTPUT
+    error            : usint;  (*chybový kód*)
+  END_VAR
+  VAR
+    tick             : fbTick;
+  END_VAR
+END_FUNCTION_BLOCK
+
+
+
+{LIBFILE="LOCALLIB\GSMLIB_V32_20130726.MLB"}
+(* Knihovna vývojového systému Mosaic *)
+(* Jméno souboru : D:\TecoUserLibs\GsmLib_V32_20130726.mlb *)
+(* Knihovna : GsmLib 3.2 *)
+(* Autor : Teco a.s. *)
+(* Autorská práva : (c) 2008 - 2013 *)
+(* Verze IEC pøekladaèe : 3.8.17.0 *)
+(* Verze assembleru : 4.3.00 *)
+
+//{Knihovna : GsmLib 3.2  }
+(* Historie: *)
+(*
+v1.0 18.04.2008 Byd První verze knihovny
+v1.1 12.05.2008 Byd Pøidáno ošetøení tvrdé chyby
+v1.2 02.06.2008 Byd Prodloužení timeoutù
+v1.3 16.06.2008 Byd Pøidáno vytáèení èísel
+v1.4 17.06.2008 Byd Odstranìna kolize vytáèení èísel a posílání SMS
+v1.5 24.08.2008 Byd Pøidán studený restart modemu a aktivní odmítnuti hovoru
+v2.0 23.03.2009 Byd Využití komunikaèní knihovny ComLib
+                    Hlášení pøi chybìjícím textu zprávy a nezdaøeném odeslání USSD
+                    Pøidán blok SMS_Handler2 
+v2.1 03.04.2009 Byd Opraveno hlášení pøi prázdném textu SMS
+v2.2 23.09.2009 Byd Pøidána obsluha statusù zpráv
+v2.3 03.02.2010 Byd Neveøejná verze
+v2.4 02.09.2010 Byd Pøidáno poèítání prozvonìní 1 až 3
+                    Pøidán blok SMS_HANDLER3 pro odesílání zpráv obsahující znak 0, 
+		    který nelze pøedat v typu STRING
+v2.5 04.11.2010 Byd Upravena inicializace STRING
+v2.6 08.12.2010 Byd Doplnìny komentáøe, skryty vnitønì používané funkce a promìnné
+v2.7 17.02.2011 Byd 
+v2.8 11.05.2011 Byd Doplnìna podpora CP1255
+v2.9 05.01.2012 Byd Pøidán stav pro vypnutí kompatibility s MC20
+v3.0 23.04.2012 Byd Pøidán blok pro odesílání SMS pøes TCP spojení pro modem ER75i
+                    Opravena kontrola velikosti vysílacích zón pro SMS_HANDLER_2 a 3
+v3.1 12.04.2013 Byd Odstranìní globální promìnné z fbSendSmsTcp_ER75i
+v3.2 26.07.2013 Byd Vylepšení detekce RING
+*)
+
+(*----------------------------------------------------------------------------*)
+
+VAR_GLOBAL CONSTANT
+ _GsmLib_CommaString {HIDDEN} : string [1] :=  ',';
+ _GsmLib_ColonString {HIDDEN} : string [1] :=  ':';
+ _GsmLib_GreaterThanString {HIDDEN} : string [1] :=  '>';
+ _GsmLib_PlusString {HIDDEN} : string [1] :=  '+';
+ _GsmLib_OkString {HIDDEN} : string [2] :=  'OK';
+ _GsmLib_QuoteString {HIDDEN} : string [1] :=  '"';
+ _GsmLib_CrLfString {HIDDEN} : string [2] :=  '$r$n';
+ _GsmLib_QuoteCrLfString {HIDDEN} : string [3] :=  '"$r$n';
+ _GsmLib_SemiColonCrLfString {HIDDEN} : string [3] :=  ';$r$n';
+ _GsmLib_ControlZString {HIDDEN} : string [1] :=  '$1A';
+ _GsmLib_AtCommandATE0 {HIDDEN} : string [6] :=  'ATE0$r$n';
+ _GsmLib_AtCommandATIPR {HIDDEN} : string [13] :=  'AT+IPR=9600$r$n';
+ _GsmLib_AtCommandATCFUN {HIDDEN} : string [13] :=  'AT+CFUN=1,1$r$n';
+ _GsmLib_AtCommandATCPIN1 {HIDDEN} : string [10] :=  'AT+CPIN?$r$n';
+ _GsmLib_AtCommandATCPIN2 {HIDDEN} : string [8] :=  'AT+CPIN=';
+ _GsmLib_AtCommandATCMEE {HIDDEN} : string [11] :=  'AT+CMEE=2$r$n';
+ _GsmLib_AtCommandATCMGF0 {HIDDEN} : string [11] :=  'AT+CMGF=0$r$n';
+ _GsmLib_AtCommandATCMGF1 {HIDDEN} : string [11] :=  'AT+CMGF=1$r$n';
+ _GsmLib_AtCommandATCNMI {HIDDEN} : string [15] :=  'AT+CNMI=3,1,0$r$n';
+ _GsmLib_AtCommandATCPMS {HIDDEN} : string [18] :=  'AT+CPMS=SM,SM,SM$r$n';
+ _GsmLib_AtCommandATSSMSS {HIDDEN} : string [12] :=  'AT^SSMSS=1$r$n';
+ _GsmLib_AtCommandATCSCA {HIDDEN} : string [9] :=  'AT+CSCA="';
+ _GsmLib_AtCommandATCMGD {HIDDEN} : string [9] :=  'AT+CMGD=';
+ _GsmLib_AtCommandATD {HIDDEN} : string [3] :=  'ATD';
+ _GsmLib_AtCommandATCMGS1 {HIDDEN} : string [9] :=  'AT+CMGS="';
+ _GsmLib_AtCommandATCMGS2 {HIDDEN} : string [9] :=  'AT+CMGS=';
+ _GsmLib_AtCommandATCMGR {HIDDEN} : string [8] :=  'AT+CMGR=';
+ _GsmLib_AtCommandATCSQ {HIDDEN} : string [8] :=  'AT+CSQ$r$n';
+ _GsmLib_AtCommandATCLCC {HIDDEN} : string [9] :=  'AT+CLCC$r$n';
+ _GsmLib_AtCommandATH {HIDDEN} : string [5] :=  'ATH$r$n';
+ _GsmLib_AtReplyRING {HIDDEN} : string [4] :=  'RING';
+ _GsmLib_AtReplyCMTI {HIDDEN} : string [6] :=  '+CMTI:';
+ _GsmLib_AtReplySYSSTART {HIDDEN} : string [9] :=  '^SYSSTART';
+ _GsmLib_AtReplyCPIN {HIDDEN} : string [6] :=  '+CPIN:';
+ _GsmLib_AtReplyREADY {HIDDEN} : string [5] :=  'READY';
+ _GsmLib_AtReplySIMPIN {HIDDEN} : string [7] :=  'SIM PIN';
+ _GsmLib_AtReplySIMPUK {HIDDEN} : string [7] :=  'SIM PUK';
+ _GsmLib_AtReplyCPMS {HIDDEN} : string [6] :=  '+CPMS:';
+ _GsmLib_AtReplyCMGS {HIDDEN} : string [6] :=  '+CMGS:';
+ _GsmLib_AtReplyCUSD {HIDDEN} : string [6] :=  '+CUSD:';
+ _GsmLib_AtReplyCMGR {HIDDEN} : string [6] :=  '+CMGR:';
+ _GsmLib_AtReplyERROR {HIDDEN} : string [5] :=  'ERROR';
+ _GsmLib_AtReplyCSQ {HIDDEN} : string [5] :=  '+CSQ:';
+ _GsmLib_AtReplyCLCC {HIDDEN} : string [6] :=  '+CLCC:';
+ _GsmLib_AtReplyNOCARRIER {HIDDEN} : string [10] :=  'NO CARRIER';
+ _GsmLib_AtReplyATSM20_0 {HIDDEN} : string [11] :=  'AT^SM20=0$r$n';  (*modify ATD behaviour*)
+
+END_VAR
+
+TYPE TGSMGateStateOut :   (*initicializace*)
+  (ggso_Init,  (*initicializace*)
+   ggso_BaudRate,  (*nastavení komunikaèní rychlostí*)
+   ggso_Reset,  (*studený reset GSM brány*)
+   ggso_Pin,  (*kontrola stavu PIN*)
+   ggso_PinValue,  (*posílání hodnoty PIN*)
+   ggso_Conf1,  (*nastavení formátu chyb*)
+   ggso_Conf2,  (*nastavení formátu SMS*)
+   ggso_Conf3,  (*nastavení oznamování SMS*)
+   ggso_Conf4,  (*nastavení úložištì SMS - krok 1*)
+   ggso_Conf5,  (*nastavení úložištì SMS - krok 2*)
+   ggso_Center,  (*nastevení SMS centra*)
+   ggso_EraseQuery,  (*žádost o smazání*)
+   ggso_Erase,  (*mazání SMS*)
+   ggso_EraseOne,  (*mazání jedné SMS*)
+   ggso_ReadQuery,  (*žádost o ètení*)
+   ggso_Read,  (*ètení SMS*)
+   ggso_ReadOk,  (*ètení potvrzení ètení*)
+   ggso_SendText,  (*odesílání textu SMS*)
+   ggso_Send,  (*inicializace posílání SMS*)
+   ggso_Ussd,  (*posílání USSD*)
+   ggso_SignalQ,  (*kontrola kvality signálu*)
+   ggso_RingNumber,  (*ètení èísla pøíchozího hovoru*)
+   ggso_Ringing,  (*vyzvánìní*)
+   ggso_CancelCall,  (*pokládání hovoru*)
+   ggso_Error,  (*chybový stav, èekání na timeout*)
+   ggso_ReadOctets,  (*ètení SMS v PDU formátu*)
+   ggso_Conf6,  (*vypnutí módu kompatibility s MC20*)
+   ggso_Send1Part 
+  );
+END_TYPE
+
+TYPE TGSMGateError :   (*bez chyby*)
+  (gger_None,  (*bez chyby*)
+   gger_No_Pin,  (*PIN je prázdný*)
+   gger_Pin_Error,  (*posílání PINu selhalo*)
+   gger_Puk_Required,  (*SIM karta vyžaduje PUK*)
+   gger_Cfg_Error,  (*chyba pøi konfiguraci GSM brány*)
+   gger_Erase_Failed,  (*mazání SMS selhalo*)
+   gger_SMS_Center_Error,  (*èíslo centra služeb odmítnuto*)
+   gger_No_Center_Number,  (*èíslo centra služeb je prázdné*)
+   gger_No_Recipient_Number,  (*èíslo pøíjemce je prázdné*)
+   gger_Sending_failed,  (*odesílání SMS zprávy selhalo*)
+   gger_Receiving_failed,  (*pøíjem SMS zprávy selhalo*)
+   gger_Receiving_OK_Missing,  (*pøíjem SMS zprávy nebyl potvrzen*)
+   gger_Channel_error,  (*chyba seriového kanálu*)
+   gger_Wrong_channel_mode,  (*chybný režim seriového kanálu*)
+   gger_ZoneIn_is_short,  (*pøijímací zóna kanálu je pøíliš krátká*)
+   gger_ZoneOut_is_short,  (*odesílací zóna kanálu je pøíliš krátká*)
+   gger_Empty_Message_Text,  (*text SMS zprávy je prázdný*)
+   gger_Message_Text_Too_Long,  (*text SMS je pøíliš dlouhý*)
+   gger_Dialing_Failed,  (*vytáèení èísla pøíjemce selhalo*)
+   gger_USSD_Not_Executed   (*spuštení USSD selhalo*)
+  );
+END_TYPE
+
+TYPE TGSMGatePlcCoding :   (*windows cp-1250*)
+  (ggpc_cp1250,  (*windows cp-1250*)
+   ggpc_cp1251,  (*windows cp-1251*)
+   ggpc_cp1252,  (*windows cp-1252*)
+   ggpc_cp1253,  (*windows cp-1253*)
+   ggpc_cp1255   (*windows cp-1255*)
+  );
+END_TYPE
+
+TYPE TGSMGateSmsCoding :   (*7-bit GSM 03.38*)
+  (ggsc_GSM7bit,  (*7-bit GSM 03.38*)
+   ggsc_8bit,  (*8-bit*)
+   ggsc_UCS2   (*16-bit UCS-2*)
+  );
+END_TYPE
+
+TYPE TGSMGateSmsStatus :   (*Není definováno*)
+  (ggss_Unknown,  (*Není definováno*)
+   ggss_Success,  (*0x00	SMS doruèena úspìšnì*)
+   ggss_Forwarded,  (*0x01	Pøedáno, ale stav neznámí*)
+   ggss_Replaced,  (*0x02	Nahrazeno*)
+   ggss_CongestionTrying,  (*0x20	Pøetížení, stále se pokouší*)
+   ggss_BusyTrying,  (*0x21	Pøíjemce zaneprázdnìn, stále se pokouší*)
+   ggss_NoResponseTrying,  (*0x22	Žádná reakce pøíjemce, stále se pokouší*)
+   ggss_ServiceRejectedTrying,  (*0x23	Služba odmítnuta, stále se pokouší*)
+   ggss_QosNotAvailableTrying,  (*0x24	QOS není dostupná, stále se pokouší*)
+   ggss_RecipientErrorTrying,  (*0x25	Chyba pøíjemce, stále se pokouší*)
+   ggss_RpcError,  (*0x40	Chyba RPC*)
+   ggss_IncompatibleDestination,  (*0x41	Nekompatibilní cíl*)
+   ggss_ConnectionRejected,  (*0x42	Spojení odmítnuto*)
+   ggss_NotObtainable,  (*0x43	Není dostupné*)
+   ggss_QosNotAvailable,  (*0x44	QOS není dostupná*)
+   ggss_NoInternetworkingAvailable,  (*0x45	Spojení není dostupné*)
+   ggss_Expired,  (*0x46	Zprávì vypršela platnost*)
+   ggss_DeletedBySender,  (*0x47	Zpráva smazána pøíjemcem*)
+   ggss_DeletedBySMSC,  (*0x48	Zpráva smazána SMSC*)
+   ggss_DoesNotExist   (*0x49	Neexistuje*)
+  );
+END_TYPE
+
+TYPE TGSM_UNI :
+  STRUCT
+    STCO             : byte;
+    ERR              : usint;
+    NUM              : uint;
+    DATA             : string [255];
+  END_STRUCT;
+END_TYPE
+
+TYPE  SMS_STRING : string [160];
+END_TYPE
+
+TYPE  NUMBER_STRING : string [20];
+END_TYPE
+
+TYPE  PIN_STRING : string [4];
+END_TYPE
+
+VAR_GLOBAL CONSTANT
+ _GsmLib_UCS2_TO_CP125x_256_415 : ARRAY [256..415] OF byte :=  [
+(* 0256 *)  63,  63, 195, 227, 165, 185, 198, 230,  63,  63,  63,  63, 200, 232, 207, 239,
+(* 0272 *) 208, 240,  63,  63,  63,  63,  63,  63, 202, 234, 204, 236,  63,  63,  63,  63,
+(* 0288 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 0304 *)  63,  63,  63,  63,  63,  63,  63,  63,  63, 197, 229,  63,  63, 188, 190,  63,
+(* 0320 *)  63, 163, 179, 209, 241,  63,  63, 210, 242,  63,  63,  63,  63,  63,  63,  63,
+(* 0336 *) 213, 245, 140, 156, 192, 224,  63,  63, 216, 248, 140, 156,  63,  63, 170, 186,
+(* 0352 *) 138, 154, 222, 254, 141, 157,  63,  63,  63,  63,  63,  63,  63,  63, 217, 249,
+(* 0368 *) 219, 251,  63,  63,  63,  63,  63,  63, 159, 143, 159, 175, 191, 142, 158,  63,
+(* 0384 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 0400 *)  63,  63, 131,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63];
+ _GsmLib_UCS2_TO_CP125x_704_735 : ARRAY [704..735] OF byte :=  [
+(* 0704 *)  63,  63,  63,  63,  63,  63, 136, 161,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 0720 *)  63,  63,  63,  63,  63,  63,  63,  63, 162, 255,  63, 178, 152, 189,  63,  63];
+ _GsmLib_UCS2_TO_CP125x_896_1183 : ARRAY [896..1183] OF byte :=  [
+(* 0896 *)  63,  63,  63,  63, 180, 161, 162,  63, 184, 185, 186,  63, 188,  63, 190, 191,
+(* 0912 *) 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207,
+(* 0928 *) 208, 209,  63, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223,
+(* 0944 *) 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239,
+(* 0960 *) 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254,  63,
+(* 0976 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 0992 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 1008 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 1024 *)  63, 168, 128, 129, 170, 189, 178, 175, 163, 138, 140, 142, 141,  63, 161, 143,
+(* 1040 *) 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207,
+(* 1056 *) 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223,
+(* 1072 *) 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239,
+(* 1088 *) 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255,
+(* 1104 *)  63, 184, 144, 131, 186, 190, 179, 191, 188, 154, 156, 158, 157,  63, 162, 159,
+(* 1120 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 1136 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 1152 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 1168 *) 165, 180,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63];
+ _GsmLib_UCS2_TO_CP125x_8206_8255 : ARRAY [8206..8495] OF byte :=  [
+  
+(* 8206 *) 253, 254,  63,  63,  63, 150, 151, 175,  63,  63, 145, 146, 130,  63, 147, 148,
+(* 8222 *) 132,  63, 134, 135, 149,  63,  63,  63, 133,  63,  63,  63,  63,  63,  63,  63,
+(* 8238 *)  63,  63, 137,  63,  63,  63,  63,  63,  63,  63,  63, 139, 155,  63,  63,  63,
+(* 8254 *)  63,  63];
+ _GsmLib_GSM7_TO_CP125x_0_127 : ARRAY [0..127] OF byte :=  [
+(*   0 *)   64, 163,  36, 165, 232, 233, 249, 236, 242, 199,  10, 216, 248,  13, 197, 229,
+(*  16 *)  196,  95, 214, 195, 203, 217, 208, 216, 211, 200, 206,   0, 198, 230, 223, 201,
+(*  32 *)   32,  33,  34,  35, 164,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
+(*  48 *)   48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,
+(*  64 *)  161,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,  78,  79,
+(*  80 *)   80,  81,  82,  83,  84,  85,  86,  87,  88,  89,  90, 196, 214, 209, 220, 167,
+(*  96 *)  191,  97,  98,  99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+(* 112 *)  112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 228, 246, 241, 252, 224];
+ _GsmLib_CP125x_TO_GSM7_0_255 : ARRAY [0..255] OF byte :=  [
+(*   0 *)   0,  63,  63,  63,  63,  63,  63,  63,  63,  63,  10,  63,  27,  13,  63,  63,
+(*  16 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(*  32 *)  32,  33,  34,  35,   2,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47,
+(*  48 *)  48,  49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,
+(*  64 *)   0,  65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,  78,  79,
+(*  80 *)  80,  81,  82,  83,  84,  85,  86,  87,  88,  89,  90,  27,  27,  27,  27,  17,
+(*  96 *)  63,  97,  98,  99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111,
+(* 112 *) 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,  27,  27,  27,  27,  63,
+(* 128 *)  27,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 144 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 160 *)  63,  64,  63,   1,  36,   3,  63,  95,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 176 *)  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,  63,
+(* 192 *)  96,  63,  63,  19,  91,  14,  28,   9,  25,  31,  63,  20,  63,  63,  26,  63,
+(* 208 *)  22,  93,  63,  24,  63,  63,  92,  63,  11,  21,  63,  63,  94,  63,  63,  30,
+(* 224 *) 127,  63,  63,  63, 123,  15,  29,  63,   4,   5,  63,  63,   7,  63,  63,  63,
+(* 240 *)  63, 125,   8,  63,  63,  63, 124,  63,  12,   6,  63,  63, 126,  63,  63,  63];
+ _GsmLib_CP1250_TO_UCS2_128_255 : ARRAY [128..255] OF word :=  [
+		16#20AC, 16#FFFD, 16#201A, 16#FFFD, 16#201E, 16#2026, 16#2020, 16#2021,
+		16#FFFD, 16#2030, 16#0160, 16#2039, 16#015A, 16#0164, 16#017D, 16#0179,
+		16#FFFD, 16#2018, 16#2019, 16#201C, 16#201D, 16#2022, 16#2013, 16#2014,
+		16#FFFD, 16#2122, 16#0161, 16#203A, 16#015B, 16#0165, 16#017E, 16#017A,
+		16#00A0, 16#02C7, 16#02D8, 16#0141, 16#00A4, 16#0104, 16#00A6, 16#00A7,
+		16#00A8, 16#00A9, 16#015E, 16#00AB, 16#00AC, 16#00AD, 16#00AE, 16#017B,
+		16#00B0, 16#00B1, 16#02DB, 16#0142, 16#00B4, 16#00B5, 16#00B6, 16#00B7,
+		16#00B8, 16#0105, 16#015F, 16#00BB, 16#013D, 16#02DD, 16#013E, 16#017C,
+		16#0154, 16#00C1, 16#00C2, 16#0102, 16#00C4, 16#0139, 16#0106, 16#00C7,
+		16#010C, 16#00C9, 16#0118, 16#00CB, 16#011A, 16#00CD, 16#00CE, 16#010E,
+		16#0110, 16#0143, 16#0147, 16#00D3, 16#00D4, 16#0150, 16#00D6, 16#00D7,
+		16#0158, 16#016E, 16#00DA, 16#0170, 16#00DC, 16#00DD, 16#0162, 16#00DF,
+		16#0155, 16#00E1, 16#00E2, 16#0103, 16#00E4, 16#013A, 16#0107, 16#00E7,
+		16#010D, 16#00E9, 16#0119, 16#00EB, 16#011B, 16#00ED, 16#00EE, 16#010F,
+		16#0111, 16#0144, 16#0148, 16#00F3, 16#00F4, 16#0151, 16#00F6, 16#00F7,
+		16#0159, 16#016F, 16#00FA, 16#0171, 16#00FC, 16#00FD, 16#0163, 16#02D9
+	];
+ _GsmLib_CP1251_TO_UCS2_128_255 : ARRAY [128..255] OF word :=  [
+    16#0402, 16#0403, 16#201A, 16#0453, 16#201E, 16#2026, 16#2020, 16#2021,
+		16#20AC, 16#2030, 16#0409, 16#2039, 16#040A, 16#040C, 16#040B, 16#040F,
+		16#0452, 16#2018, 16#2019, 16#201C, 16#201D, 16#2022, 16#2013, 16#2014,
+		16#FFFD, 16#2122, 16#0459, 16#203A, 16#045A, 16#045C, 16#045B, 16#045F,
+		16#00A0, 16#040E, 16#045E, 16#0408, 16#00A4, 16#0490, 16#00A6, 16#00A7,
+		16#0401, 16#00A9, 16#0404, 16#00AB, 16#00AC, 16#00AD, 16#00AE, 16#0407,
+		16#00B0, 16#00B1, 16#0406, 16#0456, 16#0491, 16#00B5, 16#00B6, 16#00B7,
+		16#0451, 16#2116, 16#0454, 16#00BB, 16#0458, 16#0405, 16#0455, 16#0457,
+		16#0410, 16#0411, 16#0412, 16#0413, 16#0414, 16#0415, 16#0416, 16#0417,
+		16#0418, 16#0419, 16#041A, 16#041B, 16#041C, 16#041D, 16#041E, 16#041F,
+		16#0420, 16#0421, 16#0422, 16#0423, 16#0424, 16#0425, 16#0426, 16#0427,
+		16#0428, 16#0429, 16#042A, 16#042B, 16#042C, 16#042D, 16#042E, 16#042F,
+		16#0430, 16#0431, 16#0432, 16#0433, 16#0434, 16#0435, 16#0436, 16#0437,
+		16#0438, 16#0439, 16#043A, 16#043B, 16#043C, 16#043D, 16#043E, 16#043F,
+		16#0440, 16#0441, 16#0442, 16#0443, 16#0444, 16#0445, 16#0446, 16#0447,
+		16#0448, 16#0449, 16#044A, 16#044B, 16#044C, 16#044D, 16#044E, 16#044F
+	];
+ _GsmLib_CP1252_TO_UCS2_128_159 : ARRAY [128..159] OF word :=  [
+		16#20AC, 16#FFFD, 16#201A, 16#0192, 16#201E, 16#2026, 16#2020, 16#2021,
+		16#02C6, 16#2030, 16#0160, 16#2039, 16#0152, 16#FFFD, 16#017D, 16#FFFD,
+		16#FFFD, 16#2018, 16#2019, 16#201C, 16#201D, 16#2022, 16#2013, 16#2014,
+		16#02DC, 16#2122, 16#0161, 16#203A, 16#0153, 16#FFFD, 16#017E, 16#0178
+	];
+ _GsmLib_CP1253_TO_UCS2_128_255 : ARRAY [128..255] OF word :=  [
+		16#20AC, 16#FFFD, 16#201A, 16#0192, 16#201E, 16#2026, 16#2020, 16#2021,
+		16#FFFD, 16#2030, 16#FFFD, 16#2039, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD,
+		16#FFFD, 16#2018, 16#2019, 16#201C, 16#201D, 16#2022, 16#2013, 16#2014,
+		16#FFFD, 16#2122, 16#FFFD, 16#203A, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD,
+		16#00A0, 16#0385, 16#0386, 16#00A3, 16#00A4, 16#00A5, 16#00A6, 16#00A7,
+		16#00A8, 16#00A9, 16#FFFD, 16#00AB, 16#00AC, 16#00AD, 16#00AE, 16#2015,
+		16#00B0, 16#00B1, 16#00B2, 16#00B3, 16#0384, 16#00B5, 16#00B6, 16#00B7,
+		16#0388, 16#0389, 16#038A, 16#00BB, 16#038C, 16#00BD, 16#038E, 16#038F,
+		16#0390, 16#0391, 16#0392, 16#0393, 16#0394, 16#0395, 16#0396, 16#0397,
+		16#0398, 16#0399, 16#039A, 16#039B, 16#039C, 16#039D, 16#039E, 16#039F,
+		16#03A0, 16#03A1, 16#FFFD, 16#03A3, 16#03A4, 16#03A5, 16#03A6, 16#03A7,
+		16#03A8, 16#03A9, 16#03AA, 16#03AB, 16#03AC, 16#03AD, 16#03AE, 16#03AF,
+		16#03B0, 16#03B1, 16#03B2, 16#03B3, 16#03B4, 16#03B5, 16#03B6, 16#03B7,
+		16#03B8, 16#03B9, 16#03BA, 16#03BB, 16#03BC, 16#03BD, 16#03BE, 16#03BF,
+		16#03C0, 16#03C1, 16#03C2, 16#03C3, 16#03C4, 16#03C5, 16#03C6, 16#03C7,
+		16#03C8, 16#03C9, 16#03CA, 16#03CB, 16#03CC, 16#03CD, 16#03CE, 16#FFFD
+	];
+ _GsmLib_CP1255_TO_UCS2_128_255 : ARRAY [128..255] OF word :=  [
+    16#20AC, 16#FFFD, 16#201A, 16#0192, 16#201E, 16#2026, 16#2020, 16#2021,
+    16#02C6, 16#2030, 16#FFFD, 16#2039, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD,
+    16#FFFD, 16#2018, 16#2019, 16#201C, 16#201D, 16#2022, 16#2013, 16#2014,
+    16#02DC, 16#2122, 16#FFFD, 16#203A, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD,
+    16#00A0, 16#00A1, 16#00A2, 16#00A3, 16#20AA, 16#00A5, 16#00A6, 16#00A7,
+    16#00A8, 16#00A9, 16#00D7, 16#00AB, 16#00AC, 16#00AD, 16#00AE, 16#00AF,
+    16#00B0, 16#00B1, 16#00B2, 16#00B3, 16#00B4, 16#00B5, 16#00B6, 16#00B7,
+    16#00B8, 16#00B9, 16#00F7, 16#00BB, 16#00BC, 16#00BD, 16#00BE, 16#00BF,
+    16#05B0, 16#05B1, 16#05B2, 16#05B3, 16#05B4, 16#05B5, 16#05B6, 16#05B7,
+    16#05B8, 16#05B9, 16#FFFD, 16#05BB, 16#05BC, 16#05BD, 16#05BE, 16#05BF,
+    16#05C0, 16#05C1, 16#05C2, 16#05C3, 16#05F0, 16#05F1, 16#05F2, 16#05F3,
+    16#05F4, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD, 16#FFFD,
+    16#05D0, 16#05D1, 16#05D2, 16#05D3, 16#05D4, 16#05D5, 16#05D6, 16#05D7,
+    16#05D8, 16#05D9, 16#05DA, 16#05DB, 16#05DC, 16#05DD, 16#05DE, 16#05DF,
+    16#05E0, 16#05E1, 16#05E2, 16#05E3, 16#05E4, 16#05E5, 16#05E6, 16#05E7,
+    16#05E8, 16#05E9, 16#05EA, 16#FFFD, 16#FFFD, 16#200E, 16#200F, 16#FFFD
+	];
+ _GsmLib_CP125x_TO_BE_EGSM7 : ARRAY [0..10] OF byte :=  [ 12, 91, 92, 93, 94,123,124,125,126,128];
+ _GsmLib_EGSM7_VALUES : ARRAY [0..10] OF byte :=  [ 10, 60, 47, 62, 20, 40, 64, 41, 61,101];
+
+END_VAR
+
+__DECL FUNCTION _GsmLib_CP125x_TO_EGSM7_BYTE {HIDDEN} : byte
+(*Second byte of extended GSM char table*)
+  VAR_INPUT
+    b                : byte;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP125x_TO_GSM7_BYTE {HIDDEN} : byte
+(*cp1250,1,2 to GSM char table (for 27 is necessary to obtain extended char )*)
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1253_TO_GSM7_BYTE {HIDDEN} : byte
+(*cp1253 to GSM char table (for 27 is necessary to obtain extended char )*)
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_GSM7_TO_CP125x_BYTE {HIDDEN} : byte
+(*GSM char table to cp1250,1,2,3*)
+  VAR_INPUT
+    w                : word;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_GSM7_TO_CP125x {HIDDEN} : usint
+  VAR_INPUT
+    pW               : PTR_TO word;
+    pB               : PTR_TO byte;
+    length           : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1250_TO_UCS2_WORD {HIDDEN} : word
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1251_TO_UCS2_WORD {HIDDEN} : word
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1253_TO_UCS2_WORD {HIDDEN} : word
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1252_TO_UCS2_WORD {HIDDEN} : word
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CP1255_TO_UCS2_WORD {HIDDEN} : word
+  VAR_INPUT
+    b                : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_UCS2_TO_CP125x_BYTE {HIDDEN} : byte
+  VAR_INPUT
+    w                : word;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_UCS2_TO_CP125x {HIDDEN} : bool
+  VAR_INPUT
+    pW               : PTR_TO word;
+    pB               : PTR_TO byte;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CodeSemiOctetsNumber {HIDDEN} : usint
+(*Decode GSM number
+   420608511845 => 246080158154*)
+  VAR_INPUT
+    IN               : PTR_TO usint;
+  END_VAR
+  VAR_IN_OUT
+    Num              : NUMBER_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_DecodeSemiOctetsNumber {HIDDEN} : usint
+(*Decode GSM number
+   246080158154 => 420608511845*)
+  VAR_INPUT
+    IN               : PTR_TO usint;
+    LNG              : usint;
+  END_VAR
+  VAR_IN_OUT
+    Num              : NUMBER_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_BYTE_TO_HEX {HIDDEN} : word
+(*255 = > 'FF'*)
+  VAR_INPUT
+    B                : byte;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_HEX_TO_BYTE {HIDDEN} : byte
+(*'FF' => 255*)
+  VAR_INPUT
+    HEX              : PTR_TO byte;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CheckBCD {HIDDEN} : bool
+  VAR_INPUT
+    BCD              : PTR_TO usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_BCD_TO_USINT {HIDDEN} : usint
+(*'19' => 19*)
+  VAR_INPUT
+    BCD              : PTR_TO usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_SwapBCD_TO_USINT {HIDDEN} : usint
+(*'19' => 91*)
+  VAR_INPUT
+    BCD              : PTR_TO usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_GetGSMDateTime {HIDDEN} : dt
+  VAR_INPUT
+    pGSMDT           : PTR_TO usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CodeTo7bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO word;
+    PlcCoding        : TGSMGatePlcCoding;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_Decode7bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO byte;
+    N                : usint;
+    U                : usint;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CodeTo8bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO word;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CodeTo8bitHEX2 {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO word;
+    Lenght           : usint;
+  END_VAR
+  VAR_IN_OUT
+    Text             : usint;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_Decode8bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO byte;
+    N                : usint;
+    U                : usint;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_CodeTo16bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO word;
+    PlcCoding        : TGSMGatePlcCoding;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION _GsmLib_Decode16bitHEX {HIDDEN} : usint
+  VAR_INPUT
+    HEX              : PTR_TO byte;
+    N                : usint;
+    U                : usint;
+  END_VAR
+  VAR_IN_OUT
+    Text             : SMS_STRING;
+  END_VAR
+END_FUNCTION
+
+__DECL FUNCTION_BLOCK SMS_HANDLER
+(*Posílá a pøijímá SMS zprávy*)
+  VAR_INPUT
+    Send             : bool R_EDGE;  (*Na nábìžnou hranu odeslat SMS*)
+    Ussd             : bool R_EDGE;  (*Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo*)
+    Reset            : bool R_EDGE;  (*Na nábìžnou hranu zinicializovat GSM bránu*)
+    Cold             : bool;  (*Provést pøi inicializaci i softwarový reset modemu*)
+    Erase            : bool;  (*Vymazat SMS uložené na SIM pøi inicializaci modemu*)
+    Dial             : bool R_EDGE;  (*Prozvonit èíslo pøíjemce SMS (Recipient)*)
+    DialTime         : time :=  T#120s;  (*Doba prozvánìní*)
+  END_VAR
+  VAR_OUTPUT
+    NewMess          : bool;  (*Pøijata nová SMS zpráva*)
+    Ready            : bool;  (*GSM brána je pøipravena pro pøíjem a vysílání*)
+    Ring             : bool;  (*Signalizace pøíchozího volání*)
+    RecvTime         : dt;  (*Èas pøijetí SMS zprávy*)
+    Signal           : sint :=  -1;  (*Síla signálu v procentech*)
+    State            : TGSMGateStateOut;  (*Stav komunikace s modemem*)
+    Error            : TGSMGateError;  (*Specifikace chyby pøi komunikaci s modemem*)
+    SendPending      : bool;  (*Probíhá odesílání SMS*)
+    UssdPending      : bool;  (*Probíhá odesílání pøíkazu jako telefonního èísla*)
+    DialPending      : bool;  (*Probíhá prozvánìní telefonního èísla*)
+  END_VAR
+  VAR_IN_OUT
+    CH_IN            : TGSM_UNI;  (*Vstupní komunikaèní zóna UNI kanálu*)
+    CH_OUT           : TGSM_UNI;  (*Výstupní komunikaèní zóna UNI kanálu*)
+    Pin              : PIN_STRING;  (*Pin SIM karty*)
+    SMSCenter        : NUMBER_STRING;  (*Èíslo støediska SMS zpráv*)
+    Sender           : NUMBER_STRING;  (*Telefonní èíslo odesílatele pøijaté SMS zprávy*)
+    RecvMess         : SMS_STRING;  (*Text pøijaté SMS zprávy*)
+    Recipient        : NUMBER_STRING;  (*Telefonní èíslo pøíjemce zprávy k odeslání*)
+    MessToSend       : SMS_STRING;  (*Text SMS zprávy k odeslání*)
+    Caller           : NUMBER_STRING;  (*Telefonní èíslo volajícího*)
+  END_VAR
+  VAR
+    TimeOut          : TON;
+    Counter          : usint;
+    MessOut          : bool :=  true;
+    ColdRestart      : bool :=  true;
+    LastArc          : bool;
+    NeedErase        : bool;
+    HardErr          : bool;
+    Ok               : bool;
+    Stop             : bool;
+    InitDone         : bool;
+    WaitTime         : TON;
+    HelpString       : string [80];
+    l_USSD           : NUMBER_STRING;
+    l_Recipient      : NUMBER_STRING;
+    l_MessToSend     : SMS_STRING;
+    ReadErrs         : usint;
+    MaxReadErrs      : usint;
+    MessagesCnt      : usint;
+  END_VAR
+  VAR CONSTANT
+    longtimeout      : time :=  T#10s;
+    shorttimeout     : time :=  T#5s;
+    Pause1           : time :=  T#0.5s;
+    Pause3           : time :=  T#2s;
+    Pause4           : time :=  T#3s;
+    Pause5           : time :=  T#3s;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK fbRecvToCrLf
+(*Pomocný funkèní blok pro SMS_HANDLER_x.
+Pøijímá data z komunikaèního kanálu konèící znaky CR LF*)
+  VAR_INPUT
+    getMess          : bool;  (*Vybere zprávu z bufferu*)
+    lenBuf           : uint;  (*Délka bufferu*)
+    chanCode         : uint;  (*Kód kanálu (CH1_uni, ..., CH10_uni, ETH1_uni0, ..., ETH1_uni7, ETH2_uni0, ..., ETH2_uni7)*)
+    reset            : bool;  (*Vymaže buffer*)
+  END_VAR
+  VAR_OUTPUT
+    full             : bool;  (*Buffer je plný, zprávy nebyly odebírány dostateènì rychle*)
+    lenMess          : uint;  (*Délka zprávy*)
+  END_VAR
+  VAR
+    actPos           : uint;
+    RecvFrom         : fbRecvFrom;
+  END_VAR
+  VAR_IN_OUT
+    buffer           : usint;  (*První byte bufferu*)
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK SMS_HANDLER_2
+(*Posílá a pøijímá SMS zprávy s národním kódováním*)
+  VAR_INPUT
+    Send             : bool R_EDGE;  (*Na nábìžnou hranu odeslat SMS*)
+    Ussd             : bool R_EDGE;  (*Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo*)
+    Reset            : bool R_EDGE;  (*Na nábìžnou hranu zinicializovat GSM bránu*)
+    Cold             : bool;  (*Provést pøi inicializaci i softwarový reset modemu*)
+    Erase            : bool;  (*Vymazat SMS uložené na SIM pøi inicializaci modemu*)
+    Dial             : bool R_EDGE;  (*Prozvonit èíslo pøíjemce SMS (Recipient)*)
+    Stat             : bool;  (*Vyžadovat stav doruèení*)
+    DialTime         : time :=  T#20s;  (*Doba prozvánìní*)
+    PlcCoding        : TGSMGatePlcCoding;  (*Kódování STRINGù v programu PLC*)
+    SmsCoding        : TGSMGateSmsCoding;  (*Kódování SMS zpráv*)
+    ChanCode         : uint;  (*Èíslo kanálu v režimu UNI (CH1_uni .. CH10_uni)*)
+  END_VAR
+  VAR_OUTPUT
+    NewMess          : bool;  (*Pøijata nová SMS zpráva*)
+    Ready            : bool;  (*GSM brána je pøipravena pro pøíjem a vysílání*)
+    Ring             : bool;  (*Signalizace pøíchozího volání*)
+    NewStat          : bool;  (*Pøijat nový status*)
+    StatCode         : TGSMGateSmsStatus;  (*Status o doruèení SMS zprávy*)
+    SmsRef           : usint;  (*Identifikaèní èíslo SMS zprávy pøi odeslání, nebo reference na zprávu pøi pøijetí statusu*)
+    RecvTime         : dt;  (*Èas pøijetí SMS zprávy*)
+    StatTime         : dt;  (*Èas získání statusu (doba doruèení/nedoruèení)*)
+    RingCount        : usint;  (**)
+    Signal           : sint :=  -1;  (*Síla signálu v procentech.*)
+    State            : TGSMGateStateOut;  (*Stav komunikace s modemem*)
+    Error            : TGSMGateError;  (*Specifikace chyby pøi komunikaci s modemem*)
+    SendPending      : bool;  (*Probíhá odesílání SMS*)
+    UssdPending      : bool;  (*Probíhá odesílání pøíkazu jako telefonního èísla*)
+    DialPending      : bool;  (*Probíhá prozvánìní telefonního èísla*)
+  END_VAR
+  VAR_IN_OUT
+    Pin              : PIN_STRING;  (*Pin SIM karty*)
+    SMSCenter        : NUMBER_STRING;  (*Èíslo støediska SMS zpráv*)
+    Sender           : NUMBER_STRING;  (*Telefonní èíslo odesílatele pøijaté SMS zprávy*)
+    RecvMess         : SMS_STRING;  (*Text pøijaté SMS zprávy*)
+    Recipient        : NUMBER_STRING;  (*Telefonní èíslo pøíjemce zprávy k odeslání*)
+    MessToSend       : SMS_STRING;  (*Text SMS zprávy k odeslání*)
+    Caller           : NUMBER_STRING;  (*Telefonní èíslo volajícího*)
+  END_VAR
+  VAR
+    TimeOut          : TON;
+    WaitTime         : TON;
+    Counter          : usint;
+    MessOut          : bool :=  true;
+    ColdRestart      : bool :=  true;
+    NeedErase        : bool;
+    HardErr          : bool;
+    ok               : bool;
+    WaitForOk        : bool;
+    Stop             : bool;
+    MessStat         : bool;
+    InitDone         : bool;
+    l_Stat           : bool;
+    MessStatCode     : usint;
+    l_USSD           : NUMBER_STRING;
+    l_Recipient      : NUMBER_STRING;
+    l_SMSCenter      : NUMBER_STRING;
+    l_MessToSend     : SMS_STRING;
+    ReadErrs         : usint;
+    MaxReadErrs      : usint;
+    MessagesCnt      : usint;
+    OctetCnt         : usint;
+    OctetLen         : uint;
+    RecvFrom         : fbRecvToCrLf;
+    SendTo           : fbSendTo;
+    BuferIN          : ARRAY [0..511] OF usint;
+    BuferOUT         : ARRAY [0..179] OF word;
+    DataOUT          : string [32];
+    pusintdbg        : PTR_TO usint;
+  END_VAR
+  VAR CONSTANT
+    longtimeout      : time :=  T#10s;
+    shorttimeout     : time :=  T#5s;
+    Pause1           : time :=  T#0.5s;
+    Pause3           : time :=  T#2s;
+    Pause4           : time :=  T#3s;
+  END_VAR
+END_FUNCTION_BLOCK
+
+__DECL FUNCTION_BLOCK SMS_HANDLER_3
+(*Posílá a pøijímá zprávy obsahující binární nuly*)
+  VAR_INPUT
+    Send             : bool R_EDGE;  (*Na nábìžnou hranu odeslat SMS*)
+    Ussd             : bool R_EDGE;  (*Na nábìžnou hranu odeslat pøíkaz jako telefonní èíslo*)
+    Reset            : bool R_EDGE;  (*Na nábìžnou hranu zinicializovat GSM bránu*)
+    Cold             : bool;  (*Provést pøi inicializaci i softwarový reset modemu*)
+    Erase            : bool;  (*Vymazat SMS uložené na SIM pøi inicializaci modemu*)
+    Dial             : bool R_EDGE;  (*Prozvonit èíslo pøíjemce SMS (Recipient)*)
+    Stat             : bool;  (*Vyžadovat stav doruèení*)
+    MessLen          : usint;  (*Délka zprávy k odeslání*)
+    DialTime         : time :=  T#20s;  (*Doba prozvánìní*)
+    PlcCoding        : TGSMGatePlcCoding;  (*Kódování STRINGù v programu PLC*)
+    SmsCoding        : TGSMGateSmsCoding;  (*Kódování SMS zpráv*)
+    ChanCode         : uint;  (*Èíslo kanálu v režimu UNI (CH1_uni .. CH10_uni)*)
+  END_VAR
+  VAR_OUTPUT
+    NewMess          : bool;  (*Pøijata nová SMS zpráva*)
+    Ready            : bool;  (*GSM brána je pøipravena pro pøíjem a vysílání*)
+    Ring             : bool;  (*Signalizace pøíchozího volání*)
+    NewStat          : bool;  (*Pøijat nový status*)
+    StatCode         : TGSMGateSmsStatus;  (*Status o doruèení SMS zprávy*)
+    SmsRef           : usint;  (*Identifikaèní èíslo SMS zprávy pøi odeslání, nebo reference na zprávu pøi pøijetí statusu*)
+    RecvTime         : dt;  (*Èas pøijetí SMS zprávy*)
+    StatTime         : dt;  (*Èas získání statusu (doba doruèení/nedoruèení)*)
+    RingCount        : usint;  (**)
+    Signal           : sint :=  -1;  (*Síla signálu v procentech.*)
+    State            : TGSMGateStateOut;  (*Stav komunikace s modemem*)
+    Error            : TGSMGateError;  (*Specifikace chyby pøi komunikaci s modemem*)
+    SendPending      : bool;  (*Probíhá odesílání SMS*)
+    UssdPending      : bool;  (*Probíhá odesílání pøíkazu jako telefonního èísla*)
+    DialPending      : bool;  (*Probíhá prozvánìní telefonního èísla*)
+  END_VAR
+  VAR_IN_OUT
+    Pin              : PIN_STRING;  (*Pin SIM karty*)
+    SMSCenter        : NUMBER_STRING;  (*Èíslo støediska SMS zpráv*)
+    Sender           : NUMBER_STRING;  (*Telefonní èíslo odesílatele pøijaté SMS zprávy*)
+    RecvMess         : SMS_STRING;  (*Text pøijaté SMS zprávy*)
+    Recipient        : NUMBER_STRING;  (*Telefonní èíslo pøíjemce zprávy k odeslání*)
+    MessToSend       : usint;  (*První byte zprávy k odeslání*)
+    Caller           : NUMBER_STRING;  (*Telefonní èíslo volajícího*)
+  END_VAR
+  VAR
+    TimeOut          : TON;
+    WaitTime         : TON;
+    Counter          : usint;
+    MessOut          : bool :=  true;
+    ColdRestart      : bool :=  true;
+    NeedErase        : bool;
+    HardErr          : bool;
+    ok               : bool;
+    WaitForOk        : bool;
+    Stop             : bool;
+    MessStat         : bool;
+    InitDone         : bool;
+    l_Stat           : bool;
+    MessStatCode     : usint;
+    l_USSD           : NUMBER_STRING;
+    l_Recipient      : NUMBER_STRING;
+    l_SMSCenter      : NUMBER_STRING;
+    l_MessToSend     : ARRAY [0..159] OF usint;
+    ReadErrs         : usint;
+    MaxReadErrs      : usint;
+    MessagesCnt      : usint;
+    OctetCnt         : usint;
+    OctetLen         : uint;
+    RecvFrom         : fbRecvToCrLf;
+    SendTo           : fbSendTo;
+    BuferIN          : ARRAY [0..511] OF usint;
+    BuferOUT         : ARRAY [0..179] OF word;
+    DataOUT          : string [32];
+    pusintdbg        : PTR_TO usint;
+  END_VAR
+  VAR CONSTANT
+    longtimeout      : time :=  T#10s;
+    shorttimeout     : time :=  T#5s;
+    Pause1           : time :=  T#0.5s;
+    Pause3           : time :=  T#2s;
+    Pause4           : time :=  T#3s;
+  END_VAR
+END_FUNCTION_BLOCK
+
+TYPE SendSmsTcp_ER75i_State : 
+  (ssts_Idle,
+   ssts_Init,
+   ssts_Conn,
+   ssts_TextMode,
+   ssts_Ready,
+   ssts_KeepAlive,
+   ssts_SendingText,
+   ssts_WaitingSendAck,
+   ssts_WaitingAck,
+   ssts_Err 
+  );
+END_TYPE
+
+__DECL FUNCTION_BLOCK fbSendSmsTcp_ER75i
+(*Posílá SMS zprávy pøes TCP spojení s modemem ER75i*)
+  VAR_INPUT
+    Send             : bool R_EDGE;  (*Poslat SMS zprávu*)
+    Conn             : bool :=  true;  (*Navázat spojení*)
+    ChanCode         : uint;  (*Pøenosový kanál  TCP Master, in: 512, out: 256*)
+    IPadr            : TIPadr;  (*IP adresa modemu*)
+    Port             : uint :=  50000;  (*Port AT-SMS služby*)
+  END_VAR
+  VAR_OUTPUT
+    Sent             : bool;  (*Zpráva odeslána SMS*)
+    SendPending      : bool;  (*Probíhá odesílání SMS*)
+    Busy             : bool;  (*Probíhá komunikace*)
+    Connected        : bool;  (*TCP komunikace navázána*)
+    State            : SendSmsTcp_ER75i_State;  (*Stav komunikace*)
+  END_VAR
+  VAR_IN_OUT
+    Recipient        : NUMBER_STRING;  (*Telefonní èíslo pøíjemce zprávy k odeslání*)
+    MessToSend       : SMS_STRING;  (*Text SMS zprávy k odeslání*)
+  END_VAR
+  VAR
+    ethAdr           : TRemoteEthAdr;  (*nové nastavení*)
+    l_Recipient      : NUMBER_STRING;
+    l_MessToSend     : SMS_STRING;
+    RecvFrom         : fbRecvToCrLf;
+    SendTo           : fbSendTo;
+    BuferIN          : ARRAY [0..511] OF usint;
+    DataOut          : string [255];
+    timer            : TON;
+    timeout          : time :=  T#15s;
+    OldState         : SendSmsTcp_ER75i_State;
+    NewMess          : bool;
+    Ok               : bool;
+  END_VAR
+END_FUNCTION_BLOCK
+
+
+

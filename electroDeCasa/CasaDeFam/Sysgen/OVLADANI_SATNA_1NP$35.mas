@@ -1,0 +1,40 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_SATNA_1NP.CFC'
+
+#defpou ovladani_satna_1np
+  R_TRIG trigSA1np
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_SATNA_1NP.CFC'
+#pou ovladani_satna_1np
+#srcline 1 ;PROGRAM ovladani_satna_1np
+P     61
+ovladani_satna_1np_L0:
+ LINK 0
+#srcline 93 ;(*  41	*)	CAL	trigSA1np(CLK:=tl_satna_1NP)
+ LD   bool tl_satna_1NP
+#debug bool tl_satna_1NP
+ WRX  trigSA1np~CLK
+#debug_left bool trigSA1np~CLK
+ LEAX trigSA1np
+ CAL  R_TRIG_L0
+#srcline 94 ;(*  15	*)	LD 	trigSA1np.Q
+ LDX  trigSA1np~Q
+#debug bool trigSA1np.Q
+#srcline 95 ;(*  23	*)	XOR 	sv_satna_1NP
+ LD   bool sv_satna_1NP
+#debug bool sv_satna_1NP
+ XOR
+#srcline 96 ;(*  58	*)	ST 	sv_satna_1NP
+ WR   bool sv_satna_1NP
+#debug_left bool sv_satna_1NP
+#srcline 98 ;END_PROGRAM
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

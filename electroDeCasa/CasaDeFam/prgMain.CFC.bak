@@ -1,0 +1,53 @@
+PROGRAM prgMain
+  VAR_INPUT
+  END_VAR
+  VAR_OUTPUT
+  END_VAR
+  VAR
+    sms : fb_sms;
+  END_VAR
+  VAR_TEMP
+  END_VAR
+{NOCODE}
+<?xml version="1.0" encoding="windows-1250" ?>
+<?xml-stylesheet type="text/xsl" href="pokus.xsl" version="1.1"?>
+<fbd version="1.1">
+<comment id="1" height="3" width="12">
+  <position x="2" y="2" />
+Komentář ke schématu
+</comment>
+<block name="fb_sms" instance="sms" id="4" height="6" width="12" line="3" order="1">
+  <position x="34" y="23" />
+  <inVariables>
+    <variable name="l_prozvonit" type="BOOL">
+      <connection refid="5">
+        <position x="34" y="26" />
+        <position x="31" y="26" />
+        <position x="31" y="26" />
+        <position x="28" y="26" />
+      </connection>
+    <comment>promenna &quot;Dial&quot; ke ktere je prirazena promenna &quot;l_prozvonit&quot; reaguje jen na nabeznou hranu</comment>
+    </variable>
+    <variable name="l_odeslat_SMS" type="BOOL">
+    <comment>promenna &quot;Send&quot; ke ktere je prirazena promenna &quot;l_odeslat_SMS&quot; reaguje jen na nabeznou hranu</comment>
+    </variable>
+  </inVariables>
+</block>
+<inVariable name="1" type="" id="5">
+  <position x="26" y="25" />
+</inVariable>
+</fbd>
+{/NOCODE}
+//LVD
+VAR
+END_VAR
+
+//TVD
+VAR_TEMP
+END_VAR
+
+//NC
+//N000
+(*   8	*)	CAL	sms(l_prozvonit:=1)
+
+END_PROGRAM

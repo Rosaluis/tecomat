@@ -1,0 +1,25 @@
+;Upozornìní 
+;Soubor je automaticky regenerován a všechny ruèní modifikace budou ztracené. 
+;**********************************************************************
+;**********************************************************************
+;**********************************************************************
+#def _CASADEFAM	0
+#def _TRENINGST	1
+#if _ProgName_ == _CASADEFAM
+  #def _ProgName__CASADEFAM 1
+#else
+  #def _ProgName__CASADEFAM 0
+#endif
+
+#if _ProgName_ == _TRENINGST
+  #def _ProgName__TRENINGST 1
+#else
+  #def _ProgName__TRENINGST 0
+#endif
+
+
+;**********************************************************************
+;Generováno programem MOSAIC 
+;© 2001-2013 Teco a.s. 
+;Verze : 2.2 
+;DLL Verze : 14.4.0.269 

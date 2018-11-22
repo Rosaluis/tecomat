@@ -1,0 +1,68 @@
+PROGRAM gsm_brana
+  VAR_INPUT
+  END_VAR
+  VAR_OUTPUT
+  END_VAR
+  VAR
+    pokus : SMS_STRING;
+    ahoj : SMS_STRING;
+    state : TGSMGateStateOut;
+    sig : SINT;
+    ready : BOOL;
+    sms_reicived : BOOL;
+    sms_reic : SMS_STRING;
+    tn : NUMBER_STRING;
+    txt : SMS_STRING;
+    ahoj2 : SMS_STRING := 'ahoj';
+    pin : PIN_STRING;
+  END_VAR
+  VAR_TEMP
+  END_VAR
+{NOCODE}
+<?xml version="1.0" encoding="windows-1250" ?>
+<?xml-stylesheet type="text/xsl" href="pokus.xsl" version="1.1"?>
+<fbd version="1.1">
+<comment id="1" height="3" width="12">
+  <position x="2" y="2" />
+Komentář ke schématu
+</comment>
+<inVariable name="´+420602909909´" type="" id="2">
+  <position x="32" y="57" />
+</inVariable>
+<inVariable name="´+420601586927´" type="" id="3">
+  <position x="32" y="59" />
+</inVariable>
+<inVariable name="´+420725505062´" type="" id="4">
+  <position x="32" y="63" />
+</inVariable>
+<inVariable name="1" type="" id="5">
+  <position x="79" y="21" />
+</inVariable>
+<inVariable name="ahoj2" type="SMS_STRING" id="6">
+  <position x="57" y="65" />
+</inVariable>
+<inVariable name="tn" type="NUMBER_STRING" id="7">
+  <position x="52" y="67" />
+</inVariable>
+<inVariable name="txt" type="SMS_STRING" id="8">
+  <position x="40" y="61" />
+</inVariable>
+<inVariable name="UNI_CH1_IN" type="TUNI_CH1_IN" id="9">
+  <position x="32" y="51" />
+</inVariable>
+<inVariable name="UNI_CH1_OUT" type="TUNI_CH1_OUT" id="10">
+  <position x="32" y="53" />
+</inVariable>
+</fbd>
+{/NOCODE}
+//LVD
+VAR
+END_VAR
+
+//TVD
+VAR_TEMP
+END_VAR
+
+//NC
+
+END_PROGRAM

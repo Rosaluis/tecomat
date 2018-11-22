@@ -1,0 +1,22 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\TRENINGST\TRENINGST.MCF'
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\TRENINGST\TRENINGST.MCF'
+
+; ***** RESOURCE - CPM
+#reg prgMainTrening MainTrening
+#srcline 4 ;    PROGRAM MainTrening WITH FreeWheeling : prgMainTrening ();
+P     0
+ LEA  MainTrening
+ CAL  prgMainTrening_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  MainTrening
+ CAL  prgMainTrening__InstanceInit__
+E     58
+
+
+ 
+
+#srcfile ''

@@ -1,0 +1,76 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\KLAVESNICE.CFC'
+
+#defpou klavesnice
+  bool pomBOOL1,
+  fb_kmitac kmit,
+  bool sviti_cervena,
+  bool sviti_zluta,
+  usint status,
+  bool stateOfCiB,
+  TCIBunitInfo info,
+  bool beep,
+  uint klavesnice_control_out,
+  usint klavesnice_stat_out
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\KLAVESNICE.CFC'
+#pou klavesnice
+#srcline 1 ;PROGRAM klavesnice
+P     61
+klavesnice_L0:
+ LINK 0
+#srcline 131 ;(*  23	*)	CAL	kmit(sig_IN:=pomBOOL1, time_ON:=T#1s, time_OFF:=T#1s)
+ LDX  pomBOOL1
+#debug bool pomBOOL1
+ WRX  kmit~sig_IN
+#debug_left bool kmit~sig_IN
+ LD   time 1000
+ WRX  kmit~time_ON
+#debug_left time kmit~time_ON
+ LD   time 1000
+ WRX  kmit~time_OFF
+#debug_left time kmit~time_OFF
+ LEAX kmit
+ CAL  fb_kmitac_L0
+#srcline 132 ;(*  23	*)	LD 	kmit.sig_OUT
+ LDX  kmit~sig_OUT
+#debug bool kmit.sig_OUT
+#srcline 133 ;(*  11	*)	ST 	klavesnice_yellow
+ WR   bool klavesnice_yellow
+#debug_left bool klavesnice_yellow
+#srcline 134 ;//N004
+#srcline 135 ;(*  72	*)	LD 	klavesnice_stat
+ LD   usint klavesnice_stat
+#debug usint klavesnice_stat
+#srcline 136 ;(*  90	*)	ST 	klavesnice_stat_out
+ WRX  klavesnice_stat_out
+#debug_left usint klavesnice_stat_out
+#srcline 137 ;//N005
+#srcline 138 ;(*  75	*)	LD 	klavesnice_control
+ LD   uint klavesnice_control
+#debug uint klavesnice_control
+#srcline 139 ;(*  81	*)	ST 	klavesnice_control_out
+ WRX  klavesnice_control_out
+#debug_left uint klavesnice_control_out
+#srcline 141 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+klavesnice__InstanceInit__:
+ LINK 0
+ LEAX kmit
+ CAL  fb_kmitac__InstanceInit__
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

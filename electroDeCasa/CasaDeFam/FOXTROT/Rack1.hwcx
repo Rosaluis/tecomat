@@ -1,0 +1,50 @@
+[Pos0]
+ModulID=1301
+ModuleName=
+ModuleFileName=panel_R1_P0
+RemUnit=0
+Verze= 26H0500
+ModulFormat=1
+ScriptFormat=1
+XPosE2=80,0|
+YPosE2=16,0|
+ExtendedSizeParam=0
+Table=1301 , $00, $00, $80, $80, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00
+
+[Pos1]
+ModulID=1401
+ModuleName=
+ModuleFileName=panel_R1_P1
+RemUnit=0
+Verze= 26H0500
+ModulFormat=1
+ScriptFormat=1
+XPosE2=0,0|
+YPosE2=28,0|
+ExtendedSizeParam=0
+
+[Pos2]
+ModulID=1401
+ModuleName=
+ModuleFileName=panel_R1_P2
+RemUnit=0
+Verze= 26H0500
+ModulFormat=1
+ScriptFormat=1
+XPosE2=0,0|
+YPosE2=30,0|
+ExtendedSizeParam=0
+Table=1401 , $00, $00, $80, $80
+
+[Pos3]
+ModulID=1401
+ModuleName=
+ModuleFileName=panel_R1_P3
+RemUnit=0
+Verze= 26H0500
+ModulFormat=1
+ScriptFormat=1
+XPosE2=0,0|
+YPosE2=32,0|
+ExtendedSizeParam=0
+

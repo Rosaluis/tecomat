@@ -1,0 +1,59 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\TRENINGST\PRGMAINTRENING.ST'
+
+#defpou prgMainTrening
+  bool bBool1,
+  bool bBool2,
+  bool bBool3,
+  uint uintCeleCislo1,
+  uint uintCeleCislo2,
+  uint uintCeleCislo3
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\TRENINGST\PRGMAINTRENING.ST'
+#pou prgMainTrening
+#srcline 1 ;PROGRAM prgMainTrening
+P     61
+prgMainTrening_L0:
+ LINK 0
+#srcline 23 ;  bBool1 := 1;
+ LD   bool -1      ; true
+ WRX  bBool1
+#debug_left bool bBool1
+#srcline 24 ;  bBool2 := 1;
+ LD   bool -1      ; true
+ WRX  bBool2
+#debug_left bool bBool2
+#srcline 25 ;  bBool3 := (bBool1 AND bBool2);
+ LDX  bBool1
+#debug bool bBool1
+ LDX  bBool2
+#debug bool bBool2
+ AND
+ WRX  bBool3
+#debug_left bool bBool3
+#srcline 35 ;END_PROGRAM
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+prgMainTrening__InstanceInit__:
+ LINK 0
+ LD   uint 10
+ WRX  uintCeleCislo1
+ LD   uint 20
+ WRX  uintCeleCislo2
+ LD   uint 30
+ WRX  uintCeleCislo3
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+
+
+ 
+
+#srcfile ''

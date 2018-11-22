@@ -1,0 +1,1460 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SYSGEN\CIBMAKER.ST'
+
+; Global types
+#struct  TCIB_IN2
+  bool IN1,
+  bool IN2
+#struct  TCIB_DI3
+  bool DI1,
+  bool DI2,
+  bool DI3
+#struct  TCIB_DI8
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool DI6,
+  bool DI7,
+  bool DI8
+#struct  TCIB_DI11
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool DI6,
+  bool DI7,
+  bool DI8,
+  bool DI9,
+  bool DI10,
+  bool DI11
+#struct  TCIB_DI2
+  bool DI1,
+  bool DI2
+#struct  TCIB_DI4
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4
+#struct  TCIB_DI5
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5
+#struct  TCIB_DI2T
+  bool DI1,
+  bool DI2,
+  bool dummy2,
+  bool dummy3,
+  bool TAMPER1,
+  bool TAMPER2,
+  bool dummy6,
+  bool dummy7
+#struct  TCIB_DI5T
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool dummy5,
+  bool dummy6,
+  bool dummy7,
+  bool TAMPER1,
+  bool TAMPER2,
+  bool TAMPER3,
+  bool TAMPER4,
+  bool TAMPER5,
+  bool dummy13,
+  bool dummy14,
+  bool dummy15
+#struct  TCIB_IN4
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4
+#struct  TCIB_IN5
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4,
+  bool IN5
+#struct  TCIB_IN7
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4,
+  bool IN5,
+  bool IN6,
+  bool IN7
+#struct  TCIB_IN8
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4,
+  bool IN5,
+  bool IN6,
+  bool IN7,
+  bool IN8
+#struct  TCIB_IN14
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4,
+  bool IN5,
+  bool IN6,
+  bool IN7,
+  bool IN8,
+  bool IN9,
+  bool IN10,
+  bool IN11,
+  bool IN12,
+  bool IN13,
+  bool IN14
+#struct  TCIB_DI18
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool DI6,
+  bool DI7,
+  bool DI8,
+  bool DI9,
+  bool DI10,
+  bool DI11,
+  bool DI12,
+  bool DI13,
+  bool DI14,
+  bool DI15,
+  bool DI16,
+  bool DI17,
+  bool DI18
+#struct  TCIB_CLICK18
+  bool CLICK1,
+  bool CLICK2,
+  bool CLICK3,
+  bool CLICK4,
+  bool CLICK5,
+  bool CLICK6,
+  bool CLICK7,
+  bool CLICK8,
+  bool CLICK9,
+  bool CLICK10,
+  bool CLICK11,
+  bool CLICK12,
+  bool CLICK13,
+  bool CLICK14,
+  bool CLICK15,
+  bool CLICK16,
+  bool CLICK17,
+  bool CLICK18
+#struct  TCIB_PRESS18
+  bool PRESS1,
+  bool PRESS2,
+  bool PRESS3,
+  bool PRESS4,
+  bool PRESS5,
+  bool PRESS6,
+  bool PRESS7,
+  bool PRESS8,
+  bool PRESS9,
+  bool PRESS10,
+  bool PRESS11,
+  bool PRESS12,
+  bool PRESS13,
+  bool PRESS14,
+  bool PRESS15,
+  bool PRESS16,
+  bool PRESS17,
+  bool PRESS18
+#struct  TCIB_TAMPER18
+  bool TAMPER1,
+  bool TAMPER2,
+  bool TAMPER3,
+  bool TAMPER4,
+  bool TAMPER5,
+  bool TAMPER6,
+  bool TAMPER7,
+  bool TAMPER8,
+  bool TAMPER9,
+  bool TAMPER10,
+  bool TAMPER11,
+  bool TAMPER12,
+  bool TAMPER13,
+  bool TAMPER14,
+  bool TAMPER15,
+  bool TAMPER16,
+  bool TAMPER17,
+  bool TAMPER18
+#struct  TCIB_CIB1800M
+  TCIB_DI18 DI,
+  TCIB_CLICK18 CLICK,
+  TCIB_PRESS18 PRESS,
+  TCIB_TAMPER18 TAMPER
+#struct  TCIB_SW2
+  bool SW1,
+  bool SW2
+#struct  TCIB_SW4
+  bool SW1,
+  bool SW2,
+  bool SW3,
+  bool SW4
+#struct  TCIB_SW12
+  bool SW1,
+  bool SW2,
+  bool SW3,
+  bool SW4,
+  bool SW5,
+  bool SW6,
+  bool SW7,
+  bool SW8,
+  bool SW9,
+  bool SW10,
+  bool SW11,
+  bool SW12
+#struct  TCIB_WSB_BTN2
+  bool UP1,
+  bool DOWN1
+#struct  TCIB_WSB_BTN4
+  bool UP1,
+  bool DOWN1,
+  bool UP2,
+  bool DOWN2
+#struct  TCIB_WSB_BTN6
+  bool UP1,
+  bool DOWN1,
+  bool UP2,
+  bool DOWN2,
+  bool UP3,
+  bool DOWN3
+#struct  TCIB_WSB_BTN8
+  bool UP1,
+  bool DOWN1,
+  bool UP2,
+  bool DOWN2,
+  bool UP3,
+  bool DOWN3,
+  bool UP4,
+  bool DOWN4
+#struct  TCIB_SOPHY_LED
+  bool RED,
+  bool GREEN
+#struct  TCIB_WSB_LED2
+  bool GREEN1,
+  bool RED1
+#struct  TCIB_WSB_LED4
+  bool GREEN1,
+  bool RED1,
+  bool GREEN2,
+  bool RED2
+#struct  TCIB_WSB_LED6
+  bool GREEN1,
+  bool RED1,
+  bool GREEN2,
+  bool RED2,
+  bool GREEN3,
+  bool RED3
+#struct  TCIB_WSB_LED8
+  bool GREEN1,
+  bool RED1,
+  bool GREEN2,
+  bool RED2,
+  bool GREEN3,
+  bool RED3,
+  bool GREEN4,
+  bool RED4
+#struct  TCIB_AIN2
+  real AIN1,
+  real AIN2
+#struct  TCIB_AIN3
+  real AIN1,
+  real AIN2,
+  real AIN3
+#struct  TCIB_AI2
+  real AI1,
+  real AI2
+#struct  TCIB_AI3
+  real AI1,
+  real AI2,
+  real AI3
+#struct  TCIB_AI4
+  real AI1,
+  real AI2,
+  real AI3,
+  real AI4
+#struct  TCIB_AIN4
+  real AIN1,
+  real AIN2,
+  real AIN3,
+  real AIN4
+#struct  TCIB_CVT_STAT
+  bool OUF1,
+  bool VLD1,
+  bool ErrFanA,
+  bool ErrFanB
+#struct  TCIB_FAN2
+  real FanA,
+  real FanB
+#struct  TCIB_AI2_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2
+#struct  TCIB_GLAI_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUFT,
+  bool VLDT,
+  bool OUFRH,
+  bool VLDRH
+#struct  TCIB_CIR0203_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool dummy4,
+  bool dummy5,
+  bool PWM,
+  bool MAN
+#struct  TCIB_AI3_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3
+#struct  TCIB_CRC_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool DISP
+#struct  TCIB_CHM0308_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3,
+  bool ManMode,
+  bool PowerErr
+#struct  TCIB_COR_STAT
+  bool DUMMY0,
+  bool DUMMY1,
+  bool DUMMY2,
+  bool DUMMY3,
+  bool DUMMY4,
+  bool DUMMY5,
+  bool ManMode,
+  bool PowerErr
+#struct  TCIB_AI4_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3,
+  bool OUF4,
+  bool VLD4
+#struct  TCIB_AI5_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3,
+  bool OUF4,
+  bool VLD4,
+  bool OUF5,
+  bool VLD5
+#struct  TCIB_CIT0100_STAT
+  bool mOUF,
+  bool mVLD,
+  bool hOUF,
+  bool hVLD
+#struct  TCIB_CIT0200I_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool hOUF,
+  bool hVLD
+#struct  TCIB_CWSLo_STAT
+  bool iOUF,
+  bool iVLD,
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2
+#struct  TCIB_CIT0200_STAT
+  bool iOUF,
+  bool iVLD,
+  bool eOUF,
+  bool eVLD
+#struct  TCIB_CEM0401M_STAT
+  bool VLD1,
+  bool VLD2,
+  bool VLD3,
+  bool VLD4,
+  bool VLDR,
+  bool dummy5,
+  bool dummy6,
+  bool ARC
+#struct  TCIB_CEM0401M_CONT
+  bool LV1,
+  bool LV2,
+  bool LV3,
+  bool LV4,
+  bool WR,
+  bool dummy5,
+  bool dummy6,
+  bool ACN
+#struct  TCIB_CEM0401M_ARI
+  TCIB_CEM0401M_STAT STAT,
+  uint REGI,
+  usint[8] VALI
+#struct  TCIB_CEM0401M_ARO
+  TCIB_CEM0401M_CONT CONT,
+  uint REGO,
+  usint[8] VALO
+#struct  TCIB_SOPHY_IN
+  bool DOWN,
+  bool UP,
+  bool IN1,
+  bool IN2,
+  bool IN3,
+  bool IN4
+#struct  TCIB_AOUT2
+  real OUT1,
+  real OUT2
+#struct  TCIB_AO2
+  real AO1,
+  real AO2
+#struct  TCIB_AOUT4
+  real OUT1,
+  real OUT2,
+  real OUT3,
+  real OUT4
+#struct  TCIB_AO4
+  real AO1,
+  real AO2,
+  real AO3,
+  real AO4
+#struct  TCIB_DIM6_STAT
+  bool OH,
+  bool OL,
+  bool UT,
+  bool BC
+#struct  TCIB_FCC_STAT
+  bool OUF,
+  bool VLD,
+  bool OH
+#struct  TCIB_FCC_OUT
+  bool HEAT,
+  bool COLD
+#struct  TCIB_IART_BTN
+  bool MODE,
+  bool STAT
+#struct  TCIB_IART_LED
+  bool STAT_GREEN,
+  bool STAT_RED,
+  bool MODE_GREEN,
+  bool MODE_RED
+#struct  TCIB_WMR_OUT
+  bool RED,
+  bool GREEN,
+  bool RE,
+  bool BEEPER
+#struct  TCIB_IDRT_BTN
+  bool RES,
+  bool STAT,
+  bool MODE,
+  bool UP,
+  bool DOWN
+#struct  TCIB_IDRT_LED
+  bool ON,
+  bool LED,
+  bool HAND,
+  bool MAN
+#struct  TCIB_IDRTUK_BTN
+  bool DUMMY,
+  bool STAT,
+  bool MODE,
+  bool UP,
+  bool DOWN
+#struct  TCIB_IDRTUK_LED
+  bool GREEN1,
+  bool RED1,
+  bool GREEN2,
+  bool RED2,
+  bool ON,
+  bool HAND,
+  bool MAN
+#struct  TCIB_KEY_OUT
+  bool GREEN,
+  bool RED,
+  bool BEEPER
+#struct  TCIB_KEY_DISP
+  usint ID,
+  usint[14] TEXT
+#struct  TCIB_RCM_FLG
+  bool PRESS,
+  bool LEFT,
+  bool RIGHT
+#struct  TCIB_RRC_FLG
+  bool PRESS,
+  bool DUMMY1,
+  bool DUMMY2,
+  bool iOUF,
+  bool iVLD,
+  bool eOUF,
+  bool eVLD,
+  bool BERR
+#struct  TCIB_RCM_VAL
+  int VALUE,
+  usint ERROR
+#struct  TCIB_RCM_ICO
+  bool ONE,  ; T1                 
+  bool TWO,  ; T2                 
+  bool THREE,  ; T3                 
+  bool FOUR,  ; T4                 
+  bool FIVE,  ; T5                 
+  bool SIX,  ; T6                 
+  bool SEVEN,  ; T7                 
+  bool ERROR,  ; P3                 
+  bool No,  ; P2                 
+  bool Clock,  ; T8                 
+  bool Moon,  ; T12                
+  bool Sun,  ; T13                
+  bool House,  ; T10                
+  bool Figure,  ; T11                
+  bool Drink,  ; T15                
+  bool Thermometer,  ; T9                 
+  bool Power,  ; T14   // ON/OFF    
+  bool Setting,  ; P1                 
+  bool Celsius,  ; S3                 
+  bool Fahrenheit,  ; S4                 
+  bool Percent,  ; P6                 
+  bool rH,  ; W1                 
+  bool dotUp,  ; P5                 
+  bool dotDown,  ; P4                 
+  bool Heating,  ; P7                 
+  bool Cooling,  ; P8   // snowflake  
+  bool Ventilation,  ; S5                 
+  bool Water,  ; P9                 
+  bool Spanner,  ; P10   // Setup     
+  bool P11,  ; P11                
+  bool Bell,  ; P12                
+  bool Manual,  ; W2                 
+  bool LN3,  ; P13                
+  bool LN2,  ; P14                
+  bool LN1,  ; P15                
+  bool Rotation,  ; P16   // Ventilator
+  bool LP1,  ; P17                
+  bool LP2,  ; P18                
+  bool LP3,  ; P19                
+  bool Automatic,  ; P20                
+  bool Minus,  ; S1                 
+  bool S2,  ; S2                 
+  bool D1,  ; D1                 
+  bool D2,  ; D2                 
+  bool D3,  ; D3                 
+  bool D4,  ; D4                 
+  bool DE,  ; D5                 
+  bool DOUT  ;                    
+#struct  TCIB_RRC_ICO
+  bool ONE,  ; T1                 
+  bool TWO,  ; T2                 
+  bool THREE,  ; T3                 
+  bool FOUR,  ; T4                 
+  bool FIVE,  ; T5                 
+  bool SIX,  ; T6                 
+  bool SEVEN,  ; T7                 
+  bool ERROR,  ; P3                 
+  bool No,  ; P2                 
+  bool Clock,  ; T8                 
+  bool Moon,  ; T12                
+  bool Sun,  ; T13                
+  bool House,  ; T10                
+  bool Figure,  ; T11                
+  bool Drink,  ; T15                
+  bool Thermometer,  ; T9                 
+  bool Power,  ; T14   // ON/OFF    
+  bool Setting,  ; P1                 
+  bool Celsius,  ; S3                 
+  bool Fahrenheit,  ; S4                 
+  bool Percent,  ; P6                 
+  bool rH,  ; W1                 
+  bool dotUp,  ; P5                 
+  bool dotDown,  ; P4                 
+  bool Heating,  ; P7                 
+  bool Cooling,  ; P8   // snowflake  
+  bool Ventilation,  ; S5                 
+  bool Water,  ; P9                 
+  bool Spanner,  ; P10   // Setup     
+  bool P11,  ; P11                
+  bool Bell,  ; P12                
+  bool Manual,  ; W2                 
+  bool LN3,  ; P13                
+  bool LN2,  ; P14                
+  bool LN1,  ; P15                
+  bool Rotation,  ; P16   // Ventilator
+  bool LP1,  ; P17                
+  bool LP2,  ; P18                
+  bool LP3,  ; P19                
+  bool Automatic,  ; P20                
+  bool Minus,  ; S1                 
+  bool S2,  ; S2                 
+  bool D1,  ; D1                 
+  bool D2,  ; D2                 
+  bool D3,  ; D3                 
+  bool D4,  ; D4                 
+  bool DE  ; D5                 
+#struct  TCIB_SOPHY_IR
+  bool dummy0,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool TRG,
+  bool TC1,
+  bool TC2,
+  uint CODE
+#struct  TCIB_SOPHY_VIN
+  bool BUSY,
+  bool LISTEN,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool ERR,
+  bool OK,
+  bool MSG,
+  usint CODE
+#struct  TCIB_SOPHY_VOUT
+  usint ACT,
+  usint CODE
+#struct  TCIB_RE1
+  bool RE1
+#struct  TCIB_RE2
+  bool RE1,
+  bool RE2
+#struct  TCIB_RE4
+  bool RE1,
+  bool RE2,
+  bool RE3,
+  bool RE4
+#struct  TCIB_RE6
+  bool RE1,
+  bool RE2,
+  bool RE3,
+  bool RE4,
+  bool RE5,
+  bool RE6
+#struct  TCIB_DO2
+  bool DO1,
+  bool DO2
+#struct  TCIB_DO2_CJC
+  bool DO1u,
+  bool DO1d
+#struct  TCIB_DO3
+  bool DO1,
+  bool DO2,
+  bool DO3
+#struct  TCIB_DO6
+  bool DO1,
+  bool DO2,
+  bool DO3,
+  bool DO4,
+  bool DO5,
+  bool DO6
+#struct  TCIB_DO8
+  bool DO1,
+  bool DO2,
+  bool DO3,
+  bool DO4,
+  bool DO5,
+  bool DO6,
+  bool DO7,
+  bool DO8
+#struct  TCIB_DO11
+  bool DO1,
+  bool DO2,
+  bool DO3,
+  bool DO4,
+  bool DO5,
+  bool DO6,
+  bool DO7,
+  bool DO8,
+  bool DO9,
+  bool DO10,
+  bool DO11
+#struct  TCIB_DO19
+  bool DO1,
+  bool DO2,
+  bool DO3,
+  bool DO4,
+  bool DO5,
+  bool DO6,
+  bool DO7,
+  bool DO8,
+  bool DO9,
+  bool DO10,
+  bool DO11,
+  bool DO12,
+  bool DO13,
+  bool DO14,
+  bool DO15,
+  bool DO16,
+  bool DO17,
+  bool DO18,
+  bool DO19
+#struct  TCIB_RE12
+  bool RE1,
+  bool RE2,
+  bool RE3,
+  bool RE4,
+  bool RE5,
+  bool RE6,
+  bool RE7,
+  bool RE8,
+  bool RE9,
+  bool RE10,
+  bool RE11,
+  bool RE12
+#struct  TCIB_CJC_STAT
+  bool WD1,
+  bool WD2,
+  bool WD3,
+  bool WD4,
+  bool WD5,
+  bool WD6,
+  bool ManMode,
+  bool dummy7
+#struct  TCIB_CJC
+  bool DO1u,
+  bool DO1d,
+  bool DO2u,
+  bool DO2d,
+  bool DO3u,
+  bool DO3d,
+  bool DO4u,
+  bool DO4d,
+  bool DO5u,
+  bool DO5d,
+  bool DO6u,
+  bool DO6d
+#struct  TRF_STAT
+  bool dummy0,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool BERR
+#struct  TStatR_HC_0101F
+  bool iOUF,
+  bool iVLD,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool dummy7,
+  bool dummy8,
+  bool dummy9,
+  bool dummy10,
+  bool dummy11,
+  bool dummy12,
+  bool MERR,
+  bool DERR,
+  bool BERR
+#struct  TStatR_HC_0201F
+  bool iOUF,
+  bool iVLD,
+  bool eOUF,
+  bool eVLD,
+  bool WIN,
+  bool dummy5,
+  bool dummy6,
+  bool dummy7,
+  bool dummy8,
+  bool dummy9,
+  bool dummy10,
+  bool dummy11,
+  bool dummy12,
+  bool MERR,
+  bool DERR,
+  bool BERR
+#struct  TRFIT_STAT
+  bool OUF,
+  bool VLD,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool BERR
+#struct  TRF_CIT0100_STAT
+  bool mOUF,
+  bool mVLD,
+  bool hOUF,
+  bool hVLD,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool BERR
+#struct  TRF_Key4
+  bool BTN1,
+  bool BTN2,
+  bool BTN3,
+  bool BTN4
+#struct  TRF_Key5
+  bool BTN1,
+  bool BTN2,
+  bool BTN3,
+  bool BTN4,
+  bool BTN5
+#struct  TCIB_CRC_BTN
+  bool MODE,
+  bool DOWN,
+  bool UP,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool dummy7
+#struct  TCIB_CRC_DISP
+  usint[3] TEXT,
+  bool LED_ON,
+  bool LED_Blink,
+  bool dummy2,
+  bool dummy3,
+  bool Disp_OFF,
+  bool Disp_Blink,
+  bool Dot1,
+  bool Dot2
+#struct  TCIB_CDM_STAT
+  bool OverLoad1,
+  bool OverLoad2,
+  bool OverLoad3,
+  bool OverLoad4,
+  bool OverLoad5,
+  bool OverLoad6,
+  bool ManMode,
+  bool OverHeat
+#struct  TCIB_CDMILED_STAT
+  bool dummy0,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool ManMode,
+  bool OverHeat
+#struct  TCIB_CDM000210V_STAT
+  bool ManMode
+#struct  TCIB_CDM_LED6
+  real LED1,
+  real LED2,
+  real LED3,
+  usint ramp1,
+  real LED4,
+  real LED5,
+  real LED6,
+  usint ramp2
+#struct  TCIB_CDM_LEDa
+  real LED1,
+  usint ramp1,
+  real LED2,
+  usint ramp2,
+  real LED3,
+  usint ramp3
+#struct  TCIB_CDM_LEDb
+  real LED4,
+  usint ramp4,
+  real LED5,
+  usint ramp5,
+  real LED6,
+  usint ramp6
+#struct  TCIB_RI_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUFI,
+  bool VLDI
+#struct  TCIB_RI_THERM
+  real AI1,
+  real AI2
+#struct  TCIB_IRStat
+  bool Receive_End,
+  bool Err_Receive,
+  bool Transmit_End,
+  bool Learn_End,
+  bool Err_Learn,
+  bool Clear_End,
+  bool dummy6,
+  bool ErrMode
+#struct  TCIB_IRControl
+  bool Receive_ON,
+  bool Transmit_ON,
+  bool Learn_ON,
+  bool Learn_Mask,
+  bool Clear,
+  bool LED_AUTO,
+  bool LED_ON,
+  bool LED_Blink
+#struct  TCIB_IRin
+  TCIB_IRStat stat,
+  uint IR_code
+#struct  TCIB_IRout
+  TCIB_IRControl cont,
+  uint IR_code
+#struct  TCIB_CAM0600I_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3,
+  bool OUF4,
+  bool VLD4,
+  bool OUF5,
+  bool VLD5,
+  bool OUF6a,
+  bool VLD6a,
+  bool OUF6b,
+  bool VLD6b
+#struct  TCIB_CAM06600I_AV23
+  real FLOW,
+  real THERM
+#struct  TCIB_CIT09_DI
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool DI6,
+  bool DI7,
+  bool DI8,
+  bool CLICK1,
+  bool CLICK2,
+  bool CLICK3,
+  bool CLICK4,
+  bool CLICK5,
+  bool CLICK6,
+  bool CLICK7,
+  bool CLICK8,
+  bool PRESS1,
+  bool PRESS2,
+  bool PRESS3,
+  bool PRESS4,
+  bool PRESS5,
+  bool PRESS6,
+  bool PRESS7,
+  bool PRESS8,
+  bool TAMPER1,
+  bool TAMPER2,
+  bool TAMPER3,
+  bool TAMPER4,
+  bool TAMPER5,
+  bool TAMPER6,
+  bool TAMPER7,
+  bool TAMPER8
+#struct  TCIB_CIR0203_DI
+  bool DI1,
+  bool DI2,
+  bool CLICK1,
+  bool CLICK2,
+  bool PRESS1,
+  bool PRESS2,
+  bool TAMPER1,
+  bool TAMPER2
+#struct  TCIB_BTN2_CJC
+  bool DI1,
+  bool DI2,
+  bool CLICK1,
+  bool CLICK2,
+  bool PRESS1,
+  bool PRESS2,
+  bool dummy6,
+  bool WD
+#struct  TCIB_BTN_DI2
+  bool DI1,
+  bool DI2,
+  bool CLICK1,
+  bool CLICK2,
+  bool PRESS1,
+  bool PRESS2,
+  bool dummy6,
+  bool dummy7
+#struct  TCIB_CRQ0400_STAT
+  bool OUFT,
+  bool VLDT,
+  bool OUFRH,
+  bool VLDRH,
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2
+#struct  TCIB_CRQ0400_AI
+  real THERM,
+  real RH
+#struct  TCIB_CRQ0600_DI
+  bool PIR,
+  bool DI1,
+  bool DI2,
+  bool dummy3,
+  bool CLICKPIR,
+  bool CLICK1,
+  bool CLICK2,
+  bool dummy7,
+  bool PRESSPIR,
+  bool PRESS1,
+  bool PRESS2,
+  bool dummy11,
+  bool TAMPERPIR,
+  bool TAMPER1,
+  bool TAMPER2
+#struct  TCIB_CRQ0600_STAT
+  bool OUFCO2,
+  bool VLDCO2,
+  bool OUFT,
+  bool VLDT,
+  bool OUFRH,
+  bool VLDRH,
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool KALPRESS,
+  bool KALACT
+#struct  TCIB_CWS2LO_BTN
+  bool UP1,
+  bool DOWN1,
+  bool dummy2,
+  bool dummy3,
+  bool DI1,
+  bool DI2,
+  bool dummy6,
+  bool dummy7,
+  bool CLICK_UP1,
+  bool CLICK_DOWN1,
+  bool dummy10,
+  bool dummy11,
+  bool CLICK_DI1,
+  bool CLICK_DI2,
+  bool dummy14,
+  bool dummy15,
+  bool PRESS_UP1,
+  bool PRESS_DOWN1,
+  bool dummy18,
+  bool dummy19,
+  bool PRESS_DI1,
+  bool PRESS_DI2,
+  bool dummy22,
+  bool dummy23
+#struct  TCIB_CWS4LO_BTN
+  bool UP1,
+  bool DOWN1,
+  bool UP2,
+  bool DOWN2,
+  bool DI1,
+  bool DI2,
+  bool dummy6,
+  bool dummy7,
+  bool CLICK_UP1,
+  bool CLICK_DOWN1,
+  bool CLICK_UP2,
+  bool CLICK_DOWN2,
+  bool CLICK_DI1,
+  bool CLICK_DI2,
+  bool dummy14,
+  bool dummy15,
+  bool PRESS_UP1,
+  bool PRESS_DOWN1,
+  bool PRESS_UP2,
+  bool PRESS_DOWN2,
+  bool PRESS_DI1,
+  bool PRESS_DI2,
+  bool dummy22,
+  bool dummy23
+#struct  TCIB_CIT09_STAT
+  bool OUF7,
+  bool VLD7,
+  bool OUF8,
+  bool VLD8,
+  bool OUF9,
+  bool VLD9
+#struct  TCIB_CIT09_AI
+  real AI7,
+  real AI8
+#struct  TCIB_CHC_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUFI,
+  bool VLDI
+#struct  TCIB_VCHC_STAT
+  bool READY,
+  bool RUN,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool FS,
+  bool SERVICE,
+  real POSITION
+#struct  TCIB_VCHC_CONT
+  bool INIT,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool dummy7,
+  real POSITION
+#struct  TCIB_CWG0503S_CODE
+  usint STAT,
+  usint[5] VAL
+#struct  TCIB_CWG0503S_STAT
+  bool OUF4,
+  bool VLD4,
+  bool OUF5,
+  bool VLD5
+#struct  TCIB_CWG0503S_DI
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool DI5,
+  bool TAMPER4,
+  bool TAMPER5,
+  bool dummy7
+#struct  TCIB_CRC0003S_BTN
+  bool BTN1,
+  bool BTN2,
+  bool BTN3,
+  bool DI1,
+  bool CLICK_BTN1,
+  bool CLICK_BTN2,
+  bool CLICK_BTN3,
+  bool CLICK_DI1,
+  bool PRESS_BTN1,
+  bool PRESS_BTN2,
+  bool PRESS_BTN3,
+  bool PRESS_DI1
+#struct  TCIB_CRC0003S_STAT
+  bool OUFT,
+  bool VLDT,
+  bool OUFR,
+  bool VLDR,
+  bool OUF1,
+  bool VLD1
+#struct  TCIB_CRC0003S_CONT
+  bool blink11,
+  bool blink12,
+  bool blink21,
+  bool blink22,
+  bool blinkS1,
+  bool blinkS2,
+  bool blinkS3,
+  bool blinkS4
+#struct  TCIB_CRC0003S_DISP
+  TCIB_CRC0003S_CONT cont,
+  int val1,
+  int val2,
+  word symbols,
+  byte units1,
+  byte units2,
+  byte light
+#struct  TCIB_CDMRLC_DIM
+  real LEVEL,
+  usint RAMP,
+  real MINIMUM
+#struct  TCIB_CDMRLC_STAT
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2,
+  bool OUF3,
+  bool VLD3,
+  bool OUF4,
+  bool VLD4,
+  bool OUFT,
+  bool VLDT,
+  bool MAN,
+  bool ERR1,
+  bool ERR2,
+  bool HEAT,
+  bool PWR_ERR
+#struct  TCIB_CDMRLC_DI
+  bool DI1,
+  bool DI2,
+  bool DI3,
+  bool DI4,
+  bool CLICK1,
+  bool CLICK2,
+  bool CLICK3,
+  bool CLICK4,
+  bool PRESS1,
+  bool PRESS2,
+  bool PRESS3,
+  bool PRESS4,
+  bool TAMPER1,
+  bool TAMPER2,
+  bool TAMPER3,
+  bool TAMPER4
+#struct  TCIB_CVO_STAT
+  bool ECMD,
+  bool ECARD,
+  bool BUSY,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool ARC
+#struct  TCIB_CVO_CONT
+  bool dummy0,
+  bool dummy1,
+  bool dummy2,
+  bool dummy3,
+  bool dummy4,
+  bool dummy5,
+  bool dummy6,
+  bool ACN
+#struct  TCIB_CVO0001B
+  TCIB_CVO_CONT CONT,
+  usint CMD,
+  usint VAL
+#struct  TCIB_CAQ05_STAT
+  bool OVF1M,
+  bool OVF1C,
+  bool OVF1B,
+  bool dummy3,
+  bool OVF2M,
+  bool OVF2C,
+  bool OVF2B,
+  bool dummy7,
+  bool UNFT,
+  bool OVFT,
+  bool ERR,
+  bool dummy11,
+  bool dummy12,
+  bool SLFT,
+  bool dummy14,
+  bool dummy15
+#struct  TCIB_C_WS_0000R_iG_BTN
+  bool BTN1,
+  bool BTN2,
+  bool BTN3,
+  bool BTN4,
+  bool BTN5,
+  bool BTN6,
+  bool dummy6,
+  bool PR,
+  bool CLICKB1,
+  bool CLICKB2,
+  bool CLICKB3,
+  bool CLICKB4,
+  bool CLICKB5,
+  bool CLICKB6,
+  bool dummy14,
+  bool CLICKPR,
+  bool PRESSB1,
+  bool PRESSB2,
+  bool PRESSB3,
+  bool PRESSB4,
+  bool PRESSB5,
+  bool PRESSB6,
+  bool dummy22,
+  bool PRESSPR
+#struct  TCIB_C_WS_0000R_iG_CONT
+  bool DOT1,
+  bool DOT2,
+  bool dummy2,
+  bool DB,
+  bool FF,
+  bool BL,
+  bool BZ,
+  bool PX
+#struct  TCIB_C_WS_0000R_iG_LED
+  bool LED1,
+  bool LED2,
+  bool LED3,
+  bool LED4,
+  bool LED5,
+  bool LED6,
+  bool dummy6,
+  bool dummy7,
+  bool CNT1,
+  bool CNT2,
+  bool CNT3,
+  bool CNT4,
+  bool CNT5,
+  bool CNT6,
+  bool CNT7,
+  bool CNT8
+#struct  TCIB_iGL_Stat
+  TCIB_C_WS_0000R_iG_BTN BTN,
+  sint COUNTER,
+  byte IDENT
+#struct  TCIB_iGL_Cont
+  TCIB_C_WS_0000R_iG_CONT CONT,
+  TCIB_C_WS_0000R_iG_LED LED,
+  usint BLIGHT,
+  sint DISP
+#struct  TCIB_CRS0200R_BTN
+  bool BUTT,
+  bool DI1,
+  bool DI2,
+  bool CLICK_BUTT,
+  bool CLICK_DI1,
+  bool CLICK_DI2,
+  bool PRESS_BUTT,
+  bool PRESS_DI1,
+  bool PRESS_DI2
+#struct  TCIB_CRS0200R_STAT
+  bool OUFT,
+  bool VLDT,
+  bool OUF1,
+  bool VLD1,
+  bool OUF2,
+  bool VLD2
+#struct  TMI_CIB1_ID1_IN  ;C-RQ-0600
+  TCIB_CRQ0600_DI DI,
+  TCIB_CRQ0600_STAT STAT,
+  TCIB_CRQ0400_AI AI
+#struct  TMI_CIB1_ID2_IN  ;C-RQ-0600
+  TCIB_CRQ0600_DI DI,
+  TCIB_CRQ0600_STAT STAT,
+  TCIB_CRQ0400_AI AI
+#struct  TMI_CIB1_ID3_IN  ;C-RQ-0600
+  TCIB_CRQ0600_DI DI,
+  TCIB_CRQ0600_STAT STAT,
+  TCIB_CRQ0400_AI AI
+#struct  TMI_CIB1_ID4_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID4_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID5_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID5_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID6_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID6_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID7_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID7_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID8_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID8_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID9_IN  ;C-WS-0400R-Logus
+  TCIB_CWS4LO_BTN DI,
+  TCIB_CWSLo_STAT STAT,
+  real THERM
+#struct  TMI_CIB1_ID9_OUT  ;C-WS-0400R-Logus
+  TCIB_WSB_LED4 LED
+#struct  TMI_CIB1_ID10_IN  ;C-WG-0503S
+  TCIB_CWG0503S_CODE CODE
+#struct  TMI_CIB1_ID10_OUT  ;C-WG-0503S
+  TCIB_DO3 DOs
+#struct  TMI_CIB2_ID1_IN  ;C-WG-0503S
+  TCIB_CWG0503S_CODE CODE
+#struct  TMI_CIB2_ID1_OUT  ;C-WG-0503S
+  TCIB_DO3 DOs
+
+; Global types
+#struct  TMI_CIB1_IN
+  real intgr,
+  TMI_CIB1_ID1_IN ID1_IN,  ;C-RQ-0600
+  TMI_CIB1_ID2_IN ID2_IN,  ;C-RQ-0600
+  TMI_CIB1_ID3_IN ID3_IN,  ;C-RQ-0600
+  TMI_CIB1_ID4_IN ID4_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID5_IN ID5_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID6_IN ID6_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID7_IN ID7_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID8_IN ID8_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID9_IN ID9_IN,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID10_IN ID10_IN  ;C-WG-0503S
+#struct  TMI_CIB1_OUT
+  TMI_CIB1_ID4_OUT ID4_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID5_OUT ID5_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID6_OUT ID6_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID7_OUT ID7_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID8_OUT ID8_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID9_OUT ID9_OUT,  ;C-WS-0400R-Logus
+  TMI_CIB1_ID10_OUT ID10_OUT  ;C-WG-0503S
+
+; Global variables
+#reg  TMI_CIB1_IN MI_CIB1_IN
+#reg  TMI_CIB1_OUT MI_CIB1_OUT
+#reg  usint INE_STAT_MI_CIB1[32]
+#reg  usint INE_ERR_MI_CIB1[32]
+
+; Global types
+#struct  TMI_CIB2_IN
+  real intgr,
+  TMI_CIB2_ID1_IN ID1_IN  ;C-WG-0503S
+#struct  TMI_CIB2_OUT
+  TMI_CIB2_ID1_OUT ID1_OUT  ;C-WG-0503S
+
+; Global variables
+#reg  TMI_CIB2_IN MI_CIB2_IN
+#reg  TMI_CIB2_OUT MI_CIB2_OUT
+#reg  usint INE_STAT_MI_CIB2[32]
+#reg  usint INE_ERR_MI_CIB2[32]
+
+; Global types
+#struct  TRF0_IN
+  aligned bool[64] bondMap,
+  usint NoData
+#struct  TRF0_OUT
+  usint NoData
+
+; Global variables
+#reg  TRF0_IN RF0_IN
+#reg  TRF0_OUT RF0_OUT
+#reg  usint INE_STAT_RF0[64]
+#reg  usint INE_ERR_RF0[64]
+
+; Global types
+#struct  TRF2_IN
+  aligned bool[64] bondMap,
+  usint NoData
+#struct  TRF2_OUT
+  usint NoData
+
+; Global variables
+#reg  TRF2_IN RF2_IN
+#reg  TRF2_OUT RF2_OUT
+#reg  usint INE_STAT_RF2[64]
+#reg  usint INE_ERR_RF2[64]
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SYSGEN\CIBMAKER.ST'
+
+
+ 
+
+#srcfile ''

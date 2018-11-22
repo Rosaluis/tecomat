@@ -1,0 +1,564 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\ROSECKY.ST'
+
+#defpou fb_off_SvKoupelna1
+  bool in,  ;vstup od tlaèítka
+  bool sig0,  ;vstup stavu svetla 0
+  bool sig1,  ;vstup stavu svetla 1
+  bool sig2,  ;vstup stavu svetla 2
+  bool out,  ;in := out
+  bool sOff0,  ;vystup 0
+  bool sOff1,  ;vystup 1
+  bool sOff2  ;vystup 2
+
+
+#defpou fb_blikLED
+  bool in,  ;jen prochazi
+  bool sig,  ;signal tlacitka na ktery se reaguje
+  bool state,  ;do jakeho stavu se ma svetlo dostat!!!
+  time time1,  ;delka bliknuti
+  bool out,  ;jen pruchozi
+  bool ZLed,  ;vystup na zelenou LED
+  bool CLed,  ;vystup na cervenou LED
+  TOF timerTOF,  ;casovac
+  bool pom  ;pomocna promenna
+
+
+#defpou fb_kmitac
+  bool sig_IN,  ; spousteci signal
+  time time_ON,  ;delka sviceni
+  time time_OFF,  ;delka nesviceni
+  bool sig_OUT,  ;vystup
+  TON timerTON1,  ;casovac TON1
+  TON timerTON2,  ;casovac TON2
+  bool pom,  ;pomocna promenna
+  bool pom2,  ;pomocna promenna
+  bool pom3  ;pomocna promenna
+
+
+#defpou fb_cas_spinac
+  time time_IN1,  ;vstupni cas
+  bool sig_IN,  ; spousteci signal
+  time time_OUT  ;vystupni cas
+
+
+#defpou fb_cas_prepinac
+  bool IN3,
+  bool IN2,
+  bool IN1,
+  time time3,  ;vstupni cas 3
+  time time2,  ;vstupni cas 2
+  time time1,  ;vstupni cas
+  time time_OUT,  ;vystupni cas
+  bool OUT_RUN
+
+
+#defpou fb_B
+  bool out
+
+
+#defpou fb_zhasni
+  bool inButton,  ;signal treba od zhaseciho tlacitka
+  bool outLight1,  ;vystup ke svetlu
+  bool outLight2,  ;vystup ke svetlu
+  bool outLight3,  ;vystup ke svetlu
+  bool outLight4,  ;vystup ke svetlu
+  bool outLight5  ;vystup ke svetlu
+
+
+#defpou fb_on_SvKoupelna1
+  bool in,  ;vstup od tlaèítka
+  bool sig0,  ;vstup stavu svetla 0
+  bool sig1,  ;vstup stavu svetla 1
+  bool sig2,  ;vstup stavu svetla 2
+  bool out,  ;in := out
+  bool sOff0,  ;vystup 0
+  bool sOff1,  ;vystup 1
+  bool sOff2  ;vystup 2
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\ROSECKY.ST'
+#pou fb_off_SvKoupelna1
+#srcline 3 ;FUNCTION_BLOCK fb_off_SvKoupelna1
+P     61
+fb_off_SvKoupelna1_L0:
+ LINK 0
+#srcline 20 ;  IF in THEN
+ LDX  in
+#debug bool in
+ JMC  fb_off_SvKoupelna1_L1
+#srcline 21 ;     IF sig0 THEN sOff0 := FALSE; ELSE sOff0 := FALSE; END_IF;
+ LDX  sig0
+#debug bool sig0
+ JMC  fb_off_SvKoupelna1_L3
+ LD   bool 0       ; false
+ WRX  sOff0
+#debug_left bool sOff0
+ JMP  fb_off_SvKoupelna1_L4
+fb_off_SvKoupelna1_L3:
+ LD   bool 0       ; false
+ WRX  sOff0
+#debug_left bool sOff0
+fb_off_SvKoupelna1_L4:
+#srcline 22 ;     IF sig1 THEN sOff1 := FALSE; ELSE sOff1 := FALSE; END_IF;
+ LDX  sig1
+#debug bool sig1
+ JMC  fb_off_SvKoupelna1_L5
+ LD   bool 0       ; false
+ WRX  sOff1
+#debug_left bool sOff1
+ JMP  fb_off_SvKoupelna1_L6
+fb_off_SvKoupelna1_L5:
+ LD   bool 0       ; false
+ WRX  sOff1
+#debug_left bool sOff1
+fb_off_SvKoupelna1_L6:
+#srcline 23 ;     IF sig2 THEN sOff2 := FALSE; ELSE sOff2 := FALSE; END_IF;
+ LDX  sig2
+#debug bool sig2
+ JMC  fb_off_SvKoupelna1_L7
+ LD   bool 0       ; false
+ WRX  sOff2
+#debug_left bool sOff2
+ JMP  fb_off_SvKoupelna1_L8
+fb_off_SvKoupelna1_L7:
+ LD   bool 0       ; false
+ WRX  sOff2
+#debug_left bool sOff2
+fb_off_SvKoupelna1_L8:
+#srcline 24 ;  ELSE
+ JMP  fb_off_SvKoupelna1_L2
+fb_off_SvKoupelna1_L1:
+#srcline 25 ;      sOff0 := sig0;
+ LDX  sig0
+#debug bool sig0
+ WRX  sOff0
+#debug_left bool sOff0
+#srcline 26 ;      sOff1 := sig1;
+ LDX  sig1
+#debug bool sig1
+ WRX  sOff1
+#debug_left bool sOff1
+#srcline 27 ;      sOff2 := sig2;
+ LDX  sig2
+#debug bool sig2
+ WRX  sOff2
+#debug_left bool sOff2
+#srcline 28 ;  END_IF;
+fb_off_SvKoupelna1_L2:
+#srcline 29 ;  out := in;
+ LDX  in
+#debug bool in
+ WRX  out
+#debug_left bool out
+#srcline 30 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+#pou fb_blikLED
+#srcline 32 ;FUNCTION_BLOCK fb_blikLED
+P     61
+fb_blikLED_L0:
+ LINK 0
+#srcline 49 ;    out := in;  //pruchod siloveho signalu ke svetlu
+ LDX  in
+#debug bool in
+ WRX  out
+#debug_left bool out
+#srcline 50 ;    timerTOF(IN := sig, PT := time1, Q => pom);
+ LDX  sig
+#debug bool sig
+ WRX  timerTOF~IN
+#debug_left bool timerTOF~IN
+ LDX  time1
+#debug time time1
+ WRX  timerTOF~PT
+#debug_left time timerTOF~PT
+ LEAX timerTOF
+ CAL  TOF_L0
+; output assigment 
+ LDX  timerTOF~Q
+#debug bool timerTOF~Q
+ WRX  pom
+#debug_left bool pom
+#srcline 51 ;    IF state = TRUE THEN //pokud svetlo ma rozsvitit -> signal k rozsviceni jiz prosel
+ LDX  state
+#debug bool state
+ LD   bool -1       ; true
+ XOR
+ NEG
+ JMC  fb_blikLED_L1
+#srcline 52 ;       ZLed := pom;
+ LDX  pom
+#debug bool pom
+ WRX  ZLed
+#debug_left bool ZLed
+#srcline 53 ;       CLed := FALSE;
+ LD   bool 0       ; false
+ WRX  CLed
+#debug_left bool CLed
+#srcline 54 ;    ELSE                 //jinak...
+ JMP  fb_blikLED_L2
+fb_blikLED_L1:
+#srcline 55 ;       CLed := pom;
+ LDX  pom
+#debug bool pom
+ WRX  CLed
+#debug_left bool CLed
+#srcline 56 ;       ZLed := FALSE;
+ LD   bool 0       ; false
+ WRX  ZLed
+#debug_left bool ZLed
+#srcline 57 ;    END_IF;
+fb_blikLED_L2:
+#srcline 58 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+fb_blikLED__InstanceInit__:
+ LINK 0
+ LD   time 1000
+ WRX  time1
+ LD   bool 0   ; false
+ WRX  ZLed
+ LD   bool 0   ; false
+ WRX  CLed
+ LEAX timerTOF
+ CAL  TOF__InstanceInit__
+ LD   bool 0   ; false
+ WRX  pom
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+#pou fb_kmitac
+#srcline 63 ;FUNCTION_BLOCK fb_kmitac
+P     61
+fb_kmitac_L0:
+ LINK 0
+#srcline 80 ;    timerTON1(IN := pom, PT := time_ON, Q => pom2);
+ LDX  pom
+#debug bool pom
+ WRX  timerTON1~IN
+#debug_left bool timerTON1~IN
+ LDX  time_ON
+#debug time time_ON
+ WRX  timerTON1~PT
+#debug_left time timerTON1~PT
+ LEAX timerTON1
+ CAL  TON_L0
+; output assigment 
+ LDX  timerTON1~Q
+#debug bool timerTON1~Q
+ WRX  pom2
+#debug_left bool pom2
+#srcline 81 ;    timerTON2(IN := pom3, PT := time_OFF, Q => pom);
+ LDX  pom3
+#debug bool pom3
+ WRX  timerTON2~IN
+#debug_left bool timerTON2~IN
+ LDX  time_OFF
+#debug time time_OFF
+ WRX  timerTON2~PT
+#debug_left time timerTON2~PT
+ LEAX timerTON2
+ CAL  TON_L0
+; output assigment 
+ LDX  timerTON2~Q
+#debug bool timerTON2~Q
+ WRX  pom
+#debug_left bool pom
+#srcline 82 ;    // OUT := IN1 XOR IN2;
+#srcline 83 ;    pom3 := sig_IN XOR POM2;
+ LDX  sig_IN
+#debug bool sig_IN
+ LDX  POM2
+#debug bool POM2
+ XOR 
+ WRX  pom3
+#debug_left bool pom3
+#srcline 84 ;    sig_OUT := pom;
+ LDX  pom
+#debug bool pom
+ WRX  sig_OUT
+#debug_left bool sig_OUT
+#srcline 85 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+fb_kmitac__InstanceInit__:
+ LINK 0
+ LD   time 1000
+ WRX  time_ON
+ LD   time 1000
+ WRX  time_OFF
+ LD   bool 0   ; false
+ WRX  sig_OUT
+ LD   bool 0   ; false
+ WRX  pom
+ LD   bool 0   ; false
+ WRX  pom2
+ LD   bool 0   ; false
+ WRX  pom3
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+#pou fb_cas_spinac
+#srcline 91 ;FUNCTION_BLOCK fb_cas_spinac
+P     61
+fb_cas_spinac_L0:
+ LINK 0
+#srcline 103 ;    IF sig_IN = TRUE THEN
+ LDX  sig_IN
+#debug bool sig_IN
+ LD   bool -1       ; true
+ XOR
+ NEG
+ JMC  fb_cas_spinac_L1
+#srcline 104 ;      time_OUT := time_IN1;
+ LDX  time_IN1
+#debug time time_IN1
+ WRX  time_OUT
+#debug_left time time_OUT
+#srcline 105 ;    END_IF;
+fb_cas_spinac_L1:
+#srcline 106 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+#pou fb_cas_prepinac
+#srcline 112 ;FUNCTION_BLOCK fb_cas_prepinac
+P     61
+fb_cas_prepinac_L0:
+ LINK 0
+#srcline 129 ;   IF (IN1 AND IN2=FALSE AND IN3=FALSE) THEN time_OUT := time1;
+ LDX  IN1
+#debug bool IN1
+ LDX  IN2
+#debug bool IN2
+ LD   bool 0       ; false
+ XOR
+ NEG
+ AND
+ LDX  IN3
+#debug bool IN3
+ LD   bool 0       ; false
+ XOR
+ NEG
+ AND
+ JMC  fb_cas_prepinac_L1
+ LDX  time1
+#debug time time1
+ WRX  time_OUT
+#debug_left time time_OUT
+#srcline 130 ;   ELSIF (IN1 AND IN2 AND IN3=FALSE) THEN time_OUT := time2;
+ JMP  fb_cas_prepinac_L2
+fb_cas_prepinac_L1:
+ LDX  IN1
+#debug bool IN1
+ LDX  IN2
+#debug bool IN2
+ AND
+ LDX  IN3
+#debug bool IN3
+ LD   bool 0       ; false
+ XOR
+ NEG
+ AND
+ JMC  fb_cas_prepinac_L3
+ LDX  time2
+#debug time time2
+ WRX  time_OUT
+#debug_left time time_OUT
+#srcline 131 ;   ELSIF (IN1 AND IN2 AND IN3) THEN time_OUT := time3;
+ JMP  fb_cas_prepinac_L2
+fb_cas_prepinac_L3:
+ LDX  IN1
+#debug bool IN1
+ LDX  IN2
+#debug bool IN2
+ AND
+ LDX  IN3
+#debug bool IN3
+ AND
+ JMC  fb_cas_prepinac_L4
+ LDX  time3
+#debug time time3
+ WRX  time_OUT
+#debug_left time time_OUT
+#srcline 132 ;   END_IF;
+ JMP  fb_cas_prepinac_L2
+fb_cas_prepinac_L4:
+fb_cas_prepinac_L2:
+#srcline 134 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+
+; Initialize - variables
+P     61
+fb_cas_prepinac__InstanceInit__:
+ LINK 0
+ LD   time 0
+ WRX  time_OUT
+ LD   bool 0   ; false
+ WRX  OUT_RUN
+ ULNK
+RET
+E     61
+; End initialize - variables
+#endpou 
+
+#pou fb_B
+#srcline 139 ;FUNCTION_BLOCK fb_B
+P     61
+fb_B_L0:
+ LINK 0
+#srcline 147 ;  out := TRUE;
+ LD   bool -1       ; true
+ WRX  out
+#debug_left bool out
+#srcline 148 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+#pou fb_zhasni
+#srcline 151 ;FUNCTION_BLOCK fb_zhasni
+P     61
+fb_zhasni_L0:
+ LINK 0
+#srcline 164 ;    IF inButton = TRUE THEN
+ LDX  inButton
+#debug bool inButton
+ LD   bool -1       ; true
+ XOR
+ NEG
+ JMC  fb_zhasni_L1
+#srcline 165 ;      outLight1 := FALSE;
+ LD   bool 0       ; false
+ WRX  outLight1
+#debug_left bool outLight1
+#srcline 166 ;      outLight2 := FALSE;
+ LD   bool 0       ; false
+ WRX  outLight2
+#debug_left bool outLight2
+#srcline 167 ;      outLight3 := FALSE;
+ LD   bool 0       ; false
+ WRX  outLight3
+#debug_left bool outLight3
+#srcline 168 ;      outLight4 := FALSE;
+ LD   bool 0       ; false
+ WRX  outLight4
+#debug_left bool outLight4
+#srcline 169 ;      outLight5 := FALSE;
+ LD   bool 0       ; false
+ WRX  outLight5
+#debug_left bool outLight5
+#srcline 170 ;    END_IF;
+fb_zhasni_L1:
+#srcline 171 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+#pou fb_on_SvKoupelna1
+#srcline 173 ;FUNCTION_BLOCK fb_on_SvKoupelna1
+P     61
+fb_on_SvKoupelna1_L0:
+ LINK 0
+#srcline 190 ;  IF in THEN
+ LDX  in
+#debug bool in
+ JMC  fb_on_SvKoupelna1_L1
+#srcline 191 ;     IF sig0 THEN sOff0 := TRUE; ELSE sOff0 := TRUE; END_IF;
+ LDX  sig0
+#debug bool sig0
+ JMC  fb_on_SvKoupelna1_L3
+ LD   bool -1       ; true
+ WRX  sOff0
+#debug_left bool sOff0
+ JMP  fb_on_SvKoupelna1_L4
+fb_on_SvKoupelna1_L3:
+ LD   bool -1       ; true
+ WRX  sOff0
+#debug_left bool sOff0
+fb_on_SvKoupelna1_L4:
+#srcline 192 ;     IF sig1 THEN sOff1 := TRUE; ELSE sOff1 := TRUE; END_IF;
+ LDX  sig1
+#debug bool sig1
+ JMC  fb_on_SvKoupelna1_L5
+ LD   bool -1       ; true
+ WRX  sOff1
+#debug_left bool sOff1
+ JMP  fb_on_SvKoupelna1_L6
+fb_on_SvKoupelna1_L5:
+ LD   bool -1       ; true
+ WRX  sOff1
+#debug_left bool sOff1
+fb_on_SvKoupelna1_L6:
+#srcline 193 ;     IF sig2 THEN sOff2 := TRUE; ELSE sOff2 := TRUE; END_IF;
+ LDX  sig2
+#debug bool sig2
+ JMC  fb_on_SvKoupelna1_L7
+ LD   bool -1       ; true
+ WRX  sOff2
+#debug_left bool sOff2
+ JMP  fb_on_SvKoupelna1_L8
+fb_on_SvKoupelna1_L7:
+ LD   bool -1       ; true
+ WRX  sOff2
+#debug_left bool sOff2
+fb_on_SvKoupelna1_L8:
+#srcline 194 ;  ELSE
+ JMP  fb_on_SvKoupelna1_L2
+fb_on_SvKoupelna1_L1:
+#srcline 195 ;      sOff0 := sig0;
+ LDX  sig0
+#debug bool sig0
+ WRX  sOff0
+#debug_left bool sOff0
+#srcline 196 ;      sOff1 := sig1;
+ LDX  sig1
+#debug bool sig1
+ WRX  sOff1
+#debug_left bool sOff1
+#srcline 197 ;      sOff2 := sig2;
+ LDX  sig2
+#debug bool sig2
+ WRX  sOff2
+#debug_left bool sOff2
+#srcline 198 ;  END_IF;
+fb_on_SvKoupelna1_L2:
+#srcline 199 ;  out := in;
+ LDX  in
+#debug bool in
+ WRX  out
+#debug_left bool out
+#srcline 200 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

@@ -1,0 +1,344 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\RIZENI_LOZNICE.CFC'
+
+#defpou rizeni_loznice
+  R_TRIG trigLo1,
+  R_TRIG trigLo2,
+  R_TRIG trigLo3,
+  R_TRIG trigLo4,
+  R_TRIG trigLo5,
+  fb_off_SvKoupelna1 offLo,
+  fb_on_SvKoupelna1 onLo,
+  TON tonLo1,
+  time pomTonLo,
+  fb_LED_blik blik_loznice_1,
+  fb_LED_blik blik_loznice_2,
+  TP tp_lo_1,
+  TP tp_lo_2
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\RIZENI_LOZNICE.CFC'
+#pou rizeni_loznice
+#srcline 1 ;PROGRAM rizeni_loznice
+
+#struct rizeni_loznice__temp__
+  bool _Nod_Tmp_18,
+  bool _Nod_Tmp_17,
+  bool _Nod_Tmp_15,
+  bool _Nod_Tmp_14,
+  bool _Nod_Tmp_13,
+  bool _Nod_Tmp_12,
+  time _Nod_Tmp_10,
+  time _Nod_Tmp_9,
+  bool _Nod_Tmp_8,
+  bool _Nod_Tmp_5,
+  bool _Nod_Tmp_2
+P     61
+rizeni_loznice_L0:
+ LINK __SizeOf(rizeni_loznice__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 862 ;(*  25	*)	CAL	trigLo2(CLK:=tls_lo_tr)
+ LD   bool tls_lo_tr
+#debug bool tls_lo_tr
+ WRX  trigLo2~CLK
+#debug_left bool trigLo2~CLK
+ LEAX trigLo2
+ CAL  R_TRIG_L0
+#srcline 863 ;(*  25	*)	LD 	trigLo2.Q
+ LDX  trigLo2~Q
+#debug bool trigLo2.Q
+#srcline 864 ;(* 536	*)	ST	_Nod_Tmp_18
+ WRY  _Nod_Tmp_18
+#debug_left bool _Nod_Tmp_18
+#srcline 865 ;(* 333	*)	LD 	sv_lo_2
+ LD   bool sv_lo_2
+#debug bool sv_lo_2
+#srcline 866 ;(* 545	*)	ST	_Nod_Tmp_17
+ WRY  _Nod_Tmp_17
+#debug_left bool _Nod_Tmp_17
+#srcline 867 ;(* 141	*)	LD 	_Nod_Tmp_18
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
+#srcline 868 ;(* 149	*)	XOR 	_Nod_Tmp_17
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ XOR
+#srcline 869 ;(* 175	*)	ST 	sv_lo_2
+ WR   bool sv_lo_2
+#debug_left bool sv_lo_2
+#srcline 870 ;(*  42	*)	CAL	trigLo3(CLK:=tls_lo_ll)
+ LD   bool tls_lo_ll
+#debug bool tls_lo_ll
+ WRX  trigLo3~CLK
+#debug_left bool trigLo3~CLK
+ LEAX trigLo3
+ CAL  R_TRIG_L0
+#srcline 871 ;(*  42	*)	LD 	trigLo3.Q
+ LDX  trigLo3~Q
+#debug bool trigLo3.Q
+#srcline 872 ;(* 728	*)	ST	_Nod_Tmp_15
+ WRY  _Nod_Tmp_15
+#debug_left bool _Nod_Tmp_15
+#srcline 873 ;(* 184	*)	CAL	offLo(in:=_Nod_Tmp_15, sig0:=sv_lo_1, sig1:=sv_lo_2)
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
+ WRX  offLo~in
+#debug_left bool offLo~in
+ LD   bool sv_lo_1
+#debug bool sv_lo_1
+ WRX  offLo~sig0
+#debug_left bool offLo~sig0
+ LD   bool sv_lo_2
+#debug bool sv_lo_2
+ WRX  offLo~sig1
+#debug_left bool offLo~sig1
+ LEAX offLo
+ CAL  fb_off_SvKoupelna1_L0
+#srcline 874 ;(* 184	*)	LD 	offLo.sOff0
+ LDX  offLo~sOff0
+#debug bool offLo.sOff0
+#srcline 875 ;(* 233	*)	ST 	sv_lo_1
+ WR   bool sv_lo_1
+#debug_left bool sv_lo_1
+#srcline 876 ;(* 184	*)	LD 	offLo.sOff1
+ LDX  offLo~sOff1
+#debug bool offLo.sOff1
+#srcline 877 ;(* 242	*)	ST 	sv_lo_2
+ WR   bool sv_lo_2
+#debug_left bool sv_lo_2
+#srcline 878 ;(*  59	*)	CAL	trigLo4(CLK:=tll_lo_ll)
+ LD   bool tll_lo_ll
+#debug bool tll_lo_ll
+ WRX  trigLo4~CLK
+#debug_left bool trigLo4~CLK
+ LEAX trigLo4
+ CAL  R_TRIG_L0
+#srcline 879 ;(*  59	*)	LD 	trigLo4.Q
+ LDX  trigLo4~Q
+#debug bool trigLo4.Q
+#srcline 880 ;(* 780	*)	ST	_Nod_Tmp_14
+ WRY  _Nod_Tmp_14
+#debug_left bool _Nod_Tmp_14
+#srcline 881 ;(* 257	*)	CAL	onLo(in:=_Nod_Tmp_14, sig0:=sv_lo_1, sig1:=sv_lo_2)
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
+ WRX  onLo~in
+#debug_left bool onLo~in
+ LD   bool sv_lo_1
+#debug bool sv_lo_1
+ WRX  onLo~sig0
+#debug_left bool onLo~sig0
+ LD   bool sv_lo_2
+#debug bool sv_lo_2
+ WRX  onLo~sig1
+#debug_left bool onLo~sig1
+ LEAX onLo
+ CAL  fb_on_SvKoupelna1_L0
+#srcline 882 ;(* 257	*)	LD 	onLo.sOff0
+ LDX  onLo~sOff0
+#debug bool onLo.sOff0
+#srcline 883 ;(* 306	*)	ST 	sv_lo_1
+ WR   bool sv_lo_1
+#debug_left bool sv_lo_1
+#srcline 884 ;(* 257	*)	LD 	onLo.sOff1
+ LDX  onLo~sOff1
+#debug bool onLo.sOff1
+#srcline 885 ;(* 315	*)	ST 	sv_lo_2
+ WR   bool sv_lo_2
+#debug_left bool sv_lo_2
+#srcline 886 ;(*   8	*)	CAL	trigLo1(CLK:=tls_lo_tl)
+ LD   bool tls_lo_tl
+#debug bool tls_lo_tl
+ WRX  trigLo1~CLK
+#debug_left bool trigLo1~CLK
+ LEAX trigLo1
+ CAL  R_TRIG_L0
+#srcline 887 ;(*   8	*)	LD 	trigLo1.Q
+ LDX  trigLo1~Q
+#debug bool trigLo1.Q
+#srcline 888 ;(* 457	*)	ST	_Nod_Tmp_13
+ WRY  _Nod_Tmp_13
+#debug_left bool _Nod_Tmp_13
+#srcline 889 ;(* 330	*)	LD 	sv_lo_1
+ LD   bool sv_lo_1
+#debug bool sv_lo_1
+#srcline 890 ;(* 466	*)	ST	_Nod_Tmp_12
+ WRY  _Nod_Tmp_12
+#debug_left bool _Nod_Tmp_12
+#srcline 891 ;(* 112	*)	LD 	_Nod_Tmp_13
+ LDY  _Nod_Tmp_13
+#debug bool _Nod_Tmp_13
+#srcline 892 ;(* 120	*)	XOR 	_Nod_Tmp_12
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+ XOR
+#srcline 893 ;(* 166	*)	ST 	sv_lo_1
+ WR   bool sv_lo_1
+#debug_left bool sv_lo_1
+#srcline 894 ;(* 475	*)	LD 	T#0.5s
+ LD   time 500
+#srcline 895 ;(* 572	*)	ST	_Nod_Tmp_10
+ WRY  _Nod_Tmp_10
+#debug_left time _Nod_Tmp_10
+#srcline 896 ;(* 417	*)	CAL	blik_loznice_1(InButton:=_Nod_Tmp_13, InLight:=_Nod_Tmp_12, InTimeOfBlic:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_13
+#debug bool _Nod_Tmp_13
+ WRX  blik_loznice_1~InButton
+#debug_left bool blik_loznice_1~InButton
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+ WRX  blik_loznice_1~InLight
+#debug_left bool blik_loznice_1~InLight
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  blik_loznice_1~InTimeOfBlic
+#debug_left time blik_loznice_1~InTimeOfBlic
+ LEAX blik_loznice_1
+ CAL  fb_LED_blik_L0
+#srcline 897 ;(* 737	*)	LD 	T#1s
+ LD   time 1000
+#srcline 898 ;(* 798	*)	ST	_Nod_Tmp_9
+ WRY  _Nod_Tmp_9
+#debug_left time _Nod_Tmp_9
+#srcline 899 ;(* 749	*)	CAL	tp_lo_2(IN:=_Nod_Tmp_14, PT:=_Nod_Tmp_9)
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
+ WRX  tp_lo_2~IN
+#debug_left bool tp_lo_2~IN
+ LDY  _Nod_Tmp_9
+#debug time _Nod_Tmp_9
+ WRX  tp_lo_2~PT
+#debug_left time tp_lo_2~PT
+ LEAX tp_lo_2
+ CAL  TP_L0
+#srcline 900 ;(* 749	*)	LD 	tp_lo_2.Q
+ LDX  tp_lo_2~Q
+#debug bool tp_lo_2.Q
+#srcline 901 ;(* 789	*)	ST	_Nod_Tmp_8
+ WRY  _Nod_Tmp_8
+#debug_left bool _Nod_Tmp_8
+#srcline 902 ;(* 585	*)	LD 	blik_loznice_1.OutLED_Green
+ LDX  blik_loznice_1~OutLED_Green
+#debug bool blik_loznice_1.OutLED_Green
+#srcline 903 ;(* 593	*)	OR 	_Nod_Tmp_8
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ OR
+#srcline 904 ;(* 478	*)	ST 	led_lo_lg
+ WR   bool led_lo_lg
+#debug_left bool led_lo_lg
+#srcline 905 ;(* 496	*)	CAL	blik_loznice_2(InButton:=_Nod_Tmp_18, InLight:=_Nod_Tmp_17, InTimeOfBlic:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
+ WRX  blik_loznice_2~InButton
+#debug_left bool blik_loznice_2~InButton
+ LDY  _Nod_Tmp_17
+#debug bool _Nod_Tmp_17
+ WRX  blik_loznice_2~InLight
+#debug_left bool blik_loznice_2~InLight
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  blik_loznice_2~InTimeOfBlic
+#debug_left time blik_loznice_2~InTimeOfBlic
+ LEAX blik_loznice_2
+ CAL  fb_LED_blik_L0
+#srcline 906 ;(* 643	*)	LD 	blik_loznice_2.OutLED_Green
+ LDX  blik_loznice_2~OutLED_Green
+#debug bool blik_loznice_2.OutLED_Green
+#srcline 907 ;(* 651	*)	OR 	_Nod_Tmp_8
+ LDY  _Nod_Tmp_8
+#debug bool _Nod_Tmp_8
+ OR
+#srcline 908 ;(* 554	*)	ST 	led_lo_rg
+ WR   bool led_lo_rg
+#debug_left bool led_lo_rg
+#srcline 909 ;(* 697	*)	CAL	tp_lo_1(IN:=_Nod_Tmp_15, PT:=_Nod_Tmp_9)
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
+ WRX  tp_lo_1~IN
+#debug_left bool tp_lo_1~IN
+ LDY  _Nod_Tmp_9
+#debug time _Nod_Tmp_9
+ WRX  tp_lo_1~PT
+#debug_left time tp_lo_1~PT
+ LEAX tp_lo_1
+ CAL  TP_L0
+#srcline 910 ;(* 697	*)	LD 	tp_lo_1.ET
+ LDX  tp_lo_1~ET
+#debug time tp_lo_1.ET
+#srcline 911 ;(* 740	*)	ST	_Nod_Tmp_5
+ WRY  _Nod_Tmp_5
+#debug_left time _Nod_Tmp_5
+#srcline 912 ;(* 614	*)	LD 	blik_loznice_1.OutLED_Red
+ LDX  blik_loznice_1~OutLED_Red
+#debug bool blik_loznice_1.OutLED_Red
+#srcline 913 ;(* 622	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 914 ;(* 487	*)	ST 	led_lo_lr
+ WR   bool led_lo_lr
+#debug_left bool led_lo_lr
+#srcline 915 ;(* 672	*)	LD 	blik_loznice_2.OutLED_Red
+ LDX  blik_loznice_2~OutLED_Red
+#debug bool blik_loznice_2.OutLED_Red
+#srcline 916 ;(* 680	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 917 ;(* 563	*)	ST 	led_lo_rr
+ WR   bool led_lo_rr
+#debug_left bool led_lo_rr
+#srcline 918 ;//N001
+#srcline 919 ;(* 105	*)	LD 	tll_lo_lr
+ LD   bool tll_lo_lr
+#debug bool tll_lo_lr
+#srcline 920 ;(* 408	*)	ST	_Nod_Tmp_2
+ WRY  _Nod_Tmp_2
+#debug_left bool _Nod_Tmp_2
+#srcline 921 ;(* 336	*)	CAL	tonLo1(IN:=_Nod_Tmp_2, PT:=T#1s)
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+ WRX  tonLo1~IN
+#debug_left bool tonLo1~IN
+ LD   time 1000
+ WRX  tonLo1~PT
+#debug_left time tonLo1~PT
+ LEAX tonLo1
+ CAL  TON_L0
+#srcline 922 ;(* 336	*)	LD 	tonLo1.ET
+ LDX  tonLo1~ET
+#debug time tonLo1.ET
+#srcline 923 ;(* 370	*)	ST 	pomTonLo
+ WRX  pomTonLo
+#debug_left time pomTonLo
+#srcline 924 ;(* 383	*)	LD 	_Nod_Tmp_2
+ LDY  _Nod_Tmp_2
+#debug bool _Nod_Tmp_2
+#srcline 925 ;(* 391	*)	AND 	tonLo1.Q
+ LDX  tonLo1~Q
+#debug bool tonLo1.Q
+ AND
+#srcline 926 ;(*  76	*)	ST 	trigLo5.CLK
+ WRX  trigLo5~CLK
+#debug_left bool trigLo5.CLK
+#srcline 927 ;(*  76	*)	CAL	trigLo5()
+ LEAX trigLo5
+ CAL  R_TRIG_L0
+#srcline 928 ;(*  76	*)	LD 	trigLo5.Q
+ LDX  trigLo5~Q
+#debug bool trigLo5.Q
+#srcline 929 ;(* 807	*)	ST 	sig_tl_loznice
+ WR   sig_tl_loznice
+#debug_left bool sig_tl_loznice
+#srcline 931 ;END_PROGRAM
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

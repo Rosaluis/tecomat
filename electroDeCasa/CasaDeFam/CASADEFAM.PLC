@@ -3,7 +3,7 @@ Version="xPRO","4.3.00"
 [/project]
 
 [compiler]
-options=181
+options=53
 remzs=1
 dirs=""
 [/compiler]
@@ -59,7 +59,7 @@ slTRportnum=61682
 
 [plcwusb]
 type=17
-genrst=1
+genrst=2
 askrst=1
 genrunp=1
 genhltp=9

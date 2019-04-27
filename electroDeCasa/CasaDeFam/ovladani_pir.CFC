@@ -158,7 +158,7 @@ pro nastaveni aktualniho casu a datumu:
     <position x="11" y="14" />
   </connection>
 </node>
-<inVariable name="T#17h" type="TIME" id="13">
+<inVariable name="T#21h" type="TIME" id="13">
   <position x="4" y="22" />
 </inVariable>
 <block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="14" height="4" width="4" line="19" order="7">
@@ -460,7 +460,7 @@ pro nastaveni aktualniho casu a datumu:
     </variable>
   </outVariables>
 </block>
-<inVariable name="T#8h" type="TIME" id="32">
+<inVariable name="T#6h" type="TIME" id="32">
   <position x="4" y="27" />
 </inVariable>
 <block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="33" height="4" width="3" line="13" order="5">
@@ -1174,10 +1174,10 @@ pro nastaveni aktualniho casu a datumu:
     <position x="28" y="54" />
   </connection>
 </node>
-<inVariable name="T#16h" type="TIME" id="71">
+<inVariable name="T#22h" type="TIME" id="71">
   <position x="5" y="82" />
 </inVariable>
-<inVariable name="T#8h" type="TIME" id="72">
+<inVariable name="T#6h" type="TIME" id="72">
   <position x="5" y="88" />
 </inVariable>
 <block name="GT" instance="" function="true" hiddenPins="true" operator="true" id="73" height="4" width="3" line="44" order="18">
@@ -1265,10 +1265,10 @@ pro nastaveni aktualniho casu a datumu:
     </variable>
   </outVariables>
 </block>
-<inVariable name="T#20h" type="TIME" id="76">
+<inVariable name="T#22h" type="TIME" id="76">
   <position x="4" y="50" />
 </inVariable>
-<inVariable name="T#7h" type="TIME" id="77">
+<inVariable name="T#6h" type="TIME" id="77">
   <position x="4" y="55" />
 </inVariable>
 <node id="78">
@@ -1330,10 +1330,10 @@ END_VAR
 (* 120	*)	ST	_Nod_Tmp_13
 (*  39	*)	ST 	act_time
 (*  96	*)	LD 	_Nod_Tmp_13
-(* 104	*)	GT 	T#17h
+(* 104	*)	GT 	T#21h
 (* 438	*)	ST 	_Fun_Tmp_IN1_33_1
 (* 407	*)	LD 	_Nod_Tmp_13
-(* 415	*)	LT 	T#8h
+(* 415	*)	LT 	T#6h
 (* 446	*)	ST 	_Fun_Tmp_IN2_33_2
 (* 438	*)	LD 	_Fun_Tmp_IN1_33_1
 (* 446	*)	OR 	_Fun_Tmp_IN2_33_2
@@ -1367,10 +1367,10 @@ END_VAR
 (* 492	*)	OR 	timeSvChodba2np2.Q
 (* 161	*)	ST 	sv_chodba_2np_zed
 (*1155	*)	LD 	_Nod_Tmp_13
-(*1163	*)	GT 	T#20h
+(*1163	*)	GT 	T#22h
 (*1211	*)	ST 	_Fun_Tmp_IN1_22_1
 (*1183	*)	LD 	_Nod_Tmp_13
-(*1191	*)	LT 	T#7h
+(*1191	*)	LT 	T#6h
 (*1219	*)	ST 	_Fun_Tmp_IN2_22_2
 (*1211	*)	LD 	_Fun_Tmp_IN1_22_1
 (*1219	*)	OR 	_Fun_Tmp_IN2_22_2
@@ -1400,10 +1400,10 @@ END_VAR
 (* 628	*)	OR 	_Nod_Tmp_16
 (* 265	*)	ST 	sv_chodba_1NP_sedy
 (*1046	*)	LD 	_Nod_Tmp_13
-(*1054	*)	GT 	T#16h
+(*1054	*)	GT 	T#22h
 (*1102	*)	ST 	_Fun_Tmp_IN1_10_1
 (*1074	*)	LD 	_Nod_Tmp_13
-(*1082	*)	LT 	T#8h
+(*1082	*)	LT 	T#6h
 (*1110	*)	ST 	_Fun_Tmp_IN2_10_2
 (*1102	*)	LD 	_Fun_Tmp_IN1_10_1
 (*1110	*)	OR 	_Fun_Tmp_IN2_10_2

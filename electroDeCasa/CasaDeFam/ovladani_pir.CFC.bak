@@ -191,9 +191,9 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <outVariable name="sv_chodba_2np_zed" type="BOOL" id="15" order="17">
-  <position x="163" y="30" />
+  <position x="167" y="30" />
   <connection refid="35" name="OR">
-    <position x="164" y="31" />
+    <position x="168" y="31" />
     <position x="160" y="31" />
     <position x="160" y="31" />
     <position x="158" y="31" />
@@ -295,9 +295,9 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <outVariable name="sv_chodba_1NP_sedy" type="BOOL" id="22" order="30">
-  <position x="165" y="54" />
+  <position x="167" y="54" />
   <connection refid="39" name="OR">
-    <position x="166" y="55" />
+    <position x="168" y="55" />
     <position x="164" y="55" />
     <position x="164" y="55" />
     <position x="161" y="55" />
@@ -338,14 +338,14 @@ pro nastaveni aktualniho casu a datumu:
   <position x="73" y="56" />
 </inVariable>
 <block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="25" height="2" width="4" line="86" order="34">
-  <position x="84" y="96" />
+  <position x="80" y="84" />
   <inVariables>
     <variable name="" type="ANY_BIT">
       <connection refid="30">
-        <position x="84" y="97" />
-        <position x="80" y="97" />
-        <position x="80" y="97" />
-        <position x="75" y="97" />
+        <position x="80" y="85" />
+        <position x="76" y="85" />
+        <position x="76" y="85" />
+        <position x="71" y="85" />
       </connection>
     </variable>
   </inVariables>
@@ -358,22 +358,22 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="26" height="4" width="4" line="89" order="35">
-  <position x="91" y="94" />
+  <position x="87" y="82" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
       <connection refid="68" name="OR">
-        <position x="91" y="95" />
-        <position x="68" y="95" />
-        <position x="68" y="95" />
-        <position x="45" y="95" />
+        <position x="87" y="83" />
+        <position x="68" y="83" />
+        <position x="68" y="83" />
+        <position x="45" y="83" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
       <connection refid="25" name="NOT">
-        <position x="91" y="97" />
-        <position x="89" y="97" />
-        <position x="89" y="97" />
-        <position x="88" y="97" />
+        <position x="87" y="85" />
+        <position x="85" y="85" />
+        <position x="85" y="85" />
+        <position x="84" y="85" />
       </connection>
     </variable>
   </inVariables>
@@ -387,32 +387,32 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <outVariable name="sv_predsin_stena" type="BOOL" id="27" order="43">
-  <position x="168" y="97" />
+  <position x="170" y="85" />
   <connection refid="37" name="OR">
-    <position x="169" y="98" />
-    <position x="167" y="98" />
-    <position x="167" y="98" />
-    <position x="165" y="98" />
+    <position x="171" y="86" />
+    <position x="163" y="86" />
+    <position x="163" y="86" />
+    <position x="161" y="86" />
   </connection>
 </outVariable>
 <block name="TP" instance="timePredsin" id="28" height="6" width="6" line="96" order="37">
-  <position x="125" y="95" />
+  <position x="121" y="83" />
   <inVariables>
     <variable name="IN" type="BOOL">
       <connection refid="62">
-        <position x="125" y="98" />
-        <position x="120" y="98" />
-        <position x="120" y="98" />
-        <position x="116" y="98" />
+        <position x="121" y="86" />
+        <position x="116" y="86" />
+        <position x="116" y="86" />
+        <position x="112" y="86" />
       </connection>
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
       <connection refid="50">
-        <position x="125" y="100" />
-        <position x="102" y="100" />
-        <position x="102" y="100" />
-        <position x="93" y="100" />
+        <position x="121" y="88" />
+        <position x="98" y="88" />
+        <position x="98" y="88" />
+        <position x="89" y="88" />
       </connection>
     <comment>pøedvolba èasovaèe</comment>
     </variable>
@@ -427,10 +427,10 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <inVariable name="T#1m" type="TIME" id="29">
-  <position x="77" y="99" />
+  <position x="73" y="87" />
 </inVariable>
 <inVariable name="pir_predsin" type="BOOL" id="30">
-  <position x="66" y="96" />
+  <position x="62" y="84" />
 </inVariable>
 <block name="LT" instance="" function="true" hiddenPins="true" operator="true" id="31" height="4" width="3" line="10" order="4">
   <position x="31" y="25" />
@@ -539,23 +539,23 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="TP" instance="timePredsin2" id="36" height="6" width="6" line="104" order="41">
-  <position x="146" y="107" />
+  <position x="142" y="95" />
   <inVariables>
     <variable name="IN" type="BOOL">
       <connection refid="61" name="AND">
-        <position x="146" y="110" />
-        <position x="137" y="110" />
-        <position x="137" y="108" />
-        <position x="135" y="108" />
+        <position x="142" y="98" />
+        <position x="133" y="98" />
+        <position x="133" y="96" />
+        <position x="131" y="96" />
       </connection>
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
       <connection refid="50">
-        <position x="146" y="112" />
-        <position x="93" y="112" />
-        <position x="93" y="100" />
-        <position x="93" y="100" />
+        <position x="142" y="100" />
+        <position x="89" y="100" />
+        <position x="89" y="88" />
+        <position x="89" y="88" />
       </connection>
     <comment>pøedvolba èasovaèe</comment>
     </variable>
@@ -570,30 +570,30 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="37" height="6" width="3" line="107" order="42">
-  <position x="162" y="97" />
+  <position x="158" y="85" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
       <connection refid="28" name="Q">
-        <position x="162" y="98" />
-        <position x="132" y="98" />
-        <position x="132" y="98" />
-        <position x="131" y="98" />
+        <position x="158" y="86" />
+        <position x="128" y="86" />
+        <position x="128" y="86" />
+        <position x="127" y="86" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
       <connection refid="36" name="Q">
-        <position x="162" y="100" />
-        <position x="153" y="100" />
-        <position x="153" y="110" />
-        <position x="152" y="110" />
+        <position x="158" y="88" />
+        <position x="149" y="88" />
+        <position x="149" y="98" />
+        <position x="148" y="98" />
       </connection>
     </variable>
     <variable name="IN3" type="ANY_BIT">
       <connection refid="51">
-        <position x="162" y="102" />
-        <position x="130" y="102" />
-        <position x="130" y="102" />
-        <position x="100" y="102" />
+        <position x="158" y="90" />
+        <position x="126" y="90" />
+        <position x="126" y="90" />
+        <position x="96" y="90" />
       </connection>
     </variable>
   </inVariables>
@@ -776,14 +776,14 @@ pro nastaveni aktualniho casu a datumu:
   </connection>
 </outVariable>
 <block name="R_TRIG" instance="rtrig_pirPredsin" id="47" height="4" width="6" line="91" order="36">
-  <position x="103" y="92" />
+  <position x="99" y="80" />
   <inVariables>
     <variable name="CLK" type="BOOL">
       <connection refid="49">
-        <position x="103" y="95" />
-        <position x="101" y="95" />
-        <position x="101" y="95" />
-        <position x="100" y="95" />
+        <position x="99" y="83" />
+        <position x="97" y="83" />
+        <position x="97" y="83" />
+        <position x="96" y="83" />
       </connection>
     </variable>
   </inVariables>
@@ -793,14 +793,14 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="F_TRIG" instance="ftrig_pirPredsin" id="48" height="4" width="6" line="100" order="39">
-  <position x="103" y="107" />
+  <position x="99" y="95" />
   <inVariables>
     <variable name="CLK" type="BOOL">
       <connection refid="51">
-        <position x="103" y="110" />
-        <position x="100" y="110" />
-        <position x="100" y="102" />
-        <position x="100" y="102" />
+        <position x="99" y="98" />
+        <position x="96" y="98" />
+        <position x="96" y="90" />
+        <position x="96" y="90" />
       </connection>
     </variable>
   </inVariables>
@@ -810,30 +810,30 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <node id="49">
-  <position x="100" y="95" />
+  <position x="96" y="83" />
   <connection refid="26" name="AND">
-    <position x="100" y="95" />
-    <position x="99" y="95" />
-    <position x="99" y="95" />
-    <position x="95" y="95" />
+    <position x="96" y="83" />
+    <position x="95" y="83" />
+    <position x="95" y="83" />
+    <position x="91" y="83" />
   </connection>
 </node>
 <node id="50">
-  <position x="93" y="100" />
+  <position x="89" y="88" />
   <connection refid="29">
-    <position x="93" y="100" />
-    <position x="87" y="100" />
-    <position x="87" y="100" />
-    <position x="83" y="100" />
+    <position x="89" y="88" />
+    <position x="83" y="88" />
+    <position x="83" y="88" />
+    <position x="79" y="88" />
   </connection>
 </node>
 <node id="51">
-  <position x="100" y="102" />
+  <position x="96" y="90" />
   <connection refid="49">
-    <position x="100" y="102" />
-    <position x="100" y="102" />
-    <position x="100" y="95" />
-    <position x="100" y="95" />
+    <position x="96" y="90" />
+    <position x="96" y="90" />
+    <position x="96" y="83" />
+    <position x="96" y="83" />
   </connection>
 </node>
 <block name="R_TRIG" instance="rtrig_pisChodba1np" id="52" height="4" width="6" line="58" order="23">
@@ -956,14 +956,14 @@ pro nastaveni aktualniho casu a datumu:
   </connection>
 </node>
 <block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="60" height="2" width="4" line="98" order="38">
-  <position x="121" y="107" />
+  <position x="117" y="95" />
   <inVariables>
     <variable name="" type="ANY_BIT">
       <connection refid="62">
-        <position x="121" y="108" />
-        <position x="116" y="108" />
-        <position x="116" y="98" />
-        <position x="116" y="98" />
+        <position x="117" y="96" />
+        <position x="112" y="96" />
+        <position x="112" y="86" />
+        <position x="112" y="86" />
       </connection>
     </variable>
   </inVariables>
@@ -976,22 +976,22 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="61" height="4" width="4" line="102" order="40">
-  <position x="131" y="107" />
+  <position x="127" y="95" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
       <connection refid="60" name="NOT">
-        <position x="131" y="108" />
-        <position x="126" y="108" />
-        <position x="126" y="108" />
-        <position x="125" y="108" />
+        <position x="127" y="96" />
+        <position x="122" y="96" />
+        <position x="122" y="96" />
+        <position x="121" y="96" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
       <connection refid="48" name="Q">
-        <position x="131" y="110" />
-        <position x="118" y="110" />
-        <position x="118" y="110" />
-        <position x="109" y="110" />
+        <position x="127" y="98" />
+        <position x="114" y="98" />
+        <position x="114" y="98" />
+        <position x="105" y="98" />
       </connection>
     </variable>
   </inVariables>
@@ -1005,12 +1005,12 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <node id="62">
-  <position x="116" y="98" />
+  <position x="112" y="86" />
   <connection refid="47" name="Q">
-    <position x="116" y="98" />
-    <position x="116" y="98" />
-    <position x="116" y="95" />
-    <position x="109" y="95" />
+    <position x="112" y="86" />
+    <position x="112" y="86" />
+    <position x="112" y="83" />
+    <position x="105" y="83" />
   </connection>
 </node>
 <block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="63" height="4" width="4" line="69" order="27">
@@ -1072,22 +1072,22 @@ pro nastaveni aktualniho casu a datumu:
   </connection>
 </node>
 <block name="GT" instance="" function="true" hiddenPins="true" operator="true" id="66" height="4" width="3" line="77" order="31">
-  <position x="33" y="92" />
+  <position x="33" y="80" />
   <inVariables>
     <variable name="IN1" type="ANY">
       <connection refid="70">
-        <position x="33" y="93" />
-        <position x="30" y="93" />
-        <position x="30" y="93" />
-        <position x="28" y="93" />
+        <position x="33" y="81" />
+        <position x="30" y="81" />
+        <position x="30" y="81" />
+        <position x="28" y="81" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY">
       <connection refid="71">
-        <position x="33" y="95" />
-        <position x="24" y="95" />
-        <position x="24" y="95" />
-        <position x="11" y="95" />
+        <position x="33" y="83" />
+        <position x="24" y="83" />
+        <position x="24" y="83" />
+        <position x="11" y="83" />
       </connection>
     </variable>
   </inVariables>
@@ -1100,22 +1100,22 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="LT" instance="" function="true" hiddenPins="true" operator="true" id="67" height="4" width="3" line="80" order="32">
-  <position x="33" y="98" />
+  <position x="33" y="86" />
   <inVariables>
     <variable name="IN1" type="ANY">
       <connection refid="70">
-        <position x="33" y="99" />
-        <position x="28" y="99" />
-        <position x="28" y="93" />
-        <position x="28" y="93" />
+        <position x="33" y="87" />
+        <position x="28" y="87" />
+        <position x="28" y="81" />
+        <position x="28" y="81" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY">
       <connection refid="72">
-        <position x="33" y="101" />
-        <position x="24" y="101" />
-        <position x="24" y="101" />
-        <position x="10" y="101" />
+        <position x="33" y="89" />
+        <position x="24" y="89" />
+        <position x="24" y="89" />
+        <position x="10" y="89" />
       </connection>
     </variable>
   </inVariables>
@@ -1128,22 +1128,22 @@ pro nastaveni aktualniho casu a datumu:
   </outVariables>
 </block>
 <block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="68" height="4" width="3" line="83" order="33">
-  <position x="42" y="94" />
+  <position x="42" y="82" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
       <connection refid="66" name="GT">
-        <position x="42" y="95" />
-        <position x="38" y="95" />
-        <position x="38" y="93" />
-        <position x="36" y="93" />
+        <position x="42" y="83" />
+        <position x="38" y="83" />
+        <position x="38" y="81" />
+        <position x="36" y="81" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
       <connection refid="67" name="LT">
-        <position x="42" y="97" />
-        <position x="38" y="97" />
-        <position x="38" y="99" />
-        <position x="36" y="99" />
+        <position x="42" y="85" />
+        <position x="38" y="85" />
+        <position x="38" y="87" />
+        <position x="36" y="87" />
       </connection>
     </variable>
   </inVariables>
@@ -1166,19 +1166,19 @@ pro nastaveni aktualniho casu a datumu:
   </connection>
 </node>
 <node id="70">
-  <position x="28" y="93" />
+  <position x="28" y="81" />
   <connection refid="79">
-    <position x="28" y="93" />
-    <position x="28" y="93" />
+    <position x="28" y="81" />
+    <position x="28" y="81" />
     <position x="28" y="54" />
     <position x="28" y="54" />
   </connection>
 </node>
 <inVariable name="T#16h" type="TIME" id="71">
-  <position x="5" y="94" />
+  <position x="5" y="82" />
 </inVariable>
 <inVariable name="T#8h" type="TIME" id="72">
-  <position x="5" y="100" />
+  <position x="5" y="88" />
 </inVariable>
 <block name="GT" instance="" function="true" hiddenPins="true" operator="true" id="73" height="4" width="3" line="44" order="18">
   <position x="32" y="48" />

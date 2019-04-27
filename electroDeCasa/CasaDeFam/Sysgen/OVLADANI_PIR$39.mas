@@ -67,8 +67,8 @@ ovladani_pir_L0:
 #srcline 1332 ;(*  96	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1333 ;(* 104	*)	GT 	T#17h
- LD   time 61200000
+#srcline 1333 ;(* 104	*)	GT 	T#21h
+ LD   time 75600000
  GTS
 #srcline 1334 ;(* 438	*)	ST 	_Fun_Tmp_IN1_33_1
  WRY  _Fun_Tmp_IN1_33_1
@@ -76,8 +76,8 @@ ovladani_pir_L0:
 #srcline 1335 ;(* 407	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1336 ;(* 415	*)	LT 	T#8h
- LD   time 28800000
+#srcline 1336 ;(* 415	*)	LT 	T#6h
+ LD   time 21600000
  LTS
 #srcline 1337 ;(* 446	*)	ST 	_Fun_Tmp_IN2_33_2
  WRY  _Fun_Tmp_IN2_33_2
@@ -200,8 +200,8 @@ ovladani_pir_L0:
 #srcline 1369 ;(*1155	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1370 ;(*1163	*)	GT 	T#20h
- LD   time 72000000
+#srcline 1370 ;(*1163	*)	GT 	T#22h
+ LD   time 79200000
  GTS
 #srcline 1371 ;(*1211	*)	ST 	_Fun_Tmp_IN1_22_1
  WRY  _Fun_Tmp_IN1_22_1
@@ -209,8 +209,8 @@ ovladani_pir_L0:
 #srcline 1372 ;(*1183	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1373 ;(*1191	*)	LT 	T#7h
- LD   time 25200000
+#srcline 1373 ;(*1191	*)	LT 	T#6h
+ LD   time 21600000
  LTS
 #srcline 1374 ;(*1219	*)	ST 	_Fun_Tmp_IN2_22_2
  WRY  _Fun_Tmp_IN2_22_2
@@ -321,8 +321,8 @@ ovladani_pir_L0:
 #srcline 1402 ;(*1046	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1403 ;(*1054	*)	GT 	T#16h
- LD   time 57600000
+#srcline 1403 ;(*1054	*)	GT 	T#22h
+ LD   time 79200000
  GTS
 #srcline 1404 ;(*1102	*)	ST 	_Fun_Tmp_IN1_10_1
  WRY  _Fun_Tmp_IN1_10_1
@@ -330,8 +330,8 @@ ovladani_pir_L0:
 #srcline 1405 ;(*1074	*)	LD 	_Nod_Tmp_13
  LDY  _Nod_Tmp_13
 #debug time _Nod_Tmp_13
-#srcline 1406 ;(*1082	*)	LT 	T#8h
- LD   time 28800000
+#srcline 1406 ;(*1082	*)	LT 	T#6h
+ LD   time 21600000
  LTS
 #srcline 1407 ;(*1110	*)	ST 	_Fun_Tmp_IN2_10_2
  WRY  _Fun_Tmp_IN2_10_2

@@ -13,5 +13,6 @@ CONFIGURATION CasaDeFam
     PROGRAM venkovni WITH FreeWheeling : ovladani_venkovni ();
     PROGRAM pirka WITH FreeWheeling : ovladani_pir ();
     PROGRAM central_button WITH FreeWheeling : centralni_tlacitko ();
+    PROGRAM signalizace WITH FreeWheeling : signalizace_LED ();
   END_RESOURCE
 END_CONFIGURATION

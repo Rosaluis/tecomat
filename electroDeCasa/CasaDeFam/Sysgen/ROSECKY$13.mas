@@ -75,6 +75,10 @@
   bool sOff1,  ;vystup 1
   bool sOff2  ;vystup 2
 
+
+#defpou boFALSE
+  bool out
+
  
 #srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\ROSECKY.ST'
 #pou fb_off_SvKoupelna1
@@ -479,15 +483,15 @@ E     61
 #endpou 
 
 #pou fb_on_SvKoupelna1
-#srcline 173 ;FUNCTION_BLOCK fb_on_SvKoupelna1
+#srcline 174 ;FUNCTION_BLOCK fb_on_SvKoupelna1
 P     61
 fb_on_SvKoupelna1_L0:
  LINK 0
-#srcline 190 ;  IF in THEN
+#srcline 191 ;  IF in THEN
  LDX  in
 #debug bool in
  JMC  fb_on_SvKoupelna1_L1
-#srcline 191 ;     IF sig0 THEN sOff0 := TRUE; ELSE sOff0 := TRUE; END_IF;
+#srcline 192 ;     IF sig0 THEN sOff0 := TRUE; ELSE sOff0 := TRUE; END_IF;
  LDX  sig0
 #debug bool sig0
  JMC  fb_on_SvKoupelna1_L3
@@ -500,7 +504,7 @@ fb_on_SvKoupelna1_L3:
  WRX  sOff0
 #debug_left bool sOff0
 fb_on_SvKoupelna1_L4:
-#srcline 192 ;     IF sig1 THEN sOff1 := TRUE; ELSE sOff1 := TRUE; END_IF;
+#srcline 193 ;     IF sig1 THEN sOff1 := TRUE; ELSE sOff1 := TRUE; END_IF;
  LDX  sig1
 #debug bool sig1
  JMC  fb_on_SvKoupelna1_L5
@@ -513,7 +517,7 @@ fb_on_SvKoupelna1_L5:
  WRX  sOff1
 #debug_left bool sOff1
 fb_on_SvKoupelna1_L6:
-#srcline 193 ;     IF sig2 THEN sOff2 := TRUE; ELSE sOff2 := TRUE; END_IF;
+#srcline 194 ;     IF sig2 THEN sOff2 := TRUE; ELSE sOff2 := TRUE; END_IF;
  LDX  sig2
 #debug bool sig2
  JMC  fb_on_SvKoupelna1_L7
@@ -526,32 +530,47 @@ fb_on_SvKoupelna1_L7:
  WRX  sOff2
 #debug_left bool sOff2
 fb_on_SvKoupelna1_L8:
-#srcline 194 ;  ELSE
+#srcline 195 ;  ELSE
  JMP  fb_on_SvKoupelna1_L2
 fb_on_SvKoupelna1_L1:
-#srcline 195 ;      sOff0 := sig0;
+#srcline 196 ;      sOff0 := sig0;
  LDX  sig0
 #debug bool sig0
  WRX  sOff0
 #debug_left bool sOff0
-#srcline 196 ;      sOff1 := sig1;
+#srcline 197 ;      sOff1 := sig1;
  LDX  sig1
 #debug bool sig1
  WRX  sOff1
 #debug_left bool sOff1
-#srcline 197 ;      sOff2 := sig2;
+#srcline 198 ;      sOff2 := sig2;
  LDX  sig2
 #debug bool sig2
  WRX  sOff2
 #debug_left bool sOff2
-#srcline 198 ;  END_IF;
+#srcline 199 ;  END_IF;
 fb_on_SvKoupelna1_L2:
-#srcline 199 ;  out := in;
+#srcline 200 ;  out := in;
  LDX  in
 #debug bool in
  WRX  out
 #debug_left bool out
-#srcline 200 ;END_FUNCTION_BLOCK
+#srcline 201 ;END_FUNCTION_BLOCK
+ ULNK
+RET
+E     61
+#endpou 
+
+#pou boFALSE
+#srcline 204 ;FUNCTION_BLOCK boFALSE
+P     61
+boFALSE_L0:
+ LINK 0
+#srcline 212 ;  out := FALSE;
+ LD   bool 0       ; false
+ WRX  out
+#debug_left bool out
+#srcline 213 ;END_FUNCTION_BLOCK
  ULNK
 RET
 E     61

@@ -79,7 +79,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
   <position x="36" y="28" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="45">
+      <connection refid="44">
         <position x="36" y="29" />
         <position x="35" y="29" />
         <position x="35" y="29" />
@@ -87,7 +87,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="46">
+      <connection refid="45">
         <position x="36" y="31" />
         <position x="33" y="31" />
         <position x="33" y="31" />
@@ -111,7 +111,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
   <position x="36" y="13" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="40">
+      <connection refid="39">
         <position x="36" y="14" />
         <position x="35" y="14" />
         <position x="35" y="14" />
@@ -119,7 +119,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="41">
+      <connection refid="40">
         <position x="36" y="16" />
         <position x="33" y="16" />
         <position x="33" y="16" />
@@ -151,7 +151,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="52">
+      <connection refid="51">
         <position x="36" y="45" />
         <position x="33" y="45" />
         <position x="33" y="45" />
@@ -243,7 +243,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
   <position x="32" y="55" />
   <inVariables>
     <variable name="in" type="BOOL">
-      <connection refid="56">
+      <connection refid="55">
         <position x="32" y="58" />
         <position x="31" y="58" />
         <position x="31" y="58" />
@@ -364,7 +364,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
   <position x="32" y="72" />
   <inVariables>
     <variable name="in" type="BOOL">
-      <connection refid="60">
+      <connection refid="59">
         <position x="32" y="75" />
         <position x="31" y="75" />
         <position x="31" y="75" />
@@ -441,7 +441,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<block name="fb_LED_blik" instance="blik_ko1_1" id="35" height="8" width="19" line="65" order="28">
+<block name="fb_LED_blik" instance="blik_ko1_1" id="35" height="8" width="19" line="59" order="25">
   <position x="77" y="44" />
   <inVariables>
     <variable name="InButton" type="BOOL">
@@ -454,7 +454,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>signal od tlacitka</comment>
     </variable>
     <variable name="InLight" type="BOOL">
-      <connection refid="52">
+      <connection refid="51">
         <position x="77" y="49" />
         <position x="31" y="49" />
         <position x="31" y="45" />
@@ -463,7 +463,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>stav svetla ktere tlacitko ovlada</comment>
     </variable>
     <variable name="InTimeOfBlic" type="TIME">
-      <connection refid="49">
+      <connection refid="48">
         <position x="77" y="51" />
         <position x="74" y="51" />
         <position x="74" y="37" />
@@ -490,29 +490,20 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="28" y="43" />
   </connection>
 </node>
-<outVariable name="led_k1_lg" type="BOOL" id="37" order="30">
-  <position x="111" y="32" />
+<outVariable name="k1_led_k1_lr" type="BOOL" id="37" order="32">
+  <position x="112" y="46" />
   <connection refid="50" name="OR">
-    <position x="112" y="33" />
-    <position x="111" y="33" />
-    <position x="111" y="33" />
-    <position x="109" y="33" />
-  </connection>
-</outVariable>
-<outVariable name="led_k1_lr" type="BOOL" id="38" order="32">
-  <position x="111" y="46" />
-  <connection refid="51" name="OR">
-    <position x="112" y="47" />
+    <position x="113" y="47" />
     <position x="111" y="47" />
     <position x="111" y="47" />
     <position x="109" y="47" />
   </connection>
 </outVariable>
-<block name="fb_LED_blik" instance="blik_ko1_2" id="39" height="8" width="19" line="49" order="20">
+<block name="fb_LED_blik" instance="blik_ko1_2" id="38" height="8" width="19" line="49" order="20">
   <position x="77" y="17" />
   <inVariables>
     <variable name="InButton" type="BOOL">
-      <connection refid="40">
+      <connection refid="39">
         <position x="77" y="20" />
         <position x="34" y="20" />
         <position x="34" y="14" />
@@ -521,7 +512,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>signal od tlacitka</comment>
     </variable>
     <variable name="InLight" type="BOOL">
-      <connection refid="41">
+      <connection refid="40">
         <position x="77" y="22" />
         <position x="31" y="22" />
         <position x="31" y="16" />
@@ -530,7 +521,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>stav svetla ktere tlacitko ovlada</comment>
     </variable>
     <variable name="InTimeOfBlic" type="TIME">
-      <connection refid="48">
+      <connection refid="47">
         <position x="77" y="24" />
         <position x="75" y="24" />
         <position x="75" y="24" />
@@ -548,7 +539,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<node id="40">
+<node id="39">
   <position x="34" y="14" />
   <connection refid="16" name="Q">
     <position x="34" y="14" />
@@ -557,7 +548,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="28" y="14" />
   </connection>
 </node>
-<node id="41">
+<node id="40">
   <position x="31" y="16" />
   <connection refid="12">
     <position x="31" y="16" />
@@ -566,29 +557,29 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="18" y="16" />
   </connection>
 </node>
-<outVariable name="led_k1_rg" type="BOOL" id="42" order="23">
+<outVariable name="k1_led_k1_rg" type="BOOL" id="41" order="23">
   <position x="111" y="16" />
-  <connection refid="53" name="OR">
+  <connection refid="52" name="OR">
     <position x="112" y="17" />
     <position x="110" y="17" />
     <position x="110" y="17" />
     <position x="109" y="17" />
   </connection>
 </outVariable>
-<outVariable name="led_k1_rr" type="BOOL" id="43" order="26">
-  <position x="111" y="21" />
-  <connection refid="54" name="OR">
-    <position x="112" y="22" />
+<outVariable name="k1_led_k1_rr" type="BOOL" id="42" order="30">
+  <position x="112" y="21" />
+  <connection refid="53" name="OR">
+    <position x="113" y="22" />
     <position x="110" y="22" />
     <position x="110" y="22" />
     <position x="109" y="22" />
   </connection>
 </outVariable>
-<block name="fb_LED_blik" instance="blik_ko1_3" id="44" height="8" width="19" line="64" order="27">
+<block name="fb_LED_blik" instance="blik_ko1_3" id="43" height="8" width="19" line="58" order="24">
   <position x="77" y="30" />
   <inVariables>
     <variable name="InButton" type="BOOL">
-      <connection refid="45">
+      <connection refid="44">
         <position x="77" y="33" />
         <position x="34" y="33" />
         <position x="34" y="29" />
@@ -597,7 +588,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>signal od tlacitka</comment>
     </variable>
     <variable name="InLight" type="BOOL">
-      <connection refid="46">
+      <connection refid="45">
         <position x="77" y="35" />
         <position x="31" y="35" />
         <position x="31" y="31" />
@@ -606,7 +597,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>stav svetla ktere tlacitko ovlada</comment>
     </variable>
     <variable name="InTimeOfBlic" type="TIME">
-      <connection refid="49">
+      <connection refid="48">
         <position x="77" y="37" />
         <position x="75" y="37" />
         <position x="75" y="37" />
@@ -624,7 +615,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<node id="45">
+<node id="44">
   <position x="34" y="29" />
   <connection refid="15" name="Q">
     <position x="34" y="29" />
@@ -633,7 +624,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="28" y="29" />
   </connection>
 </node>
-<node id="46">
+<node id="45">
   <position x="31" y="31" />
   <connection refid="10">
     <position x="31" y="31" />
@@ -642,32 +633,32 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="18" y="31" />
   </connection>
 </node>
-<inVariable name="T#0.5s" type="TIME" id="47">
+<inVariable name="T#0.5s" type="TIME" id="46">
   <position x="64" y="23" />
 </inVariable>
-<node id="48">
+<node id="47">
   <position x="74" y="24" />
-  <connection refid="47">
+  <connection refid="46">
     <position x="74" y="24" />
     <position x="72" y="24" />
     <position x="72" y="24" />
     <position x="71" y="24" />
   </connection>
 </node>
-<node id="49">
+<node id="48">
   <position x="74" y="37" />
-  <connection refid="48">
+  <connection refid="47">
     <position x="74" y="37" />
     <position x="74" y="37" />
     <position x="74" y="24" />
     <position x="74" y="24" />
   </connection>
 </node>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="50" height="6" width="3" line="68" order="29">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="49" height="6" width="3" line="62" order="26">
   <position x="106" y="32" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="44" name="OutLED_Green">
+      <connection refid="43" name="OutLED_Green">
         <position x="106" y="33" />
         <position x="100" y="33" />
         <position x="100" y="33" />
@@ -683,7 +674,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN3" type="ANY_BIT">
-      <connection refid="61">
+      <connection refid="60">
         <position x="106" y="37" />
         <position x="105" y="37" />
         <position x="105" y="37" />
@@ -700,11 +691,11 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="51" height="6" width="3" line="72" order="31">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="50" height="6" width="3" line="72" order="31">
   <position x="106" y="46" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="44" name="OutLED_Red">
+      <connection refid="43" name="OutLED_Red">
         <position x="106" y="47" />
         <position x="100" y="47" />
         <position x="100" y="35" />
@@ -720,7 +711,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN3" type="ANY_BIT">
-      <connection refid="57">
+      <connection refid="56">
         <position x="106" y="51" />
         <position x="103" y="51" />
         <position x="103" y="51" />
@@ -737,7 +728,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<node id="52">
+<node id="51">
   <position x="31" y="45" />
   <connection refid="14">
     <position x="31" y="45" />
@@ -746,11 +737,11 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="18" y="45" />
   </connection>
 </node>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="53" height="4" width="3" line="56" order="22">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="52" height="4" width="3" line="56" order="22">
   <position x="106" y="16" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="39" name="OutLED_Green">
+      <connection refid="38" name="OutLED_Green">
         <position x="106" y="17" />
         <position x="99" y="17" />
         <position x="99" y="20" />
@@ -758,7 +749,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="61">
+      <connection refid="60">
         <position x="106" y="19" />
         <position x="104" y="19" />
         <position x="104" y="37" />
@@ -775,11 +766,11 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="54" height="4" width="3" line="62" order="25">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="53" height="4" width="3" line="68" order="29">
   <position x="106" y="21" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="39" name="OutLED_Red">
+      <connection refid="38" name="OutLED_Red">
         <position x="106" y="22" />
         <position x="97" y="22" />
         <position x="97" y="22" />
@@ -787,7 +778,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="57">
+      <connection refid="56">
         <position x="106" y="24" />
         <position x="102" y="24" />
         <position x="102" y="51" />
@@ -804,11 +795,11 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<block name="TP" instance="tp_ko1_1" id="55" height="6" width="6" line="58" order="24">
+<block name="TP" instance="tp_ko1_1" id="54" height="6" width="6" line="64" order="28">
   <position x="88" y="63" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="56">
+      <connection refid="55">
         <position x="88" y="66" />
         <position x="30" y="66" />
         <position x="30" y="58" />
@@ -817,7 +808,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="62">
+      <connection refid="61">
         <position x="88" y="68" />
         <position x="86" y="68" />
         <position x="86" y="68" />
@@ -835,7 +826,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<node id="56">
+<node id="55">
   <position x="30" y="58" />
   <connection refid="18" name="Q">
     <position x="30" y="58" />
@@ -844,23 +835,23 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="28" y="58" />
   </connection>
 </node>
-<node id="57">
+<node id="56">
   <position x="102" y="51" />
-  <connection refid="55" name="Q">
+  <connection refid="54" name="Q">
     <position x="102" y="51" />
     <position x="102" y="51" />
     <position x="102" y="66" />
     <position x="94" y="66" />
   </connection>
 </node>
-<inVariable name="T#1s" type="TIME" id="58">
+<inVariable name="T#1s" type="TIME" id="57">
   <position x="72" y="67" />
 </inVariable>
-<block name="TP" instance="tp_ko1_2" id="59" height="6" width="6" line="52" order="21">
+<block name="TP" instance="tp_ko1_2" id="58" height="6" width="6" line="52" order="21">
   <position x="88" y="81" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="60">
+      <connection refid="59">
         <position x="88" y="84" />
         <position x="30" y="84" />
         <position x="30" y="75" />
@@ -869,7 +860,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="62">
+      <connection refid="61">
         <position x="88" y="86" />
         <position x="84" y="86" />
         <position x="84" y="68" />
@@ -887,7 +878,7 @@ ovladani svetel a ventilatoru v koupelne 1NP
     </variable>
   </outVariables>
 </block>
-<node id="60">
+<node id="59">
   <position x="30" y="75" />
   <connection refid="34" name="Q">
     <position x="30" y="75" />
@@ -896,24 +887,35 @@ ovladani svetel a ventilatoru v koupelne 1NP
     <position x="28" y="75" />
   </connection>
 </node>
-<node id="61">
+<node id="60">
   <position x="104" y="37" />
-  <connection refid="59" name="Q">
+  <connection refid="58" name="Q">
     <position x="104" y="37" />
     <position x="104" y="37" />
     <position x="104" y="84" />
     <position x="94" y="84" />
   </connection>
 </node>
-<node id="62">
+<node id="61">
   <position x="84" y="68" />
-  <connection refid="58">
+  <connection refid="57">
     <position x="84" y="68" />
     <position x="83" y="68" />
     <position x="83" y="68" />
     <position x="77" y="68" />
   </connection>
 </node>
+<outVariable name="k1_led_k1_lg" type="BOOL" id="131" order="27">
+  <position x="111" y="32" />
+  <comment>
+vystup na LED v Logusech  </comment>
+  <connection refid="49" name="OR">
+    <position x="112" y="33" />
+    <position x="111" y="33" />
+    <position x="111" y="33" />
+    <position x="109" y="33" />
+  </connection>
+</outVariable>
 </fbd>
 {/NOCODE}
 //LVD
@@ -922,35 +924,35 @@ END_VAR
 
 //TVD
 VAR_TEMP
-(* 520	*)	_Nod_Tmp_19	:	BOOL;
-(* 529	*)	_Nod_Tmp_18	:	BOOL;
-(* 596	*)	_Nod_Tmp_16	:	BOOL;
-(* 605	*)	_Nod_Tmp_15	:	BOOL;
+(* 511	*)	_Nod_Tmp_19	:	BOOL;
+(* 520	*)	_Nod_Tmp_18	:	BOOL;
+(* 587	*)	_Nod_Tmp_16	:	BOOL;
+(* 596	*)	_Nod_Tmp_15	:	BOOL;
 (* 453	*)	_Nod_Tmp_13	:	BOOL;
-(* 709	*)	_Nod_Tmp_12	:	BOOL;
-(* 807	*)	_Nod_Tmp_10	:	BOOL;
-(* 859	*)	_Nod_Tmp_9	:	BOOL;
-(* 617	*)	_Nod_Tmp_3	:	TIME;
-(* 877	*)	_Nod_Tmp_8	:	TIME;
-(* 868	*)	_Nod_Tmp_7	:	BOOL;
-(* 816	*)	_Nod_Tmp_5	:	BOOL;
+(* 700	*)	_Nod_Tmp_12	:	BOOL;
+(* 798	*)	_Nod_Tmp_10	:	BOOL;
+(* 850	*)	_Nod_Tmp_9	:	BOOL;
+(* 608	*)	_Nod_Tmp_5	:	TIME;
+(* 868	*)	_Nod_Tmp_8	:	TIME;
+(* 859	*)	_Nod_Tmp_7	:	BOOL;
+(* 807	*)	_Nod_Tmp_3	:	BOOL;
 END_VAR
 
 //NC
 //N000
 (* 160	*)	CAL	trigKo2(CLK:=tls_k1_tr)
 (* 160	*)	LD 	trigKo2.Q
-(* 520	*)	ST	_Nod_Tmp_19
+(* 511	*)	ST	_Nod_Tmp_19
 (* 108	*)	LD 	sv_k1_2
-(* 529	*)	ST	_Nod_Tmp_18
+(* 520	*)	ST	_Nod_Tmp_18
 (*  83	*)	LD 	_Nod_Tmp_19
 (*  91	*)	XOR 	_Nod_Tmp_18
 (*  29	*)	ST 	sv_k1_2
 (* 143	*)	CAL	trigKo1(CLK:=tls_k1_tl)
 (* 143	*)	LD 	trigKo1.Q
-(* 596	*)	ST	_Nod_Tmp_16
+(* 587	*)	ST	_Nod_Tmp_16
 (*  76	*)	LD 	sv_k1_1
-(* 605	*)	ST	_Nod_Tmp_15
+(* 596	*)	ST	_Nod_Tmp_15
 (*  51	*)	LD 	_Nod_Tmp_16
 (*  59	*)	XOR 	_Nod_Tmp_15
 (*  20	*)	ST 	sv_k1_1
@@ -958,13 +960,13 @@ END_VAR
 (* 177	*)	LD 	trigKo3.Q
 (* 453	*)	ST	_Nod_Tmp_13
 (* 140	*)	LD 	sv_k1_3
-(* 709	*)	ST	_Nod_Tmp_12
+(* 700	*)	ST	_Nod_Tmp_12
 (* 115	*)	LD 	_Nod_Tmp_13
 (* 123	*)	XOR 	_Nod_Tmp_12
 (*  38	*)	ST 	sv_k1_3
 (* 194	*)	CAL	trigKo4(CLK:=tls_k1_lr)
 (* 194	*)	LD 	trigKo4.Q
-(* 807	*)	ST	_Nod_Tmp_10
+(* 798	*)	ST	_Nod_Tmp_10
 (* 211	*)	CAL	offKo1(in:=_Nod_Tmp_10, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
 (* 211	*)	LD 	offKo1.sOff0
 (* 266	*)	ST 	sv_k1_1
@@ -974,7 +976,7 @@ END_VAR
 (* 287	*)	ST 	sv_k1_3
 (* 396	*)	CAL	trigOnKo1(CLK:=tll_k1_lr)
 (* 396	*)	LD 	trigOnKo1.Q
-(* 859	*)	ST	_Nod_Tmp_9
+(* 850	*)	ST	_Nod_Tmp_9
 (* 332	*)	CAL	onKo1(in:=_Nod_Tmp_9, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
 (* 332	*)	LD 	onKo1.sOff0
 (* 305	*)	ST 	sv_k1_1
@@ -982,32 +984,32 @@ END_VAR
 (* 314	*)	ST 	sv_k1_2
 (* 332	*)	LD 	onKo1.sOff2
 (* 323	*)	ST 	sv_k1_3
-(* 614	*)	LD 	T#0.5s
-(* 617	*)	ST	_Nod_Tmp_3
-(* 480	*)	CAL	blik_ko1_2(InButton:=_Nod_Tmp_19, InLight:=_Nod_Tmp_18, InTimeOfBlic:=_Nod_Tmp_3)
-(* 825	*)	LD 	T#1s
-(* 877	*)	ST	_Nod_Tmp_8
-(* 828	*)	CAL	tp_ko1_2(IN:=_Nod_Tmp_9, PT:=_Nod_Tmp_8)
-(* 828	*)	LD 	tp_ko1_2.Q
-(* 868	*)	ST	_Nod_Tmp_7
-(* 722	*)	LD 	blik_ko1_2.OutLED_Green
-(* 730	*)	OR 	_Nod_Tmp_7
-(* 538	*)	ST 	led_k1_rg
-(* 776	*)	CAL	tp_ko1_1(IN:=_Nod_Tmp_10, PT:=_Nod_Tmp_8)
-(* 776	*)	LD 	tp_ko1_1.Q
-(* 816	*)	ST	_Nod_Tmp_5
-(* 751	*)	LD 	blik_ko1_2.OutLED_Red
-(* 759	*)	OR 	_Nod_Tmp_5
-(* 547	*)	ST 	led_k1_rr
-(* 556	*)	CAL	blik_ko1_3(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_3)
-(* 413	*)	CAL	blik_ko1_1(InButton:=_Nod_Tmp_13, InLight:=_Nod_Tmp_12, InTimeOfBlic:=_Nod_Tmp_3)
-(* 639	*)	LD 	blik_ko1_3.OutLED_Green
-(* 647	*)	OR 	blik_ko1_1.OutLED_Green
-(* 655	*)	OR 	_Nod_Tmp_7
-(* 462	*)	ST 	led_k1_lg
-(* 676	*)	LD 	blik_ko1_3.OutLED_Red
-(* 684	*)	OR 	blik_ko1_1.OutLED_Red
-(* 692	*)	OR 	_Nod_Tmp_5
-(* 471	*)	ST 	led_k1_lr
+(* 605	*)	LD 	T#0.5s
+(* 608	*)	ST	_Nod_Tmp_5
+(* 471	*)	CAL	blik_ko1_2(InButton:=_Nod_Tmp_19, InLight:=_Nod_Tmp_18, InTimeOfBlic:=_Nod_Tmp_5)
+(* 816	*)	LD 	T#1s
+(* 868	*)	ST	_Nod_Tmp_8
+(* 819	*)	CAL	tp_ko1_2(IN:=_Nod_Tmp_9, PT:=_Nod_Tmp_8)
+(* 819	*)	LD 	tp_ko1_2.Q
+(* 859	*)	ST	_Nod_Tmp_7
+(* 713	*)	LD 	blik_ko1_2.OutLED_Green
+(* 721	*)	OR 	_Nod_Tmp_7
+(* 529	*)	ST 	k1_led_k1_rg
+(* 547	*)	CAL	blik_ko1_3(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_5)
+(* 413	*)	CAL	blik_ko1_1(InButton:=_Nod_Tmp_13, InLight:=_Nod_Tmp_12, InTimeOfBlic:=_Nod_Tmp_5)
+(* 630	*)	LD 	blik_ko1_3.OutLED_Green
+(* 638	*)	OR 	blik_ko1_1.OutLED_Green
+(* 646	*)	OR 	_Nod_Tmp_7
+(* 877	*)	ST 	k1_led_k1_lg
+(* 767	*)	CAL	tp_ko1_1(IN:=_Nod_Tmp_10, PT:=_Nod_Tmp_8)
+(* 767	*)	LD 	tp_ko1_1.Q
+(* 807	*)	ST	_Nod_Tmp_3
+(* 742	*)	LD 	blik_ko1_2.OutLED_Red
+(* 750	*)	OR 	_Nod_Tmp_3
+(* 538	*)	ST 	k1_led_k1_rr
+(* 667	*)	LD 	blik_ko1_3.OutLED_Red
+(* 675	*)	OR 	blik_ko1_1.OutLED_Red
+(* 683	*)	OR 	_Nod_Tmp_3
+(* 462	*)	ST 	k1_led_k1_lr
 
 END_PROGRAM

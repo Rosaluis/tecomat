@@ -5,5 +5,31 @@ VAR_GLOBAL
   sig_tl_pokojZ : BOOL;
   sig_tl_obyvak : BOOL;
   sig_tl_loznice: BOOL;
+  k1_led_k1_lg : BOOL; //vystup na LED v Logusech
+  k1_led_k1_lr : BOOL;
+  k1_led_k1_rg : BOOL;
+  k1_led_k1_rr : BOOL;
+  k2_led_k2_lg : BOOL;
+  k2_led_k2_lr : BOOL;
+  k2_led_k2_rg : BOOL;
+  k2_led_k2_rr : BOOL;
+  ob_led_ob_lg : BOOL;
+  ob_led_ob_lr : BOOL;
+  ob_led_ob_rg : BOOL;
+  ob_led_ob_rr : BOOL;
+  pv_led_pv_lg : BOOL;
+  pv_led_pv_lr : BOOL;
+  pv_led_pv_rg : BOOL;
+  pv_led_pv_rr : BOOL;
+  pz_led_pz_lg : BOOL;
+  pz_led_pz_lr : BOOL;
+  pz_led_pz_rg : BOOL;
+  pz_led_pz_rr : BOOL;
+  lo_led_lo_lg : BOOL;
+  lo_led_lo_lr : BOOL;
+  lo_led_lo_rg : BOOL;
+  lo_led_lo_rr : BOOL;
+  out_vychod : BOOL;
+  out_zapad : BOOL;
 END_VAR
 

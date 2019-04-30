@@ -6,6 +6,32 @@
 #reg  bool sig_tl_pokojZ
 #reg  bool sig_tl_obyvak
 #reg  bool sig_tl_loznice
+#reg  bool k1_led_k1_lg  ;vystup na LED v Logusech
+#reg  bool k1_led_k1_lr
+#reg  bool k1_led_k1_rg
+#reg  bool k1_led_k1_rr
+#reg  bool k2_led_k2_lg
+#reg  bool k2_led_k2_lr
+#reg  bool k2_led_k2_rg
+#reg  bool k2_led_k2_rr
+#reg  bool ob_led_ob_lg
+#reg  bool ob_led_ob_lr
+#reg  bool ob_led_ob_rg
+#reg  bool ob_led_ob_rr
+#reg  bool pv_led_pv_lg
+#reg  bool pv_led_pv_lr
+#reg  bool pv_led_pv_rg
+#reg  bool pv_led_pv_rr
+#reg  bool pz_led_pz_lg
+#reg  bool pz_led_pz_lr
+#reg  bool pz_led_pz_rg
+#reg  bool pz_led_pz_rr
+#reg  bool lo_led_lo_lg
+#reg  bool lo_led_lo_lr
+#reg  bool lo_led_lo_rg
+#reg  bool lo_led_lo_rr
+#reg  bool out_vychod
+#reg  bool out_zapad
  
 #srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CASADEFAM.ST'
 

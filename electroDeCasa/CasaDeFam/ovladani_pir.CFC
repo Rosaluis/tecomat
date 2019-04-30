@@ -1174,7 +1174,7 @@ pro nastaveni aktualniho casu a datumu:
     <position x="28" y="54" />
   </connection>
 </node>
-<inVariable name="T#22h" type="TIME" id="71">
+<inVariable name="T#20h" type="TIME" id="71">
   <position x="5" y="82" />
 </inVariable>
 <inVariable name="T#6h" type="TIME" id="72">
@@ -1400,7 +1400,7 @@ END_VAR
 (* 628	*)	OR 	_Nod_Tmp_16
 (* 265	*)	ST 	sv_chodba_1NP_sedy
 (*1046	*)	LD 	_Nod_Tmp_13
-(*1054	*)	GT 	T#22h
+(*1054	*)	GT 	T#20h
 (*1102	*)	ST 	_Fun_Tmp_IN1_10_1
 (*1074	*)	LD 	_Nod_Tmp_13
 (*1082	*)	LT 	T#6h

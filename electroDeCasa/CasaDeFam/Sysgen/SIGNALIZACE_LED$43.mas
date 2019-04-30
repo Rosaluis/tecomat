@@ -1,0 +1,163 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SIGNALIZACE_LED.CFC'
+
+#defpou signalizace_LED
+  boFALSE fb_boFalse
+
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SIGNALIZACE_LED.CFC'
+#pou signalizace_LED
+#srcline 1 ;PROGRAM signalizace_LED
+
+#struct signalizace_LED__temp__
+  bool _Nod_Tmp_5,
+  bool _Nod_Tmp_10
+P     61
+signalizace_LED_L0:
+ LINK __SizeOf(signalizace_LED__temp__)
+; Initialize - dynamic variables
+; End initialize - dynamic variables
+#srcline 624 ;(* 339	*)	CAL	fb_boFalse()
+ LEAX fb_boFalse
+ CAL  boFALSE_L0
+#srcline 625 ;(* 339	*)	LD 	fb_boFalse.out
+ LDX  fb_boFalse~out
+#debug bool fb_boFalse.out
+#srcline 626 ;(* 346	*)	ST	_Nod_Tmp_5
+ WRY  _Nod_Tmp_5
+#debug_left bool _Nod_Tmp_5
+#srcline 627 ;(* 382	*)	ST	_Nod_Tmp_10
+ WRY  _Nod_Tmp_10
+#debug_left bool _Nod_Tmp_10
+#srcline 628 ;(*  26	*)	LD 	k1_led_k1_lg
+ LD   k1_led_k1_lg
+#debug bool k1_led_k1_lg
+#srcline 629 ;(*  34	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 630 ;(*   8	*)	ST 	led_k1_lg
+ WR   bool led_k1_lg
+#debug_left bool led_k1_lg
+#srcline 631 ;(*  65	*)	LD 	k1_led_k1_lr
+ LD   k1_led_k1_lr
+#debug bool k1_led_k1_lr
+#srcline 632 ;(*  73	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 633 ;(* 148	*)	ST 	led_k1_lr
+ WR   bool led_k1_lr
+#debug_left bool led_k1_lr
+#srcline 634 ;(*  94	*)	LD 	k1_led_k1_rg
+ LD   k1_led_k1_rg
+#debug bool k1_led_k1_rg
+#srcline 635 ;(* 102	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 636 ;(* 157	*)	ST 	led_k1_rg
+ WR   bool led_k1_rg
+#debug_left bool led_k1_rg
+#srcline 637 ;(* 123	*)	LD 	k1_led_k1_rr
+ LD   k1_led_k1_rr
+#debug bool k1_led_k1_rr
+#srcline 638 ;(* 131	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 639 ;(* 166	*)	ST 	led_k1_rr
+ WR   bool led_k1_rr
+#debug_left bool led_k1_rr
+#srcline 640 ;(* 451	*)	LD 	lo_led_lo_lr
+ LD   lo_led_lo_lr
+#debug bool lo_led_lo_lr
+#srcline 641 ;(* 459	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 642 ;(* 534	*)	ST 	led_lo_lr
+ WR   bool led_lo_lr
+#debug_left bool led_lo_lr
+#srcline 643 ;(* 509	*)	LD 	lo_led_lo_rr
+ LD   lo_led_lo_rr
+#debug bool lo_led_lo_rr
+#srcline 644 ;(* 517	*)	OR 	_Nod_Tmp_10
+ LDY  _Nod_Tmp_10
+#debug bool _Nod_Tmp_10
+ OR
+#srcline 645 ;(* 552	*)	ST 	led_lo_rr
+ WR   bool led_lo_rr
+#debug_left bool led_lo_rr
+#srcline 646 ;(* 191	*)	LD 	k2_led_k2_lg
+ LD   k2_led_k2_lg
+#debug bool k2_led_k2_lg
+#srcline 647 ;(* 199	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 648 ;(* 175	*)	ST 	led_k2_lg
+ WR   bool led_k2_lg
+#debug_left bool led_k2_lg
+#srcline 649 ;(* 229	*)	LD 	k2_led_k2_lr
+ LD   k2_led_k2_lr
+#debug bool k2_led_k2_lr
+#srcline 650 ;(* 237	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 651 ;(* 312	*)	ST 	led_k2_lr
+ WR   bool led_k2_lr
+#debug_left bool led_k2_lr
+#srcline 652 ;(* 258	*)	LD 	k2_led_k2_rg
+ LD   k2_led_k2_rg
+#debug bool k2_led_k2_rg
+#srcline 653 ;(* 266	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 654 ;(* 321	*)	ST 	led_k2_rg
+ WR   bool led_k2_rg
+#debug_left bool led_k2_rg
+#srcline 655 ;(* 287	*)	LD 	k2_led_k2_rr
+ LD   k2_led_k2_rr
+#debug bool k2_led_k2_rr
+#srcline 656 ;(* 295	*)	OR 	_Nod_Tmp_5
+ LDY  _Nod_Tmp_5
+#debug bool _Nod_Tmp_5
+ OR
+#srcline 657 ;(* 330	*)	ST 	led_k2_rr
+ WR   bool led_k2_rr
+#debug_left bool led_k2_rr
+#srcline 658 ;//N001
+#srcline 659 ;(* 422	*)	LD 	lo_led_lo_lg
+ LD   lo_led_lo_lg
+#debug bool lo_led_lo_lg
+#srcline 660 ;(* 430	*)	OR 	out_vychod
+ LD   out_vychod
+#debug bool out_vychod
+ OR
+#srcline 661 ;(* 409	*)	ST 	led_lo_lg
+ WR   bool led_lo_lg
+#debug_left bool led_lo_lg
+#srcline 662 ;//N002
+#srcline 663 ;(* 480	*)	LD 	lo_led_lo_rg
+ LD   lo_led_lo_rg
+#debug bool lo_led_lo_rg
+#srcline 664 ;(* 488	*)	OR 	out_zapad
+ LD   out_zapad
+#debug bool out_zapad
+ OR
+#srcline 665 ;(* 543	*)	ST 	led_lo_rg
+ WR   bool led_lo_rg
+#debug_left bool led_lo_rg
+#srcline 667 ;END_PROGRAM
+ ULNK
+RET
+E     61
+#endpou 
+
+
+
+ 
+
+#srcfile ''

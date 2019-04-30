@@ -170,6 +170,7 @@ FUNCTION_BLOCK fb_zhasni
     END_IF;
 END_FUNCTION_BLOCK
 
+// *********************************************************************************************************************
 FUNCTION_BLOCK fb_on_SvKoupelna1
 (*Vypnuti vsech svetel v koupelne1*)
   VAR_INPUT
@@ -198,6 +199,20 @@ FUNCTION_BLOCK fb_on_SvKoupelna1
   END_IF;
   out := in;
 END_FUNCTION_BLOCK
+
+// *********************************************************************************************************************
+FUNCTION_BLOCK boFALSE
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+  out : BOOL;
+END_VAR
+VAR
+END_VAR
+  out := FALSE;
+END_FUNCTION_BLOCK
+
+
 
 
 

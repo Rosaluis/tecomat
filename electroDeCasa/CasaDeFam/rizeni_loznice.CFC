@@ -498,7 +498,7 @@ ovladani svetel loznice, vcetne venkovniho na zapad (do zahrady)
 <inVariable name="T#0.5s" type="TIME" id="36">
   <position x="75" y="28" />
 </inVariable>
-<outVariable name="led_lo_lg" type="BOOL" id="37" order="18">
+<outVariable name="lo_led_lo_lg" type="BOOL" id="37" order="18">
   <position x="127" y="17" />
   <connection refid="45" name="OR">
     <position x="128" y="18" />
@@ -507,7 +507,7 @@ ovladani svetel loznice, vcetne venkovniho na zapad (do zahrady)
     <position x="124" y="18" />
   </connection>
 </outVariable>
-<outVariable name="led_lo_lr" type="BOOL" id="38" order="24">
+<outVariable name="lo_led_lo_lr" type="BOOL" id="38" order="24">
   <position x="128" y="26" />
   <connection refid="46" name="OR">
     <position x="129" y="27" />
@@ -574,7 +574,7 @@ ovladani svetel loznice, vcetne venkovniho na zapad (do zahrady)
     <position x="17" y="40" />
   </connection>
 </node>
-<outVariable name="led_lo_rg" type="BOOL" id="42" order="21">
+<outVariable name="lo_led_lo_rg" type="BOOL" id="42" order="21">
   <position x="127" y="36" />
   <connection refid="47" name="OR">
     <position x="128" y="37" />
@@ -583,7 +583,7 @@ ovladani svetel loznice, vcetne venkovniho na zapad (do zahrady)
     <position x="124" y="37" />
   </connection>
 </outVariable>
-<outVariable name="led_lo_rr" type="BOOL" id="43" order="26">
+<outVariable name="lo_led_lo_rr" type="BOOL" id="43" order="26">
   <position x="128" y="44" />
   <connection refid="48" name="OR">
     <position x="129" y="45" />
@@ -827,7 +827,7 @@ ovladani svetel loznice, vcetne venkovniho na zapad (do zahrady)
     <position x="88" y="70" />
   </connection>
 </node>
-<outVariable name="sig_tl_loznice" type="BOOL" id="117" order="31">
+<outVariable name="sig_tl_loznice" type="BOOL" id="57" order="31">
   <position x="83" y="97" />
   <connection refid="6" name="Q">
     <position x="84" y="98" />
@@ -901,20 +901,20 @@ END_VAR
 (* 789	*)	ST	_Nod_Tmp_8
 (* 585	*)	LD 	blik_loznice_1.OutLED_Green
 (* 593	*)	OR 	_Nod_Tmp_8
-(* 478	*)	ST 	led_lo_lg
+(* 478	*)	ST 	lo_led_lo_lg
 (* 496	*)	CAL	blik_loznice_2(InButton:=_Nod_Tmp_18, InLight:=_Nod_Tmp_17, InTimeOfBlic:=_Nod_Tmp_10)
 (* 643	*)	LD 	blik_loznice_2.OutLED_Green
 (* 651	*)	OR 	_Nod_Tmp_8
-(* 554	*)	ST 	led_lo_rg
+(* 554	*)	ST 	lo_led_lo_rg
 (* 697	*)	CAL	tp_lo_1(IN:=_Nod_Tmp_15, PT:=_Nod_Tmp_9)
 (* 697	*)	LD 	tp_lo_1.ET
 (* 740	*)	ST	_Nod_Tmp_5
 (* 614	*)	LD 	blik_loznice_1.OutLED_Red
 (* 622	*)	OR 	_Nod_Tmp_5
-(* 487	*)	ST 	led_lo_lr
+(* 487	*)	ST 	lo_led_lo_lr
 (* 672	*)	LD 	blik_loznice_2.OutLED_Red
 (* 680	*)	OR 	_Nod_Tmp_5
-(* 563	*)	ST 	led_lo_rr
+(* 563	*)	ST 	lo_led_lo_rr
 //N001
 (* 105	*)	LD 	tll_lo_lr
 (* 408	*)	ST	_Nod_Tmp_2

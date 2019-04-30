@@ -47,4 +47,5 @@
 #usefile "ovladani_venkovni.CFC"
 #usefile "ovladani_pir.CFC"
 #usefile "centralni_tlacitko.CFC"
+#usefile "signalizace_LED.CFC"
 #usefile "CasaDeFam.mcf", 'auto'

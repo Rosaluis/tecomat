@@ -126,12 +126,10 @@ FUNCTION_BLOCK fb_cas_prepinac
   VAR
 
   END_VAR
-  IF IN3 THEN
    IF (IN1 AND IN2=FALSE AND IN3=FALSE) THEN time_OUT := time1;
    ELSIF (IN1 AND IN2 AND IN3=FALSE) THEN time_OUT := time2;
    ELSIF (IN1 AND IN2 AND IN3) THEN time_OUT := time3;
    END_IF;
-  END_IF;
 
 END_FUNCTION_BLOCK
 // *********************************************************************************************************************
@@ -200,6 +198,21 @@ FUNCTION_BLOCK fb_on_SvKoupelna1
   END_IF;
   out := in;
 END_FUNCTION_BLOCK
+
+// *********************************************************************************************************************
+FUNCTION_BLOCK boFALSE
+(*konstanta = FALSE*)
+  VAR_INPUT
+  END_VAR
+  VAR_OUTPUT
+    out              : bool;
+    out := FALSE;
+  END_VAR
+  VAR
+  END_VAR
+END_FUNCTION_BLOCK
+
+
 
 
 

@@ -584,16 +584,16 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     <position x="103" y="91" />
   </connection>
 </outVariable>
-<outVariable name="led_lo_rg" type="BOOL" id="41" order="21">
-  <position x="105" y="92" />
+<outVariable name="out_led_lo_rg" type="BOOL" id="41" order="26">
+  <position x="116" y="92" />
   <connection refid="76">
-    <position x="106" y="93" />
+    <position x="117" y="93" />
     <position x="105" y="93" />
     <position x="105" y="93" />
     <position x="103" y="93" />
   </connection>
 </outVariable>
-<outVariable name="led_pv_lr" type="BOOL" id="42" order="22">
+<outVariable name="led_pv_lr" type="BOOL" id="42" order="21">
   <position x="105" y="94" />
   <connection refid="77">
     <position x="106" y="95" />
@@ -611,7 +611,7 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     <position x="103" y="91" />
   </connection>
 </outVariable>
-<outVariable name="led_pz_lr" type="BOOL" id="44" order="24">
+<outVariable name="led_pz_lr" type="BOOL" id="44" order="23">
   <position x="106" y="124" />
   <connection refid="46">
     <position x="107" y="125" />
@@ -620,10 +620,10 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     <position x="104" y="127" />
   </connection>
 </outVariable>
-<outVariable name="led_lo_lr" type="BOOL" id="45" order="27">
-  <position x="107" y="126" />
+<outVariable name="out_led_lo_lr" type="BOOL" id="45" order="27">
+  <position x="117" y="126" />
   <connection refid="46">
-    <position x="108" y="127" />
+    <position x="118" y="127" />
     <position x="106" y="127" />
     <position x="106" y="127" />
     <position x="104" y="127" />
@@ -638,7 +638,7 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     <position x="104" y="129" />
   </connection>
 </node>
-<outVariable name="led_pv_rg" type="BOOL" id="47" order="25">
+<outVariable name="led_pv_rg" type="BOOL" id="47" order="24">
   <position x="106" y="128" />
   <connection refid="50">
     <position x="107" y="129" />
@@ -647,7 +647,7 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     <position x="104" y="129" />
   </connection>
 </outVariable>
-<outVariable name="led_ob_rg" type="BOOL" id="48" order="26">
+<outVariable name="led_ob_rg" type="BOOL" id="48" order="25">
   <position x="106" y="130" />
   <connection refid="49">
     <position x="107" y="131" />
@@ -915,7 +915,7 @@ Nahrazeno vlastnim FB: fb_kmitac
 <inVariable name="T#200ms" type="TIME" id="70">
   <position x="77" y="100" />
 </inVariable>
-<block name="fb_kmitac" instance="kmit2" id="71" height="8" width="12" line="62" order="23">
+<block name="fb_kmitac" instance="kmit2" id="71" height="8" width="12" line="60" order="22">
   <position x="88" y="129" />
   <inVariables>
     <variable name="sig_IN" type="BOOL">
@@ -1018,222 +1018,6 @@ Nahrazeno vlastnim FB: fb_kmitac
     <position x="32" y="127" />
   </connection>
 </node>
-<inVariable name="T#500ms" type="TIME" id="160">
-  <position x="22" y="178" />
-</inVariable>
-<block name="TON" instance="ton1" id="161" height="6" width="6" line="75" order="28">
-  <position x="38" y="174" />
-  <inVariables>
-    <variable name="IN" type="BOOL">
-      <connection refid="165">
-        <position x="38" y="177" />
-        <position x="36" y="177" />
-        <position x="36" y="177" />
-        <position x="34" y="177" />
-      </connection>
-    <comment>vstup èasovaèe</comment>
-    </variable>
-    <variable name="PT" type="TIME">
-      <connection refid="204">
-        <position x="38" y="179" />
-        <position x="35" y="179" />
-        <position x="35" y="179" />
-        <position x="33" y="179" />
-      </connection>
-    <comment>pøedvolba èasovaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èasovaèe</comment>
-    </variable>
-    <variable name="ET" type="TIME">
-    <comment>aktuální hodnota èasovaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="162" height="4" width="4" line="77" order="29">
-  <position x="47" y="176" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="161" name="Q">
-        <position x="47" y="177" />
-        <position x="46" y="177" />
-        <position x="46" y="177" />
-        <position x="44" y="177" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="175">
-        <position x="47" y="179" />
-        <position x="46" y="179" />
-        <position x="46" y="186" />
-        <position x="29" y="186" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="TON" instance="TON_test2" id="163" height="6" width="6" line="80" order="31">
-  <position x="58" y="174" />
-  <inVariables>
-    <variable name="IN" type="BOOL">
-      <connection refid="190">
-        <position x="58" y="177" />
-        <position x="57" y="177" />
-        <position x="57" y="177" />
-        <position x="53" y="177" />
-      </connection>
-    <comment>vstup èasovaèe</comment>
-    </variable>
-    <variable name="PT" type="TIME">
-      <connection refid="204">
-        <position x="58" y="179" />
-        <position x="52" y="179" />
-        <position x="52" y="181" />
-        <position x="33" y="181" />
-        <position x="33" y="179" />
-        <position x="33" y="179" />
-      </connection>
-    <comment>pøedvolba èasovaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èasovaèe</comment>
-    </variable>
-    <variable name="ET" type="TIME">
-    <comment>aktuální hodnota èasovaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<outVariable name="pom_blik" type="BOOL" id="164" order="34">
-  <position x="74" y="174" />
-  <connection refid="200">
-    <position x="75" y="175" />
-    <position x="74" y="175" />
-    <position x="74" y="175" />
-    <position x="73" y="175" />
-  </connection>
-</outVariable>
-<inVariable name="pom_blik" type="BOOL" id="165">
-  <position x="26" y="176" />
-</inVariable>
-<outVariable name="led_pz_lr" type="BOOL" id="171" order="33">
-  <position x="74" y="169" />
-  <connection refid="200">
-    <position x="75" y="170" />
-    <position x="73" y="170" />
-    <position x="73" y="175" />
-    <position x="73" y="175" />
-  </connection>
-</outVariable>
-<inVariable name="tl_chodba_2NP_rozvadec" type="BOOL" id="175">
-  <position x="10" y="185" />
-</inVariable>
-<block name="CTU" instance="CTU_test1" id="179" height="8" width="6" line="79" order="30">
-  <position x="58" y="163" />
-  <inVariables>
-    <variable name="CU" type="BOOL R_EDGE">
-      <connection refid="190">
-        <position x="58" y="166" />
-        <position x="53" y="166" />
-        <position x="53" y="177" />
-        <position x="53" y="177" />
-      </connection>
-    <comment>vstup pro èítání nahoru</comment>
-    </variable>
-    <variable name="R" type="BOOL">
-    <comment>reset èítaèe</comment>
-    </variable>
-    <variable name="PV" type="INT">
-      <connection refid="181">
-        <position x="58" y="170" />
-        <position x="57" y="170" />
-        <position x="57" y="170" />
-        <position x="56" y="170" />
-      </connection>
-    <comment>pøedvolba èítaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èítaèe</comment>
-    </variable>
-    <variable name="CV" type="INT">
-    <comment>hodnota èítaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<inVariable name="5" type="" id="181">
-  <position x="54" y="169" />
-</inVariable>
-<node id="190">
-  <position x="53" y="177" />
-  <connection refid="162" name="XOR">
-    <position x="53" y="177" />
-    <position x="52" y="177" />
-    <position x="52" y="177" />
-    <position x="51" y="177" />
-  </connection>
-</node>
-<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="192" height="4" width="4" line="82" order="32">
-  <position x="68" y="174" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="179" name="Q">
-        <position x="68" y="175" />
-        <position x="66" y="175" />
-        <position x="66" y="166" />
-        <position x="64" y="166" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="163" name="Q">
-        <position x="68" y="177" />
-        <position x="65" y="177" />
-        <position x="65" y="177" />
-        <position x="64" y="177" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="AND" type="ANY_BIT">
-    <comment>
-	Bitwise AND
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if all bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<node id="200">
-  <position x="73" y="175" />
-  <connection refid="192" name="AND">
-    <position x="73" y="175" />
-    <position x="72" y="175" />
-    <position x="72" y="175" />
-    <position x="73" y="175" />
-    <position x="73" y="175" />
-    <position x="72" y="175" />
-  </connection>
-</node>
-<node id="204">
-  <position x="33" y="179" />
-  <connection refid="160">
-    <position x="33" y="179" />
-    <position x="31" y="179" />
-    <position x="31" y="179" />
-    <position x="30" y="179" />
-  </connection>
-</node>
 </fbd>
 {/NOCODE}
 //LVD
@@ -1242,24 +1026,21 @@ END_VAR
 
 //TVD
 VAR_TEMP
-(* 354	*)	_Nod_Tmp_23	:	BOOL;
-(* 979	*)	_Nod_Tmp_22	:	BOOL;
-(* 190	*)	_Fun_Tmp_IN2_20_2	:	BOOL;
-(* 401	*)	_Fun_Tmp_IN1_14_1	:	BOOL;
-(* 363	*)	_Nod_Tmp_19	:	BOOL;
-(* 372	*)	_Fun_Tmp_IN1_17_1	:	BOOL;
-(* 499	*)	_Nod_Tmp_16	:	BOOL;
-(* 401	*)	_Fun_Tmp_IN2_14_2	:	BOOL;
-(* 879	*)	_Nod_Tmp_13	:	BOOL;
-(* 219	*)	_Fun_Tmp_IN2_11_2	:	BOOL;
-(* 450	*)	_Fun_Tmp_IN1_9_1	:	BOOL;
-(* 450	*)	_Fun_Tmp_IN2_9_2	:	BOOL;
-(* 937	*)	_Nod_Tmp_8	:	BOOL;
-(* 964	*)	_Nod_Tmp_7	:	BOOL;
-(* 635	*)	_Nod_Tmp_6	:	BOOL;
-(*1204	*)	_Nod_Tmp_5	:	TIME;
-(*1154	*)	_Nod_Tmp_3	:	BOOL;
-(*1193	*)	_Nod_Tmp_1	:	BOOL;
+(* 354	*)	_Nod_Tmp_18	:	BOOL;
+(* 979	*)	_Nod_Tmp_17	:	BOOL;
+(* 190	*)	_Fun_Tmp_IN2_15_2	:	BOOL;
+(* 401	*)	_Fun_Tmp_IN1_9_1	:	BOOL;
+(* 363	*)	_Nod_Tmp_14	:	BOOL;
+(* 372	*)	_Fun_Tmp_IN1_12_1	:	BOOL;
+(* 499	*)	_Nod_Tmp_11	:	BOOL;
+(* 401	*)	_Fun_Tmp_IN2_9_2	:	BOOL;
+(* 879	*)	_Nod_Tmp_8	:	BOOL;
+(* 219	*)	_Fun_Tmp_IN2_6_2	:	BOOL;
+(* 450	*)	_Fun_Tmp_IN1_4_1	:	BOOL;
+(* 450	*)	_Fun_Tmp_IN2_4_2	:	BOOL;
+(* 937	*)	_Nod_Tmp_3	:	BOOL;
+(* 964	*)	_Nod_Tmp_2	:	BOOL;
+(* 635	*)	_Nod_Tmp_1	:	BOOL;
 END_VAR
 
 //NC
@@ -1274,79 +1055,64 @@ END_VAR
 (* 545	*)	ST 	sig_tl_zadveri
 //N002
 (* 161	*)	LD 	sv_ve_zapad
-(* 354	*)	ST	_Nod_Tmp_23
+(* 354	*)	ST	_Nod_Tmp_18
 (* 176	*)	LD 	sig_tl_zadveri
-(* 979	*)	ST	_Nod_Tmp_22
+(* 979	*)	ST	_Nod_Tmp_17
 (* 252	*)	LD 	sig_tl_pokojZ
 (* 260	*)	OR 	sig_tl_loznice
-(* 268	*)	OR 	_Nod_Tmp_22
-(* 202	*)	ST 	_Fun_Tmp_IN2_20_2
-(* 194	*)	LD 	_Nod_Tmp_23
-(* 202	*)	XOR 	_Fun_Tmp_IN2_20_2
-(* 405	*)	ST 	_Fun_Tmp_IN1_14_1
+(* 268	*)	OR 	_Nod_Tmp_17
+(* 202	*)	ST 	_Fun_Tmp_IN2_15_2
+(* 194	*)	LD 	_Nod_Tmp_18
+(* 202	*)	XOR 	_Fun_Tmp_IN2_15_2
+(* 405	*)	ST 	_Fun_Tmp_IN1_9_1
 (* 173	*)	LD 	sv_ve_vychod
-(* 363	*)	ST	_Nod_Tmp_19
-(* 329	*)	LD 	_Nod_Tmp_23
-(* 337	*)	XOR 	_Nod_Tmp_19
-(* 376	*)	ST 	_Fun_Tmp_IN1_17_1
-(* 376	*)	LD 	_Fun_Tmp_IN1_17_1
-(* 384	*)	AND 	_Nod_Tmp_22
-(* 499	*)	ST	_Nod_Tmp_16
-(* 434	*)	LD 	_Nod_Tmp_16
+(* 363	*)	ST	_Nod_Tmp_14
+(* 329	*)	LD 	_Nod_Tmp_18
+(* 337	*)	XOR 	_Nod_Tmp_14
+(* 376	*)	ST 	_Fun_Tmp_IN1_12_1
+(* 376	*)	LD 	_Fun_Tmp_IN1_12_1
+(* 384	*)	AND 	_Nod_Tmp_17
+(* 499	*)	ST	_Nod_Tmp_11
+(* 434	*)	LD 	_Nod_Tmp_11
 (* 430	*)	NOT
-(* 413	*)	ST 	_Fun_Tmp_IN2_14_2
-(* 405	*)	LD 	_Fun_Tmp_IN1_14_1
-(* 413	*)	AND 	_Fun_Tmp_IN2_14_2
-(* 879	*)	ST	_Nod_Tmp_13
+(* 413	*)	ST 	_Fun_Tmp_IN2_9_2
+(* 405	*)	LD 	_Fun_Tmp_IN1_9_1
+(* 413	*)	AND 	_Fun_Tmp_IN2_9_2
+(* 879	*)	ST	_Nod_Tmp_8
 (* 152	*)	ST 	sv_ve_zapad
 (* 289	*)	LD 	sig_tl_pokojV
 (* 297	*)	OR 	sig_tl_obyvak
-(* 305	*)	OR 	_Nod_Tmp_22
-(* 231	*)	ST 	_Fun_Tmp_IN2_11_2
-(* 223	*)	LD 	_Nod_Tmp_19
-(* 231	*)	XOR 	_Fun_Tmp_IN2_11_2
-(* 454	*)	ST 	_Fun_Tmp_IN1_9_1
-(* 483	*)	LD 	_Nod_Tmp_16
+(* 305	*)	OR 	_Nod_Tmp_17
+(* 231	*)	ST 	_Fun_Tmp_IN2_6_2
+(* 223	*)	LD 	_Nod_Tmp_14
+(* 231	*)	XOR 	_Fun_Tmp_IN2_6_2
+(* 454	*)	ST 	_Fun_Tmp_IN1_4_1
+(* 483	*)	LD 	_Nod_Tmp_11
 (* 479	*)	NOT
-(* 462	*)	ST 	_Fun_Tmp_IN2_9_2
-(* 454	*)	LD 	_Fun_Tmp_IN1_9_1
-(* 462	*)	AND 	_Fun_Tmp_IN2_9_2
-(* 937	*)	ST	_Nod_Tmp_8
+(* 462	*)	ST 	_Fun_Tmp_IN2_4_2
+(* 454	*)	LD 	_Fun_Tmp_IN1_4_1
+(* 462	*)	AND 	_Fun_Tmp_IN2_4_2
+(* 937	*)	ST	_Nod_Tmp_3
 (* 164	*)	ST 	sv_ve_vychod
-(* 842	*)	CAL	kmit1(sig_IN:=_Nod_Tmp_13, time_ON:=T#1s, time_OFF:=T#200ms)
+(* 842	*)	CAL	kmit1(sig_IN:=_Nod_Tmp_8, time_ON:=T#1s, time_OFF:=T#200ms)
 (* 842	*)	LD 	kmit1.sig_OUT
-(* 964	*)	ST	_Nod_Tmp_7
+(* 964	*)	ST	_Nod_Tmp_2
 (* 554	*)	ST 	led_pz_rg
-(* 946	*)	LD	_Nod_Tmp_7
+(* 946	*)	LD	_Nod_Tmp_2
 (* 581	*)	ST 	led_ob_lr
-(* 955	*)	LD	_Nod_Tmp_7
-(* 563	*)	ST 	led_lo_rg
-(* 964	*)	LD	_Nod_Tmp_7
+(* 964	*)	LD	_Nod_Tmp_2
 (* 572	*)	ST 	led_pv_lr
-(* 894	*)	CAL	kmit2(sig_IN:=_Nod_Tmp_8, time_ON:=T#1s, time_OFF:=T#200ms)
+(* 894	*)	CAL	kmit2(sig_IN:=_Nod_Tmp_3, time_ON:=T#1s, time_OFF:=T#200ms)
 (* 894	*)	LD 	kmit2.sig_OUT
-(* 635	*)	ST	_Nod_Tmp_6
+(* 635	*)	ST	_Nod_Tmp_1
 (* 590	*)	ST 	led_pz_lr
-(* 644	*)	LD	_Nod_Tmp_6
+(* 644	*)	LD	_Nod_Tmp_1
 (* 617	*)	ST 	led_pv_rg
-(* 635	*)	LD	_Nod_Tmp_6
+(* 635	*)	LD	_Nod_Tmp_1
 (* 626	*)	ST 	led_ob_rg
-(* 608	*)	LD	_Nod_Tmp_6
-(* 599	*)	ST 	led_lo_lr
-//N003
-(* 997	*)	LD 	T#500ms
-(*1204	*)	ST	_Nod_Tmp_5
-(*1000	*)	CAL	ton1(IN:=pom_blik, PT:=_Nod_Tmp_5)
-(*1035	*)	LD 	ton1.Q
-(*1043	*)	XOR 	tl_chodba_2NP_rozvadec
-(*1154	*)	ST	_Nod_Tmp_3
-(*1117	*)	CAL	CTU_test1(CU:=_Nod_Tmp_3, PV:=5)
-(*1060	*)	CAL	TON_test2(IN:=_Nod_Tmp_3, PT:=_Nod_Tmp_5)
-(*1167	*)	LD 	CTU_test1.Q
-(*1175	*)	AND 	TON_test2.Q
-(*1193	*)	ST	_Nod_Tmp_1
-(*1105	*)	ST 	led_pz_lr
-(*1193	*)	LD	_Nod_Tmp_1
-(*1093	*)	ST 	pom_blik
+(* 955	*)	LD	_Nod_Tmp_2
+(* 563	*)	ST 	out_led_lo_rg
+(* 608	*)	LD	_Nod_Tmp_1
+(* 599	*)	ST 	out_led_lo_lr
 
 END_PROGRAM

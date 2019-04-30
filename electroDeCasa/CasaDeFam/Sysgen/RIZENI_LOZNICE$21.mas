@@ -224,9 +224,9 @@ rizeni_loznice_L0:
  LDY  _Nod_Tmp_8
 #debug bool _Nod_Tmp_8
  OR
-#srcline 904 ;(* 478	*)	ST 	led_lo_lg
- WR   bool led_lo_lg
-#debug_left bool led_lo_lg
+#srcline 904 ;(* 478	*)	ST 	lo_led_lo_lg
+ WR   lo_led_lo_lg
+#debug_left bool lo_led_lo_lg
 #srcline 905 ;(* 496	*)	CAL	blik_loznice_2(InButton:=_Nod_Tmp_18, InLight:=_Nod_Tmp_17, InTimeOfBlic:=_Nod_Tmp_10)
  LDY  _Nod_Tmp_18
 #debug bool _Nod_Tmp_18
@@ -249,9 +249,9 @@ rizeni_loznice_L0:
  LDY  _Nod_Tmp_8
 #debug bool _Nod_Tmp_8
  OR
-#srcline 908 ;(* 554	*)	ST 	led_lo_rg
- WR   bool led_lo_rg
-#debug_left bool led_lo_rg
+#srcline 908 ;(* 554	*)	ST 	lo_led_lo_rg
+ WR   lo_led_lo_rg
+#debug_left bool lo_led_lo_rg
 #srcline 909 ;(* 697	*)	CAL	tp_lo_1(IN:=_Nod_Tmp_15, PT:=_Nod_Tmp_9)
  LDY  _Nod_Tmp_15
 #debug bool _Nod_Tmp_15
@@ -276,9 +276,9 @@ rizeni_loznice_L0:
  LDY  _Nod_Tmp_5
 #debug bool _Nod_Tmp_5
  OR
-#srcline 914 ;(* 487	*)	ST 	led_lo_lr
- WR   bool led_lo_lr
-#debug_left bool led_lo_lr
+#srcline 914 ;(* 487	*)	ST 	lo_led_lo_lr
+ WR   lo_led_lo_lr
+#debug_left bool lo_led_lo_lr
 #srcline 915 ;(* 672	*)	LD 	blik_loznice_2.OutLED_Red
  LDX  blik_loznice_2~OutLED_Red
 #debug bool blik_loznice_2.OutLED_Red
@@ -286,9 +286,9 @@ rizeni_loznice_L0:
  LDY  _Nod_Tmp_5
 #debug bool _Nod_Tmp_5
  OR
-#srcline 917 ;(* 563	*)	ST 	led_lo_rr
- WR   bool led_lo_rr
-#debug_left bool led_lo_rr
+#srcline 917 ;(* 563	*)	ST 	lo_led_lo_rr
+ WR   lo_led_lo_rr
+#debug_left bool lo_led_lo_rr
 #srcline 918 ;//N001
 #srcline 919 ;(* 105	*)	LD 	tll_lo_lr
  LD   bool tll_lo_lr

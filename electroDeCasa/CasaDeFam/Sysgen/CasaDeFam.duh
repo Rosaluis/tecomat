@@ -1,3 +1,22 @@
+FUNCTION_BLOCK fb_LED_blik
+(**)
+  VAR_INPUT
+    InButton : BOOL; (*signal od tlacitka*)
+    InLight : BOOL; (*stav svetla ktere tlacitko ovlada*)
+    InTimeOfBlic : TIME; (*cas bliknuti pro zelenou i cervenou*)
+  END_VAR
+  VAR_OUTPUT
+    OutLED_Green : BOOL; (*zelena LEDka*)
+    OutLED_Red : BOOL; (*cervena LEDka*)
+  END_VAR
+
+  VAR
+    delay1 : TP;
+    delay2 : TP;
+  END_VAR
+
+END_FUNCTION_BLOCK 
+
 FUNCTION_BLOCK fb_off_SvKoupelna1
 (*Vypnuti vsech svetel v koupelne1*)
   VAR_INPUT
@@ -123,21 +142,11 @@ FUNCTION_BLOCK fb_on_SvKoupelna1
 
 END_FUNCTION_BLOCK 
 
-FUNCTION_BLOCK fb_LED_blik
+FUNCTION_BLOCK boFALSE
 (**)
-  VAR_INPUT
-    InButton : BOOL; (*signal od tlacitka*)
-    InLight : BOOL; (*stav svetla ktere tlacitko ovlada*)
-    InTimeOfBlic : TIME; (*cas bliknuti pro zelenou i cervenou*)
-  END_VAR
-  VAR_OUTPUT
-    OutLED_Green : BOOL; (*zelena LEDka*)
-    OutLED_Red : BOOL; (*cervena LEDka*)
-  END_VAR
 
-  VAR
-    delay1 : TP;
-    delay2 : TP;
+  VAR_OUTPUT
+    out : BOOL;
   END_VAR
 
 END_FUNCTION_BLOCK 

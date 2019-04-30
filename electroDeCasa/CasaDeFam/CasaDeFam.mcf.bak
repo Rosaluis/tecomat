@@ -12,5 +12,6 @@ CONFIGURATION CasaDeFam
     PROGRAM satna1np WITH FreeWheeling : ovladani_satna_1np ();
     PROGRAM venkovni WITH FreeWheeling : ovladani_venkovni ();
     PROGRAM pirka WITH FreeWheeling : ovladani_pir ();
+    PROGRAM central_button WITH FreeWheeling : centralni_tlacitko ();
   END_RESOURCE
 END_CONFIGURATION

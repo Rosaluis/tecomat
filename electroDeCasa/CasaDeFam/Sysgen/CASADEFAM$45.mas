@@ -1,0 +1,160 @@
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CASADEFAM.MCF'
+ 
+#srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CASADEFAM.MCF'
+
+; ***** RESOURCE - CPM
+#reg ovladani_obyvak ovl_obyvak
+#srcline 4 ;    PROGRAM ovl_obyvak WITH FreeWheeling : ovladani_obyvak ();
+P     0
+ LEA  ovl_obyvak
+ CAL  ovladani_obyvak_L0
+E     0
+
+
+; ***** RESOURCE - CPM
+#reg ovladani_koupelna1 ovl_koupelna1
+#srcline 5 ;    PROGRAM ovl_koupelna1 WITH FreeWheeling : ovladani_koupelna1 ();
+P     0
+ LEA  ovl_koupelna1
+ CAL  ovladani_koupelna1_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  ovl_koupelna1
+ CAL  ovladani_koupelna1__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg rizeni_loznice loznice
+#srcline 6 ;    PROGRAM loznice WITH FreeWheeling : rizeni_loznice ();
+P     0
+ LEA  loznice
+ CAL  rizeni_loznice_L0
+E     0
+
+
+; ***** RESOURCE - CPM
+#reg rizeni_pokojZ pokojZ
+#srcline 7 ;    PROGRAM pokojZ WITH FreeWheeling : rizeni_pokojZ ();
+P     0
+ LEA  pokojZ
+ CAL  rizeni_pokojZ_L0
+E     0
+
+
+; ***** RESOURCE - CPM
+#reg rizeni_pokojV pokojV
+#srcline 8 ;    PROGRAM pokojV WITH FreeWheeling : rizeni_pokojV ();
+P     0
+ LEA  pokojV
+ CAL  rizeni_pokojV_L0
+E     0
+
+
+; ***** RESOURCE - CPM
+#reg ovladani_koupelna2 koupelna2
+#srcline 9 ;    PROGRAM koupelna2 WITH FreeWheeling : ovladani_koupelna2 ();
+P     0
+ LEA  koupelna2
+ CAL  ovladani_koupelna2_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  koupelna2
+ CAL  ovladani_koupelna2__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg alarm poplach1
+#srcline 10 ;    PROGRAM poplach1 WITH FreeWheeling : alarm ();
+P     0
+ LEA  poplach1
+ CAL  alarm_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  poplach1
+ CAL  alarm__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg klavesnice klavesnice1
+#srcline 11 ;    PROGRAM klavesnice1 WITH FreeWheeling : klavesnice ();
+P     0
+ LEA  klavesnice1
+ CAL  klavesnice_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  klavesnice1
+ CAL  klavesnice__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg ovladani_satna_1np satna1np
+#srcline 12 ;    PROGRAM satna1np WITH FreeWheeling : ovladani_satna_1np ();
+P     0
+ LEA  satna1np
+ CAL  ovladani_satna_1np_L0
+E     0
+
+
+; ***** RESOURCE - CPM
+#reg ovladani_venkovni venkovni
+#srcline 13 ;    PROGRAM venkovni WITH FreeWheeling : ovladani_venkovni ();
+P     0
+ LEA  venkovni
+ CAL  ovladani_venkovni_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  venkovni
+ CAL  ovladani_venkovni__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg ovladani_pir pirka
+#srcline 14 ;    PROGRAM pirka WITH FreeWheeling : ovladani_pir ();
+P     0
+ LEA  pirka
+ CAL  ovladani_pir_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  pirka
+ CAL  ovladani_pir__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg centralni_tlacitko central_button
+#srcline 15 ;    PROGRAM central_button WITH FreeWheeling : centralni_tlacitko ();
+P     0
+ LEA  central_button
+ CAL  centralni_tlacitko_L0
+E     0
+
+; Initialize - program
+P     58
+ LEA  central_button
+ CAL  centralni_tlacitko__InstanceInit__
+E     58
+
+; ***** RESOURCE - CPM
+#reg signalizace_LED signalizace
+#srcline 16 ;    PROGRAM signalizace WITH FreeWheeling : signalizace_LED ();
+P     0
+ LEA  signalizace
+ CAL  signalizace_LED_L0
+E     0
+
+
+
+ 
+
+#srcfile ''

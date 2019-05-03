@@ -503,7 +503,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
 <inVariable name="T#0.5s" type="TIME" id="37">
   <position x="60" y="26" />
 </inVariable>
-<outVariable name="led_pz_rr" type="BOOL" id="38" order="21">
+<outVariable name="pz_led_pz_rr" type="BOOL" id="38" order="21">
   <position x="116" y="24" />
   <connection refid="47" name="OR">
     <position x="117" y="25" />
@@ -512,7 +512,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="108" y="25" />
   </connection>
 </outVariable>
-<outVariable name="led_pz_rg" type="BOOL" id="39" order="18">
+<outVariable name="pz_led_pz_rg" type="BOOL" id="39" order="18">
   <position x="116" y="14" />
   <connection refid="46" name="OR">
     <position x="117" y="15" />
@@ -588,7 +588,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="67" y="27" />
   </connection>
 </node>
-<outVariable name="led_pz_lg" type="BOOL" id="44" order="24">
+<outVariable name="pz_led_pz_lg" type="BOOL" id="44" order="24">
   <position x="116" y="31" />
   <connection refid="48" name="OR">
     <position x="117" y="32" />
@@ -597,7 +597,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="108" y="32" />
   </connection>
 </outVariable>
-<outVariable name="led_pz_lr" type="BOOL" id="45" order="26">
+<outVariable name="pz_led_pz_lr" type="BOOL" id="45" order="26">
   <position x="116" y="38" />
   <connection refid="49" name="OR">
     <position x="117" y="39" />
@@ -897,7 +897,7 @@ Ovladani svetla nade dvermi od tlacitka u postele - tlacitko je input vstupem lo
 <inVariable name="sv_pz_dvere" type="BOOL" id="63">
   <position x="11" y="132" />
 </inVariable>
-<outVariable name="sig_tl_pokojZ" type="BOOL" id="129" order="31">
+<outVariable name="sig_tl_pokojZ" type="BOOL" id="64" order="31">
   <position x="73" y="91" />
   <connection refid="32" name="Q">
     <position x="74" y="92" />
@@ -971,20 +971,20 @@ END_VAR
 (* 802	*)	ST	_Nod_Tmp_9
 (* 589	*)	LD 	blik_PZ_1.OutLED_Green
 (* 597	*)	OR 	_Nod_Tmp_9
-(* 491	*)	ST 	led_pz_rg
+(* 491	*)	ST 	pz_led_pz_rg
 (* 701	*)	CAL	tp_pz_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
 (* 701	*)	LD 	tp_pz_1.Q
 (* 744	*)	ST	_Nod_Tmp_7
 (* 618	*)	LD 	blik_PZ_1.OutLED_Red
 (* 626	*)	OR 	_Nod_Tmp_7
-(* 482	*)	ST 	led_pz_rr
+(* 482	*)	ST 	pz_led_pz_rr
 (* 500	*)	CAL	blik_PZ_2(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
 (* 647	*)	LD 	blik_PZ_2.OutLED_Green
 (* 655	*)	OR 	_Nod_Tmp_9
-(* 567	*)	ST 	led_pz_lg
+(* 567	*)	ST 	pz_led_pz_lg
 (* 676	*)	LD 	blik_PZ_2.OutLED_Red
 (* 684	*)	OR 	_Nod_Tmp_7
-(* 576	*)	ST 	led_pz_lr
+(* 576	*)	ST 	pz_led_pz_lr
 //N001
 (*  96	*)	LD 	tll_pz_lr
 (* 382	*)	ST	_Nod_Tmp_3

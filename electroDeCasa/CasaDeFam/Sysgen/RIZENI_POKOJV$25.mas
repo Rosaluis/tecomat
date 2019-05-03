@@ -31,7 +31,7 @@
   time _Nod_Tmp_11,
   time _Nod_Tmp_10,
   bool _Nod_Tmp_9,
-  bool _Nod_Tmp_7,
+  bool _Nod_Tmp_6,
   bool _Nod_Tmp_3
 P     61
 rizeni_pokojV_L0:
@@ -225,37 +225,10 @@ rizeni_pokojV_L0:
  LDY  _Nod_Tmp_9
 #debug bool _Nod_Tmp_9
  OR
-#srcline 974 ;(* 422	*)	ST 	led_pv_rg
- WR   bool led_pv_rg
-#debug_left bool led_pv_rg
-#srcline 975 ;(* 684	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
- LDY  _Nod_Tmp_13
-#debug bool _Nod_Tmp_13
- WRX  tp_pv_1~IN
-#debug_left bool tp_pv_1~IN
- LDY  _Nod_Tmp_10
-#debug time _Nod_Tmp_10
- WRX  tp_pv_1~PT
-#debug_left time tp_pv_1~PT
- LEAX tp_pv_1
- CAL  TP_L0
-#srcline 976 ;(* 684	*)	LD 	tp_pv_1.Q
- LDX  tp_pv_1~Q
-#debug bool tp_pv_1.Q
-#srcline 977 ;(* 724	*)	ST	_Nod_Tmp_7
- WRY  _Nod_Tmp_7
-#debug_left bool _Nod_Tmp_7
-#srcline 978 ;(* 601	*)	LD 	blik_tls_pv_tr.OutLED_Red
- LDX  blik_tls_pv_tr~OutLED_Red
-#debug bool blik_tls_pv_tr.OutLED_Red
-#srcline 979 ;(* 609	*)	OR 	_Nod_Tmp_7
- LDY  _Nod_Tmp_7
-#debug bool _Nod_Tmp_7
- OR
-#srcline 980 ;(* 404	*)	ST 	led_pv_rr
- WR   bool led_pv_rr
-#debug_left bool led_pv_rr
-#srcline 981 ;(* 492	*)	CAL	blik_tls_pv_tl(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
+#srcline 974 ;(* 422	*)	ST 	pv_led_pv_rg
+ WR   pv_led_pv_rg
+#debug_left bool pv_led_pv_rg
+#srcline 975 ;(* 492	*)	CAL	blik_tls_pv_tl(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
  LDY  _Nod_Tmp_16
 #debug bool _Nod_Tmp_16
  WRX  blik_tls_pv_tl~InButton
@@ -270,26 +243,53 @@ rizeni_pokojV_L0:
 #debug_left time blik_tls_pv_tl~InTimeOfBlic
  LEAX blik_tls_pv_tl
  CAL  fb_LED_blik_L0
-#srcline 982 ;(* 630	*)	LD 	blik_tls_pv_tl.OutLED_Green
+#srcline 976 ;(* 630	*)	LD 	blik_tls_pv_tl.OutLED_Green
  LDX  blik_tls_pv_tl~OutLED_Green
 #debug bool blik_tls_pv_tl.OutLED_Green
-#srcline 983 ;(* 638	*)	OR 	_Nod_Tmp_9
+#srcline 977 ;(* 638	*)	OR 	_Nod_Tmp_9
  LDY  _Nod_Tmp_9
 #debug bool _Nod_Tmp_9
  OR
-#srcline 984 ;(* 483	*)	ST 	led_pv_lg
- WR   bool led_pv_lg
-#debug_left bool led_pv_lg
+#srcline 978 ;(* 483	*)	ST 	pv_led_pv_lg
+ WR   pv_led_pv_lg
+#debug_left bool pv_led_pv_lg
+#srcline 979 ;(* 684	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
+ LDY  _Nod_Tmp_13
+#debug bool _Nod_Tmp_13
+ WRX  tp_pv_1~IN
+#debug_left bool tp_pv_1~IN
+ LDY  _Nod_Tmp_10
+#debug time _Nod_Tmp_10
+ WRX  tp_pv_1~PT
+#debug_left time tp_pv_1~PT
+ LEAX tp_pv_1
+ CAL  TP_L0
+#srcline 980 ;(* 684	*)	LD 	tp_pv_1.Q
+ LDX  tp_pv_1~Q
+#debug bool tp_pv_1.Q
+#srcline 981 ;(* 724	*)	ST	_Nod_Tmp_6
+ WRY  _Nod_Tmp_6
+#debug_left bool _Nod_Tmp_6
+#srcline 982 ;(* 601	*)	LD 	blik_tls_pv_tr.OutLED_Red
+ LDX  blik_tls_pv_tr~OutLED_Red
+#debug bool blik_tls_pv_tr.OutLED_Red
+#srcline 983 ;(* 609	*)	OR 	_Nod_Tmp_6
+ LDY  _Nod_Tmp_6
+#debug bool _Nod_Tmp_6
+ OR
+#srcline 984 ;(* 404	*)	ST 	pv_led_pv_rr
+ WR   pv_led_pv_rr
+#debug_left bool pv_led_pv_rr
 #srcline 985 ;(* 659	*)	LD 	blik_tls_pv_tl.OutLED_Red
  LDX  blik_tls_pv_tl~OutLED_Red
 #debug bool blik_tls_pv_tl.OutLED_Red
-#srcline 986 ;(* 667	*)	OR 	_Nod_Tmp_7
- LDY  _Nod_Tmp_7
-#debug bool _Nod_Tmp_7
+#srcline 986 ;(* 667	*)	OR 	_Nod_Tmp_6
+ LDY  _Nod_Tmp_6
+#debug bool _Nod_Tmp_6
  OR
-#srcline 987 ;(* 474	*)	ST 	led_pv_lr
- WR   bool led_pv_lr
-#debug_left bool led_pv_lr
+#srcline 987 ;(* 474	*)	ST 	pv_led_pv_lr
+ WR   pv_led_pv_lr
+#debug_left bool pv_led_pv_lr
 #srcline 988 ;//N001
 #srcline 989 ;(*  96	*)	LD 	tll_pv_ll
  LD   bool tll_pv_ll

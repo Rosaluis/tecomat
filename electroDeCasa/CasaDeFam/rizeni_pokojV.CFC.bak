@@ -33,7 +33,7 @@ Komentáø ke schématu
   <position x="39" y="13" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="46">
+      <connection refid="43">
         <position x="39" y="14" />
         <position x="38" y="14" />
         <position x="38" y="14" />
@@ -41,7 +41,7 @@ Komentáø ke schématu
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="37">
+      <connection refid="34">
         <position x="39" y="16" />
         <position x="38" y="16" />
         <position x="38" y="16" />
@@ -77,7 +77,7 @@ Komentáø ke schématu
   <position x="39" y="33" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="47">
+      <connection refid="44">
         <position x="39" y="34" />
         <position x="38" y="34" />
         <position x="38" y="34" />
@@ -85,7 +85,7 @@ Komentáø ke schématu
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="45">
+      <connection refid="42">
         <position x="39" y="36" />
         <position x="37" y="36" />
         <position x="37" y="36" />
@@ -117,55 +117,14 @@ Komentáø ke schématu
 <inVariable name="sv_pv_2" type="BOOL" id="9">
   <position x="13" y="35" />
 </inVariable>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="10" height="4" width="4" line="73" order="32">
-  <position x="77" y="105" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="132" name="OR">
-        <position x="77" y="106" />
-        <position x="71" y="106" />
-        <position x="71" y="106" />
-        <position x="70" y="106" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="13">
-        <position x="77" y="108" />
-        <position x="74" y="108" />
-        <position x="74" y="118" />
-        <position x="24" y="118" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<inVariable name="tll_pv_ll" type="BOOL" id="11">
+<inVariable name="tll_pv_ll" type="BOOL" id="10">
   <position x="13" y="104" />
 </inVariable>
-<outVariable name="sv_ve_vychod" type="BOOL" id="12" order="33">
-  <position x="99" y="105" />
-  <connection refid="10" name="XOR">
-    <position x="100" y="106" />
-    <position x="90" y="106" />
-    <position x="90" y="106" />
-    <position x="81" y="106" />
-  </connection>
-</outVariable>
-<inVariable name="sv_ve_vychod" type="BOOL" id="13">
-  <position x="13" y="117" />
-</inVariable>
-<block name="fb_off_SvKoupelna1" instance="offPV" id="14" height="10" width="15" line="22" order="8">
+<block name="fb_off_SvKoupelna1" instance="offPV" id="11" height="10" width="15" line="22" order="8">
   <position x="39" y="54" />
   <inVariables>
     <variable name="in" type="BOOL">
-      <connection refid="53">
+      <connection refid="50">
         <position x="39" y="57" />
         <position x="38" y="57" />
         <position x="38" y="57" />
@@ -174,7 +133,7 @@ Komentáø ke schématu
     <comment>vstup od tlaèítka</comment>
     </variable>
     <variable name="sig0" type="BOOL">
-      <connection refid="16">
+      <connection refid="13">
         <position x="39" y="59" />
         <position x="34" y="59" />
         <position x="34" y="59" />
@@ -183,7 +142,7 @@ Komentáø ke schématu
     <comment>vstup stavu svetla 0</comment>
     </variable>
     <variable name="sig1" type="BOOL">
-      <connection refid="17">
+      <connection refid="14">
         <position x="39" y="61" />
         <position x="33" y="61" />
         <position x="33" y="61" />
@@ -210,38 +169,38 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<inVariable name="tls_pv_lr" type="BOOL" id="15">
+<inVariable name="tls_pv_lr" type="BOOL" id="12">
   <position x="13" y="56" />
 </inVariable>
-<inVariable name="sv_pv_1" type="BOOL" id="16">
+<inVariable name="sv_pv_1" type="BOOL" id="13">
   <position x="13" y="58" />
 </inVariable>
-<inVariable name="sv_pv_2" type="BOOL" id="17">
+<inVariable name="sv_pv_2" type="BOOL" id="14">
   <position x="13" y="60" />
 </inVariable>
-<outVariable name="sv_pv_1" type="BOOL" id="18" order="9">
+<outVariable name="sv_pv_1" type="BOOL" id="15" order="9">
   <position x="67" y="58" />
-  <connection refid="14" name="sOff0">
+  <connection refid="11" name="sOff0">
     <position x="68" y="59" />
     <position x="55" y="59" />
     <position x="55" y="59" />
     <position x="54" y="59" />
   </connection>
 </outVariable>
-<outVariable name="sv_pv_2" type="BOOL" id="19" order="10">
+<outVariable name="sv_pv_2" type="BOOL" id="16" order="10">
   <position x="67" y="60" />
-  <connection refid="14" name="sOff1">
+  <connection refid="11" name="sOff1">
     <position x="68" y="61" />
     <position x="55" y="61" />
     <position x="55" y="61" />
     <position x="54" y="61" />
   </connection>
 </outVariable>
-<block name="fb_on_SvKoupelna1" instance="onPV" id="20" height="10" width="15" line="30" order="12">
+<block name="fb_on_SvKoupelna1" instance="onPV" id="17" height="10" width="15" line="30" order="12">
   <position x="39" y="70" />
   <inVariables>
     <variable name="in" type="BOOL">
-      <connection refid="58">
+      <connection refid="55">
         <position x="39" y="73" />
         <position x="38" y="73" />
         <position x="38" y="73" />
@@ -250,7 +209,7 @@ Komentáø ke schématu
     <comment>vstup od tlaèítka</comment>
     </variable>
     <variable name="sig0" type="BOOL">
-      <connection refid="21">
+      <connection refid="18">
         <position x="39" y="75" />
         <position x="26" y="75" />
         <position x="26" y="75" />
@@ -259,7 +218,7 @@ Komentáø ke schématu
     <comment>vstup stavu svetla 0</comment>
     </variable>
     <variable name="sig1" type="BOOL">
-      <connection refid="22">
+      <connection refid="19">
         <position x="39" y="77" />
         <position x="25" y="77" />
         <position x="25" y="77" />
@@ -286,34 +245,34 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<inVariable name="sv_pv_1" type="BOOL" id="21">
+<inVariable name="sv_pv_1" type="BOOL" id="18">
   <position x="13" y="74" />
 </inVariable>
-<inVariable name="sv_pv_2" type="BOOL" id="22">
+<inVariable name="sv_pv_2" type="BOOL" id="19">
   <position x="13" y="76" />
 </inVariable>
-<outVariable name="sv_pv_1" type="BOOL" id="23" order="13">
+<outVariable name="sv_pv_1" type="BOOL" id="20" order="13">
   <position x="67" y="74" />
-  <connection refid="20" name="sOff0">
+  <connection refid="17" name="sOff0">
     <position x="68" y="75" />
     <position x="55" y="75" />
     <position x="55" y="75" />
     <position x="54" y="75" />
   </connection>
 </outVariable>
-<outVariable name="sv_pv_2" type="BOOL" id="24" order="14">
+<outVariable name="sv_pv_2" type="BOOL" id="21" order="14">
   <position x="67" y="76" />
-  <connection refid="20" name="sOff1">
+  <connection refid="17" name="sOff1">
     <position x="68" y="77" />
     <position x="55" y="77" />
     <position x="55" y="77" />
     <position x="54" y="77" />
   </connection>
 </outVariable>
-<inVariable name="tll_pv_lr" type="BOOL" id="25">
+<inVariable name="tll_pv_lr" type="BOOL" id="22">
   <position x="13" y="72" />
 </inVariable>
-<block name="R_TRIG" instance="trigPV1" id="26" height="4" width="6" line="3" order="1">
+<block name="R_TRIG" instance="trigPV1" id="23" height="4" width="6" line="3" order="1">
   <position x="27" y="11" />
   <inVariables>
     <variable name="CLK" type="BOOL">
@@ -330,7 +289,7 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<block name="R_TRIG" instance="trigPV2" id="27" height="4" width="6" line="11" order="4">
+<block name="R_TRIG" instance="trigPV2" id="24" height="4" width="6" line="11" order="4">
   <position x="27" y="31" />
   <inVariables>
     <variable name="CLK" type="BOOL">
@@ -347,11 +306,11 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<block name="R_TRIG" instance="trigPV4" id="28" height="4" width="6" line="19" order="7">
+<block name="R_TRIG" instance="trigPV4" id="25" height="4" width="6" line="19" order="7">
   <position x="24" y="54" />
   <inVariables>
     <variable name="CLK" type="BOOL">
-      <connection refid="15">
+      <connection refid="12">
         <position x="24" y="57" />
         <position x="23" y="57" />
         <position x="23" y="57" />
@@ -364,11 +323,11 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<block name="R_TRIG" instance="trigPV5" id="29" height="4" width="6" line="27" order="11">
+<block name="R_TRIG" instance="trigPV5" id="26" height="4" width="6" line="27" order="11">
   <position x="24" y="70" />
   <inVariables>
     <variable name="CLK" type="BOOL">
-      <connection refid="25">
+      <connection refid="22">
         <position x="24" y="73" />
         <position x="21" y="73" />
         <position x="21" y="73" />
@@ -381,11 +340,11 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<block name="TON" instance="tonPV" id="30" height="6" width="6" line="62" order="27">
+<block name="TON" instance="tonPV" id="27" height="6" width="6" line="62" order="27">
   <position x="34" y="102" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="33">
+      <connection refid="30">
         <position x="34" y="105" />
         <position x="32" y="105" />
         <position x="32" y="105" />
@@ -394,7 +353,7 @@ Komentáø ke schématu
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="31">
+      <connection refid="28">
         <position x="34" y="107" />
         <position x="32" y="107" />
         <position x="32" y="107" />
@@ -412,14 +371,14 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<inVariable name="T#1s" type="TIME" id="31">
+<inVariable name="T#1s" type="TIME" id="28">
   <position x="26" y="106" />
 </inVariable>
-<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="32" height="4" width="4" line="66" order="29">
+<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="29" height="4" width="4" line="66" order="29">
   <position x="46" y="98" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="33">
+      <connection refid="30">
         <position x="46" y="99" />
         <position x="30" y="99" />
         <position x="30" y="105" />
@@ -427,7 +386,7 @@ Komentáø ke schématu
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="30" name="Q">
+      <connection refid="27" name="Q">
         <position x="46" y="101" />
         <position x="41" y="101" />
         <position x="41" y="105" />
@@ -444,38 +403,38 @@ Komentáø ke schématu
     </variable>
   </outVariables>
 </block>
-<node id="33">
+<node id="30">
   <position x="30" y="105" />
-  <connection refid="11">
+  <connection refid="10">
     <position x="30" y="105" />
     <position x="26" y="105" />
     <position x="26" y="105" />
     <position x="20" y="105" />
   </connection>
 </node>
-<outVariable name="pomPV" type="TIME" id="34" order="28">
+<outVariable name="pomPV" type="TIME" id="31" order="28">
   <position x="44" y="106" />
-  <connection refid="30" name="ET">
+  <connection refid="27" name="ET">
     <position x="45" y="107" />
     <position x="41" y="107" />
     <position x="41" y="107" />
     <position x="40" y="107" />
   </connection>
 </outVariable>
-<comment id="35" height="10" width="14">
+<comment id="32" height="10" width="14">
   <position x="13" y="92" />
 pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
 </comment>
-<outVariable name="led_pv_rr" type="BOOL" id="36" order="21">
+<outVariable name="led_pv_rr" type="BOOL" id="33" order="21">
   <position x="112" y="25" />
-  <connection refid="49" name="OR">
+  <connection refid="46" name="OR">
     <position x="113" y="26" />
     <position x="112" y="26" />
     <position x="112" y="26" />
     <position x="106" y="26" />
   </connection>
 </outVariable>
-<node id="37">
+<node id="34">
   <position x="35" y="16" />
   <connection refid="5">
     <position x="35" y="16" />
@@ -484,20 +443,20 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="20" y="16" />
   </connection>
 </node>
-<outVariable name="led_pv_rg" type="BOOL" id="38" order="18">
+<outVariable name="led_pv_rg" type="BOOL" id="35" order="18">
   <position x="112" y="19" />
-  <connection refid="48" name="OR">
+  <connection refid="45" name="OR">
     <position x="113" y="20" />
     <position x="112" y="20" />
     <position x="112" y="20" />
     <position x="106" y="20" />
   </connection>
 </outVariable>
-<block name="fb_LED_blik" instance="blik_tls_pv_tr" id="39" height="8" width="19" line="37" order="15">
+<block name="fb_LED_blik" instance="blik_tls_pv_tr" id="36" height="8" width="19" line="37" order="15">
   <position x="66" y="21" />
   <inVariables>
     <variable name="InButton" type="BOOL">
-      <connection refid="46">
+      <connection refid="43">
         <position x="66" y="24" />
         <position x="37" y="24" />
         <position x="37" y="14" />
@@ -506,7 +465,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>signal od tlacitka</comment>
     </variable>
     <variable name="InLight" type="BOOL">
-      <connection refid="37">
+      <connection refid="34">
         <position x="66" y="26" />
         <position x="35" y="26" />
         <position x="35" y="16" />
@@ -515,7 +474,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>stav svetla ktere tlacitko ovlada</comment>
     </variable>
     <variable name="InTimeOfBlic" type="TIME">
-      <connection refid="44">
+      <connection refid="41">
         <position x="66" y="28" />
         <position x="65" y="28" />
         <position x="65" y="28" />
@@ -533,32 +492,32 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<inVariable name="T#0.5s" type="TIME" id="40">
+<inVariable name="T#0.5s" type="TIME" id="37">
   <position x="49" y="27" />
 </inVariable>
-<outVariable name="led_pv_lr" type="BOOL" id="41" order="26">
+<outVariable name="led_pv_lr" type="BOOL" id="38" order="26">
   <position x="112" y="46" />
-  <connection refid="51" name="OR">
+  <connection refid="48" name="OR">
     <position x="113" y="47" />
     <position x="112" y="47" />
     <position x="112" y="47" />
     <position x="106" y="47" />
   </connection>
 </outVariable>
-<outVariable name="led_pv_lg" type="BOOL" id="42" order="24">
+<outVariable name="led_pv_lg" type="BOOL" id="39" order="24">
   <position x="112" y="39" />
-  <connection refid="50" name="OR">
+  <connection refid="47" name="OR">
     <position x="113" y="40" />
     <position x="112" y="40" />
     <position x="112" y="40" />
     <position x="106" y="40" />
   </connection>
 </outVariable>
-<block name="fb_LED_blik" instance="blik_tls_pv_tl" id="43" height="8" width="19" line="52" order="22">
+<block name="fb_LED_blik" instance="blik_tls_pv_tl" id="40" height="8" width="19" line="52" order="22">
   <position x="66" y="42" />
   <inVariables>
     <variable name="InButton" type="BOOL">
-      <connection refid="47">
+      <connection refid="44">
         <position x="66" y="45" />
         <position x="37" y="45" />
         <position x="37" y="34" />
@@ -567,7 +526,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>signal od tlacitka</comment>
     </variable>
     <variable name="InLight" type="BOOL">
-      <connection refid="45">
+      <connection refid="42">
         <position x="66" y="47" />
         <position x="35" y="47" />
         <position x="35" y="36" />
@@ -576,7 +535,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>stav svetla ktere tlacitko ovlada</comment>
     </variable>
     <variable name="InTimeOfBlic" type="TIME">
-      <connection refid="44">
+      <connection refid="41">
         <position x="66" y="49" />
         <position x="63" y="49" />
         <position x="63" y="28" />
@@ -594,16 +553,16 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<node id="44">
+<node id="41">
   <position x="63" y="28" />
-  <connection refid="40">
+  <connection refid="37">
     <position x="63" y="28" />
     <position x="58" y="28" />
     <position x="58" y="28" />
     <position x="56" y="28" />
   </connection>
 </node>
-<node id="45">
+<node id="42">
   <position x="35" y="36" />
   <connection refid="9">
     <position x="35" y="36" />
@@ -612,29 +571,29 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="20" y="36" />
   </connection>
 </node>
-<node id="46">
+<node id="43">
   <position x="37" y="14" />
-  <connection refid="26" name="Q">
+  <connection refid="23" name="Q">
     <position x="37" y="14" />
     <position x="34" y="14" />
     <position x="34" y="14" />
     <position x="33" y="14" />
   </connection>
 </node>
-<node id="47">
+<node id="44">
   <position x="37" y="34" />
-  <connection refid="27" name="Q">
+  <connection refid="24" name="Q">
     <position x="37" y="34" />
     <position x="35" y="34" />
     <position x="35" y="34" />
     <position x="33" y="34" />
   </connection>
 </node>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="48" height="4" width="3" line="44" order="17">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="45" height="4" width="3" line="44" order="17">
   <position x="103" y="19" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="39" name="OutLED_Green">
+      <connection refid="36" name="OutLED_Green">
         <position x="103" y="20" />
         <position x="90" y="20" />
         <position x="90" y="24" />
@@ -642,7 +601,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="57">
+      <connection refid="54">
         <position x="103" y="22" />
         <position x="100" y="22" />
         <position x="100" y="42" />
@@ -659,11 +618,11 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="49" height="4" width="3" line="50" order="20">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="46" height="4" width="3" line="50" order="20">
   <position x="103" y="25" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="39" name="OutLED_Red">
+      <connection refid="36" name="OutLED_Red">
         <position x="103" y="26" />
         <position x="90" y="26" />
         <position x="90" y="26" />
@@ -671,7 +630,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="54">
+      <connection refid="51">
         <position x="103" y="28" />
         <position x="97" y="28" />
         <position x="97" y="49" />
@@ -688,11 +647,11 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="50" height="4" width="3" line="54" order="23">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="47" height="4" width="3" line="54" order="23">
   <position x="103" y="39" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="43" name="OutLED_Green">
+      <connection refid="40" name="OutLED_Green">
         <position x="103" y="40" />
         <position x="90" y="40" />
         <position x="90" y="45" />
@@ -700,7 +659,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="57">
+      <connection refid="54">
         <position x="103" y="42" />
         <position x="101" y="42" />
         <position x="101" y="42" />
@@ -717,11 +676,11 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="51" height="4" width="3" line="57" order="25">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="48" height="4" width="3" line="57" order="25">
   <position x="103" y="46" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="43" name="OutLED_Red">
+      <connection refid="40" name="OutLED_Red">
         <position x="103" y="47" />
         <position x="89" y="47" />
         <position x="89" y="47" />
@@ -729,7 +688,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="54">
+      <connection refid="51">
         <position x="103" y="49" />
         <position x="99" y="49" />
         <position x="99" y="49" />
@@ -746,11 +705,11 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="TP" instance="tp_pv_1" id="52" height="6" width="6" line="46" order="19">
+<block name="TP" instance="tp_pv_1" id="49" height="6" width="6" line="46" order="19">
   <position x="87" y="63" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="53">
+      <connection refid="50">
         <position x="87" y="66" />
         <position x="35" y="66" />
         <position x="35" y="57" />
@@ -759,7 +718,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="59">
+      <connection refid="56">
         <position x="87" y="68" />
         <position x="83" y="68" />
         <position x="83" y="68" />
@@ -777,32 +736,32 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<node id="53">
+<node id="50">
   <position x="35" y="57" />
-  <connection refid="28" name="Q">
+  <connection refid="25" name="Q">
     <position x="35" y="57" />
     <position x="32" y="57" />
     <position x="32" y="57" />
     <position x="30" y="57" />
   </connection>
 </node>
-<node id="54">
+<node id="51">
   <position x="97" y="49" />
-  <connection refid="52" name="Q">
+  <connection refid="49" name="Q">
     <position x="97" y="49" />
     <position x="97" y="49" />
     <position x="97" y="66" />
     <position x="93" y="66" />
   </connection>
 </node>
-<inVariable name="T#1s" type="TIME" id="55">
+<inVariable name="T#1s" type="TIME" id="52">
   <position x="73" y="67" />
 </inVariable>
-<block name="TP" instance="tp_pv_2" id="56" height="6" width="6" line="40" order="16">
+<block name="TP" instance="tp_pv_2" id="53" height="6" width="6" line="40" order="16">
   <position x="87" y="79" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="58">
+      <connection refid="55">
         <position x="87" y="82" />
         <position x="35" y="82" />
         <position x="35" y="73" />
@@ -811,7 +770,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="59">
+      <connection refid="56">
         <position x="87" y="84" />
         <position x="81" y="84" />
         <position x="81" y="68" />
@@ -829,38 +788,38 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<node id="57">
+<node id="54">
   <position x="100" y="42" />
-  <connection refid="56" name="Q">
+  <connection refid="53" name="Q">
     <position x="100" y="42" />
     <position x="100" y="42" />
     <position x="100" y="82" />
     <position x="93" y="82" />
   </connection>
 </node>
-<node id="58">
+<node id="55">
   <position x="35" y="73" />
-  <connection refid="29" name="Q">
+  <connection refid="26" name="Q">
     <position x="35" y="73" />
     <position x="32" y="73" />
     <position x="32" y="73" />
     <position x="30" y="73" />
   </connection>
 </node>
-<node id="59">
+<node id="56">
   <position x="81" y="68" />
-  <connection refid="55">
+  <connection refid="52">
     <position x="81" y="68" />
     <position x="79" y="68" />
     <position x="79" y="68" />
     <position x="78" y="68" />
   </connection>
 </node>
-<block name="R_TRIG" instance="trigPV3" id="60" height="4" width="6" line="68" order="30">
+<block name="R_TRIG" instance="trigPV3" id="57" height="4" width="6" line="68" order="30">
   <position x="52" y="96" />
   <inVariables>
     <variable name="CLK" type="BOOL">
-      <connection refid="32" name="AND">
+      <connection refid="29" name="AND">
         <position x="52" y="99" />
         <position x="51" y="99" />
         <position x="51" y="99" />
@@ -873,14 +832,14 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<inVariable name="tl_pv_input" type="BOOL" id="61">
+<inVariable name="tl_pv_input" type="BOOL" id="58">
   <position x="13" y="140" />
 </inVariable>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="62" height="4" width="4" line="78" order="35">
+<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="59" height="4" width="4" line="74" order="33">
   <position x="53" y="140" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="65" name="Q">
+      <connection refid="62" name="Q">
         <position x="53" y="141" />
         <position x="48" y="141" />
         <position x="48" y="141" />
@@ -888,7 +847,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="64">
+      <connection refid="61">
         <position x="53" y="143" />
         <position x="44" y="143" />
         <position x="44" y="143" />
@@ -905,23 +864,23 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<outVariable name="sv_pv_dvere" type="BOOL" id="63" order="36">
+<outVariable name="sv_pv_dvere" type="BOOL" id="60" order="34">
   <position x="101" y="140" />
-  <connection refid="62" name="XOR">
+  <connection refid="59" name="XOR">
     <position x="102" y="141" />
     <position x="65" y="141" />
     <position x="65" y="141" />
     <position x="57" y="141" />
   </connection>
 </outVariable>
-<inVariable name="sv_pv_dvere" type="BOOL" id="64">
+<inVariable name="sv_pv_dvere" type="BOOL" id="61">
   <position x="13" y="142" />
 </inVariable>
-<block name="R_TRIG" instance="pv_trig_input" id="65" height="4" width="6" line="76" order="34">
+<block name="R_TRIG" instance="pv_trig_input" id="62" height="4" width="6" line="72" order="32">
   <position x="34" y="138" />
   <inVariables>
     <variable name="CLK" type="BOOL">
-      <connection refid="61">
+      <connection refid="58">
         <position x="34" y="141" />
         <position x="30" y="141" />
         <position x="30" y="141" />
@@ -934,43 +893,19 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<comment id="66" height="10" width="14">
+<comment id="63" height="10" width="14">
   <position x="14" y="128" />
 ovladani svetla nade dvermi od tlacitka u postele
 </comment>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="132" height="4" width="3" line="70" order="31">
-  <position x="67" y="105" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="60" name="Q">
-        <position x="67" y="106" />
-        <position x="62" y="106" />
-        <position x="62" y="99" />
-        <position x="58" y="99" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="137">
-        <position x="67" y="108" />
-        <position x="62" y="108" />
-        <position x="62" y="114" />
-        <position x="24" y="114" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="OR" type="ANY_BIT">
-    <comment>
-	Bitwise OR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if either or all bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<inVariable name="sig_tl_zadveri" type="BOOL" id="137">
-  <position x="13" y="113" />
-</inVariable>
+<outVariable name="sig_tl_pokojV" type="BOOL" id="129" order="31">
+  <position x="73" y="98" />
+  <connection refid="57" name="Q">
+    <position x="74" y="99" />
+    <position x="62" y="99" />
+    <position x="62" y="99" />
+    <position x="58" y="99" />
+  </connection>
+</outVariable>
 </fbd>
 {/NOCODE}
 //LVD
@@ -979,98 +914,93 @@ END_VAR
 
 //TVD
 VAR_TEMP
-(* 591	*)	_Nod_Tmp_21	:	BOOL;
-(* 454	*)	_Nod_Tmp_20	:	BOOL;
-(* 600	*)	_Nod_Tmp_18	:	BOOL;
-(* 582	*)	_Nod_Tmp_17	:	BOOL;
-(* 756	*)	_Nod_Tmp_15	:	BOOL;
-(* 817	*)	_Nod_Tmp_14	:	BOOL;
-(* 573	*)	_Nod_Tmp_13	:	TIME;
-(* 826	*)	_Nod_Tmp_12	:	TIME;
-(* 808	*)	_Nod_Tmp_11	:	BOOL;
-(* 765	*)	_Nod_Tmp_9	:	BOOL;
-(* 423	*)	_Nod_Tmp_5	:	BOOL;
-(*  96	*)	_Fun_Tmp_IN1_2_1	:	BOOL;
+(* 550	*)	_Nod_Tmp_19	:	BOOL;
+(* 413	*)	_Nod_Tmp_18	:	BOOL;
+(* 559	*)	_Nod_Tmp_16	:	BOOL;
+(* 541	*)	_Nod_Tmp_15	:	BOOL;
+(* 715	*)	_Nod_Tmp_13	:	BOOL;
+(* 776	*)	_Nod_Tmp_12	:	BOOL;
+(* 532	*)	_Nod_Tmp_11	:	TIME;
+(* 785	*)	_Nod_Tmp_10	:	TIME;
+(* 767	*)	_Nod_Tmp_9	:	BOOL;
+(* 724	*)	_Nod_Tmp_7	:	BOOL;
+(* 382	*)	_Nod_Tmp_3	:	BOOL;
 END_VAR
 
 //NC
 //N000
-(* 292	*)	CAL	trigPV1(CLK:=tls_pv_tr)
-(* 292	*)	LD 	trigPV1.Q
-(* 591	*)	ST	_Nod_Tmp_21
+(* 251	*)	CAL	trigPV1(CLK:=tls_pv_tr)
+(* 251	*)	LD 	trigPV1.Q
+(* 550	*)	ST	_Nod_Tmp_19
 (*  49	*)	LD 	sv_pv_1
-(* 454	*)	ST	_Nod_Tmp_20
-(*  12	*)	LD 	_Nod_Tmp_21
-(*  20	*)	XOR 	_Nod_Tmp_20
+(* 413	*)	ST	_Nod_Tmp_18
+(*  12	*)	LD 	_Nod_Tmp_19
+(*  20	*)	XOR 	_Nod_Tmp_18
 (*  40	*)	ST 	sv_pv_1
-(* 309	*)	CAL	trigPV2(CLK:=tls_pv_tl)
-(* 309	*)	LD 	trigPV2.Q
-(* 600	*)	ST	_Nod_Tmp_18
+(* 268	*)	CAL	trigPV2(CLK:=tls_pv_tl)
+(* 268	*)	LD 	trigPV2.Q
+(* 559	*)	ST	_Nod_Tmp_16
 (*  93	*)	LD 	sv_pv_2
-(* 582	*)	ST	_Nod_Tmp_17
-(*  56	*)	LD 	_Nod_Tmp_18
-(*  64	*)	XOR 	_Nod_Tmp_17
+(* 541	*)	ST	_Nod_Tmp_15
+(*  56	*)	LD 	_Nod_Tmp_16
+(*  64	*)	XOR 	_Nod_Tmp_15
 (*  84	*)	ST 	sv_pv_2
-(* 326	*)	CAL	trigPV4(CLK:=tls_pv_lr)
-(* 326	*)	LD 	trigPV4.Q
-(* 756	*)	ST	_Nod_Tmp_15
-(* 140	*)	CAL	offPV(in:=_Nod_Tmp_15, sig0:=sv_pv_1, sig1:=sv_pv_2)
-(* 140	*)	LD 	offPV.sOff0
-(* 198	*)	ST 	sv_pv_1
-(* 140	*)	LD 	offPV.sOff1
-(* 207	*)	ST 	sv_pv_2
-(* 343	*)	CAL	trigPV5(CLK:=tll_pv_lr)
-(* 343	*)	LD 	trigPV5.Q
-(* 817	*)	ST	_Nod_Tmp_14
-(* 216	*)	CAL	onPV(in:=_Nod_Tmp_14, sig0:=sv_pv_1, sig1:=sv_pv_2)
-(* 216	*)	LD 	onPV.sOff0
-(* 271	*)	ST 	sv_pv_1
-(* 216	*)	LD 	onPV.sOff1
-(* 280	*)	ST 	sv_pv_2
-(* 512	*)	LD 	T#0.5s
-(* 573	*)	ST	_Nod_Tmp_13
-(* 472	*)	CAL	blik_tls_pv_tr(InButton:=_Nod_Tmp_21, InLight:=_Nod_Tmp_20, InTimeOfBlic:=_Nod_Tmp_13)
-(* 774	*)	LD 	T#1s
-(* 826	*)	ST	_Nod_Tmp_12
-(* 777	*)	CAL	tp_pv_2(IN:=_Nod_Tmp_14, PT:=_Nod_Tmp_12)
-(* 777	*)	LD 	tp_pv_2.Q
-(* 808	*)	ST	_Nod_Tmp_11
-(* 613	*)	LD 	blik_tls_pv_tr.OutLED_Green
-(* 621	*)	OR 	_Nod_Tmp_11
-(* 463	*)	ST 	led_pv_rg
-(* 725	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_15, PT:=_Nod_Tmp_12)
-(* 725	*)	LD 	tp_pv_1.Q
-(* 765	*)	ST	_Nod_Tmp_9
-(* 642	*)	LD 	blik_tls_pv_tr.OutLED_Red
-(* 650	*)	OR 	_Nod_Tmp_9
-(* 445	*)	ST 	led_pv_rr
-(* 533	*)	CAL	blik_tls_pv_tl(InButton:=_Nod_Tmp_18, InLight:=_Nod_Tmp_17, InTimeOfBlic:=_Nod_Tmp_13)
-(* 671	*)	LD 	blik_tls_pv_tl.OutLED_Green
-(* 679	*)	OR 	_Nod_Tmp_11
-(* 524	*)	ST 	led_pv_lg
-(* 700	*)	LD 	blik_tls_pv_tl.OutLED_Red
-(* 708	*)	OR 	_Nod_Tmp_9
-(* 515	*)	ST 	led_pv_lr
+(* 285	*)	CAL	trigPV4(CLK:=tls_pv_lr)
+(* 285	*)	LD 	trigPV4.Q
+(* 715	*)	ST	_Nod_Tmp_13
+(*  99	*)	CAL	offPV(in:=_Nod_Tmp_13, sig0:=sv_pv_1, sig1:=sv_pv_2)
+(*  99	*)	LD 	offPV.sOff0
+(* 157	*)	ST 	sv_pv_1
+(*  99	*)	LD 	offPV.sOff1
+(* 166	*)	ST 	sv_pv_2
+(* 302	*)	CAL	trigPV5(CLK:=tll_pv_lr)
+(* 302	*)	LD 	trigPV5.Q
+(* 776	*)	ST	_Nod_Tmp_12
+(* 175	*)	CAL	onPV(in:=_Nod_Tmp_12, sig0:=sv_pv_1, sig1:=sv_pv_2)
+(* 175	*)	LD 	onPV.sOff0
+(* 230	*)	ST 	sv_pv_1
+(* 175	*)	LD 	onPV.sOff1
+(* 239	*)	ST 	sv_pv_2
+(* 471	*)	LD 	T#0.5s
+(* 532	*)	ST	_Nod_Tmp_11
+(* 431	*)	CAL	blik_tls_pv_tr(InButton:=_Nod_Tmp_19, InLight:=_Nod_Tmp_18, InTimeOfBlic:=_Nod_Tmp_11)
+(* 733	*)	LD 	T#1s
+(* 785	*)	ST	_Nod_Tmp_10
+(* 736	*)	CAL	tp_pv_2(IN:=_Nod_Tmp_12, PT:=_Nod_Tmp_10)
+(* 736	*)	LD 	tp_pv_2.Q
+(* 767	*)	ST	_Nod_Tmp_9
+(* 572	*)	LD 	blik_tls_pv_tr.OutLED_Green
+(* 580	*)	OR 	_Nod_Tmp_9
+(* 422	*)	ST 	led_pv_rg
+(* 684	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
+(* 684	*)	LD 	tp_pv_1.Q
+(* 724	*)	ST	_Nod_Tmp_7
+(* 601	*)	LD 	blik_tls_pv_tr.OutLED_Red
+(* 609	*)	OR 	_Nod_Tmp_7
+(* 404	*)	ST 	led_pv_rr
+(* 492	*)	CAL	blik_tls_pv_tl(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
+(* 630	*)	LD 	blik_tls_pv_tl.OutLED_Green
+(* 638	*)	OR 	_Nod_Tmp_9
+(* 483	*)	ST 	led_pv_lg
+(* 659	*)	LD 	blik_tls_pv_tl.OutLED_Red
+(* 667	*)	OR 	_Nod_Tmp_7
+(* 474	*)	ST 	led_pv_lr
 //N001
-(* 125	*)	LD 	tll_pv_ll
-(* 423	*)	ST	_Nod_Tmp_5
-(* 360	*)	CAL	tonPV(IN:=_Nod_Tmp_5, PT:=T#1s)
-(* 360	*)	LD 	tonPV.ET
-(* 432	*)	ST 	pomPV
-(* 398	*)	LD 	_Nod_Tmp_5
-(* 406	*)	AND 	tonPV.Q
-(* 835	*)	ST 	trigPV3.CLK
-(* 835	*)	CAL	trigPV3()
-(* 921	*)	LD 	trigPV3.Q
-(* 929	*)	OR 	sig_tl_zadveri
-(* 100	*)	ST 	_Fun_Tmp_IN1_2_1
-(* 100	*)	LD 	_Fun_Tmp_IN1_2_1
-(* 108	*)	XOR 	sv_ve_vychod
-(* 128	*)	ST 	sv_ve_vychod
+(*  96	*)	LD 	tll_pv_ll
+(* 382	*)	ST	_Nod_Tmp_3
+(* 319	*)	CAL	tonPV(IN:=_Nod_Tmp_3, PT:=T#1s)
+(* 319	*)	LD 	tonPV.ET
+(* 391	*)	ST 	pomPV
+(* 357	*)	LD 	_Nod_Tmp_3
+(* 365	*)	AND 	tonPV.Q
+(* 794	*)	ST 	trigPV3.CLK
+(* 794	*)	CAL	trigPV3()
+(* 794	*)	LD 	trigPV3.Q
+(* 876	*)	ST 	sig_tl_pokojV
 //N002
-(* 896	*)	CAL	pv_trig_input(CLK:=tl_pv_input)
-(* 859	*)	LD 	pv_trig_input.Q
-(* 867	*)	XOR 	sv_pv_dvere
-(* 884	*)	ST 	sv_pv_dvere
+(* 855	*)	CAL	pv_trig_input(CLK:=tl_pv_input)
+(* 818	*)	LD 	pv_trig_input.Q
+(* 826	*)	XOR 	sv_pv_dvere
+(* 843	*)	ST 	sv_pv_dvere
 
 END_PROGRAM

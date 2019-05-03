@@ -425,10 +425,10 @@ Komentáø ke schématu
   <position x="13" y="92" />
 pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
 </comment>
-<outVariable name="led_pv_rr" type="BOOL" id="33" order="21">
-  <position x="112" y="25" />
+<outVariable name="pv_led_pv_rr" type="BOOL" id="33" order="24">
+  <position x="113" y="25" />
   <connection refid="46" name="OR">
-    <position x="113" y="26" />
+    <position x="114" y="26" />
     <position x="112" y="26" />
     <position x="112" y="26" />
     <position x="106" y="26" />
@@ -443,7 +443,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="20" y="16" />
   </connection>
 </node>
-<outVariable name="led_pv_rg" type="BOOL" id="35" order="18">
+<outVariable name="pv_led_pv_rg" type="BOOL" id="35" order="18">
   <position x="112" y="19" />
   <connection refid="45" name="OR">
     <position x="113" y="20" />
@@ -495,16 +495,16 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
 <inVariable name="T#0.5s" type="TIME" id="37">
   <position x="49" y="27" />
 </inVariable>
-<outVariable name="led_pv_lr" type="BOOL" id="38" order="26">
-  <position x="112" y="46" />
+<outVariable name="pv_led_pv_lr" type="BOOL" id="38" order="26">
+  <position x="113" y="46" />
   <connection refid="48" name="OR">
-    <position x="113" y="47" />
+    <position x="114" y="47" />
     <position x="112" y="47" />
     <position x="112" y="47" />
     <position x="106" y="47" />
   </connection>
 </outVariable>
-<outVariable name="led_pv_lg" type="BOOL" id="39" order="24">
+<outVariable name="pv_led_pv_lg" type="BOOL" id="39" order="21">
   <position x="112" y="39" />
   <connection refid="47" name="OR">
     <position x="113" y="40" />
@@ -513,7 +513,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     <position x="106" y="40" />
   </connection>
 </outVariable>
-<block name="fb_LED_blik" instance="blik_tls_pv_tl" id="40" height="8" width="19" line="52" order="22">
+<block name="fb_LED_blik" instance="blik_tls_pv_tl" id="40" height="8" width="19" line="46" order="19">
   <position x="66" y="42" />
   <inVariables>
     <variable name="InButton" type="BOOL">
@@ -618,7 +618,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="46" height="4" width="3" line="50" order="20">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="46" height="4" width="3" line="54" order="23">
   <position x="103" y="25" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
@@ -647,7 +647,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="47" height="4" width="3" line="54" order="23">
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="47" height="4" width="3" line="48" order="20">
   <position x="103" y="39" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
@@ -705,7 +705,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
     </variable>
   </outVariables>
 </block>
-<block name="TP" instance="tp_pv_1" id="49" height="6" width="6" line="46" order="19">
+<block name="TP" instance="tp_pv_1" id="49" height="6" width="6" line="50" order="22">
   <position x="87" y="63" />
   <inVariables>
     <variable name="IN" type="BOOL">
@@ -897,7 +897,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
   <position x="14" y="128" />
 ovladani svetla nade dvermi od tlacitka u postele
 </comment>
-<outVariable name="sig_tl_pokojV" type="BOOL" id="129" order="31">
+<outVariable name="sig_tl_pokojV" type="BOOL" id="64" order="31">
   <position x="73" y="98" />
   <connection refid="57" name="Q">
     <position x="74" y="99" />
@@ -923,7 +923,7 @@ VAR_TEMP
 (* 532	*)	_Nod_Tmp_11	:	TIME;
 (* 785	*)	_Nod_Tmp_10	:	TIME;
 (* 767	*)	_Nod_Tmp_9	:	BOOL;
-(* 724	*)	_Nod_Tmp_7	:	BOOL;
+(* 724	*)	_Nod_Tmp_6	:	BOOL;
 (* 382	*)	_Nod_Tmp_3	:	BOOL;
 END_VAR
 
@@ -971,20 +971,20 @@ END_VAR
 (* 767	*)	ST	_Nod_Tmp_9
 (* 572	*)	LD 	blik_tls_pv_tr.OutLED_Green
 (* 580	*)	OR 	_Nod_Tmp_9
-(* 422	*)	ST 	led_pv_rg
-(* 684	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
-(* 684	*)	LD 	tp_pv_1.Q
-(* 724	*)	ST	_Nod_Tmp_7
-(* 601	*)	LD 	blik_tls_pv_tr.OutLED_Red
-(* 609	*)	OR 	_Nod_Tmp_7
-(* 404	*)	ST 	led_pv_rr
+(* 422	*)	ST 	pv_led_pv_rg
 (* 492	*)	CAL	blik_tls_pv_tl(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
 (* 630	*)	LD 	blik_tls_pv_tl.OutLED_Green
 (* 638	*)	OR 	_Nod_Tmp_9
-(* 483	*)	ST 	led_pv_lg
+(* 483	*)	ST 	pv_led_pv_lg
+(* 684	*)	CAL	tp_pv_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
+(* 684	*)	LD 	tp_pv_1.Q
+(* 724	*)	ST	_Nod_Tmp_6
+(* 601	*)	LD 	blik_tls_pv_tr.OutLED_Red
+(* 609	*)	OR 	_Nod_Tmp_6
+(* 404	*)	ST 	pv_led_pv_rr
 (* 659	*)	LD 	blik_tls_pv_tl.OutLED_Red
-(* 667	*)	OR 	_Nod_Tmp_7
-(* 474	*)	ST 	led_pv_lr
+(* 667	*)	OR 	_Nod_Tmp_6
+(* 474	*)	ST 	pv_led_pv_lr
 //N001
 (*  96	*)	LD 	tll_pv_ll
 (* 382	*)	ST	_Nod_Tmp_3

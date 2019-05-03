@@ -116,15 +116,15 @@ ovladani_obyvak_L0:
 #srcline 936 ;(* 383	*)	LD 	blik_ob_3.OutLED_Green
  LDX  blik_ob_3~OutLED_Green
 #debug bool blik_ob_3.OutLED_Green
-#srcline 937 ;(* 441	*)	ST 	led_ob_rg
- WR   bool led_ob_rg
-#debug_left bool led_ob_rg
+#srcline 937 ;(* 441	*)	ST 	ob_led_ob_rg
+ WR   ob_led_ob_rg
+#debug_left bool ob_led_ob_rg
 #srcline 938 ;(* 383	*)	LD 	blik_ob_3.OutLED_Red
  LDX  blik_ob_3~OutLED_Red
 #debug bool blik_ob_3.OutLED_Red
-#srcline 939 ;(* 450	*)	ST 	led_ob_rr
- WR   bool led_ob_rr
-#debug_left bool led_ob_rr
+#srcline 939 ;(* 450	*)	ST 	ob_led_ob_rr
+ WR   ob_led_ob_rr
+#debug_left bool ob_led_ob_rr
 #srcline 940 ;(* 325	*)	CAL	blik_ob_2(InButton:=_Nod_Tmp_9, InLight:=_Nod_Tmp_8, InTimeOfBlic:=_Nod_Tmp_6)
  LDY  _Nod_Tmp_9
 #debug bool _Nod_Tmp_9
@@ -143,15 +143,15 @@ ovladani_obyvak_L0:
 #srcline 941 ;(* 325	*)	LD 	blik_ob_2.OutLED_Green
  LDX  blik_ob_2~OutLED_Green
 #debug bool blik_ob_2.OutLED_Green
-#srcline 942 ;(* 316	*)	ST 	led_ob_lg
- WR   bool led_ob_lg
-#debug_left bool led_ob_lg
+#srcline 942 ;(* 316	*)	ST 	ob_led_ob_lg
+ WR   ob_led_ob_lg
+#debug_left bool ob_led_ob_lg
 #srcline 943 ;(* 325	*)	LD 	blik_ob_2.OutLED_Red
  LDX  blik_ob_2~OutLED_Red
 #debug bool blik_ob_2.OutLED_Red
-#srcline 944 ;(* 563	*)	ST 	led_ob_lr
- WR   bool led_ob_lr
-#debug_left bool led_ob_lr
+#srcline 944 ;(* 563	*)	ST 	ob_led_ob_lr
+ WR   ob_led_ob_lr
+#debug_left bool ob_led_ob_lr
 #srcline 945 ;//N001
 #srcline 946 ;(* 572	*)	LD 	tll_ob_lr
  LD   bool tll_ob_lr

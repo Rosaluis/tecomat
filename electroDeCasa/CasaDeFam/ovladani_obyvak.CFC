@@ -339,12 +339,12 @@ svetla obyvak a jidelni stul
     </variable>
   </outVariables>
 </block>
-<outVariable name="led_ob_lg" type="BOOL" id="26" order="11">
-  <position x="126" y="33" />
+<outVariable name="ob_led_ob_lg" type="BOOL" id="26" order="11">
+  <position x="113" y="33" />
   <connection refid="27" name="OutLED_Green">
-    <position x="127" y="34" />
-    <position x="123" y="34" />
-    <position x="123" y="34" />
+    <position x="114" y="34" />
+    <position x="113" y="34" />
+    <position x="113" y="34" />
     <position x="108" y="34" />
   </connection>
 </outVariable>
@@ -464,21 +464,21 @@ svetla obyvak a jidelni stul
     <position x="21" y="17" />
   </connection>
 </node>
-<outVariable name="led_ob_rg" type="BOOL" id="33" order="8">
-  <position x="125" y="15" />
+<outVariable name="ob_led_ob_rg" type="BOOL" id="33" order="8">
+  <position x="112" y="18" />
   <connection refid="30" name="OutLED_Green">
-    <position x="126" y="16" />
-    <position x="110" y="16" />
+    <position x="113" y="19" />
+    <position x="110" y="19" />
     <position x="110" y="19" />
     <position x="108" y="19" />
   </connection>
 </outVariable>
-<outVariable name="led_ob_rr" type="BOOL" id="34" order="9">
-  <position x="125" y="20" />
+<outVariable name="ob_led_ob_rr" type="BOOL" id="34" order="9">
+  <position x="112" y="20" />
   <connection refid="30" name="OutLED_Red">
-    <position x="126" y="21" />
-    <position x="123" y="21" />
-    <position x="123" y="21" />
+    <position x="113" y="21" />
+    <position x="112" y="21" />
+    <position x="112" y="21" />
     <position x="108" y="21" />
   </connection>
 </outVariable>
@@ -586,11 +586,11 @@ svetla obyvak a jidelni stul
     <position x="31" y="82" />
   </connection>
 </node>
-<outVariable name="led_ob_lr" type="BOOL" id="43" order="12">
-  <position x="126" y="39" />
+<outVariable name="ob_led_ob_lr" type="BOOL" id="43" order="12">
+  <position x="114" y="35" />
   <connection refid="27" name="OutLED_Red">
-    <position x="127" y="40" />
-    <position x="111" y="40" />
+    <position x="115" y="36" />
+    <position x="111" y="36" />
     <position x="111" y="36" />
     <position x="108" y="36" />
   </connection>
@@ -887,7 +887,7 @@ pokud podrzi tlacitko leve-dolni na&gt;3s tak se zapne/vypne venkovni svetlo
   <position x="15" y="52" />
 Zruseno centralni zapinani a vypinani svetel v obyvaku
 </comment>
-<outVariable name="sig_tl_obyvak" type="BOOL" id="130" order="17">
+<outVariable name="sig_tl_obyvak" type="BOOL" id="68" order="17">
   <position x="76" y="112" />
   <connection refid="50" name="Q">
     <position x="77" y="113" />
@@ -934,14 +934,14 @@ END_VAR
 (* 462	*)	ST	_Nod_Tmp_6
 (* 383	*)	CAL	blik_ob_3(InButton:=_Nod_Tmp_12, InLight:=_Nod_Tmp_11, InTimeOfBlic:=_Nod_Tmp_6)
 (* 383	*)	LD 	blik_ob_3.OutLED_Green
-(* 441	*)	ST 	led_ob_rg
+(* 441	*)	ST 	ob_led_ob_rg
 (* 383	*)	LD 	blik_ob_3.OutLED_Red
-(* 450	*)	ST 	led_ob_rr
+(* 450	*)	ST 	ob_led_ob_rr
 (* 325	*)	CAL	blik_ob_2(InButton:=_Nod_Tmp_9, InLight:=_Nod_Tmp_8, InTimeOfBlic:=_Nod_Tmp_6)
 (* 325	*)	LD 	blik_ob_2.OutLED_Green
-(* 316	*)	ST 	led_ob_lg
+(* 316	*)	ST 	ob_led_ob_lg
 (* 325	*)	LD 	blik_ob_2.OutLED_Red
-(* 563	*)	ST 	led_ob_lr
+(* 563	*)	ST 	ob_led_ob_lr
 //N001
 (* 572	*)	LD 	tll_ob_lr
 (* 638	*)	ST	_Nod_Tmp_5

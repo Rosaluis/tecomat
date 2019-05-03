@@ -225,9 +225,9 @@ rizeni_pokojZ_L0:
  LDY  _Nod_Tmp_9
 #debug bool _Nod_Tmp_9
  OR
-#srcline 974 ;(* 491	*)	ST 	led_pz_rg
- WR   bool led_pz_rg
-#debug_left bool led_pz_rg
+#srcline 974 ;(* 491	*)	ST 	pz_led_pz_rg
+ WR   pz_led_pz_rg
+#debug_left bool pz_led_pz_rg
 #srcline 975 ;(* 701	*)	CAL	tp_pz_1(IN:=_Nod_Tmp_13, PT:=_Nod_Tmp_10)
  LDY  _Nod_Tmp_13
 #debug bool _Nod_Tmp_13
@@ -252,9 +252,9 @@ rizeni_pokojZ_L0:
  LDY  _Nod_Tmp_7
 #debug bool _Nod_Tmp_7
  OR
-#srcline 980 ;(* 482	*)	ST 	led_pz_rr
- WR   bool led_pz_rr
-#debug_left bool led_pz_rr
+#srcline 980 ;(* 482	*)	ST 	pz_led_pz_rr
+ WR   pz_led_pz_rr
+#debug_left bool pz_led_pz_rr
 #srcline 981 ;(* 500	*)	CAL	blik_PZ_2(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_11)
  LDY  _Nod_Tmp_16
 #debug bool _Nod_Tmp_16
@@ -277,9 +277,9 @@ rizeni_pokojZ_L0:
  LDY  _Nod_Tmp_9
 #debug bool _Nod_Tmp_9
  OR
-#srcline 984 ;(* 567	*)	ST 	led_pz_lg
- WR   bool led_pz_lg
-#debug_left bool led_pz_lg
+#srcline 984 ;(* 567	*)	ST 	pz_led_pz_lg
+ WR   pz_led_pz_lg
+#debug_left bool pz_led_pz_lg
 #srcline 985 ;(* 676	*)	LD 	blik_PZ_2.OutLED_Red
  LDX  blik_PZ_2~OutLED_Red
 #debug bool blik_PZ_2.OutLED_Red
@@ -287,9 +287,9 @@ rizeni_pokojZ_L0:
  LDY  _Nod_Tmp_7
 #debug bool _Nod_Tmp_7
  OR
-#srcline 987 ;(* 576	*)	ST 	led_pz_lr
- WR   bool led_pz_lr
-#debug_left bool led_pz_lr
+#srcline 987 ;(* 576	*)	ST 	pz_led_pz_lr
+ WR   pz_led_pz_lr
+#debug_left bool pz_led_pz_lr
 #srcline 988 ;//N001
 #srcline 989 ;(*  96	*)	LD 	tll_pz_lr
  LD   bool tll_pz_lr

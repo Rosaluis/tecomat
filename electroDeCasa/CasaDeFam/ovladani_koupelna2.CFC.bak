@@ -483,7 +483,7 @@ Komentáø ke schématu
     <position x="27" y="42" />
   </connection>
 </node>
-<outVariable name="led_k2_lg" type="BOOL" id="37" order="24">
+<outVariable name="k2_led_k2_lg" type="BOOL" id="37" order="24">
   <position x="114" y="31" />
   <connection refid="50" name="OR">
     <position x="115" y="32" />
@@ -492,7 +492,7 @@ Komentáø ke schématu
     <position x="112" y="32" />
   </connection>
 </outVariable>
-<outVariable name="led_k2_lr" type="BOOL" id="38" order="32">
+<outVariable name="k2_led_k2_lr" type="BOOL" id="38" order="32">
   <position x="115" y="45" />
   <connection refid="51" name="OR">
     <position x="116" y="46" />
@@ -568,7 +568,7 @@ Komentáø ke schématu
     <position x="113" y="16" />
   </connection>
 </outVariable>
-<outVariable name="led_k2_rr" type="BOOL" id="43" order="30">
+<outVariable name="k2_led_k2_rr" type="BOOL" id="43" order="30">
   <position x="115" y="20" />
   <connection refid="54" name="OR">
     <position x="116" y="21" />
@@ -1014,7 +1014,7 @@ Komentáø ke schématu
     <position x="39" y="13" />
   </connection>
 </node>
-<outVariable name="led_pz_lr" type="BOOL" id="70" order="35">
+<outVariable name="pz_led_pz_lr" type="BOOL" id="70" order="35">
   <position x="115" y="62" />
   <connection refid="74">
     <position x="116" y="63" />
@@ -1023,7 +1023,7 @@ Komentáø ke schématu
     <position x="109" y="63" />
   </connection>
 </outVariable>
-<outVariable name="led_lo_lr" type="BOOL" id="71" order="38">
+<outVariable name="lo_led_lo_lr" type="BOOL" id="71" order="38">
   <position x="116" y="64" />
   <connection refid="76">
     <position x="117" y="65" />
@@ -1032,7 +1032,7 @@ Komentáø ke schématu
     <position x="109" y="65" />
   </connection>
 </outVariable>
-<outVariable name="led_ob_lr" type="BOOL" id="72" order="36">
+<outVariable name="ob_led_ob_lr" type="BOOL" id="72" order="36">
   <position x="115" y="66" />
   <connection refid="75">
     <position x="116" y="67" />
@@ -1041,7 +1041,7 @@ Komentáø ke schématu
     <position x="109" y="67" />
   </connection>
 </outVariable>
-<outVariable name="led_pv_lr" type="BOOL" id="73" order="37">
+<outVariable name="pv_led_pv_lr" type="BOOL" id="73" order="37">
   <position x="115" y="68" />
   <connection refid="75">
     <position x="116" y="69" />
@@ -1164,7 +1164,7 @@ END_VAR
 (* 639	*)	LD 	blik_ko2_3.OutLED_Green
 (* 647	*)	OR 	blik_ko2_1.OutLED_Green
 (* 655	*)	OR 	_Nod_Tmp_8
-(* 462	*)	ST 	led_k2_lg
+(* 462	*)	ST 	k2_led_k2_lg
 (* 480	*)	CAL	blik_ko2_2(InButton:=_Nod_Tmp_24, InLight:=_Nod_Tmp_23, InTimeOfBlic:=_Nod_Tmp_10)
 (* 722	*)	LD 	blik_ko2_2.OutLED_Green
 (* 730	*)	OR 	_Nod_Tmp_8
@@ -1174,11 +1174,11 @@ END_VAR
 (* 816	*)	ST	_Nod_Tmp_5
 (* 751	*)	LD 	blik_ko2_2.OutLED_Red
 (* 759	*)	OR 	_Nod_Tmp_5
-(* 547	*)	ST 	led_k2_rr
+(* 547	*)	ST 	k2_led_k2_rr
 (* 676	*)	LD 	blik_ko2_3.OutLED_Red
 (* 684	*)	OR 	blik_ko2_1.OutLED_Red
 (* 692	*)	OR 	_Nod_Tmp_5
-(* 471	*)	ST 	led_k2_lr
+(* 471	*)	ST 	k2_led_k2_lr
 (* 933	*)	LD 	_Nod_Tmp_13
 (* 941	*)	OR 	_Nod_Tmp_17
 (* 949	*)	OR 	_Nod_Tmp_21
@@ -1186,12 +1186,12 @@ END_VAR
 (* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.5s, time_OFF:=T#1s)
 (* 892	*)	LD 	kmit_Ko2.sig_OUT
 (*1029	*)	ST	_Nod_Tmp_1
-(* 993	*)	ST 	led_pz_lr
+(* 993	*)	ST 	pz_led_pz_lr
 (*1029	*)	LD	_Nod_Tmp_1
-(*1011	*)	ST 	led_ob_lr
+(*1011	*)	ST 	ob_led_ob_lr
 (*1038	*)	LD	_Nod_Tmp_1
-(*1020	*)	ST 	led_pv_lr
+(*1020	*)	ST 	pv_led_pv_lr
 (*1047	*)	LD	_Nod_Tmp_1
-(*1002	*)	ST 	led_lo_lr
+(*1002	*)	ST 	lo_led_lo_lr
 
 END_PROGRAM

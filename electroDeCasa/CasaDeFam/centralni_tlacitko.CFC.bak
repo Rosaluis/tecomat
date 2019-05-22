@@ -6,7 +6,6 @@ PROGRAM centralni_tlacitko
   VAR_OUTPUT
   END_VAR
   VAR
-    R_Trig_central_1 : R_TRIG;
     TON_stredni_impuls : TON;
     TON_delsi_impuls : TON;
     kmit_central_1 : fb_kmitac;

@@ -389,11 +389,11 @@ ovladani_koupelna2_L0:
 #srcline 1185 ;(* 892	*)	ST 	kmit_Ko2.sig_IN
  WRX  kmit_Ko2~sig_IN
 #debug_left bool kmit_Ko2.sig_IN
-#srcline 1186 ;(* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.5s, time_OFF:=T#1s)
- LD   time 500
+#srcline 1186 ;(* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.2s, time_OFF:=T#0.5s)
+ LD   time 200
  WRX  kmit_Ko2~time_ON
 #debug_left time kmit_Ko2~time_ON
- LD   time 1000
+ LD   time 500
  WRX  kmit_Ko2~time_OFF
 #debug_left time kmit_Ko2~time_OFF
  LEAX kmit_Ko2

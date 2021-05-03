@@ -3,18 +3,18 @@ Version="xPRO","4.3.00"
 [/desktop]
 
 [dockinfo]
-centralpc=63801844,1,0,1
-leftpane=63794840,0,0,1,463,0
-bottompane=63797124,1,190
-rightpane=63799548,0,120,0
+centralpc=45091616,1,0,1
+leftpane=45071264,0,0,1,435,0
+bottompane=45086852,1,116
+rightpane=45089320,0,120,0
 [/dockinfo]
 
 [closedtextpaneleditors]
 [/closedtextpaneleditors]
 
 [closedtextsyneditors]
+txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SYSGEN\HWConfig.ST",351,3,1,1,1,1,2039304709,30801812,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\fb_LED_blik.CFC",1,1,1,1,1,1,1055252992,30458973,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
-txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\SYSGEN\HWConfig.ST",1,1,1,1,1,1,2190308796,30736284,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\CasaDeFam.mcf",16,64,1,1,1,1,1953583618,30736285,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\klavesnice.CFC",1,1,1,1,1,1,655800873,30659425,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
 txsyned="C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\alarm.CFC",1,1,1,1,1,1,494572544,30471336,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1
@@ -109,33 +109,33 @@ showdetails=1
 [/plcdiskdlg]
 
 [msgwin2]
-window=63797124,1,0,0,161,1672,38,782,161,1276,0,0,1
+window=45086852,1,0,0,87,1912,38,583,87,1276,0,0,1
 [/msgwin2]
 
 [msgwin1]
-window=63797124,1,0,0,161,1672,38,782,161,1276,0,0,0
+window=45086852,1,0,0,87,1912,38,583,87,1276,0,0,0
 [/msgwin1]
 
 [symbwin]
-window=63797124,1,0,0,161,1672,38,782,161,1276,0,0,2
+window=45086852,1,0,0,87,1912,38,583,87,1276,0,0,2
 hdrwidth2=100
 hdrwidth3=100
 [/symbwin]
 
 [openfileswin]
-window=63794840,1,0,0,704,455,963,63,963,455,0,0,2
+window=45071264,1,0,0,808,427,963,311,744,427,0,0,2
 [/openfileswin]
 
 [prjfileswin]
-window=63794840,1,0,0,704,455,963,63,963,455,0,0,1
-filesheight=529
+window=45071264,1,0,0,808,427,963,311,744,427,0,0,1
+filesheight=432
 relatednamew=110
 relatedcnt=1
 relfile0="C:\00_teco\tecoDeCasa\electroDeCasa\CasaDeFam\Sysgen\CasaDeFam.map"
 [/prjfileswin]
 
 [ctrlswin]
-window=63794840,1,0,0,704,455,597,37,597,455,0,0,0
+window=45071264,1,0,0,808,427,597,37,597,427,0,0,0
 [/ctrlswin]
 
 [accwin]
@@ -145,9 +145,9 @@ opbase=10
 [/accwin]
 
 [memwin1]
-regname=82
+regname=89
 regmod=66
-format=2
+format=1
 context=0
 fixed=0
 cols=2
@@ -169,7 +169,7 @@ font="courier new",1,0,9,-12,0,0,0
 [/memwin2]
 
 [watch2win]
-window=63797124,1,0,0,161,1672,38,782,161,1276,0,0,4
+window=45086852,1,0,0,87,1912,38,583,87,1276,0,0,4
 hdrnamew=240,60,0
 font="courier new",238,0,10,-13,-2147483640,0,0
 defbank="Banka1"
@@ -182,29 +182,30 @@ mem1w=98
 mem1visible=1
 mem2w=190
 mem2visible=0
+storednames="sv_chodba_2np_zed","sv_predsin_stena"
 [/watch2win]
 
 [paneltexted]
 editor="XClip-Panel",1,0,1,1,1,1,4998870,1629824,1630212,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-window=0,0,0,91,313,483,313,483,313,483,0,1,-1
+window=0,0,0,91,313,483,313,431,313,483,0,1,-1
 font="Fixedsys",9
 [/paneltexted]
 
 [evalmodifdlg]
-exprobj="__INSTANCE__GetTime.GetTime","pirka.act_timedate","pirka.act_time","klavesnice_status","venkovni.kmitac_1","CH1_ZoneIN","CH1_ZoneIN[20]","poplach1.smstext"
-valobj="pokus3","pokus2"
+exprobj="sv_chodba_2np_zed","__INSTANCE__GetTime.GetTime","pirka.act_timedate","pirka.act_time","klavesnice_status","venkovni.kmitac_1","CH1_ZoneIN","CH1_ZoneIN[20]","poplach1.smstext"
+valobj="1","pokus3","pokus2"
 [/evalmodifdlg]
 
 [weblc]
-window=0,0,250,250,767,1440,256,259,767,1440,0,1,-1
+window=0,0,0,0,744,1376,560,312,744,1376,0,1,-1
 [/weblc]
 
 [Datalogger]
-window=63801844,0,0,0,689,1501,2,280,746,1694,0,0,0
+window=45091616,0,0,0,713,1741,464,312,744,1376,0,0,0
 [/Datalogger]
 
 [PanelSIM_1]
-window=0,0,0,0,518,392,518,392,518,392,0,0,-1
+window=0,0,0,0,518,392,518,226,518,392,0,0,-1
 [/PanelSIM_1]
 
 [FormRegMngr1]
@@ -214,7 +215,7 @@ window=0,0,695,273,317,233,317,233,317,233,0,0,-1
 [PlcNetManager]
 SortItems=1
 SortPlcs=1
-window=63794840,0,0,0,704,455,733,463,963,455,0,0,5
+window=45071264,0,0,0,808,311,837,319,744,311,0,0,5
 [/PlcNetManager]
 
 [SelectPLC]
@@ -223,7 +224,7 @@ IOSetupColW="332,229,173,72,132,121,64,140,"
 
 [textsyneditor]
 editor="rosecky.ST",1,0,0,212,15,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,963,1694,0,0,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,1
 localparams=0,1,1,1,1,30,0,80,1,2,1,0
 font="Courier New",10
 relay=0,0,0,0,0,"",0,0
@@ -232,8 +233,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="ovladani_koupelna2.CFC",1,0,0,1104,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,746,1638,0,0,2
+editor="ovladani_koupelna2.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,2
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -242,8 +243,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="ovladani_obyvak.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,3
+editor="ovladani_obyvak.CFC",1,0,0,1138,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,3
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -253,7 +254,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="rizeni_pokojV.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,4
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,4
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -262,8 +263,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="ovladani_koupelna1.CFC",1,0,0,940,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,5
+editor="ovladani_koupelna1.CFC",1,0,0,1048,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,5
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -273,7 +274,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="ovladani_satna_1np.CFC",1,0,0,83,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,6
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,6
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -282,8 +283,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="ovladani_venkovni.CFC",1,0,0,934,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,7
+editor="ovladani_venkovni.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,7
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -292,8 +293,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="ovladani_pir.CFC",1,0,0,1326,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,774,1419,0,0,8
+editor="ovladani_pir.CFC",1,0,0,1336,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1376,0,0,8
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -303,7 +304,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="rizeni_pokojZ.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,752,1350,0,0,9
+window=45091616,1,0,0,808,1473,957,1920,744,1350,0,0,9
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -313,7 +314,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="centralni_tlacitko.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,752,1350,0,0,10
+window=45091616,1,0,0,808,1473,957,1920,744,1350,0,0,10
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -322,8 +323,8 @@ debugparams=1,0,1
 [/textsyneditor]
 
 [textsyneditor]
-editor="CASADEFAM.ST",1,0,0,33,12,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,752,1350,0,0,11
+editor="CASADEFAM.ST",1,0,0,4,83,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
+window=45091616,1,0,0,808,1473,957,1920,744,1350,0,0,11
 localparams=0,1,1,1,1,30,0,80,1,2,1,0
 font="Courier New",10
 relay=0,0,0,0,0,"",0,0
@@ -333,7 +334,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="rizeni_loznice.CFC",1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,752,1350,0,0,12
+window=45091616,1,0,0,808,1473,957,1920,744,1350,0,0,12
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0
@@ -343,7 +344,7 @@ debugparams=1,0,1
 
 [textsyneditor]
 editor="signalizace_LED.CFC",1,0,0,1185,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
-window=63801844,1,0,0,704,1205,927,1680,733,1350,0,0,13
+window=45091616,1,0,0,808,1473,957,1920,733,1350,0,0,13
 localparams=0,1,1,1,1,30,0,80,1,4,0,0
 font="Lucida Console",11
 relay=1,0,0,0,0,"Lucida Console",11,0

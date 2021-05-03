@@ -5,7 +5,7 @@ Version="xPRO","4.3.00"
 [compiler]
 options=49
 remzs=1
-dirs="$(MOSAIC);$(MOSAIC)Usi"
+dirs=""
 [/compiler]
 
 [plcselection]
@@ -137,10 +137,10 @@ GMarkCursorLine=0
 GShowHiLine=1
 GShowBreakLine=1
 InfoLineAppearance=1
-GTextColor=-2147483640
-GTextBackg=-2147483643
-GSelColor=-2147483634
-GSelBackg=-2147483635
+GTextColor=0
+GTextBackg=16777215
+GSelColor=16777215
+GSelBackg=16750899
 GCursorHighlightColor=16777215
 GCursorHighlightBackg=16711680
 GBreaklineColor=16777215

@@ -21,7 +21,9 @@
   fb_LED_blik blik_ko1_3,
   TP tp_ko1_1,
   TP tp_ko1_2,
-  F_TRIG ftrig_ventKo1
+  F_TRIG ftrig_ventKo1,
+  TON TON_K1_Vent,
+  bool _Tmp_For_Back_Conn_1
 
  
 #srcfile 'C:\00_TECO\TECODECASA\ELECTRODECASA\CASADEFAM\OVLADANI_KOUPELNA1.CFC'
@@ -29,13 +31,15 @@
 #srcline 1 ;PROGRAM ovladani_koupelna1
 
 #struct ovladani_koupelna1__temp__
+  bool _Nod_Tmp_22,
+  bool _Nod_Tmp_21,
   bool _Nod_Tmp_19,
   bool _Nod_Tmp_18,
   bool _Nod_Tmp_16,
   bool _Nod_Tmp_15,
-  bool _Nod_Tmp_13,
+  bool _Nod_Tmp_14,
   bool _Nod_Tmp_12,
-  bool _Nod_Tmp_10,
+  bool _Nod_Tmp_11,
   bool _Nod_Tmp_9,
   time _Nod_Tmp_5,
   time _Nod_Tmp_8,
@@ -46,109 +50,89 @@ ovladani_koupelna1_L0:
  LINK __SizeOf(ovladani_koupelna1__temp__)
 ; Initialize - dynamic variables
 ; End initialize - dynamic variables
-#srcline 943 ;(* 160	*)	CAL	trigKo2(CLK:=tls_k1_tr)
+#srcline 1052 ;(* 157	*)	CAL	trigKo2(CLK:=tls_k1_tr)
  LD   bool tls_k1_tr
 #debug bool tls_k1_tr
  WRX  trigKo2~CLK
 #debug_left bool trigKo2~CLK
  LEAX trigKo2
  CAL  R_TRIG_L0
-#srcline 944 ;(* 160	*)	LD 	trigKo2.Q
+#srcline 1053 ;(* 157	*)	LD 	trigKo2.Q
  LDX  trigKo2~Q
 #debug bool trigKo2.Q
-#srcline 945 ;(* 511	*)	ST	_Nod_Tmp_19
- WRY  _Nod_Tmp_19
-#debug_left bool _Nod_Tmp_19
-#srcline 946 ;(* 108	*)	LD 	sv_k1_2
- LD   bool sv_k1_2
-#debug bool sv_k1_2
-#srcline 947 ;(* 520	*)	ST	_Nod_Tmp_18
- WRY  _Nod_Tmp_18
-#debug_left bool _Nod_Tmp_18
-#srcline 948 ;(*  83	*)	LD 	_Nod_Tmp_19
- LDY  _Nod_Tmp_19
-#debug bool _Nod_Tmp_19
-#srcline 949 ;(*  91	*)	XOR 	_Nod_Tmp_18
- LDY  _Nod_Tmp_18
-#debug bool _Nod_Tmp_18
+#srcline 1054 ;(* 499	*)	ST	_Nod_Tmp_22
+ WRY  _Nod_Tmp_22
+#debug_left bool _Nod_Tmp_22
+#srcline 1055 ;(* 137	*)	LD 	sv_k1_3
+ LD   bool sv_k1_3
+#debug bool sv_k1_3
+#srcline 1056 ;(* 882	*)	ST	_Nod_Tmp_21
+ WRY  _Nod_Tmp_21
+#debug_left bool _Nod_Tmp_21
+#srcline 1057 ;(*  83	*)	LD 	_Nod_Tmp_22
+ LDY  _Nod_Tmp_22
+#debug bool _Nod_Tmp_22
+#srcline 1058 ;(*  91	*)	XOR 	_Nod_Tmp_21
+ LDY  _Nod_Tmp_21
+#debug bool _Nod_Tmp_21
  XOR
-#srcline 950 ;(*  29	*)	ST 	sv_k1_2
- WR   bool sv_k1_2
-#debug_left bool sv_k1_2
-#srcline 951 ;(* 143	*)	CAL	trigKo1(CLK:=tls_k1_tl)
+#srcline 1059 ;(*  38	*)	ST 	sv_k1_3
+ WR   bool sv_k1_3
+#debug_left bool sv_k1_3
+#srcline 1060 ;(* 140	*)	CAL	trigKo1(CLK:=tls_k1_tl)
  LD   bool tls_k1_tl
 #debug bool tls_k1_tl
  WRX  trigKo1~CLK
 #debug_left bool trigKo1~CLK
  LEAX trigKo1
  CAL  R_TRIG_L0
-#srcline 952 ;(* 143	*)	LD 	trigKo1.Q
+#srcline 1061 ;(* 140	*)	LD 	trigKo1.Q
  LDX  trigKo1~Q
 #debug bool trigKo1.Q
-#srcline 953 ;(* 587	*)	ST	_Nod_Tmp_16
- WRY  _Nod_Tmp_16
-#debug_left bool _Nod_Tmp_16
-#srcline 954 ;(*  76	*)	LD 	sv_k1_1
+#srcline 1062 ;(* 566	*)	ST	_Nod_Tmp_19
+ WRY  _Nod_Tmp_19
+#debug_left bool _Nod_Tmp_19
+#srcline 1063 ;(*  76	*)	LD 	sv_k1_1
  LD   bool sv_k1_1
 #debug bool sv_k1_1
-#srcline 955 ;(* 596	*)	ST	_Nod_Tmp_15
- WRY  _Nod_Tmp_15
-#debug_left bool _Nod_Tmp_15
-#srcline 956 ;(*  51	*)	LD 	_Nod_Tmp_16
+#srcline 1064 ;(* 575	*)	ST	_Nod_Tmp_18
+ WRY  _Nod_Tmp_18
+#debug_left bool _Nod_Tmp_18
+#srcline 1065 ;(*  51	*)	LD 	_Nod_Tmp_19
+ LDY  _Nod_Tmp_19
+#debug bool _Nod_Tmp_19
+#srcline 1066 ;(*  59	*)	XOR 	_Nod_Tmp_18
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
+ XOR
+#srcline 1067 ;(* 891	*)	ST	_Nod_Tmp_16
+ WRY  _Nod_Tmp_16
+#debug_left bool _Nod_Tmp_16
+#srcline 1068 ;(*  29	*)	ST 	sv_k1_2
+ WR   bool sv_k1_2
+#debug_left bool sv_k1_2
+#srcline 1069 ;(* 891	*)	LD	_Nod_Tmp_16
  LDY  _Nod_Tmp_16
 #debug bool _Nod_Tmp_16
-#srcline 957 ;(*  59	*)	XOR 	_Nod_Tmp_15
- LDY  _Nod_Tmp_15
-#debug bool _Nod_Tmp_15
- XOR
-#srcline 958 ;(*  20	*)	ST 	sv_k1_1
+#srcline 1070 ;(*  20	*)	ST 	sv_k1_1
  WR   bool sv_k1_1
 #debug_left bool sv_k1_1
-#srcline 959 ;(* 177	*)	CAL	trigKo3(CLK:=tls_k1_ll)
- LD   bool tls_k1_ll
-#debug bool tls_k1_ll
- WRX  trigKo3~CLK
-#debug_left bool trigKo3~CLK
- LEAX trigKo3
- CAL  R_TRIG_L0
-#srcline 960 ;(* 177	*)	LD 	trigKo3.Q
- LDX  trigKo3~Q
-#debug bool trigKo3.Q
-#srcline 961 ;(* 453	*)	ST	_Nod_Tmp_13
- WRY  _Nod_Tmp_13
-#debug_left bool _Nod_Tmp_13
-#srcline 962 ;(* 140	*)	LD 	sv_k1_3
- LD   bool sv_k1_3
-#debug bool sv_k1_3
-#srcline 963 ;(* 700	*)	ST	_Nod_Tmp_12
- WRY  _Nod_Tmp_12
-#debug_left bool _Nod_Tmp_12
-#srcline 964 ;(* 115	*)	LD 	_Nod_Tmp_13
- LDY  _Nod_Tmp_13
-#debug bool _Nod_Tmp_13
-#srcline 965 ;(* 123	*)	XOR 	_Nod_Tmp_12
- LDY  _Nod_Tmp_12
-#debug bool _Nod_Tmp_12
- XOR
-#srcline 966 ;(*  38	*)	ST 	sv_k1_3
- WR   bool sv_k1_3
-#debug_left bool sv_k1_3
-#srcline 967 ;(* 194	*)	CAL	trigKo4(CLK:=tls_k1_lr)
+#srcline 1071 ;(* 191	*)	CAL	trigKo4(CLK:=tls_k1_lr)
  LD   bool tls_k1_lr
 #debug bool tls_k1_lr
  WRX  trigKo4~CLK
 #debug_left bool trigKo4~CLK
  LEAX trigKo4
  CAL  R_TRIG_L0
-#srcline 968 ;(* 194	*)	LD 	trigKo4.Q
+#srcline 1072 ;(* 191	*)	LD 	trigKo4.Q
  LDX  trigKo4~Q
 #debug bool trigKo4.Q
-#srcline 969 ;(* 798	*)	ST	_Nod_Tmp_10
- WRY  _Nod_Tmp_10
-#debug_left bool _Nod_Tmp_10
-#srcline 970 ;(* 211	*)	CAL	offKo1(in:=_Nod_Tmp_10, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
- LDY  _Nod_Tmp_10
-#debug bool _Nod_Tmp_10
+#srcline 1073 ;(* 768	*)	ST	_Nod_Tmp_15
+ WRY  _Nod_Tmp_15
+#debug_left bool _Nod_Tmp_15
+#srcline 1074 ;(* 208	*)	CAL	offKo1(in:=_Nod_Tmp_15, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
  WRX  offKo1~in
 #debug_left bool offKo1~in
  LD   bool sv_k1_1
@@ -165,40 +149,40 @@ ovladani_koupelna1_L0:
 #debug_left bool offKo1~sig2
  LEAX offKo1
  CAL  fb_off_SvKoupelna1_L0
-#srcline 971 ;(* 211	*)	LD 	offKo1.sOff0
+#srcline 1075 ;(* 208	*)	LD 	offKo1.sOff0
  LDX  offKo1~sOff0
 #debug bool offKo1.sOff0
-#srcline 972 ;(* 266	*)	ST 	sv_k1_1
+#srcline 1076 ;(* 263	*)	ST 	sv_k1_1
  WR   bool sv_k1_1
 #debug_left bool sv_k1_1
-#srcline 973 ;(* 211	*)	LD 	offKo1.sOff1
+#srcline 1077 ;(* 208	*)	LD 	offKo1.sOff1
  LDX  offKo1~sOff1
 #debug bool offKo1.sOff1
-#srcline 974 ;(* 278	*)	ST 	sv_k1_2
+#srcline 1078 ;(* 275	*)	ST 	sv_k1_2
  WR   bool sv_k1_2
 #debug_left bool sv_k1_2
-#srcline 975 ;(* 211	*)	LD 	offKo1.sOff2
+#srcline 1079 ;(* 208	*)	LD 	offKo1.sOff2
  LDX  offKo1~sOff2
 #debug bool offKo1.sOff2
-#srcline 976 ;(* 287	*)	ST 	sv_k1_3
+#srcline 1080 ;(* 284	*)	ST 	sv_k1_3
  WR   bool sv_k1_3
 #debug_left bool sv_k1_3
-#srcline 977 ;(* 396	*)	CAL	trigOnKo1(CLK:=tll_k1_lr)
+#srcline 1081 ;(* 393	*)	CAL	trigOnKo1(CLK:=tll_k1_lr)
  LD   bool tll_k1_lr
 #debug bool tll_k1_lr
  WRX  trigOnKo1~CLK
 #debug_left bool trigOnKo1~CLK
  LEAX trigOnKo1
  CAL  R_TRIG_L0
-#srcline 978 ;(* 396	*)	LD 	trigOnKo1.Q
+#srcline 1082 ;(* 393	*)	LD 	trigOnKo1.Q
  LDX  trigOnKo1~Q
 #debug bool trigOnKo1.Q
-#srcline 979 ;(* 850	*)	ST	_Nod_Tmp_9
- WRY  _Nod_Tmp_9
-#debug_left bool _Nod_Tmp_9
-#srcline 980 ;(* 332	*)	CAL	onKo1(in:=_Nod_Tmp_9, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
- LDY  _Nod_Tmp_9
-#debug bool _Nod_Tmp_9
+#srcline 1083 ;(* 820	*)	ST	_Nod_Tmp_14
+ WRY  _Nod_Tmp_14
+#debug_left bool _Nod_Tmp_14
+#srcline 1084 ;(* 329	*)	CAL	onKo1(in:=_Nod_Tmp_14, sig0:=sv_k1_1, sig1:=sv_k1_2, sig2:=sv_k1_3)
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
  WRX  onKo1~in
 #debug_left bool onKo1~in
  LD   bool sv_k1_1
@@ -215,36 +199,72 @@ ovladani_koupelna1_L0:
 #debug_left bool onKo1~sig2
  LEAX onKo1
  CAL  fb_on_SvKoupelna1_L0
-#srcline 981 ;(* 332	*)	LD 	onKo1.sOff0
+#srcline 1085 ;(* 329	*)	LD 	onKo1.sOff0
  LDX  onKo1~sOff0
 #debug bool onKo1.sOff0
-#srcline 982 ;(* 305	*)	ST 	sv_k1_1
+#srcline 1086 ;(* 302	*)	ST 	sv_k1_1
  WR   bool sv_k1_1
 #debug_left bool sv_k1_1
-#srcline 983 ;(* 332	*)	LD 	onKo1.sOff1
+#srcline 1087 ;(* 329	*)	LD 	onKo1.sOff1
  LDX  onKo1~sOff1
 #debug bool onKo1.sOff1
-#srcline 984 ;(* 314	*)	ST 	sv_k1_2
+#srcline 1088 ;(* 311	*)	ST 	sv_k1_2
  WR   bool sv_k1_2
 #debug_left bool sv_k1_2
-#srcline 985 ;(* 332	*)	LD 	onKo1.sOff2
+#srcline 1089 ;(* 329	*)	LD 	onKo1.sOff2
  LDX  onKo1~sOff2
 #debug bool onKo1.sOff2
-#srcline 986 ;(* 323	*)	ST 	sv_k1_3
+#srcline 1090 ;(* 320	*)	ST 	sv_k1_3
  WR   bool sv_k1_3
 #debug_left bool sv_k1_3
-#srcline 987 ;(* 605	*)	LD 	T#0.5s
+#srcline 1091 ;(* 174	*)	CAL	trigKo3(CLK:=tls_k1_ll)
+ LD   bool tls_k1_ll
+#debug bool tls_k1_ll
+ WRX  trigKo3~CLK
+#debug_left bool trigKo3~CLK
+ LEAX trigKo3
+ CAL  R_TRIG_L0
+#srcline 1092 ;(* 956	*)	LD 	_Tmp_For_Back_Conn_1
+ LDX  _Tmp_For_Back_Conn_1
+#debug bool _Tmp_For_Back_Conn_1
+#srcline 1093 ;(* 966	*)	OR 	trigKo3.Q
+ LDX  trigKo3~Q
+#debug bool trigKo3.Q
+ OR
+#srcline 1094 ;(* 984	*)	ST	_Nod_Tmp_12
+ WRY  _Nod_Tmp_12
+#debug_left bool _Nod_Tmp_12
+#srcline 1095 ;(* 879	*)	LD 	vent_k1
+ LD   bool vent_k1
+#debug bool vent_k1
+#srcline 1096 ;(* 900	*)	ST	_Nod_Tmp_11
+ WRY  _Nod_Tmp_11
+#debug_left bool _Nod_Tmp_11
+#srcline 1097 ;(* 112	*)	LD 	_Nod_Tmp_12
+ LDY  _Nod_Tmp_12
+#debug bool _Nod_Tmp_12
+#srcline 1098 ;(* 120	*)	XOR 	_Nod_Tmp_11
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
+ XOR
+#srcline 1099 ;(* 940	*)	ST	_Nod_Tmp_9
+ WRY  _Nod_Tmp_9
+#debug_left bool _Nod_Tmp_9
+#srcline 1100 ;(* 858	*)	ST 	vent_k1
+ WR   bool vent_k1
+#debug_left bool vent_k1
+#srcline 1101 ;(* 584	*)	LD 	T#0.5s
  LD   time 500
-#srcline 988 ;(* 608	*)	ST	_Nod_Tmp_5
+#srcline 1102 ;(* 587	*)	ST	_Nod_Tmp_5
  WRY  _Nod_Tmp_5
 #debug_left time _Nod_Tmp_5
-#srcline 989 ;(* 471	*)	CAL	blik_ko1_2(InButton:=_Nod_Tmp_19, InLight:=_Nod_Tmp_18, InTimeOfBlic:=_Nod_Tmp_5)
- LDY  _Nod_Tmp_19
-#debug bool _Nod_Tmp_19
+#srcline 1103 ;(* 459	*)	CAL	blik_ko1_2(InButton:=_Nod_Tmp_22, InLight:=_Nod_Tmp_21, InTimeOfBlic:=_Nod_Tmp_5)
+ LDY  _Nod_Tmp_22
+#debug bool _Nod_Tmp_22
  WRX  blik_ko1_2~InButton
 #debug_left bool blik_ko1_2~InButton
- LDY  _Nod_Tmp_18
-#debug bool _Nod_Tmp_18
+ LDY  _Nod_Tmp_21
+#debug bool _Nod_Tmp_21
  WRX  blik_ko1_2~InLight
 #debug_left bool blik_ko1_2~InLight
  LDY  _Nod_Tmp_5
@@ -253,14 +273,14 @@ ovladani_koupelna1_L0:
 #debug_left time blik_ko1_2~InTimeOfBlic
  LEAX blik_ko1_2
  CAL  fb_LED_blik_L0
-#srcline 990 ;(* 816	*)	LD 	T#1s
+#srcline 1104 ;(* 786	*)	LD 	T#1s
  LD   time 1000
-#srcline 991 ;(* 868	*)	ST	_Nod_Tmp_8
+#srcline 1105 ;(* 838	*)	ST	_Nod_Tmp_8
  WRY  _Nod_Tmp_8
 #debug_left time _Nod_Tmp_8
-#srcline 992 ;(* 819	*)	CAL	tp_ko1_2(IN:=_Nod_Tmp_9, PT:=_Nod_Tmp_8)
- LDY  _Nod_Tmp_9
-#debug bool _Nod_Tmp_9
+#srcline 1106 ;(* 789	*)	CAL	tp_ko1_2(IN:=_Nod_Tmp_14, PT:=_Nod_Tmp_8)
+ LDY  _Nod_Tmp_14
+#debug bool _Nod_Tmp_14
  WRX  tp_ko1_2~IN
 #debug_left bool tp_ko1_2~IN
  LDY  _Nod_Tmp_8
@@ -269,29 +289,29 @@ ovladani_koupelna1_L0:
 #debug_left time tp_ko1_2~PT
  LEAX tp_ko1_2
  CAL  TP_L0
-#srcline 993 ;(* 819	*)	LD 	tp_ko1_2.Q
+#srcline 1107 ;(* 789	*)	LD 	tp_ko1_2.Q
  LDX  tp_ko1_2~Q
 #debug bool tp_ko1_2.Q
-#srcline 994 ;(* 859	*)	ST	_Nod_Tmp_7
+#srcline 1108 ;(* 829	*)	ST	_Nod_Tmp_7
  WRY  _Nod_Tmp_7
 #debug_left bool _Nod_Tmp_7
-#srcline 995 ;(* 713	*)	LD 	blik_ko1_2.OutLED_Green
+#srcline 1109 ;(* 683	*)	LD 	blik_ko1_2.OutLED_Green
  LDX  blik_ko1_2~OutLED_Green
 #debug bool blik_ko1_2.OutLED_Green
-#srcline 996 ;(* 721	*)	OR 	_Nod_Tmp_7
+#srcline 1110 ;(* 691	*)	OR 	_Nod_Tmp_7
  LDY  _Nod_Tmp_7
 #debug bool _Nod_Tmp_7
  OR
-#srcline 997 ;(* 529	*)	ST 	k1_led_k1_rg
+#srcline 1111 ;(* 508	*)	ST 	k1_led_k1_rg
  WR   k1_led_k1_rg
 #debug_left bool k1_led_k1_rg
-#srcline 998 ;(* 547	*)	CAL	blik_ko1_3(InButton:=_Nod_Tmp_16, InLight:=_Nod_Tmp_15, InTimeOfBlic:=_Nod_Tmp_5)
- LDY  _Nod_Tmp_16
-#debug bool _Nod_Tmp_16
+#srcline 1112 ;(* 526	*)	CAL	blik_ko1_3(InButton:=_Nod_Tmp_19, InLight:=_Nod_Tmp_18, InTimeOfBlic:=_Nod_Tmp_5)
+ LDY  _Nod_Tmp_19
+#debug bool _Nod_Tmp_19
  WRX  blik_ko1_3~InButton
 #debug_left bool blik_ko1_3~InButton
- LDY  _Nod_Tmp_15
-#debug bool _Nod_Tmp_15
+ LDY  _Nod_Tmp_18
+#debug bool _Nod_Tmp_18
  WRX  blik_ko1_3~InLight
 #debug_left bool blik_ko1_3~InLight
  LDY  _Nod_Tmp_5
@@ -300,13 +320,13 @@ ovladani_koupelna1_L0:
 #debug_left time blik_ko1_3~InTimeOfBlic
  LEAX blik_ko1_3
  CAL  fb_LED_blik_L0
-#srcline 999 ;(* 413	*)	CAL	blik_ko1_1(InButton:=_Nod_Tmp_13, InLight:=_Nod_Tmp_12, InTimeOfBlic:=_Nod_Tmp_5)
- LDY  _Nod_Tmp_13
-#debug bool _Nod_Tmp_13
- WRX  blik_ko1_1~InButton
-#debug_left bool blik_ko1_1~InButton
+#srcline 1113 ;(* 410	*)	CAL	blik_ko1_1(InButton:=_Nod_Tmp_12, InLight:=_Nod_Tmp_11, InTimeOfBlic:=_Nod_Tmp_5)
  LDY  _Nod_Tmp_12
 #debug bool _Nod_Tmp_12
+ WRX  blik_ko1_1~InButton
+#debug_left bool blik_ko1_1~InButton
+ LDY  _Nod_Tmp_11
+#debug bool _Nod_Tmp_11
  WRX  blik_ko1_1~InLight
 #debug_left bool blik_ko1_1~InLight
  LDY  _Nod_Tmp_5
@@ -315,23 +335,23 @@ ovladani_koupelna1_L0:
 #debug_left time blik_ko1_1~InTimeOfBlic
  LEAX blik_ko1_1
  CAL  fb_LED_blik_L0
-#srcline 1000 ;(* 630	*)	LD 	blik_ko1_3.OutLED_Green
+#srcline 1114 ;(* 609	*)	LD 	blik_ko1_3.OutLED_Green
  LDX  blik_ko1_3~OutLED_Green
 #debug bool blik_ko1_3.OutLED_Green
-#srcline 1001 ;(* 638	*)	OR 	blik_ko1_1.OutLED_Green
+#srcline 1115 ;(* 617	*)	OR 	blik_ko1_1.OutLED_Green
  LDX  blik_ko1_1~OutLED_Green
 #debug bool blik_ko1_1.OutLED_Green
  OR
-#srcline 1002 ;(* 646	*)	OR 	_Nod_Tmp_7
+#srcline 1116 ;(* 625	*)	OR 	_Nod_Tmp_7
  LDY  _Nod_Tmp_7
 #debug bool _Nod_Tmp_7
  OR
-#srcline 1003 ;(* 877	*)	ST 	k1_led_k1_lg
+#srcline 1117 ;(* 847	*)	ST 	k1_led_k1_lg
  WR   k1_led_k1_lg
 #debug_left bool k1_led_k1_lg
-#srcline 1004 ;(* 767	*)	CAL	tp_ko1_1(IN:=_Nod_Tmp_10, PT:=_Nod_Tmp_8)
- LDY  _Nod_Tmp_10
-#debug bool _Nod_Tmp_10
+#srcline 1118 ;(* 737	*)	CAL	tp_ko1_1(IN:=_Nod_Tmp_15, PT:=_Nod_Tmp_8)
+ LDY  _Nod_Tmp_15
+#debug bool _Nod_Tmp_15
  WRX  tp_ko1_1~IN
 #debug_left bool tp_ko1_1~IN
  LDY  _Nod_Tmp_8
@@ -340,37 +360,54 @@ ovladani_koupelna1_L0:
 #debug_left time tp_ko1_1~PT
  LEAX tp_ko1_1
  CAL  TP_L0
-#srcline 1005 ;(* 767	*)	LD 	tp_ko1_1.Q
+#srcline 1119 ;(* 737	*)	LD 	tp_ko1_1.Q
  LDX  tp_ko1_1~Q
 #debug bool tp_ko1_1.Q
-#srcline 1006 ;(* 807	*)	ST	_Nod_Tmp_3
+#srcline 1120 ;(* 777	*)	ST	_Nod_Tmp_3
  WRY  _Nod_Tmp_3
 #debug_left bool _Nod_Tmp_3
-#srcline 1007 ;(* 742	*)	LD 	blik_ko1_2.OutLED_Red
+#srcline 1121 ;(* 712	*)	LD 	blik_ko1_2.OutLED_Red
  LDX  blik_ko1_2~OutLED_Red
 #debug bool blik_ko1_2.OutLED_Red
-#srcline 1008 ;(* 750	*)	OR 	_Nod_Tmp_3
+#srcline 1122 ;(* 720	*)	OR 	_Nod_Tmp_3
  LDY  _Nod_Tmp_3
 #debug bool _Nod_Tmp_3
  OR
-#srcline 1009 ;(* 538	*)	ST 	k1_led_k1_rr
+#srcline 1123 ;(* 517	*)	ST 	k1_led_k1_rr
  WR   k1_led_k1_rr
 #debug_left bool k1_led_k1_rr
-#srcline 1010 ;(* 667	*)	LD 	blik_ko1_3.OutLED_Red
+#srcline 1124 ;(* 646	*)	LD 	blik_ko1_3.OutLED_Red
  LDX  blik_ko1_3~OutLED_Red
 #debug bool blik_ko1_3.OutLED_Red
-#srcline 1011 ;(* 675	*)	OR 	blik_ko1_1.OutLED_Red
+#srcline 1125 ;(* 654	*)	OR 	blik_ko1_1.OutLED_Red
  LDX  blik_ko1_1~OutLED_Red
 #debug bool blik_ko1_1.OutLED_Red
  OR
-#srcline 1012 ;(* 683	*)	OR 	_Nod_Tmp_3
+#srcline 1126 ;(* 662	*)	OR 	_Nod_Tmp_3
  LDY  _Nod_Tmp_3
 #debug bool _Nod_Tmp_3
  OR
-#srcline 1013 ;(* 462	*)	ST 	k1_led_k1_lr
+#srcline 1127 ;(* 450	*)	ST 	k1_led_k1_lr
  WR   k1_led_k1_lr
 #debug_left bool k1_led_k1_lr
-#srcline 1015 ;END_PROGRAM
+#srcline 1128 ;(* 909	*)	CAL	TON_K1_Vent(IN:=_Nod_Tmp_9, PT:=T#2h)
+ LDY  _Nod_Tmp_9
+#debug bool _Nod_Tmp_9
+ WRX  TON_K1_Vent~IN
+#debug_left bool TON_K1_Vent~IN
+ LD   time 7200000
+ WRX  TON_K1_Vent~PT
+#debug_left time TON_K1_Vent~PT
+ LEAX TON_K1_Vent
+ CAL  TON_L0
+#srcline 1129 ;(* 909	*)	LD 	TON_K1_Vent.Q
+ LDX  TON_K1_Vent~Q
+#debug bool TON_K1_Vent.Q
+#srcline 1130 ;//N001
+#srcline 1131 ;(* 956	*)	ST	_Tmp_For_Back_Conn_1
+ WRX  _Tmp_For_Back_Conn_1
+#debug_left bool _Tmp_For_Back_Conn_1
+#srcline 1133 ;END_PROGRAM
  ULNK
 RET
 E     61

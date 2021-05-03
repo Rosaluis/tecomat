@@ -10,6 +10,11 @@ P     0
  CAL  ovladani_obyvak_L0
 E     0
 
+; Initialize - program
+P     58
+ LEA  ovl_obyvak
+ CAL  ovladani_obyvak__InstanceInit__
+E     58
 
 ; ***** RESOURCE - CPM
 #reg ovladani_koupelna1 ovl_koupelna1

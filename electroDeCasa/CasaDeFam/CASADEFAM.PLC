@@ -59,7 +59,7 @@ slTRportnum=61682
 
 [plcwusb]
 type=17
-genrst=2
+genrst=1
 askrst=1
 genrunp=1
 genhltp=9

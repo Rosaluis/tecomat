@@ -907,10 +907,10 @@ Komentáø ke schématu
     <position x="78" y="97" />
   </connection>
 </node>
-<inVariable name="T#0.5s" type="TIME" id="63">
+<inVariable name="T#0.2s" type="TIME" id="63">
   <position x="62" y="64" />
 </inVariable>
-<inVariable name="T#1s" type="TIME" id="64">
+<inVariable name="T#0.5s" type="TIME" id="64">
   <position x="62" y="66" />
 </inVariable>
 <block name="fb_kmitac" instance="kmit_Ko2" id="65" height="8" width="12" line="81" order="34">
@@ -939,7 +939,7 @@ Komentáø ke schématu
         <position x="80" y="67" />
         <position x="74" y="67" />
         <position x="74" y="67" />
-        <position x="67" y="67" />
+        <position x="69" y="67" />
       </connection>
     <comment>delka nesviceni</comment>
     </variable>
@@ -1183,7 +1183,7 @@ END_VAR
 (* 941	*)	OR 	_Nod_Tmp_17
 (* 949	*)	OR 	_Nod_Tmp_21
 (* 892	*)	ST 	kmit_Ko2.sig_IN
-(* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.5s, time_OFF:=T#1s)
+(* 892	*)	CAL	kmit_Ko2(time_ON:=T#0.2s, time_OFF:=T#0.5s)
 (* 892	*)	LD 	kmit_Ko2.sig_OUT
 (*1029	*)	ST	_Nod_Tmp_1
 (* 993	*)	ST 	pz_led_pz_lr

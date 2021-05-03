@@ -32,10 +32,7 @@ Ovladani venkovnich svetel s PIR cidlem. PIR, jedou sami, ale po resetu se rozve
 <inVariable name="tl_tech_m_svetlo_venk_sever" type="BOOL" id="2">
   <position x="4" y="20" />
 </inVariable>
-<inVariable name="tl_zadveri_svetlo_venk_jih" type="BOOL" id="3" disabled="1">
-  <position x="4" y="37" />
-</inVariable>
-<block name="R_TRIG" instance="trigVenk1" id="4" height="4" width="6" line="3" order="1">
+<block name="R_TRIG" instance="trigVenk1" id="3" height="4" width="6" line="3" order="1">
   <position x="40" y="18" />
   <inVariables>
     <variable name="CLK" type="BOOL">
@@ -52,28 +49,11 @@ Ovladani venkovnich svetel s PIR cidlem. PIR, jedou sami, ale po resetu se rozve
     </variable>
   </outVariables>
 </block>
-<block name="R_TRIG" instance="trigVenk2" id="5" height="4" width="6" disabled="1">
-  <position x="33" y="35" />
-  <inVariables>
-    <variable name="CLK" type="BOOL">
-      <connection refid="3" disabled="1">
-        <position x="33" y="38" />
-        <position x="31" y="38" />
-        <position x="31" y="38" />
-        <position x="23" y="38" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    </variable>
-  </outVariables>
-</block>
-<block name="TP" instance="timeVenk1" id="6" height="6" width="6" line="4" order="2">
+<block name="TP" instance="timeVenk1" id="4" height="6" width="6" line="4" order="2">
   <position x="62" y="18" />
   <inVariables>
     <variable name="IN" type="BOOL">
-      <connection refid="4" name="Q">
+      <connection refid="3" name="Q">
         <position x="62" y="21" />
         <position x="53" y="21" />
         <position x="53" y="21" />
@@ -82,7 +62,7 @@ Ovladani venkovnich svetel s PIR cidlem. PIR, jedou sami, ale po resetu se rozve
     <comment>vstup èasovaèe</comment>
     </variable>
     <variable name="PT" type="TIME">
-      <connection refid="7">
+      <connection refid="5">
         <position x="62" y="23" />
         <position x="59" y="23" />
         <position x="59" y="23" />
@@ -100,237 +80,139 @@ Ovladani venkovnich svetel s PIR cidlem. PIR, jedou sami, ale po resetu se rozve
     </variable>
   </outVariables>
 </block>
-<inVariable name="T#2s" type="TIME" id="7">
+<inVariable name="T#2s" type="TIME" id="5">
   <position x="50" y="22" />
 </inVariable>
-<outVariable name="sv_venkovni_sever_rozp" type="BOOL" id="8" order="3">
+<outVariable name="sv_venkovni_sever_rozp" type="BOOL" id="6" order="3">
   <position x="85" y="20" />
-  <connection refid="6" name="Q">
+  <connection refid="4" name="Q">
     <position x="86" y="21" />
     <position x="76" y="21" />
     <position x="76" y="21" />
     <position x="68" y="21" />
   </connection>
 </outVariable>
-<block name="TP" instance="timeVenk2" id="9" height="6" width="6" disabled="1">
-  <position x="62" y="35" />
-  <inVariables>
-    <variable name="IN" type="BOOL">
-      <connection refid="12" disabled="1">
-        <position x="62" y="38" />
-        <position x="53" y="38" />
-        <position x="53" y="38" />
-        <position x="45" y="38" />
-      </connection>
-    <comment>vstup èasovaèe</comment>
-    </variable>
-    <variable name="PT" type="TIME">
-      <connection refid="11" disabled="1">
-        <position x="62" y="40" />
-        <position x="59" y="40" />
-        <position x="59" y="40" />
-        <position x="55" y="40" />
-      </connection>
-    <comment>pøedvolba èasovaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èasovaèe</comment>
-    </variable>
-    <variable name="ET" type="TIME">
-    <comment>aktuální hodnota èasovaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<outVariable name="sv_venkovni_jih_rozp" type="BOOL" id="10" disabled="1">
-  <position x="87" y="37" />
-  <connection refid="9" name="Q" disabled="1">
-    <position x="88" y="38" />
-    <position x="77" y="38" />
-    <position x="77" y="38" />
-    <position x="68" y="38" />
+<outVariable name="sv_ve_zapad" type="BOOL" id="7" order="12">
+  <position x="101" y="57" />
+  <connection refid="32">
+    <position x="102" y="58" />
+    <position x="96" y="58" />
+    <position x="96" y="58" />
+    <position x="72" y="58" />
   </connection>
 </outVariable>
-<inVariable name="T#2s" type="TIME" id="11" disabled="1">
-  <position x="50" y="39" />
+<inVariable name="sv_ve_zapad" type="BOOL" id="8">
+  <position x="4" y="57" />
 </inVariable>
-<node id="12" disabled="1">
-  <position x="45" y="38" />
-  <connection refid="5" name="Q" disabled="1">
-    <position x="45" y="38" />
-    <position x="42" y="38" />
-    <position x="42" y="38" />
-    <position x="39" y="38" />
-  </connection>
-</node>
-<outVariable name="sig_tl_zadveri" type="BOOL" id="13" disabled="1">
-  <position x="87" y="49" />
-  <connection refid="12" disabled="1">
-    <position x="88" y="50" />
-    <position x="45" y="50" />
-    <position x="45" y="38" />
-    <position x="45" y="38" />
+<outVariable name="sv_ve_vychod" type="BOOL" id="9" order="17">
+  <position x="101" y="73" />
+  <connection refid="38">
+    <position x="102" y="74" />
+    <position x="88" y="74" />
+    <position x="88" y="74" />
+    <position x="72" y="74" />
   </connection>
 </outVariable>
-<outVariable name="sv_ve_zapad" type="BOOL" id="14" order="12">
-  <position x="103" y="104" />
-  <connection refid="57">
-    <position x="104" y="105" />
-    <position x="98" y="105" />
-    <position x="98" y="105" />
-    <position x="74" y="105" />
-  </connection>
-</outVariable>
-<inVariable name="sv_ve_zapad" type="BOOL" id="15">
-  <position x="6" y="104" />
+<inVariable name="sv_ve_vychod" type="BOOL" id="10">
+  <position x="3" y="73" />
 </inVariable>
-<outVariable name="sv_ve_vychod" type="BOOL" id="16" order="17">
-  <position x="103" y="120" />
-  <connection refid="63">
-    <position x="104" y="121" />
-    <position x="90" y="121" />
-    <position x="90" y="121" />
-    <position x="74" y="121" />
-  </connection>
-</outVariable>
-<inVariable name="sv_ve_vychod" type="BOOL" id="17">
-  <position x="5" y="120" />
+<inVariable name="sig_tl_zadveri" type="BOOL" id="11">
+  <position x="3" y="82" />
 </inVariable>
-<inVariable name="sig_tl_zadveri" type="BOOL" id="18">
-  <position x="5" y="129" />
+<inVariable name="sig_tl_pokojV" type="BOOL" id="12">
+  <position x="3" y="75" />
 </inVariable>
-<inVariable name="sig_tl_pokojV" type="BOOL" id="19">
-  <position x="5" y="122" />
+<inVariable name="sig_tl_pokojZ" type="BOOL" id="13">
+  <position x="4" y="59" />
 </inVariable>
-<inVariable name="sig_tl_pokojZ" type="BOOL" id="20">
-  <position x="6" y="106" />
-</inVariable>
-<comment id="21" height="6" width="47">
-  <position x="5" y="62" />
+<comment id="14" height="6" width="47">
+  <position x="5" y="38" />
 Ovladani svetel k silnici a do zahrady. 
 Nabezne hrany jsou reseny v jednotlivych pokojich.
 </comment>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="22" height="4" width="4" line="21" order="7">
-  <position x="52" y="104" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="28">
-        <position x="52" y="105" />
-        <position x="49" y="105" />
-        <position x="49" y="105" />
-        <position x="24" y="105" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="24" name="OR">
-        <position x="52" y="107" />
-        <position x="48" y="107" />
-        <position x="48" y="107" />
-        <position x="47" y="107" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="23" height="4" width="4" line="43" order="14">
-  <position x="51" y="120" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="29">
-        <position x="51" y="121" />
-        <position x="48" y="121" />
-        <position x="48" y="121" />
-        <position x="24" y="121" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="25" name="OR">
-        <position x="51" y="123" />
-        <position x="48" y="123" />
-        <position x="48" y="123" />
-        <position x="47" y="123" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="24" height="6" width="3" line="18" order="6">
-  <position x="44" y="106" />
+<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="15" height="4" width="4" line="21" order="7">
+  <position x="50" y="57" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
       <connection refid="20">
-        <position x="44" y="107" />
-        <position x="31" y="107" />
-        <position x="31" y="107" />
-        <position x="17" y="107" />
+        <position x="50" y="58" />
+        <position x="47" y="58" />
+        <position x="47" y="58" />
+        <position x="22" y="58" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="64">
-        <position x="44" y="109" />
-        <position x="29" y="109" />
-        <position x="29" y="109" />
-        <position x="16" y="109" />
-      </connection>
-    </variable>
-    <variable name="IN3" type="ANY_BIT">
-      <connection refid="67">
-        <position x="44" y="111" />
-        <position x="41" y="111" />
-        <position x="41" y="127" />
-        <position x="41" y="127" />
+      <connection refid="17" name="OR">
+        <position x="50" y="60" />
+        <position x="46" y="60" />
+        <position x="46" y="60" />
+        <position x="45" y="60" />
       </connection>
     </variable>
   </inVariables>
   <outVariables>
-    <variable name="OR" type="ANY_BIT">
-    <comment>Bitwise OR
+    <variable name="XOR" type="ANY_BIT">
+    <comment>Bitwise XOR
 	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if either or all bits are 1, otherwise it returns 0
+	if odd number of bits are 1, otherwise it returns 0
 </comment>
     </variable>
   </outVariables>
 </block>
-<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="25" height="6" width="3" line="40" order="13">
-  <position x="44" y="122" />
+<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="16" height="4" width="4" line="43" order="14">
+  <position x="49" y="73" />
   <inVariables>
     <variable name="IN1" type="ANY_BIT">
-      <connection refid="19">
-        <position x="44" y="123" />
-        <position x="30" y="123" />
-        <position x="30" y="123" />
-        <position x="16" y="123" />
+      <connection refid="21">
+        <position x="49" y="74" />
+        <position x="46" y="74" />
+        <position x="46" y="74" />
+        <position x="22" y="74" />
       </connection>
     </variable>
     <variable name="IN2" type="ANY_BIT">
-      <connection refid="65">
-        <position x="44" y="125" />
-        <position x="30" y="125" />
-        <position x="30" y="125" />
-        <position x="16" y="125" />
+      <connection refid="18" name="OR">
+        <position x="49" y="76" />
+        <position x="46" y="76" />
+        <position x="46" y="76" />
+        <position x="45" y="76" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="XOR" type="ANY_BIT">
+    <comment>Bitwise XOR
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if odd number of bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="17" height="6" width="3" line="18" order="6">
+  <position x="42" y="59" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="13">
+        <position x="42" y="60" />
+        <position x="29" y="60" />
+        <position x="29" y="60" />
+        <position x="15" y="60" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="39">
+        <position x="42" y="62" />
+        <position x="27" y="62" />
+        <position x="27" y="62" />
+        <position x="14" y="62" />
       </connection>
     </variable>
     <variable name="IN3" type="ANY_BIT">
-      <connection refid="67">
-        <position x="44" y="127" />
-        <position x="42" y="127" />
-        <position x="42" y="127" />
-        <position x="41" y="127" />
+      <connection refid="42">
+        <position x="42" y="64" />
+        <position x="39" y="64" />
+        <position x="39" y="80" />
+        <position x="39" y="80" />
       </connection>
     </variable>
   </inVariables>
@@ -343,201 +225,238 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     </variable>
   </outVariables>
 </block>
-<inVariable name="tl_chodba_2NP_rozvadec" type="BOOL" id="26" disabled="1">
-  <position x="3" y="152" />
+<block name="OR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="18" height="6" width="3" line="40" order="13">
+  <position x="42" y="75" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="12">
+        <position x="42" y="76" />
+        <position x="28" y="76" />
+        <position x="28" y="76" />
+        <position x="14" y="76" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="40">
+        <position x="42" y="78" />
+        <position x="28" y="78" />
+        <position x="28" y="78" />
+        <position x="14" y="78" />
+      </connection>
+    </variable>
+    <variable name="IN3" type="ANY_BIT">
+      <connection refid="42">
+        <position x="42" y="80" />
+        <position x="40" y="80" />
+        <position x="40" y="80" />
+        <position x="39" y="80" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="OR" type="ANY_BIT">
+    <comment>Bitwise OR
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if either or all bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="19" height="4" width="4" line="26" order="8">
+  <position x="24" y="64" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="20">
+        <position x="24" y="65" />
+        <position x="22" y="65" />
+        <position x="22" y="58" />
+        <position x="22" y="58" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="21">
+        <position x="24" y="67" />
+        <position x="22" y="67" />
+        <position x="22" y="74" />
+        <position x="22" y="74" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="XOR" type="ANY_BIT">
+    <comment>Bitwise XOR
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if odd number of bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<node id="20">
+  <position x="22" y="58" />
+  <connection refid="8">
+    <position x="22" y="58" />
+    <position x="20" y="58" />
+    <position x="20" y="58" />
+    <position x="14" y="58" />
+  </connection>
+</node>
+<node id="21">
+  <position x="22" y="74" />
+  <connection refid="10">
+    <position x="22" y="74" />
+    <position x="18" y="74" />
+    <position x="18" y="74" />
+    <position x="14" y="74" />
+  </connection>
+</node>
+<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="22" height="4" width="4" line="29" order="9">
+  <position x="32" y="68" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="19" name="XOR">
+        <position x="32" y="69" />
+        <position x="30" y="69" />
+        <position x="30" y="65" />
+        <position x="28" y="65" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="41">
+        <position x="32" y="71" />
+        <position x="30" y="71" />
+        <position x="30" y="80" />
+        <position x="30" y="80" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="AND" type="ANY_BIT">
+    <comment>Bitwise AND
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if all bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="23" height="4" width="4" line="35" order="11">
+  <position x="65" y="57" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="15" name="XOR">
+        <position x="65" y="58" />
+        <position x="58" y="58" />
+        <position x="58" y="58" />
+        <position x="54" y="58" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="24" name="NOT">
+        <position x="65" y="60" />
+        <position x="64" y="60" />
+        <position x="64" y="60" />
+        <position x="63" y="60" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="AND" type="ANY_BIT">
+    <comment>Bitwise AND
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if all bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="24" height="2" width="4" line="32" order="10">
+  <position x="59" y="59" />
+  <inVariables>
+    <variable name="" type="ANY_BIT">
+      <connection refid="27">
+        <position x="59" y="60" />
+        <position x="57" y="60" />
+        <position x="57" y="69" />
+        <position x="57" y="69" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="NOT" type="ANY_BIT">
+    <comment>Bitwise complement
+	inverts each bit
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="25" height="4" width="4" line="49" order="16">
+  <position x="65" y="73" />
+  <inVariables>
+    <variable name="IN1" type="ANY_BIT">
+      <connection refid="16" name="XOR">
+        <position x="65" y="74" />
+        <position x="57" y="74" />
+        <position x="57" y="74" />
+        <position x="53" y="74" />
+      </connection>
+    </variable>
+    <variable name="IN2" type="ANY_BIT">
+      <connection refid="26" name="NOT">
+        <position x="65" y="76" />
+        <position x="64" y="76" />
+        <position x="64" y="76" />
+        <position x="63" y="76" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="AND" type="ANY_BIT">
+    <comment>Bitwise AND
+	compares every bits on same position in IN1, IN2, ... and generates a 1 result
+	if all bits are 1, otherwise it returns 0
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="26" height="2" width="4" line="46" order="15">
+  <position x="59" y="75" />
+  <inVariables>
+    <variable name="" type="ANY_BIT">
+      <connection refid="27">
+        <position x="59" y="76" />
+        <position x="57" y="76" />
+        <position x="57" y="69" />
+        <position x="57" y="69" />
+      </connection>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="NOT" type="ANY_BIT">
+    <comment>Bitwise complement
+	inverts each bit
+</comment>
+    </variable>
+  </outVariables>
+</block>
+<node id="27">
+  <position x="57" y="69" />
+  <connection refid="22" name="AND">
+    <position x="57" y="69" />
+    <position x="54" y="69" />
+    <position x="54" y="69" />
+    <position x="36" y="69" />
+  </connection>
+</node>
+<inVariable name="tl_zadveri_svetlo_venk_jih" type="BOOL" id="28">
+  <position x="4" y="32" />
 </inVariable>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="27" height="4" width="4" line="26" order="8">
-  <position x="26" y="111" />
+<block name="R_TRIG" instance="trigVenk2" id="29" height="4" width="6" line="8" order="4">
+  <position x="33" y="30" />
   <inVariables>
-    <variable name="IN1" type="ANY_BIT">
+    <variable name="CLK" type="BOOL">
       <connection refid="28">
-        <position x="26" y="112" />
-        <position x="24" y="112" />
-        <position x="24" y="105" />
-        <position x="24" y="105" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="29">
-        <position x="26" y="114" />
-        <position x="24" y="114" />
-        <position x="24" y="121" />
-        <position x="24" y="121" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<node id="28">
-  <position x="24" y="105" />
-  <connection refid="15">
-    <position x="24" y="105" />
-    <position x="22" y="105" />
-    <position x="22" y="105" />
-    <position x="16" y="105" />
-  </connection>
-</node>
-<node id="29">
-  <position x="24" y="121" />
-  <connection refid="17">
-    <position x="24" y="121" />
-    <position x="20" y="121" />
-    <position x="20" y="121" />
-    <position x="16" y="121" />
-  </connection>
-</node>
-<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="30" height="4" width="4" line="29" order="9">
-  <position x="34" y="115" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="27" name="XOR">
-        <position x="34" y="116" />
-        <position x="32" y="116" />
-        <position x="32" y="112" />
-        <position x="30" y="112" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="66">
-        <position x="34" y="118" />
-        <position x="32" y="118" />
-        <position x="32" y="127" />
-        <position x="32" y="127" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="AND" type="ANY_BIT">
-    <comment>Bitwise AND
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if all bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="31" height="4" width="4" line="35" order="11">
-  <position x="67" y="104" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="22" name="XOR">
-        <position x="67" y="105" />
-        <position x="60" y="105" />
-        <position x="60" y="105" />
-        <position x="56" y="105" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="32" name="NOT">
-        <position x="67" y="107" />
-        <position x="66" y="107" />
-        <position x="66" y="107" />
-        <position x="65" y="107" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="AND" type="ANY_BIT">
-    <comment>Bitwise AND
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if all bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="32" height="2" width="4" line="32" order="10">
-  <position x="61" y="106" />
-  <inVariables>
-    <variable name="" type="ANY_BIT">
-      <connection refid="35">
-        <position x="61" y="107" />
-        <position x="59" y="107" />
-        <position x="59" y="116" />
-        <position x="59" y="116" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="NOT" type="ANY_BIT">
-    <comment>Bitwise complement
-	inverts each bit
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="AND" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="33" height="4" width="4" line="49" order="16">
-  <position x="67" y="120" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="23" name="XOR">
-        <position x="67" y="121" />
-        <position x="59" y="121" />
-        <position x="59" y="121" />
-        <position x="55" y="121" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-      <connection refid="34" name="NOT">
-        <position x="67" y="123" />
-        <position x="66" y="123" />
-        <position x="66" y="123" />
-        <position x="65" y="123" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="AND" type="ANY_BIT">
-    <comment>Bitwise AND
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if all bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="NOT" instance="" function="true" hiddenPins="true" operator="true" id="34" height="2" width="4" line="46" order="15">
-  <position x="61" y="122" />
-  <inVariables>
-    <variable name="" type="ANY_BIT">
-      <connection refid="35">
-        <position x="61" y="123" />
-        <position x="59" y="123" />
-        <position x="59" y="116" />
-        <position x="59" y="116" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="NOT" type="ANY_BIT">
-    <comment>Bitwise complement
-	inverts each bit
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<node id="35">
-  <position x="59" y="116" />
-  <connection refid="30" name="AND">
-    <position x="59" y="116" />
-    <position x="56" y="116" />
-    <position x="56" y="116" />
-    <position x="38" y="116" />
-  </connection>
-</node>
-<block name="R_TRIG" instance="trigVenk3" id="36" height="4" width="6" line="89" order="34" disabled="1">
-  <position x="29" y="150" />
-  <inVariables>
-    <variable name="CLK" type="BOOL">
-      <connection refid="26" disabled="1">
-        <position x="29" y="153" />
-        <position x="25" y="153" />
-        <position x="25" y="153" />
-        <position x="22" y="153" />
+        <position x="33" y="33" />
+        <position x="31" y="33" />
+        <position x="31" y="33" />
+        <position x="23" y="33" />
       </connection>
     </variable>
   </inVariables>
@@ -546,251 +465,94 @@ Nabezne hrany jsou reseny v jednotlivych pokojich.
     </variable>
   </outVariables>
 </block>
-<inVariable name="tl_zadveri_svetlo_venk_jih" type="BOOL" id="37">
-  <position x="4" y="56" />
-</inVariable>
-<block name="R_TRIG" instance="trigVenk2" id="38" height="4" width="6" line="8" order="4">
-  <position x="33" y="54" />
+<outVariable name="sig_tl_zadveri" type="BOOL" id="30" order="5">
+  <position x="47" y="32" />
+  <connection refid="29" name="Q">
+    <position x="48" y="33" />
+    <position x="45" y="33" />
+    <position x="45" y="33" />
+    <position x="39" y="33" />
+  </connection>
+</outVariable>
+<block name="fb_kmitac" instance="kmit1" id="31" height="8" width="12" line="52" order="18">
+  <position x="86" y="47" />
   <inVariables>
-    <variable name="CLK" type="BOOL">
+    <variable name="sig_IN" type="BOOL">
+      <connection refid="32">
+        <position x="86" y="50" />
+        <position x="72" y="50" />
+        <position x="72" y="58" />
+        <position x="72" y="58" />
+      </connection>
+    <comment>spousteci signal</comment>
+    </variable>
+    <variable name="time_ON" type="TIME">
+      <connection refid="33">
+        <position x="86" y="52" />
+        <position x="82" y="52" />
+        <position x="82" y="52" />
+        <position x="80" y="52" />
+      </connection>
+    <comment>delka sviceni</comment>
+    </variable>
+    <variable name="time_OFF" type="TIME">
+      <connection refid="34">
+        <position x="86" y="54" />
+        <position x="84" y="54" />
+        <position x="84" y="54" />
+        <position x="83" y="54" />
+      </connection>
+    <comment>delka nesviceni</comment>
+    </variable>
+  </inVariables>
+  <outVariables>
+    <variable name="sig_OUT" type="BOOL">
+    <comment>vystup</comment>
+    </variable>
+  </outVariables>
+</block>
+<node id="32">
+  <position x="72" y="58" />
+  <connection refid="23" name="AND">
+    <position x="72" y="58" />
+    <position x="71" y="58" />
+    <position x="71" y="58" />
+    <position x="69" y="58" />
+  </connection>
+</node>
+<inVariable name="T#1s" type="TIME" id="33">
+  <position x="75" y="51" />
+</inVariable>
+<inVariable name="T#200ms" type="TIME" id="34">
+  <position x="75" y="53" />
+</inVariable>
+<block name="fb_kmitac" instance="kmit2" id="35" height="8" width="12" line="55" order="20">
+  <position x="86" y="82" />
+  <inVariables>
+    <variable name="sig_IN" type="BOOL">
+      <connection refid="38">
+        <position x="86" y="85" />
+        <position x="72" y="85" />
+        <position x="72" y="74" />
+        <position x="72" y="74" />
+      </connection>
+    <comment>spousteci signal</comment>
+    </variable>
+    <variable name="time_ON" type="TIME">
+      <connection refid="36">
+        <position x="86" y="87" />
+        <position x="82" y="87" />
+        <position x="82" y="87" />
+        <position x="80" y="87" />
+      </connection>
+    <comment>delka sviceni</comment>
+    </variable>
+    <variable name="time_OFF" type="TIME">
       <connection refid="37">
-        <position x="33" y="57" />
-        <position x="31" y="57" />
-        <position x="31" y="57" />
-        <position x="23" y="57" />
-      </connection>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    </variable>
-  </outVariables>
-</block>
-<outVariable name="sig_tl_zadveri" type="BOOL" id="39" order="5">
-  <position x="47" y="56" />
-  <connection refid="38" name="Q">
-    <position x="48" y="57" />
-    <position x="45" y="57" />
-    <position x="45" y="57" />
-    <position x="39" y="57" />
-  </connection>
-</outVariable>
-<inVariable name="T#500ms" type="TIME" id="40" disabled="1">
-  <position x="12" y="89" />
-</inVariable>
-<outVariable name="led_pz_rg" type="BOOL" id="41" disabled="1">
-  <position x="51" y="77" />
-  <connection refid="50" disabled="1">
-    <position x="52" y="78" />
-    <position x="49" y="78" />
-    <position x="49" y="80" />
-    <position x="49" y="80" />
-  </connection>
-</outVariable>
-<block name="TON" instance="TON_2" id="42" height="6" width="6" line="14" disabled="1">
-  <position x="24" y="85" />
-  <inVariables>
-    <variable name="IN" type="BOOL">
-      <connection refid="47" disabled="1">
-        <position x="24" y="88" />
-        <position x="22" y="88" />
-        <position x="22" y="88" />
-        <position x="20" y="88" />
-      </connection>
-    <comment>vstup èasovaèe</comment>
-    </variable>
-    <variable name="PT" type="TIME">
-      <connection refid="45" disabled="1">
-        <position x="24" y="90" />
-        <position x="23" y="90" />
-        <position x="23" y="90" />
-        <position x="24" y="90" />
-        <position x="24" y="90" />
-        <position x="23" y="90" />
-      </connection>
-    <comment>pøedvolba èasovaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èasovaèe</comment>
-    </variable>
-    <variable name="ET" type="TIME">
-    <comment>aktuální hodnota èasovaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="XOR" instance="" function="true" extensible="true" hiddenPins="true" operator="true" id="43" height="4" width="4" line="40" disabled="1">
-  <position x="33" y="87" />
-  <inVariables>
-    <variable name="IN1" type="ANY_BIT">
-      <connection refid="42" name="Q" disabled="1">
-        <position x="33" y="88" />
-        <position x="32" y="88" />
-        <position x="32" y="88" />
-        <position x="30" y="88" />
-      </connection>
-    </variable>
-    <variable name="IN2" type="ANY_BIT">
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="XOR" type="ANY_BIT">
-    <comment>Bitwise XOR
-	compares every bits on same position in IN1, IN2, ... and generates a 1 result
-	if odd number of bits are 1, otherwise it returns 0
-</comment>
-    </variable>
-  </outVariables>
-</block>
-<block name="TON" instance="TON_1" id="44" height="6" width="6" line="42" disabled="1">
-  <position x="40" y="85" />
-  <inVariables>
-    <variable name="IN" type="BOOL">
-      <connection refid="43" name="XOR" disabled="1">
-        <position x="40" y="88" />
-        <position x="39" y="88" />
-        <position x="39" y="88" />
-        <position x="37" y="88" />
-      </connection>
-    <comment>vstup èasovaèe</comment>
-    </variable>
-    <variable name="PT" type="TIME">
-      <connection refid="45" disabled="1">
-        <position x="40" y="90" />
-        <position x="38" y="90" />
-        <position x="38" y="92" />
-        <position x="23" y="92" />
-        <position x="23" y="90" />
-        <position x="23" y="90" />
-      </connection>
-    <comment>pøedvolba èasovaèe</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="Q" type="BOOL">
-    <comment>výstup èasovaèe</comment>
-    </variable>
-    <variable name="ET" type="TIME">
-    <comment>aktuální hodnota èasovaèe</comment>
-    </variable>
-  </outVariables>
-</block>
-<node id="45" disabled="1">
-  <position x="23" y="90" />
-  <connection refid="40" disabled="1">
-    <position x="23" y="90" />
-    <position x="21" y="90" />
-    <position x="21" y="90" />
-    <position x="20" y="90" />
-  </connection>
-</node>
-<outVariable name="pom_blik" type="BOOL" id="46" disabled="1">
-  <position x="51" y="87" />
-  <connection refid="48" disabled="1">
-    <position x="52" y="88" />
-    <position x="51" y="88" />
-    <position x="51" y="88" />
-    <position x="49" y="88" />
-  </connection>
-</outVariable>
-<inVariable name="pom_blik" type="BOOL" id="47" disabled="1">
-  <position x="12" y="87" />
-</inVariable>
-<node id="48" disabled="1">
-  <position x="49" y="88" />
-  <connection refid="44" name="Q" disabled="1">
-    <position x="49" y="88" />
-    <position x="47" y="88" />
-    <position x="47" y="88" />
-    <position x="46" y="88" />
-  </connection>
-</node>
-<outVariable name="led_lo_rg" type="BOOL" id="49" disabled="1">
-  <position x="51" y="79" />
-  <connection refid="50" disabled="1">
-    <position x="52" y="80" />
-    <position x="51" y="80" />
-    <position x="51" y="80" />
-    <position x="49" y="80" />
-  </connection>
-</outVariable>
-<node id="50" disabled="1">
-  <position x="49" y="80" />
-  <connection refid="54" disabled="1">
-    <position x="49" y="80" />
-    <position x="49" y="80" />
-    <position x="49" y="82" />
-    <position x="49" y="82" />
-  </connection>
-</node>
-<outVariable name="led_pv_lr" type="BOOL" id="51" disabled="1">
-  <position x="51" y="81" />
-  <connection refid="54" disabled="1">
-    <position x="52" y="82" />
-    <position x="50" y="82" />
-    <position x="50" y="82" />
-    <position x="49" y="82" />
-  </connection>
-</outVariable>
-<outVariable name="led_ob_lr" type="BOOL" id="52" disabled="1">
-  <position x="51" y="83" />
-  <connection refid="53" disabled="1">
-    <position x="52" y="84" />
-    <position x="50" y="84" />
-    <position x="50" y="84" />
-    <position x="49" y="84" />
-  </connection>
-</outVariable>
-<node id="53" disabled="1">
-  <position x="49" y="84" />
-  <connection refid="48" disabled="1">
-    <position x="49" y="84" />
-    <position x="49" y="84" />
-    <position x="49" y="88" />
-    <position x="49" y="88" />
-  </connection>
-</node>
-<node id="54" disabled="1">
-  <position x="49" y="82" />
-  <connection refid="53" disabled="1">
-    <position x="49" y="82" />
-    <position x="49" y="82" />
-    <position x="49" y="84" />
-    <position x="49" y="84" />
-  </connection>
-</node>
-<comment id="55" height="4" width="30">
-  <position x="14" y="76" />
-Nahrazeno vlastnim FB: fb_kmitac
-</comment>
-<block name="fb_kmitac" instance="kmit1" id="56" height="8" width="12" line="52" order="18">
-  <position x="88" y="94" />
-  <inVariables>
-    <variable name="sig_IN" type="BOOL">
-      <connection refid="57">
-        <position x="88" y="97" />
-        <position x="74" y="97" />
-        <position x="74" y="105" />
-        <position x="74" y="105" />
-      </connection>
-    <comment>spousteci signal</comment>
-    </variable>
-    <variable name="time_ON" type="TIME">
-      <connection refid="58">
-        <position x="88" y="99" />
-        <position x="84" y="99" />
-        <position x="84" y="99" />
-        <position x="82" y="99" />
-      </connection>
-    <comment>delka sviceni</comment>
-    </variable>
-    <variable name="time_OFF" type="TIME">
-      <connection refid="59">
-        <position x="88" y="101" />
-        <position x="86" y="101" />
-        <position x="86" y="101" />
-        <position x="85" y="101" />
+        <position x="86" y="89" />
+        <position x="84" y="89" />
+        <position x="84" y="89" />
+        <position x="83" y="89" />
       </connection>
     <comment>delka nesviceni</comment>
     </variable>
@@ -801,113 +563,61 @@ Nahrazeno vlastnim FB: fb_kmitac
     </variable>
   </outVariables>
 </block>
-<node id="57">
-  <position x="74" y="105" />
-  <connection refid="31" name="AND">
-    <position x="74" y="105" />
-    <position x="73" y="105" />
-    <position x="73" y="105" />
-    <position x="71" y="105" />
+<inVariable name="T#1s" type="TIME" id="36">
+  <position x="75" y="86" />
+</inVariable>
+<inVariable name="T#200ms" type="TIME" id="37">
+  <position x="75" y="88" />
+</inVariable>
+<node id="38">
+  <position x="72" y="74" />
+  <connection refid="25" name="AND">
+    <position x="72" y="74" />
+    <position x="71" y="74" />
+    <position x="71" y="74" />
+    <position x="69" y="74" />
   </connection>
 </node>
-<inVariable name="T#1s" type="TIME" id="58">
-  <position x="77" y="98" />
+<inVariable name="sig_tl_loznice" type="BOOL" id="39">
+  <position x="4" y="61" />
 </inVariable>
-<inVariable name="T#200ms" type="TIME" id="59">
-  <position x="77" y="100" />
+<inVariable name="sig_tl_obyvak" type="BOOL" id="40">
+  <position x="3" y="77" />
 </inVariable>
-<block name="fb_kmitac" instance="kmit2" id="60" height="8" width="12" line="55" order="20">
-  <position x="88" y="129" />
-  <inVariables>
-    <variable name="sig_IN" type="BOOL">
-      <connection refid="63">
-        <position x="88" y="132" />
-        <position x="74" y="132" />
-        <position x="74" y="121" />
-        <position x="74" y="121" />
-      </connection>
-    <comment>spousteci signal</comment>
-    </variable>
-    <variable name="time_ON" type="TIME">
-      <connection refid="61">
-        <position x="88" y="134" />
-        <position x="84" y="134" />
-        <position x="84" y="134" />
-        <position x="82" y="134" />
-      </connection>
-    <comment>delka sviceni</comment>
-    </variable>
-    <variable name="time_OFF" type="TIME">
-      <connection refid="62">
-        <position x="88" y="136" />
-        <position x="86" y="136" />
-        <position x="86" y="136" />
-        <position x="85" y="136" />
-      </connection>
-    <comment>delka nesviceni</comment>
-    </variable>
-  </inVariables>
-  <outVariables>
-    <variable name="sig_OUT" type="BOOL">
-    <comment>vystup</comment>
-    </variable>
-  </outVariables>
-</block>
-<inVariable name="T#1s" type="TIME" id="61">
-  <position x="77" y="133" />
-</inVariable>
-<inVariable name="T#200ms" type="TIME" id="62">
-  <position x="77" y="135" />
-</inVariable>
-<node id="63">
-  <position x="74" y="121" />
-  <connection refid="33" name="AND">
-    <position x="74" y="121" />
-    <position x="73" y="121" />
-    <position x="73" y="121" />
-    <position x="71" y="121" />
+<node id="41">
+  <position x="30" y="80" />
+  <connection refid="11">
+    <position x="30" y="80" />
+    <position x="28" y="80" />
+    <position x="28" y="83" />
+    <position x="14" y="83" />
   </connection>
 </node>
-<inVariable name="sig_tl_loznice" type="BOOL" id="64">
-  <position x="6" y="108" />
-</inVariable>
-<inVariable name="sig_tl_obyvak" type="BOOL" id="65">
-  <position x="5" y="124" />
-</inVariable>
-<node id="66">
-  <position x="32" y="127" />
-  <connection refid="18">
-    <position x="32" y="127" />
-    <position x="30" y="127" />
-    <position x="30" y="130" />
-    <position x="16" y="130" />
+<node id="42">
+  <position x="39" y="80" />
+  <connection refid="41">
+    <position x="39" y="80" />
+    <position x="35" y="80" />
+    <position x="35" y="80" />
+    <position x="30" y="80" />
   </connection>
 </node>
-<node id="67">
-  <position x="41" y="127" />
-  <connection refid="66">
-    <position x="41" y="127" />
-    <position x="37" y="127" />
-    <position x="37" y="127" />
-    <position x="32" y="127" />
-  </connection>
-</node>
-<outVariable name="out_vychod" type="BOOL" id="132" order="21">
-  <position x="104" y="131" />
-  <connection refid="60" name="sig_OUT">
-    <position x="105" y="132" />
-    <position x="101" y="132" />
-    <position x="101" y="132" />
-    <position x="100" y="132" />
+<outVariable name="out_vychod" type="BOOL" id="43" order="21">
+  <position x="102" y="84" />
+  <connection refid="35" name="sig_OUT">
+    <position x="103" y="85" />
+    <position x="99" y="85" />
+    <position x="99" y="85" />
+    <position x="98" y="85" />
   </connection>
 </outVariable>
-<outVariable name="out_zapad" type="BOOL" id="135" order="19">
-  <position x="104" y="96" />
-  <connection refid="56" name="sig_OUT">
-    <position x="105" y="97" />
-    <position x="101" y="97" />
-    <position x="101" y="97" />
-    <position x="100" y="97" />
+<outVariable name="out_zapad" type="BOOL" id="44" order="19">
+  <position x="102" y="49" />
+  <connection refid="31" name="sig_OUT">
+    <position x="103" y="50" />
+    <position x="99" y="50" />
+    <position x="99" y="50" />
+    <position x="98" y="50" />
   </connection>
 </outVariable>
 </fbd>
@@ -918,77 +628,77 @@ END_VAR
 
 //TVD
 VAR_TEMP
-(* 354	*)	_Nod_Tmp_16	:	BOOL;
-(* 853	*)	_Nod_Tmp_15	:	BOOL;
-(* 190	*)	_Fun_Tmp_IN2_13_2	:	BOOL;
-(* 401	*)	_Fun_Tmp_IN1_7_1	:	BOOL;
-(* 363	*)	_Nod_Tmp_12	:	BOOL;
-(* 372	*)	_Fun_Tmp_IN1_10_1	:	BOOL;
-(* 499	*)	_Nod_Tmp_9	:	BOOL;
-(* 401	*)	_Fun_Tmp_IN2_7_2	:	BOOL;
-(* 780	*)	_Nod_Tmp_6	:	BOOL;
-(* 219	*)	_Fun_Tmp_IN2_4_2	:	BOOL;
-(* 450	*)	_Fun_Tmp_IN1_2_1	:	BOOL;
-(* 450	*)	_Fun_Tmp_IN2_2_2	:	BOOL;
-(* 838	*)	_Nod_Tmp_1	:	BOOL;
+(* 270	*)	_Nod_Tmp_16	:	BOOL;
+(* 563	*)	_Nod_Tmp_15	:	BOOL;
+(* 109	*)	_Fun_Tmp_IN2_13_2	:	BOOL;
+(* 317	*)	_Fun_Tmp_IN1_7_1	:	BOOL;
+(* 279	*)	_Nod_Tmp_12	:	BOOL;
+(* 288	*)	_Fun_Tmp_IN1_10_1	:	BOOL;
+(* 415	*)	_Nod_Tmp_9	:	BOOL;
+(* 317	*)	_Fun_Tmp_IN2_7_2	:	BOOL;
+(* 490	*)	_Nod_Tmp_6	:	BOOL;
+(* 138	*)	_Fun_Tmp_IN2_4_2	:	BOOL;
+(* 366	*)	_Fun_Tmp_IN1_2_1	:	BOOL;
+(* 366	*)	_Fun_Tmp_IN2_2_2	:	BOOL;
+(* 548	*)	_Nod_Tmp_1	:	BOOL;
 END_VAR
 
 //NC
 //N000
-(*  14	*)	CAL	trigVenk1(CLK:=tl_tech_m_svetlo_venk_sever)
-(*  48	*)	CAL	timeVenk1(IN:=trigVenk1.Q, PT:=T#2s)
-(*  48	*)	LD 	timeVenk1.Q
-(*  82	*)	ST 	sv_venkovni_sever_rozp
+(*  11	*)	CAL	trigVenk1(CLK:=tl_tech_m_svetlo_venk_sever)
+(*  28	*)	CAL	timeVenk1(IN:=trigVenk1.Q, PT:=T#2s)
+(*  28	*)	LD 	timeVenk1.Q
+(*  62	*)	ST 	sv_venkovni_sever_rozp
 //N001
-(* 528	*)	CAL	trigVenk2(CLK:=tl_zadveri_svetlo_venk_jih)
-(* 528	*)	LD 	trigVenk2.Q
-(* 545	*)	ST 	sig_tl_zadveri
+(* 427	*)	CAL	trigVenk2(CLK:=tl_zadveri_svetlo_venk_jih)
+(* 427	*)	LD 	trigVenk2.Q
+(* 444	*)	ST 	sig_tl_zadveri
 //N002
-(* 161	*)	LD 	sv_ve_zapad
-(* 354	*)	ST	_Nod_Tmp_16
-(* 176	*)	LD 	sig_tl_zadveri
-(* 853	*)	ST	_Nod_Tmp_15
-(* 252	*)	LD 	sig_tl_pokojZ
-(* 260	*)	OR 	sig_tl_loznice
-(* 268	*)	OR 	_Nod_Tmp_15
-(* 202	*)	ST 	_Fun_Tmp_IN2_13_2
-(* 194	*)	LD 	_Nod_Tmp_16
-(* 202	*)	XOR 	_Fun_Tmp_IN2_13_2
-(* 405	*)	ST 	_Fun_Tmp_IN1_7_1
-(* 173	*)	LD 	sv_ve_vychod
-(* 363	*)	ST	_Nod_Tmp_12
-(* 329	*)	LD 	_Nod_Tmp_16
-(* 337	*)	XOR 	_Nod_Tmp_12
-(* 376	*)	ST 	_Fun_Tmp_IN1_10_1
-(* 376	*)	LD 	_Fun_Tmp_IN1_10_1
-(* 384	*)	AND 	_Nod_Tmp_15
-(* 499	*)	ST	_Nod_Tmp_9
-(* 434	*)	LD 	_Nod_Tmp_9
-(* 430	*)	NOT
-(* 413	*)	ST 	_Fun_Tmp_IN2_7_2
-(* 405	*)	LD 	_Fun_Tmp_IN1_7_1
-(* 413	*)	AND 	_Fun_Tmp_IN2_7_2
-(* 780	*)	ST	_Nod_Tmp_6
-(* 152	*)	ST 	sv_ve_zapad
-(* 289	*)	LD 	sig_tl_pokojV
-(* 297	*)	OR 	sig_tl_obyvak
-(* 305	*)	OR 	_Nod_Tmp_15
-(* 231	*)	ST 	_Fun_Tmp_IN2_4_2
-(* 223	*)	LD 	_Nod_Tmp_12
-(* 231	*)	XOR 	_Fun_Tmp_IN2_4_2
-(* 454	*)	ST 	_Fun_Tmp_IN1_2_1
-(* 483	*)	LD 	_Nod_Tmp_9
-(* 479	*)	NOT
-(* 462	*)	ST 	_Fun_Tmp_IN2_2_2
-(* 454	*)	LD 	_Fun_Tmp_IN1_2_1
-(* 462	*)	AND 	_Fun_Tmp_IN2_2_2
-(* 838	*)	ST	_Nod_Tmp_1
-(* 164	*)	ST 	sv_ve_vychod
-(* 743	*)	CAL	kmit1(sig_IN:=_Nod_Tmp_6, time_ON:=T#1s, time_OFF:=T#200ms)
-(* 743	*)	LD 	kmit1.sig_OUT
-(* 880	*)	ST 	out_zapad
-(* 795	*)	CAL	kmit2(sig_IN:=_Nod_Tmp_1, time_ON:=T#1s, time_OFF:=T#200ms)
-(* 795	*)	LD 	kmit2.sig_OUT
-(* 871	*)	ST 	out_vychod
+(*  80	*)	LD 	sv_ve_zapad
+(* 270	*)	ST	_Nod_Tmp_16
+(*  95	*)	LD 	sig_tl_zadveri
+(* 563	*)	ST	_Nod_Tmp_15
+(* 171	*)	LD 	sig_tl_pokojZ
+(* 179	*)	OR 	sig_tl_loznice
+(* 187	*)	OR 	_Nod_Tmp_15
+(* 121	*)	ST 	_Fun_Tmp_IN2_13_2
+(* 113	*)	LD 	_Nod_Tmp_16
+(* 121	*)	XOR 	_Fun_Tmp_IN2_13_2
+(* 321	*)	ST 	_Fun_Tmp_IN1_7_1
+(*  92	*)	LD 	sv_ve_vychod
+(* 279	*)	ST	_Nod_Tmp_12
+(* 245	*)	LD 	_Nod_Tmp_16
+(* 253	*)	XOR 	_Nod_Tmp_12
+(* 292	*)	ST 	_Fun_Tmp_IN1_10_1
+(* 292	*)	LD 	_Fun_Tmp_IN1_10_1
+(* 300	*)	AND 	_Nod_Tmp_15
+(* 415	*)	ST	_Nod_Tmp_9
+(* 350	*)	LD 	_Nod_Tmp_9
+(* 346	*)	NOT
+(* 329	*)	ST 	_Fun_Tmp_IN2_7_2
+(* 321	*)	LD 	_Fun_Tmp_IN1_7_1
+(* 329	*)	AND 	_Fun_Tmp_IN2_7_2
+(* 490	*)	ST	_Nod_Tmp_6
+(*  71	*)	ST 	sv_ve_zapad
+(* 208	*)	LD 	sig_tl_pokojV
+(* 216	*)	OR 	sig_tl_obyvak
+(* 224	*)	OR 	_Nod_Tmp_15
+(* 150	*)	ST 	_Fun_Tmp_IN2_4_2
+(* 142	*)	LD 	_Nod_Tmp_12
+(* 150	*)	XOR 	_Fun_Tmp_IN2_4_2
+(* 370	*)	ST 	_Fun_Tmp_IN1_2_1
+(* 399	*)	LD 	_Nod_Tmp_9
+(* 395	*)	NOT
+(* 378	*)	ST 	_Fun_Tmp_IN2_2_2
+(* 370	*)	LD 	_Fun_Tmp_IN1_2_1
+(* 378	*)	AND 	_Fun_Tmp_IN2_2_2
+(* 548	*)	ST	_Nod_Tmp_1
+(*  83	*)	ST 	sv_ve_vychod
+(* 453	*)	CAL	kmit1(sig_IN:=_Nod_Tmp_6, time_ON:=T#1s, time_OFF:=T#200ms)
+(* 453	*)	LD 	kmit1.sig_OUT
+(* 590	*)	ST 	out_zapad
+(* 505	*)	CAL	kmit2(sig_IN:=_Nod_Tmp_1, time_ON:=T#1s, time_OFF:=T#200ms)
+(* 505	*)	LD 	kmit2.sig_OUT
+(* 581	*)	ST 	out_vychod
 
 END_PROGRAM

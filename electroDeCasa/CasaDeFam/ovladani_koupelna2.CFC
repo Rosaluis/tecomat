@@ -25,9 +25,9 @@ PROGRAM ovladani_koupelna2
 <?xml version="1.0" encoding="windows-1250" ?>
 <?xml-stylesheet type="text/xsl" href="pokus.xsl" version="1.1"?>
 <fbd version="1.1">
-<comment id="1" height="3" width="12">
+<comment id="1" height="3" width="37">
   <position x="2" y="2" />
-Komentář ke schématu
+ovladani svetel a ventilatoru v koupelne 2NP
 </comment>
 <inVariable name="tls_k2_ll" type="BOOL" id="2">
   <position x="10" y="41" />
